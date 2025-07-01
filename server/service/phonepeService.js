@@ -8,7 +8,7 @@ class PhonePeService {
         this.clientSecret = process.env.PHONEPE_CLIENT_SECRET || 'M2Y1ZTA1ZTAtNzY4Yy00ZjlhLWIxNGQtOWYwMTJjOGMwZWY0';
         this.clientVersion = parseInt(process.env.PHONEPE_CLIENT_VERSION) || 1;
         this.env = process.env.NODE_ENV === 'production' ? Env.PRODUCTION : Env.SANDBOX;
-        this.redirectUrl = process.env.PHONEPE_REDIRECT_URL || 'http://localhost:3000/api/payment/redirect';
+        this.redirectUrl = process.env.PHONEPE_REDIRECT_URL || process.env.URL + '/payment/redirect';
         
         // Development mode flag
         this.devMode = process.env.NODE_ENV === 'development' || process.env.PHONEPE_DEV_MODE === 'true';
@@ -39,7 +39,7 @@ class PhonePeService {
                 
                 return {
                     success: true,
-                    redirectUrl: `http://localhost:3000/api/payment/mock-success?merchantTransactionId=${merchantTransactionId}`,
+                    redirectUrl: `${process.env.URL}/payment/mock-success?merchantTransactionId=${merchantTransactionId}`,
                     merchantTransactionId: merchantTransactionId,
                     transactionId: 'MOCK_TXN_' + Date.now()
                 };

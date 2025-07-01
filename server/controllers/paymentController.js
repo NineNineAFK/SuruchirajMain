@@ -154,14 +154,14 @@ const handlePaymentRedirect = async (req, res) => {
         // In this case, we need to check the session or use a different approach
         if (!merchantOrderId) {
             // No merchantOrderId, cannot verify payment status
-            return res.redirect('http://localhost:5173/payment/failure?error=missing_parameters');
+            return res.redirect(`${process.env.CLIENT_URL}/payment/failure?error=missing_parameters`);
         }
 
         // Find order by merchant transaction ID
         const order = await Order.findOne({ phonepeMerchantTransactionId: merchantOrderId });
         if (!order) {
             console.log('Order not found for merchantOrderId:', merchantOrderId);
-            return res.redirect('http://localhost:5173/payment/failure?error=order_not_found');
+            return res.redirect(`${process.env.CLIENT_URL}/payment/failure?error=order_not_found`);
         }
 
         console.log('Found Order:', {
@@ -195,20 +195,20 @@ const handlePaymentRedirect = async (req, res) => {
             
             console.log('Payment Successful - Redirecting to success page');
             // Redirect to success page
-            res.redirect(`http://localhost:5173/payment/success?merchantTransactionId=${merchantOrderId}&transactionId=${transactionId || 'TXN_' + Date.now()}`);
+            res.redirect(`${process.env.CLIENT_URL}/payment/success?merchantTransactionId=${merchantOrderId}&transactionId=${transactionId || 'TXN_' + Date.now()}`);
         } else {
             order.paymentStatus = 'failed';
             
             console.log('Payment Failed - Redirecting to failure page');
             // Redirect to failure page
-            res.redirect(`http://localhost:5173/payment/failure?merchantTransactionId=${merchantOrderId}&transactionId=${transactionId}&responseCode=${responseCode}&responseMessage=${responseMessage}`);
+            res.redirect(`${process.env.CLIENT_URL}/payment/failure?merchantTransactionId=${merchantOrderId}&transactionId=${transactionId}&responseCode=${responseCode}&responseMessage=${responseMessage}`);
         }
 
         await order.save();
 
     } catch (error) {
         console.error('Error handling payment redirect:', error);
-        res.redirect('http://localhost:5173/payment/failure?error=server_error');
+        res.redirect(`${process.env.CLIENT_URL}/payment/failure?error=server_error`);
     }
 };
 
@@ -220,7 +220,7 @@ const handleMockPaymentSuccess = async (req, res) => {
         // Find order by merchant transaction ID
         const order = await Order.findOne({ phonepeMerchantTransactionId: merchantTransactionId });
         if (!order) {
-            return res.redirect('http://localhost:5173/payment/failure?error=order_not_found');
+            return res.redirect(`${process.env.CLIENT_URL}/payment/failure?error=order_not_found`);
         }
 
         // Update order with mock payment success details
@@ -236,11 +236,11 @@ const handleMockPaymentSuccess = async (req, res) => {
         await order.save();
 
         // Redirect to success page
-        res.redirect(`http://localhost:5173/payment/success?merchantTransactionId=${merchantTransactionId}&transactionId=${order.phonepeTransactionId}`);
+        res.redirect(`${process.env.CLIENT_URL}/payment/success?merchantTransactionId=${merchantTransactionId}&transactionId=${order.phonepeTransactionId}`);
 
     } catch (error) {
         console.error('Error processing mock payment success:', error);
-        res.redirect('http://localhost:5173/payment/failure?error=server_error');
+        res.redirect(`${process.env.CLIENT_URL}/payment/failure?error=server_error`);
     }
 };
 
