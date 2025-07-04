@@ -60,10 +60,10 @@ const AboutUs: React.FC = () => {
           <div className="text-gray-300 space-y-2">
             <p className="flex items-start gap-2">
               <FiMapPin className="text-yellow-400 mt-1" />
-              Suruchiraj Spices, Flat No 17, A Wing, Sarala Roses, Someshwarwadi Road, Near Hotel Rajwada, Pashan, Pune, Maharashtra 411008
+              Suruchiraj Spices, Sarala Roses, Someshwarwadi Road, Near Hotel Rajwada, Pashan, Pune, Maharashtra 411008
             </p>
             <p className="flex items-center gap-2">
-              <FiPhone className="text-yellow-400" /><span className='font-sans'>8793796955</span>
+              <FiPhone className="text-yellow-400" /><span className='font-sans'>9867604406</span>
             </p>
             <p className="flex items-center gap-2">
               <FiMail className="text-yellow-400" /> support@suruchiraj.com

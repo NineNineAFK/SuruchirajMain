@@ -16,13 +16,13 @@ interface Category {
 const categories: Category[] = [
   { label: 'Veg', image: '/categories/veg fp.png', path: '/categories/veg' },
   { label: 'Non Veg', image: '/categories/non veg fp.png', path: '/categories/nonveg' },
-  { label: 'Maharashtrian', image: '/categories/veg fp.png', path: '/categories/maharashtrian' },
-  { label: 'Beverages', image: '/categories/non veg fp.png', path: '/categories/beverages' }, 
+  { label: 'Maharashtrian', image: '/categories/Maharashtrian Veg fp.png', path: '/categories/maharashtrian' },
+  { label: 'Beverages', image: '/categories/Beverage fp.png', path: '/categories/beverages' }, 
   { label: 'Snacks', image: '/categories/Snacks fp.png', path: '/categories/snacks' },
   { label: 'Soups', image: '/categories/soup fp.png', path: '/categories/soups' },
   { label: 'Rice Mixes', image: '/categories/Biryani fp.png', path: '/categories/biryani' },
   { label: 'South Indian', image: '/categories/south india fp.png', path: '/categories/southindian' },
-  { label: 'Pickle', image: '/categories/soup fp.png', path: '/categories/pickle' },
+  { label: 'Pickle', image: '/categories/Pickle fp.png', path: '/categories/pickle' },
 ];
 
 const TopCategories: React.FC = () => {
@@ -51,7 +51,7 @@ const TopCategories: React.FC = () => {
 
       {/* ✅ MOBILE LAYOUT: Swiper Carousel View */}
       <Swiper
-        spaceBetween={12}
+        spaceBetween={16}
         slidesPerView={'auto'}
         className="md:hidden px-[1vw]"
       >
@@ -77,12 +77,12 @@ const TopCategories: React.FC = () => {
       </Swiper>
 
 
-
+    <div className="relative max-w-5xl mx-auto overflow-visible hidden md:block">
       {/* ✅ DESKTOP LAYOUT: Swiper */}
       <button
         onClick={() => swiperRef.current?.slidePrev()}
         disabled={isBeginning}
-        className={`hidden md:flex absolute left-1 top-1/2 transform -translate-y-1/2 z-20 p-3 rounded-full transition ${
+        className={`hidden md:flex absolute -left-20 top-1/2 transform -translate-y-1/2 z-20 p-3 rounded-full transition ${
           isBeginning
             ? 'bg-white/10 text-gray-400 cursor-not-allowed'
             : 'bg-white/20 text-white hover:bg-yellow-400 hover:text-black'
@@ -94,7 +94,7 @@ const TopCategories: React.FC = () => {
       <button
         onClick={() => swiperRef.current?.slideNext()}
         disabled={isEnd}
-        className={`hidden md:flex absolute right-1 top-1/2 transform -translate-y-1/2 z-20 p-3 rounded-full transition ${
+        className={`hidden md:flex absolute -right-20 top-1/2 transform -translate-y-1/2 z-20 p-3 rounded-full transition ${
           isEnd
             ? 'bg-white/10 text-gray-400 cursor-not-allowed'
             : 'bg-white/20 text-white hover:bg-yellow-400 hover:text-black'
@@ -103,7 +103,7 @@ const TopCategories: React.FC = () => {
         <FiChevronRight className="text-2xl" />
       </button>
 
-      <div className="relative max-w-5xl mx-auto overflow-visible hidden md:block">
+      
         <Swiper
           onSwiper={(swiper: SwiperType) => {
             swiperRef.current = swiper;
