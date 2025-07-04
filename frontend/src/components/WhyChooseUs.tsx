@@ -92,7 +92,7 @@ const WhyChooseUs: React.FC = () => {
                 className="h-24 w-24 object-contain mb-3"
                 alt={features[activeIndex].text}
               />
-              <p className="text-base font-medium text-center">
+              <p className="text-lg font-body font-semibold text-center">
                 {features[activeIndex].text}
               </p>
               <p className="mt-2 text-sm text-white/90 text-center font-body">
@@ -140,8 +140,8 @@ const WhyChooseUs: React.FC = () => {
                 alt={feature.text}
               />
               <p
-                className={`font-medium text-center transition-all duration-300 ${
-                  isActive ? 'text-base' : 'text-xs'
+                className={`font-normal font-body text-center text-base transition-all duration-300 ${
+                  isActive ? 'text-base' : 'text-sm'
                 }`}
               >
                 {feature.text}
@@ -149,7 +149,7 @@ const WhyChooseUs: React.FC = () => {
 
               {/* Description shown only when active */}
               {isActive && (
-                <p className="mt-2 text-[13px] text-white/90 text-center font-body">
+                <p className="mt-2 text-[12px] text-white/90 text-center font-body">
                   {feature.description}
                 </p>
               )}

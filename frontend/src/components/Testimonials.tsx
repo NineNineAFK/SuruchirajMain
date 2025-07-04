@@ -4,7 +4,7 @@ import { AiFillStar } from 'react-icons/ai';
 import AOS from 'aos';
 import 'aos/dist/aos.css';
 import { Swiper, SwiperSlide } from 'swiper/react';
-import { EffectCoverflow, Pagination } from 'swiper/modules';
+import { EffectCoverflow, Pagination, Autoplay } from 'swiper/modules';
 import 'swiper/css';
 import 'swiper/css/effect-coverflow';
 import 'swiper/css/pagination';
@@ -144,9 +144,15 @@ const Testimonials: React.FC = () => {
           grabCursor
           centeredSlides
           loop
+          autoplay={{
+            delay: 5000,      // Time between slides (ms)
+            disableOnInteraction: false, // Keeps autoplay even after user interaction
+          }}
           breakpoints={{
             1024: { slidesPerView: 3, spaceBetween: 90 },
           }}
+          initialSlide={Math.floor(testimonials.length / 2)}
+          loopAdditionalSlides={3}
           coverflowEffect={{
             rotate: 0,
             stretch: 0,
@@ -155,7 +161,7 @@ const Testimonials: React.FC = () => {
             slideShadows: false,
           }}
           pagination={{ clickable: true }}
-          modules={[EffectCoverflow, Pagination]}
+          modules={[EffectCoverflow, Pagination, Autoplay]}
           className="pb-10"
         >
           {testimonials.map((t, index) => {

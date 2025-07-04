@@ -10,7 +10,7 @@ const MobileHeroSlide = ({ image, heading, subheading }: { image: string; headin
     <div
       className="h-full w-full rounded-3xl overflow-hidden flex shadow-lg"
       style={{
-        background: `linear-gradient(to right, rgba(0,0,0,0.85) 40%, transparent 100%), url(${image})`,
+        background: `linear-gradient(to right, rgba(0,0,0,0.6) 40%, transparent 100%), url(${image})`,
         backgroundSize: 'cover',
         backgroundPosition: 'center',
       }}
@@ -45,7 +45,7 @@ const DesktopHeroSlide = ({ image, heading, subheading }: { image: string; headi
     className="relative bg-cover bg-center h-[550px] hidden md:flex items-center"
     style={{ backgroundImage: `url(${image})` }}
   >
-    <div className="absolute inset-0 bg-black bg-opacity-50" />
+    <div className="absolute inset-0 bg-black bg-opacity-30" />
 
     <div className="relative container mx-auto px-6 z-10">
       <div className="max-w-xl text-left text-white">

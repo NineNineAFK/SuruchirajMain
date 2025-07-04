@@ -94,7 +94,7 @@ const ContactUs: React.FC = () => {
         <h2 className="text-2xl font-semibold text-yellow-400 mt-6 mb-2">5. Our Office Address</h2>
             <div className="text-gray-300 space-y-1 mb-6">
                 <p><strong className="text-white">Suruchiraj Spices</strong></p>
-                <p>Flat No 17, A Wing, Sarala Roses, Someshwarwadi Road,</p>
+                <p>Sarala Roses, Someshwarwadi Road,</p>
                 <p>Near Hotel Rajwada, Pashan, Pune, Maharashtra 411008</p>
             </div>
 

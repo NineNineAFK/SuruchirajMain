@@ -6,7 +6,7 @@ const Footer = () => {
         <div className="flex flex-col md:flex-row justify-center md:space-x-20 space-y-10 md:space-y-0">
           {/* Thank You Note + Social Media */}
           <div className="flex flex-col items-center text-center max-w-xs px-4">
-            <span className="text-[11px] sm:text-sm font-medium font-body leading-relaxed">
+            <span className="text-[13px] sm:text-sm font-medium font-body leading-relaxed">
               Thanks for scrolling! 🍕 Do visit <span className="font-bold">Suruchiraj Spices</span> again for a taste of happiness.
             </span>
 
@@ -42,11 +42,11 @@ const Footer = () => {
           </div>
 
           {/* Company + Links Sections in one row (even on mobile) */}
-          <div className="flex flex-col sm:flex-row sm:space-x-10 items-start justify-center">
+          <div className="flex flex-row space-x-12 sm:space-x-12 items-start justify-center">
             {/* Company Section */}
             <div className="max-w-xs text-start font-body mb-6 sm:mb-0">
               <h3 className="text-base sm:text-lg font-semibold mb-2">Company</h3>
-              <ul className="text-xs sm:text-sm space-y-1">
+              <ul className="text-sm sm:text-sm space-y-1">
                 <li><a href="#" className="hover:text-red-400">Home</a></li>
                 <li><a href="/about-us" className="hover:text-red-400">About</a></li>
                 <li><a href="/sub-products" className="hover:text-red-400">Menu</a></li>
@@ -58,7 +58,7 @@ const Footer = () => {
             {/* Links Section */}
             <div className="max-w-xs text-start font-body">
               <h3 className="text-base sm:text-lg font-semibold mb-2">Links</h3>
-              <ul className="text-xs sm:text-sm space-y-1">
+              <ul className="text-sm sm:text-sm space-y-1">
                 <li><a href="/terms-and-conditions" className="hover:text-red-400">Terms & Conditions</a></li>
                 <li><a href="/privacy-policy" className="hover:text-red-400">Privacy Policy</a></li>
                 <li><a href="/shipping-policy" className="hover:text-red-400">Shipping Policy</a></li>
@@ -69,7 +69,7 @@ const Footer = () => {
         </div>
 
         {/* Footer Bottom */}
-        <div className="mt-10 text-center text-[10px] sm:text-xs text-gray-400">
+        <div className="mt-10 text-center text-[11px] sm:text-xs text-gray-400">
           &copy; {new Date().getFullYear()} Suruchiraj Spices. All rights reserved.
         </div>
       </div>

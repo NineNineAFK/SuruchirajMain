@@ -72,7 +72,7 @@ const ShippingPolicy: React.FC = () => {
           For any issues or queries regarding the utilization of our services, or for assistance with your shipment, please contact our helpdesk:
         </p>
         <p className="flex items-center gap-2">
-          <FiPhone className="text-yellow-400" /><span className='font-sans'>8793796955</span>
+          <FiPhone className="text-yellow-400" /><span className='font-sans'>9867604406</span>
         </p>
         <p className="flex items-center gap-2">
           <FiMail className="text-yellow-400" /> support@suruchiraj.com

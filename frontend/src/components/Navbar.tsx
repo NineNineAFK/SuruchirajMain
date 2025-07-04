@@ -166,7 +166,7 @@ const Navbar: React.FC = () => {
   ];
   const navLinks = [
     { name: 'Home', href: '/' },
-    { name: 'All Products', href: '/sub-products' },
+    { name: 'Products', href: '/sub-products' },
     { name: 'Contact', href: 'contact-us' },
     { name: 'About Us', href: 'about-us' },
   ];
@@ -187,32 +187,45 @@ const Navbar: React.FC = () => {
 
   return (
     <>
-      <header className={clsx('sticky top-0 z-50 transition-all duration-300', scrolled ? 'bg-black/50 backdrop-blur-md shadow-md' : 'bg-black')}>
+      <header className={clsx('sticky top-0 z-50 bg-black transition-all duration-300', scrolled ? 'bg-black/50 backdrop-blur-md shadow-md' : 'bg-black')}>
         <div className="container mx-auto px-4 py-2 flex items-center justify-between font-roboto font-semibold">
-          {/* Mobile */}
-          <div className="flex w-full items-center justify-between md:hidden">
-            <button onClick={() => setIsOpen(!isOpen)}>
-              {isOpen ? <FiX className="text-2xl text-yellow-400" /> : <FiMenu className="text-2xl text-yellow-400" />}
+        {/* Mobile */}
+        <div className="flex w-full items-center justify-between md:hidden px-2">
+          {/* Logo - far left */}
+          <Link to="/" className="block">
+            <img src="/Logo1.PNG" alt="Suruchiraj Logo" className="h-12 w-auto" />
+          </Link>
+
+          {/* Right-side icons */}
+          <div className="flex items-center space-x-4 text-yellow-400 ml-auto">
+            <AuthButton />
+            <Link to="/wishlist" className="relative">
+              <FiHeart className="text-xl text-red-500" />
+              {wishlist.length > 0 && (
+                <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs w-4 h-4 flex items-center justify-center rounded-full">
+                  {wishlist.length}
+                </span>
+              )}
+            </Link>
+            <button onClick={() => setIsCartOpen(true)} className="relative">
+              <FiShoppingCart className="text-xl" />
+              {cartCount > 0 && (
+                <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs w-4 h-4 flex items-center justify-center rounded-full">
+                  {cartCount}
+                </span>
+              )}
             </button>
-              <Link to="/" className="block">
-                <img src="/Logo1.PNG" alt="Suruchiraj Logo" className="h-12 w-auto" />
-              </Link>
-            <div className="flex items-center space-x-4 text-yellow-400">
-              <AuthButton />
-              <Link to="/wishlist" className="relative">
-                <FiHeart className="text-xl text-red-500" />
-                {wishlist.length > 0 && (
-                  <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs w-4 h-4 flex items-center justify-center rounded-full">{wishlist.length}</span>
-                )}
-              </Link>
-              <button onClick={() => setIsCartOpen(true)} className="relative">
-                <FiShoppingCart className="text-xl" />
-                {cartCount > 0 && (
-                  <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs w-4 h-4 flex items-center justify-center rounded-full">{cartCount}</span>
-                )}
-              </button>
-            </div>
+            {/* Hamburger menu - now at the very right */}
+            <button onClick={() => setIsOpen(!isOpen)}>
+              {isOpen ? (
+                <FiX className="text-2xl text-yellow-400" />
+              ) : (
+                <FiMenu className="text-2xl text-yellow-400" />
+              )}
+            </button>
           </div>
+        </div>
+
 
           {/* Desktop */}
           <div className="hidden md:flex items-center justify-between w-full gap-32">
@@ -307,7 +320,7 @@ const Navbar: React.FC = () => {
             type="text"
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)} // ✅ update atom
-            onKeyDown={(e) => e.key === 'Enter' && navigate('/sub-products')}
+            onKeyDown={(e) => e.key === 'Enter' && navigate('/sub-products')} 
             placeholder={`Search for "${trendingMasalas[placeholderIndex]}"`}
             className="w-full pl-10 pr-10 py-2 rounded-full text-sm text-gray-800 bg-white focus:outline-none"
           />

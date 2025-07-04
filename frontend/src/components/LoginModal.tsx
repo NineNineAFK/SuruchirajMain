@@ -45,12 +45,6 @@ const LoginModal: React.FC = () => {
         >
           <img src="/google-icon.svg" alt="g" className="h-5 w-5" /> Sign in with Google
         </button>
-        <button
-          disabled
-          className="w-full py-2 rounded-lg bg-white text-black flex items-center justify-center gap-2 cursor-not-allowed opacity-50"
-        >
-          <img src="/apple-icon.svg" alt="a" className="h-5 w-5" /> Sign in with Apple ID
-        </button>
       </div>
     </div>
   );

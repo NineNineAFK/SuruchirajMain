@@ -19,7 +19,8 @@ const cuisines: Cuisine[] = [
   { label: 'Mexican', image: '/international cuisine/Mexican Cuisine.png', path: '/cuisines/mexican' },
   { label: 'Thai', image: '/international cuisine/Thai Cuisine1.png', path: '/cuisines/thai' },
   { label: 'Italian', image: '/international cuisine/Italian Cuisine.png', path: '/cuisines/italian' },
-  { label: 'Other', image: '/international cuisine/American Cuisine.png', path: '/cuisines/other' },
+  { label: 'Lebanese', image: '/international cuisine/Lebanese Cuisine.png', path: '/cuisines/other' },
+  { label: 'Malaysian', image: '/international cuisine/Malaysian Cuisine.png', path: '/cuisines/other' },
 ];
 
 const InternationalCuisine: React.FC = () => {
@@ -48,7 +49,7 @@ const InternationalCuisine: React.FC = () => {
 
       {/* ✅ MOBILE LAYOUT: Swiper Carousel View */}
       <Swiper
-        spaceBetween={12}
+        spaceBetween={16}
         slidesPerView={'auto'}
         className="md:hidden px-[1vw]"
       >
@@ -72,12 +73,12 @@ const InternationalCuisine: React.FC = () => {
           </SwiperSlide>
         ))}
       </Swiper>
-
+      <div className="relative max-w-5xl mx-auto overflow-visible hidden md:block">
       {/* ✅ DESKTOP LAYOUT: Swiper */}
       <button
         onClick={() => swiperRef.current?.slidePrev()}
         disabled={isBeginning}
-        className={`hidden md:flex absolute left-1 top-1/2 transform -translate-y-1/2 z-20 p-3 rounded-full transition ${
+        className={`hidden md:flex absolute -left-20 top-1/2 transform -translate-y-1/2 z-20 p-3 rounded-full transition ${
           isBeginning
             ? 'bg-white/10 text-gray-400 cursor-not-allowed'
             : 'bg-white/20 text-white hover:bg-yellow-400 hover:text-black'
@@ -89,7 +90,7 @@ const InternationalCuisine: React.FC = () => {
       <button
         onClick={() => swiperRef.current?.slideNext()}
         disabled={isEnd}
-        className={`hidden md:flex absolute right-1 top-1/2 transform -translate-y-1/2 z-20 p-3 rounded-full transition ${
+        className={`hidden md:flex absolute -right-20 top-1/2 transform -translate-y-1/2 z-20 p-3 rounded-full transition ${
           isEnd
             ? 'bg-white/10 text-gray-400 cursor-not-allowed'
             : 'bg-white/20 text-white hover:bg-yellow-400 hover:text-black'
@@ -98,7 +99,7 @@ const InternationalCuisine: React.FC = () => {
         <FiChevronRight className="text-2xl" />
       </button>
 
-      <div className="relative max-w-5xl mx-auto overflow-visible hidden md:block">
+      
         <Swiper
           onSwiper={(swiper: SwiperType) => {
             swiperRef.current = swiper;
