@@ -6,7 +6,7 @@ import { useRecoilState, useRecoilValue } from 'recoil';
 import { searchTermAtom, authStateAtom } from '../state/state';
 import { useCart } from '../context/CartContext';
 import { useLoginModal } from '../context/LoginModalContext';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 
 const ProductsPage: React.FC = () => {
   const [products, setProducts] = useState<Product[]>([]);
@@ -16,6 +16,7 @@ const ProductsPage: React.FC = () => {
   const authState = useRecoilValue(authStateAtom);
   const { addToCart, loading: cartLoading } = useCart();
   const { openModal } = useLoginModal();
+  const location = useLocation();
 
   const fetchProducts = async () => {
     try {
@@ -32,6 +33,15 @@ const ProductsPage: React.FC = () => {
   useEffect(() => {
     fetchProducts();
   }, []);
+
+  // Set selectedCategory from query param on mount
+  useEffect(() => {
+    const params = new URLSearchParams(location.search);
+    const categoryParam = params.get('category');
+    if (categoryParam) {
+      setSelectedCategory(categoryParam);
+    }
+  }, [location.search]);
 
   // Get unique categories
   const categories = ['all', ...Array.from(new Set(products.map(p => p.category)))];
@@ -103,11 +113,14 @@ const ProductsPage: React.FC = () => {
                 onChange={(e) => setSelectedCategory(e.target.value)}
                 className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
               >
-                {categories.map(category => (
-                  <option key={category} value={category}>
-                    {category === 'all' ? 'All Categories' : category}
-                  </option>
-                ))}
+                {categories.map(category => {
+                  const catString = Array.isArray(category) ? category.join(',') : String(category);
+                  return (
+                    <option key={catString} value={catString}>
+                      {catString === 'all' ? 'All Categories' : catString}
+                    </option>
+                  );
+                })}
               </select>
             </div>
           </div>

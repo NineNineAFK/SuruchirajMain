@@ -169,6 +169,7 @@ const Navbar: React.FC = () => {
     { name: 'Products', href: '/sub-products' },
     { name: 'Contact', href: 'contact-us' },
     { name: 'About Us', href: 'about-us' },
+    { name: 'Admin Users', href: '/admin/users' },
   ];
 
 

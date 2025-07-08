@@ -39,8 +39,8 @@ const TopCategories: React.FC = () => {
     }
   };
 
-  const handleCategoryClick = (path: string) => {
-    navigate(path);
+  const handleCategoryClick = (label: string) => {
+    navigate(`/sub-products?category=${encodeURIComponent(label)}`);
   };
 
   return (
@@ -58,7 +58,7 @@ const TopCategories: React.FC = () => {
         {categories.map((category, index) => (
           <SwiperSlide key={index} style={{ width: '7rem' /* w-28 */ }}>
             <div
-              onClick={() => handleCategoryClick(category.path)}
+              onClick={() => handleCategoryClick(category.label)}
               className="relative h-36 w-30 bg-white/5 backdrop-blur-md rounded-2xl border border-white/10 shadow-lg cursor-pointer overflow-hidden"
             >
               <div className="absolute -top-[6vw] -left-[5vw] w-[32vw] h-[32vw] rounded-full overflow-hidden ">
@@ -131,7 +131,7 @@ const TopCategories: React.FC = () => {
               className="relative w-full overflow-visible transition-transform duration-300 hover:scale-[1.03]"
             >
               <div
-                onClick={() => handleCategoryClick(category.path)}
+                onClick={() => handleCategoryClick(category.label)}
                 className="relative cursor-pointer h-[240px] w-[180px] bg-transparent backdrop-blur-md rounded-3xl overflow-hidden shadow-lg transition-transform duration-300 hover:scale-[1.03] border border-white/10"
               >
                 {/* Image */}

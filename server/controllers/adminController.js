@@ -1,4 +1,6 @@
 const Product = require('../model/product');
+const Order = require('../model/order');
+const User = require('../model/user');
 
 // Add a new product
 const addProduct = async (req, res) => {
@@ -114,8 +116,61 @@ const deleteProduct = async (req, res) => {
     }
 };
 
+// Get all orders (admin)
+const getAllOrders = async (req, res) => {
+    try {
+        const orders = await Order.find({}).sort({ createdAt: -1 });
+        res.status(200).json({ success: true, orders });
+    } catch (error) {
+        console.error('Error fetching orders:', error);
+        res.status(500).json({ success: false, message: 'Internal server error' });
+    }
+};
+
+// Update order status (admin)
+const updateOrderStatus = async (req, res) => {
+    try {
+        const { orderId } = req.params;
+        const { orderStatus } = req.body;
+        const validStatuses = ['pending', 'confirmed', 'shipped', 'delivered', 'cancelled'];
+        if (!validStatuses.includes(orderStatus)) {
+            return res.status(400).json({ success: false, message: 'Invalid order status' });
+        }
+        const order = await Order.findByIdAndUpdate(
+            orderId,
+            { orderStatus },
+            { new: true }
+        );
+        if (!order) {
+            return res.status(404).json({ success: false, message: 'Order not found' });
+        }
+        res.status(200).json({ success: true, message: 'Order status updated successfully', order });
+    } catch (error) {
+        console.error('Error updating order status:', error);
+        res.status(500).json({ success: false, message: 'Internal server error' });
+    }
+};
+
+// Delete order (admin)
+const deleteOrder = async (req, res) => {
+    try {
+        const { orderId } = req.params;
+        const order = await Order.findByIdAndDelete(orderId);
+        if (!order) {
+            return res.status(404).json({ success: false, message: 'Order not found' });
+        }
+        res.status(200).json({ success: true, message: 'Order deleted successfully' });
+    } catch (error) {
+        console.error('Error deleting order:', error);
+        res.status(500).json({ success: false, message: 'Internal server error' });
+    }
+};
+
 module.exports = {
     addProduct,
     updateProduct,
-    deleteProduct
+    deleteProduct,
+    getAllOrders,
+    updateOrderStatus,
+    deleteOrder
 }; 

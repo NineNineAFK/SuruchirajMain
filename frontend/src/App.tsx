@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
 import { RecoilRoot } from 'recoil'; // ✅ NEW: Recoil wrapper
 import { Toaster } from 'react-hot-toast';
 
@@ -64,6 +64,14 @@ import ShippingPolicy from './pages/policy/ShippingPolicy';
 import TermsAndConditions from './pages/policy/TermsAndConditions';
 import ContactUs from './pages/policy/ContactUs';
 
+// Helper to conditionally render Navbar
+const ConditionalNavbar: React.FC = () => {
+  const location = useLocation();
+  // Hide Navbar on admin dashboard route
+  if (location.pathname.startsWith('/admin')) return null;
+  return <Navbar />;
+};
+
 const HomePage: React.FC = () => {
   return (
     <>
@@ -108,7 +116,7 @@ const App: React.FC = () => {
           <CartProvider>
             <WishlistProvider>
               <div className="font-sans text-gray-900">
-                <Navbar />
+                <ConditionalNavbar />
                 <Toaster position="top-right" toastOptions={{ duration: 3000 }} />
                 <LoginModal />
 

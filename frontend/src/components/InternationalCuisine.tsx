@@ -14,13 +14,13 @@ interface Cuisine {
 }
 
 const cuisines: Cuisine[] = [
-  { label: 'American', image: '/international cuisine/American Cuisine.png', path: '/cuisines/american' },
-  { label: 'Chinese', image: '/international cuisine/Chinese Cuisine.png', path: '/cuisines/chinese' },
-  { label: 'Mexican', image: '/international cuisine/Mexican Cuisine.png', path: '/cuisines/mexican' },
-  { label: 'Thai', image: '/international cuisine/Thai Cuisine1.png', path: '/cuisines/thai' },
-  { label: 'Italian', image: '/international cuisine/Italian Cuisine.png', path: '/cuisines/italian' },
-  { label: 'Lebanese', image: '/international cuisine/Lebanese Cuisine.png', path: '/cuisines/other' },
-  { label: 'Malaysian', image: '/international cuisine/Malaysian Cuisine.png', path: '/cuisines/other' },
+  { label: 'Intl. American', image: '/international cuisine/American Cuisine.png', path: '/cuisines/american' },
+  { label: 'Intl. Chinese', image: '/international cuisine/Chinese Cuisine.png', path: '/cuisines/chinese' },
+  { label: 'Intl. Mexican', image: '/international cuisine/Mexican Cuisine.png', path: '/cuisines/mexican' },
+  { label: 'Intl. Thai', image: '/international cuisine/Thai Cuisine1.png', path: '/cuisines/thai' },
+  { label: 'Intl. Italian', image: '/international cuisine/Italian Cuisine.png', path: '/cuisines/italian' },
+  { label: 'Intl. Lebanese', image: '/international cuisine/Lebanese Cuisine.png', path: '/cuisines/other' },
+  { label: 'Intl. Malaysian', image: '/international cuisine/Malaysian Cuisine.png', path: '/cuisines/other' },
 ];
 
 const InternationalCuisine: React.FC = () => {
@@ -37,8 +37,8 @@ const InternationalCuisine: React.FC = () => {
     }
   };
 
-  const handleCuisineClick = (path: string) => {
-    navigate(path);
+  const handleCuisineClick = (label: string) => {
+    navigate(`/sub-products?category=${encodeURIComponent(label)}`);
   };
 
   return (
@@ -56,7 +56,7 @@ const InternationalCuisine: React.FC = () => {
         {cuisines.map((cuisine, index) => (
           <SwiperSlide key={index} style={{ width: '7rem' }}>
             <div
-              onClick={() => handleCuisineClick(cuisine.path)}
+              onClick={() => handleCuisineClick(cuisine.label)}
               className="relative h-36 w-30 bg-white/5 backdrop-blur-md rounded-2xl border border-white/10 shadow-lg cursor-pointer overflow-hidden"
             >
               <div className="absolute -top-[6vw] -left-[5vw] w-[32vw] h-[32vw] rounded-full overflow-hidden">
@@ -127,7 +127,7 @@ const InternationalCuisine: React.FC = () => {
               className="relative w-full overflow-visible transition-transform duration-300 hover:scale-[1.03]"
             >
               <div
-                onClick={() => handleCuisineClick(cuisine.path)}
+                onClick={() => handleCuisineClick(cuisine.label)}
                 className="relative cursor-pointer h-[240px] w-[180px] bg-transparent backdrop-blur-md rounded-3xl overflow-hidden shadow-lg transition-transform duration-300 hover:scale-[1.03] border border-white/10"
               >
                 <div className="absolute -top-6 -left-10 w-52 h-52 rounded-full overflow-hidden transition-all duration-300 hover:scale-105 hover:opacity-90">

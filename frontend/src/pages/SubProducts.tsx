@@ -8,7 +8,7 @@ import { useRecoilValue } from 'recoil';
 import { searchTermAtom, authStateAtom } from '../state/state';
 import { useLoginModal } from '../context/LoginModalContext';
 import type { Product } from '../types/product';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 
 const SubProducts = () => {
   const [isFilterOpen, setIsFilterOpen] = useState(false);
@@ -23,6 +23,15 @@ const SubProducts = () => {
   const [filterCategories, setFilterCategories] = useState<string[]>([]);
   const [selectedQuantities, setSelectedQuantities] = useState<string[]>([]);
   const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
+  const location = useLocation();
+
+  useEffect(() => {
+    const params = new URLSearchParams(location.search);
+    const categoryParam = params.get('category');
+    if (categoryParam) {
+      setSelectedCategories([categoryParam]);
+    }
+  }, [location.search]);
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -133,7 +142,7 @@ const SubProducts = () => {
     const term = searchTerm.toLowerCase();
     const nameMatch = product.product_name && product.product_name.toLowerCase().includes(term);
 
-    // Category filter
+    // Category filter (used for both categories and cuisines)
     let categoryMatch = true;
     if (selectedCategories.length > 0) {
       if (Array.isArray(product.category)) {
