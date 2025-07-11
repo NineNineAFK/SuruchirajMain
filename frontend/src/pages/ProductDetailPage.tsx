@@ -80,7 +80,7 @@ const ProductDetailPage: React.FC = () => {
                 }`}
                 onClick={() => setSelectedImage(img)}
               >
-                <img src={img} alt={`thumbnail-${idx}`} className="w-8 h-8 object-contain" />
+                <img src={`/images/products/${img}`} alt={`thumbnail-${idx}`} className="w-8 h-8 object-contain" />
               </div>
             ))}
           </div>
@@ -93,7 +93,7 @@ const ProductDetailPage: React.FC = () => {
               }`}
               onClick={handleWishlistToggle}
             />
-            <img src={selectedImage} alt={product.product_name} className="h-3/4 object-contain" />
+            <img src={`/images/products/${selectedImage}`} alt={product.product_name} className="h-3/4 object-contain" />
           </div>
         </div>
 

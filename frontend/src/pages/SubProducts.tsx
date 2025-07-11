@@ -293,7 +293,7 @@ const SubProducts = () => {
 
                       {/* Product Image */}
                       <img
-                        src={product.images && product.images.length > 0 ? product.images[0] : '/placeholder.png'}
+                        src={product.images && product.images.length > 0 ? `/images/products/${product.images[0]}` : '/placeholder.png'}
                         alt={product.product_name}
                         className="w-full h-36 object-cover"
                       />
