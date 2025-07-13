@@ -35,6 +35,7 @@ export interface Product {
   net_wt?: NetWeight[];
   best_before?: string;
   category?: string[];
+  cuisine?: string[];
   why_you_will_love_it?: string[];
   images?: string[];
   createdAt?: string;
@@ -42,13 +43,27 @@ export interface Product {
 }
 
 export interface ProductFormData {
-  name: string;
-  category: string;
-  price: number;
-  weight: string;
+  product_name: string;
   ingredients: string[];
-  recipe: string;
-  nutritionValue: NutritionValue;
-  fileName?: string;
-  originalName?: string;
+  preservatives?: string;
+  nutrition_facts_per_100gm_approx: {
+    Energy: string;
+    Fat: string;
+    Protein: string;
+    Carbohydrate: string;
+    Sugar: string;
+  };
+  fssai_reg_no?: string;
+  recipe?: string[];
+  manufactured_marketed_by?: string;
+  address?: string;
+  email?: string;
+  customer_care_no?: string;
+  mrp?: number[];
+  net_wt?: { value: number; unit: string }[];
+  best_before?: string;
+  category?: string[];
+  cuisine?: string[];
+  why_you_will_love_it?: string[];
+  images?: string[];
 } 

@@ -8,5 +8,8 @@ const adminController = require('../controllers/adminController');
 router.post('/addProduct', adminController.addProduct);
 router.put('/updateProduct/:id', adminController.updateProduct);
 router.delete('/deleteProduct/:id', adminController.deleteProduct);
+router.get('/orders', adminController.getAllOrders);
+router.put('/orders/:orderId/status', adminController.updateOrderStatus);
+router.delete('/orders/:orderId', adminController.deleteOrder);
 
 module.exports = router; 

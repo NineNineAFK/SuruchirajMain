@@ -115,6 +115,21 @@ export const userApi = {
   moveWishlistItemToCart: async (productId: string) => {
     const response = await axios.post(`${API_BASE_URL}/user/wishlist/move-to-cart/${productId}`, {}, { withCredentials: true });
     return response.data;
+  },
+
+  // --- Admin User Management APIs ---
+  getAllUsers: async (search?: string) => {
+    const url = search ? `${API_BASE_URL}/admin/users?search=${encodeURIComponent(search)}` : `${API_BASE_URL}/admin/users`;
+    const response = await axios.get(url);
+    return response.data;
+  },
+  updateUser: async (id: string, updateData: any) => {
+    const response = await axios.put(`${API_BASE_URL}/admin/users/${id}`, updateData);
+    return response.data;
+  },
+  deleteUser: async (id: string) => {
+    const response = await axios.delete(`${API_BASE_URL}/admin/users/${id}`);
+    return response.data;
   }
 };
 

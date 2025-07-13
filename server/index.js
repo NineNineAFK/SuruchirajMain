@@ -45,6 +45,11 @@ app.use(passport.session());
 app.use(express.json()); // Parse JSON bodies for other routes
 app.use(express.urlencoded({ extended: true })); // Parse URL-encoded bodies
 
+
+// Serve images from the images/products directory on your VPS
+app.use('/images/products', express.static('/var/www/SuruchirajMain/images/products'));
+
+
 // 5. Routes
 app.use("/user", require("./routes/user"));
 app.use("/home", restrictToLoggedInUserOnly, require("./routes/staticRouter"));

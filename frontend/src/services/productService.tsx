@@ -118,4 +118,54 @@ export const getProductFilters = async (): Promise<{ categories: string[]; quant
     console.error('Error fetching product filters:', error);
     throw error;
   }
+};
+
+// Fetch all orders (admin)
+export const getAllOrders = async (): Promise<any[]> => {
+  try {
+    const response = await fetch(`${API_BASE_URL}/api/admin/orders`);
+    const data = await response.json();
+    if (!response.ok) {
+      throw new Error(data.message || 'Failed to fetch orders');
+    }
+    return data.orders;
+  } catch (error) {
+    console.error('Error fetching orders:', error);
+    throw error;
+  }
+};
+
+// Update order status (admin)
+export const updateOrderStatus = async (orderId: string, orderStatus: string): Promise<any> => {
+  try {
+    const response = await fetch(`${API_BASE_URL}/api/admin/orders/${orderId}/status`, {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ orderStatus }),
+    });
+    const data = await response.json();
+    if (!response.ok) {
+      throw new Error(data.message || 'Failed to update order status');
+    }
+    return data.order;
+  } catch (error) {
+    console.error('Error updating order status:', error);
+    throw error;
+  }
+};
+
+// Delete order (admin)
+export const deleteOrder = async (orderId: string): Promise<void> => {
+  try {
+    const response = await fetch(`${API_BASE_URL}/api/admin/orders/${orderId}`, {
+      method: 'DELETE',
+    });
+    const data = await response.json();
+    if (!response.ok) {
+      throw new Error(data.message || 'Failed to delete order');
+    }
+  } catch (error) {
+    console.error('Error deleting order:', error);
+    throw error;
+  }
 }; 

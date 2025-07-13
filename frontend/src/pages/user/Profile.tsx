@@ -193,9 +193,9 @@ const Profile: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-black">
+    <div className="min-h-screen bg-white text-black dark:bg-black dark:text-white">
       <div className="max-w-6xl mx-auto py-10 px-4">
-        <h1 className="text-4xl font-bold mb-6 font-heading text-white">My Profile</h1>
+        <h1 className="text-4xl font-bold mb-6 font-heading dark:text-white text-black">My Profile</h1>
         
         {/* Tab Navigation */}
         <div className="flex space-x-4 mb-6 font-body">
@@ -204,7 +204,7 @@ const Profile: React.FC = () => {
             className={`px-4 py-2 rounded-lg font-medium transition-colors ${
               activeTab === 'profile'
                 ? 'bg-yellow-500 text-white'
-                : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
+                : 'bg-gray-200 text-gray-700 hover:bg-gray-300 dark:bg-white/10 dark:text-white dark:hover:bg-white/20'
             }`}
           >
             Profile
@@ -214,7 +214,7 @@ const Profile: React.FC = () => {
             className={`px-4 py-2 rounded-lg font-medium transition-colors ${
               activeTab === 'addresses'
                 ? 'bg-yellow-500 text-white'
-                : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
+                : 'bg-gray-200 text-gray-700 hover:bg-gray-300 dark:bg-white/10 dark:text-white dark:hover:bg-white/20'
             }`}
           >
             Addresses
@@ -223,7 +223,7 @@ const Profile: React.FC = () => {
 
         {/* Profile Tab */}
         {activeTab === 'profile' && (
-          <div className="bg-black p-6 rounded-xl shadow-lg space-y-6 text-white">
+          <div className="bg-gray-100 dark:bg-black p-6 rounded-xl shadow-lg space-y-6">
             {/* Profile Picture Section */}
             <div className="flex items-center space-x-6">
               <div className="relative">
@@ -245,50 +245,50 @@ const Profile: React.FC = () => {
                 </button>
               </div>
               <div>
-                <h2 className="text-xl font-semibold font-body text-white">{user.name}</h2>
-                <p className="text-gray-200 font-sans">{user.email}</p>
+                <h2 className="text-3xl font-semibold font-heading dark:text-gray-200 text-black">{user.name}</h2>
+                <p className="dark:text-gray-200 text-black font-sans">{user.email}</p>
               </div>
             </div>
 
             {/* Profile Form */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4 font-body">
               <div>
-                <label className="block text-sm font-medium mb-2 text-gray-200">Name</label>
+                <label className="block text-sm font-semibold mb-2 dark:text-gray-200 text-black">Name</label>
                 <input
                   type="text"
                   value={profileData.name}
                   onChange={(e) => setProfileData({ ...profileData, name: e.target.value })}
                   disabled={!isEditing}
-                   className="w-full px-3 py-2 bg-black border border-white rounded-lg text-white disabled:opacity-80 focus:outline-none focus:ring-2 focus:ring-yellow-500"
+                   className="w-full px-3 py-2 bg-white dark:bg-black border border-black dark:border-white rounded-lg text-black dark:text-white disabled:opacity-80 focus:outline-none focus:ring-2 focus:ring-yellow-500"
                 />
               </div>
               <div>
-                <label className="block text-sm font-sans font-medium mb-2 text-gray-200">Phone</label>
+                <label className="block text-sm font-semibold mb-2 dark:text-gray-200 text-black">Phone</label>
                 <input
                   type="tel"
                   value={profileData.phone}
                   onChange={(e) => setProfileData({ ...profileData, phone: e.target.value })}
                   disabled={!isEditing}
-                  className="w-full px-3 py-2 bg-black font-sans border border-white rounded-lg text-white disabled:opacity-80 focus:outline-none focus:ring-2 focus:ring-yellow-500"
+                  className="w-full px-3 py-2 bg-white dark:bg-black border border-black dark:border-white rounded-lg text-black dark:text-white disabled:opacity-80 focus:outline-none focus:ring-2 focus:ring-yellow-500"
                 />
               </div>
               <div>
-                <label className="block text-sm font-sans font-medium mb-2 text-gray-200">Date of Birth</label>
+                <label className="block text-sm font-semibold mb-2 dark:text-gray-200 text-black">Date of Birth</label>
                 <input
                   type="date"
                   value={profileData.dateOfBirth}
                   onChange={(e) => setProfileData({ ...profileData, dateOfBirth: e.target.value })}
                   disabled={!isEditing}
-                  className="w-full px-3 py-2 bg-black border font-sans border-white rounded-lg text-white disabled:opacity-80 focus:outline-none focus:ring-2 focus:ring-yellow-500"
+                  className="w-full px-3 py-2 bg-white dark:bg-black border border-black dark:border-white rounded-lg text-black dark:text-white disabled:opacity-80 focus:outline-none focus:ring-2 focus:ring-yellow-500"
                 />
               </div>
               <div>
-                <label className="block text-sm font-medium mb-2 text-gray-200">Gender</label>
+                <label className="block text-sm font-semibold mb-2 dark:text-gray-200 text-black">Gender</label>
                 <select
                   value={profileData.gender}
                   onChange={(e) => setProfileData({ ...profileData, gender: e.target.value })}
                   disabled={!isEditing}
-                  className="w-full px-3 py-2.5 bg-black border border-white rounded-lg text-white disabled:opacity-80 focus:outline-none focus:ring-2 focus:ring-yellow-500"
+                  className="w-full px-3 py-2.5 bg-white dark:bg-black border border-black dark:border-white rounded-lg text-black dark:text-white disabled:opacity-80 focus:outline-none focus:ring-2 focus:ring-yellow-500"
                 >
                   <option value="">Select Gender</option>
                   <option value="male">Male</option>
@@ -339,10 +339,10 @@ const Profile: React.FC = () => {
 
         {/* Addresses Tab */}
         {activeTab === 'addresses' && (
-          <div className="space-y-6 text-white bg-black p-6 rounded-xl font-body">
+          <div className="space-y-6 bg-gray-100 dark:bg-black p-6 rounded-xl font-body">
             {/* Add Address Button */}
             <div className="flex justify-between items-center">
-              <h2 className="text-2xl font-semibold font-heading text-white">My Addresses</h2>
+              <h2 className="text-2xl font-semibold font-heading dark:text-white text-black">My Addresses</h2>
               <button
                 onClick={() => setShowAddAddress(true)}
                 className="px-4 py-2 bg-yellow-500 text-white rounded-lg hover:bg-yellow-600 transition-colors"
@@ -354,9 +354,9 @@ const Profile: React.FC = () => {
             {/* Address List */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4 font-body">
               {addresses.map((address) => (
-                <div key={address._id} className="bg-zinc-900 p-4 rounded-lg shadow-md border border-white/10">
+                <div key={address._id} className="bg-white dark:bg-zinc-900 p-4 rounded-lg shadow-md border border-black/10 dark:border-white/10">
                   <div className="flex justify-between items-start mb-3">
-                    <h3 className="font-semibold text-lg text-white">{address.addressName}</h3>
+                    <h3 className="font-semibold text-lg dark:text-white text-black">{address.addressName}</h3>
                     <div className="flex space-x-2">
                       <button
                         onClick={() => startEditAddress(address)}
@@ -373,11 +373,11 @@ const Profile: React.FC = () => {
                     </div>
                   </div>
                   <div className="space-y-1 text-sm">
-                    <p className="text-white font-medium">{address.name}</p>
-                    <p className="text-white font-sans">{address.phone}</p>
-                    <p className="text-white">{address.addressLine1}</p>
-                    {address.addressLine2 && <p className="text-white">{address.addressLine2}</p>}
-                    <p className="text-white">{address.city}, {address.state} - {address.pincode}</p>
+                    <p className="dark:text-white text-black font-medium">{address.name}</p>
+                    <p className="dark:text-white text-black font-sans">{address.phone}</p>
+                    <p className="dark:text-white text-black">{address.addressLine1}</p>
+                    {address.addressLine2 && <p className="dark:text-white text-black">{address.addressLine2}</p>}
+                    <p className="dark:text-white text-black">{address.city}, {address.state} - {address.pincode}</p>
                   </div>
                 </div>
               ))}
@@ -385,82 +385,82 @@ const Profile: React.FC = () => {
 
             {/* Add/Edit Address Form */}
             {(showAddAddress || editingAddress) && (
-              <div className="bg-zinc-900 p-6 rounded-xl shadow-lg border border-white/10">
-                <h3 className="text-xl font-semibold mb-4 text-gray-100">
+              <div className="bg-white dark:bg-zinc-900 p-6 rounded-xl shadow-lg border border-black/10 dark:border-white/10">
+                <h3 className="text-xl font-semibold mb-4 dark:text-white text-black">
                   {editingAddress ? 'Edit Address' : 'Add New Address'}
                 </h3>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div>
-                    <label className="block text-sm font-medium mb-2 text-gray-200">Address Name</label>
+                    <label className="block text-sm font-medium mb-2 dark:text-gray-200 text-black">Address Name</label>
                     <input
                       type="text"
                       value={addressData.addressName}
                       onChange={(e) => setAddressData({ ...addressData, addressName: e.target.value })}
                       placeholder="e.g., Home, Office"
-                      className="w-full px-3 py-2 bg-black border border-white rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-yellow-500"
+                      className="w-full px-3 py-2 bg-white dark:bg-black border border-black dark:border-white rounded-lg text-black dark:text-white focus:outline-none focus:ring-2 focus:ring-yellow-500"
                     />
                   </div>
                   <div>
-                    <label className="block text-sm font-medium mb-2 text-gray-200">Full Name</label>
+                    <label className="block text-sm font-medium mb-2 dark:text-gray-200 text-black">Full Name</label>
                     <input
                       type="text"
                       value={addressData.name}
                       onChange={(e) => setAddressData({ ...addressData, name: e.target.value })}
-                      className="w-full px-3 py-2 bg-black border border-white rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-yellow-500"
+                      className="w-full px-3 py-2 bg-white dark:bg-black border border-black dark:border-white rounded-lg text-black dark:text-white focus:outline-none focus:ring-2 focus:ring-yellow-500"
                     />
                   </div>
                   <div>
-                    <label className="block text-sm font-medium mb-2 text-gray-200">Phone</label>
+                    <label className="block text-sm font-medium mb-2 dark:text-gray-200 text-black">Phone</label>
                     <input
                       type="tel"
                       value={addressData.phone}
                       onChange={(e) => setAddressData({ ...addressData, phone: e.target.value })}
-                      className="w-full px-3 py-2 bg-black border border-white rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-yellow-500"
+                      className="w-full px-3 py-2 font-sans bg-white dark:bg-black border border-black dark:border-white rounded-lg text-black dark:text-white focus:outline-none focus:ring-2 focus:ring-yellow-500"
                     />
                   </div>
                   <div>
-                    <label className="block text-sm font-medium mb-2 text-gray-200">Address Line 1</label>
+                    <label className="block text-sm font-medium mb-2 dark:text-gray-200 text-black">Address Line 1</label>
                     <input
                       type="text"
                       value={addressData.addressLine1}
                       onChange={(e) => setAddressData({ ...addressData, addressLine1: e.target.value })}
-                      className="w-full px-3 py-2 bg-black border border-white rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-yellow-500"
+                      className="w-full px-3 py-2 bg-white dark:bg-black border border-black dark:border-white rounded-lg text-black dark:text-white focus:outline-none focus:ring-2 focus:ring-yellow-500"
                     />
                   </div>
                   <div>
-                    <label className="block text-sm font-medium mb-2 text-gray-200">Address Line 2 (Optional)</label>
+                    <label className="block text-sm font-medium mb-2 dark:text-gray-200 text-black">Address Line 2 (Optional)</label>
                     <input
                       type="text"
                       value={addressData.addressLine2}
                       onChange={(e) => setAddressData({ ...addressData, addressLine2: e.target.value })}
-                      className="w-full px-3 py-2 bg-black border border-white rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-yellow-500"
+                      className="w-full px-3 py-2 bg-white dark:bg-black border border-black dark:border-white rounded-lg text-black dark:text-white focus:outline-none focus:ring-2 focus:ring-yellow-500"
                     />
                   </div>
                   <div>
-                    <label className="block text-sm font-medium mb-2 text-gray-200">City</label>
+                    <label className="block text-sm font-medium mb-2 dark:text-gray-200 text-black">City</label>
                     <input
                       type="text"
                       value={addressData.city}
                       onChange={(e) => setAddressData({ ...addressData, city: e.target.value })}
-                      className="w-full px-3 py-2 bg-black border border-white rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-yellow-500"
+                      className="w-full px-3 py-2 bg-white dark:bg-black border border-black dark:border-white rounded-lg text-black dark:text-white focus:outline-none focus:ring-2 focus:ring-yellow-500"
                     />
                   </div>
                   <div>
-                    <label className="block text-sm font-medium mb-2 text-gray-200">State</label>
+                    <label className="block text-sm font-medium mb-2 dark:text-gray-200 text-black">State</label>
                     <input
                       type="text"
                       value={addressData.state}
                       onChange={(e) => setAddressData({ ...addressData, state: e.target.value })}
-                      className="w-full px-3 py-2 bg-black border border-white rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-yellow-500"
+                      className="w-full px-3 py-2 bg-white dark:bg-black border border-black dark:border-white rounded-lg text-black dark:text-white focus:outline-none focus:ring-2 focus:ring-yellow-500"
                     />
                   </div>
                   <div>
-                    <label className="block text-sm font-medium mb-2 text-gray-200">Pincode</label>
+                    <label className="block text-sm font-medium mb-2 dark:text-gray-200 text-black">Pincode</label>
                     <input
                       type="text"
                       value={addressData.pincode}
                       onChange={(e) => setAddressData({ ...addressData, pincode: e.target.value })}
-                      className="w-full px-3 py-2 bg-black border border-white rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-yellow-500"
+                      className="w-full px-3 py-2 font-sans bg-white dark:bg-black border border-black dark:border-white rounded-lg text-black dark:text-white focus:outline-none focus:ring-2 focus:ring-yellow-500"
                     />
                   </div>
                 </div>

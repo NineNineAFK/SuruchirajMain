@@ -36,19 +36,18 @@ const WhyChooseUs: React.FC = () => {
   return (
     <section className="px-4 md:px-8 md:mt-10 text-center relative font-heading">
       {/* Section Title */}
-      <h2 className="text-3xl md:text-4xl font-extrabold mb-4 md:mb-10 text-white">
-        Why <span className="text-yellow-400">Choose Us</span>
+      <h2 className="text-3xl md:text-4xl font-extrabold mb-4 md:mb-10 text-black dark:text-white">
+        Why <span className="text-yellow-500 dark:text-yellow-400">Choose Us</span>
       </h2>
 
       {/* 🖥️ Desktop Layout */}
       <div className="hidden md:flex max-w-4xl mx-auto relative">
-        {/* Default Grid Layout */}
-        <div className="flex backdrop-blur-md rounded-3xl p-6 md:p-5 items-center justify-between gap-4 border border-white/20 shadow-[0_0_10px_rgba(255,255,255,0.3)] bg-transparent w-full z-10">
+        <div className="flex backdrop-blur-md rounded-3xl p-6 md:p-5 items-center justify-between gap-4 border border-black/10 dark:border-white/20 shadow-md dark:shadow-[0_0_10px_rgba(255,255,255,0.3)] bg-white/60 dark:bg-transparent w-full z-10">
           {features.map((feature, index) => (
             <div
               key={index}
               onClick={() => setActiveIndex(index)}
-              className="flex flex-col items-center text-white w-full md:w-1/4 font-body cursor-pointer"
+              className="flex flex-col items-center text-black dark:text-white w-full md:w-1/4 font-body cursor-pointer"
             >
               <img
                 src={feature.icon}
@@ -65,24 +64,21 @@ const WhyChooseUs: React.FC = () => {
         {/* Backdrop + Active Tile */}
         {activeIndex !== null && (
           <>
-            {/* 🔲 Backdrop */}
             <div
               className="absolute inset-0 bg-black/40 backdrop-blur-sm z-30 rounded-3xl"
               onClick={() => setActiveIndex(null)}
             />
 
-            {/* Active Tile */}
             <div
-              className="absolute top-1/2 left-1/2 z-40 transform -translate-x-1/2 -translate-y-1/2 bg-white/20 backdrop-blur-md border border-white/30 shadow-yellow-400/40 w-[60%] p-6 rounded-2xl text-white flex flex-col items-center transition-all duration-300 cursor-pointer"
+              className="absolute top-1/2 left-1/2 z-40 transform -translate-x-1/2 -translate-y-1/2 bg-white/90 dark:bg-white/20 backdrop-blur-md border border-black/10 dark:border-white/30 shadow-md dark:shadow-yellow-400/40 w-[60%] p-6 rounded-2xl text-black dark:text-white flex flex-col items-center transition-all duration-300 cursor-pointer"
               onClick={() => setActiveIndex(null)}
             >
-              {/* Close Button */}
               <button
                 onClick={(e) => {
                   e.stopPropagation();
                   setActiveIndex(null);
                 }}
-                className="absolute top-2 right-2 text-white text-lg"
+                className="absolute top-2 right-2 text-black dark:text-white text-lg"
               >
                 <FiX />
               </button>
@@ -95,14 +91,13 @@ const WhyChooseUs: React.FC = () => {
               <p className="text-lg font-body font-semibold text-center">
                 {features[activeIndex].text}
               </p>
-              <p className="mt-2 text-sm text-white/90 text-center font-body">
+              <p className="mt-2 text-sm text-black/80 dark:text-white/90 text-center font-body">
                 {features[activeIndex].description}
               </p>
             </div>
           </>
         )}
       </div>
-
 
       {/* 📱 Mobile Layout */}
       <div className="md:hidden relative grid grid-cols-2 gap-4 max-w-md mx-auto">
@@ -113,20 +108,19 @@ const WhyChooseUs: React.FC = () => {
             <div
               key={index}
               onClick={() => setActiveIndex(isActive ? null : index)}
-              className={`flex flex-col items-center justify-center text-white border border-white/20 rounded-2xl backdrop-blur-md transition-all duration-300 cursor-pointer overflow-hidden ${
+              className={`flex flex-col items-center justify-center text-black dark:text-white border border-black/10 dark:border-white/20 rounded-2xl backdrop-blur-md transition-all duration-300 cursor-pointer overflow-hidden ${
                 isActive
-                  ? 'absolute top-1/2 left-1/2 z-50 transform -translate-x-1/2 -translate-y-1/2 bg-white/20 shadow-yellow-400/40 w-[90%] p-6'
-                  : 'p-4 bg-white/10 shadow-[0_0_10px_rgba(255,255,255,0.2)]'
+                  ? 'absolute top-1/2 left-1/2 z-50 transform -translate-x-1/2 -translate-y-1/2 bg-white/90 dark:bg-white/20 shadow-md dark:shadow-yellow-400/40 w-[90%] p-6'
+                  : 'p-4 bg-white/50 dark:bg-white/10 shadow-sm dark:shadow-[0_0_10px_rgba(255,255,255,0.2)]'
               }`}
             >
-              {/* Close button for active tile */}
               {isActive && (
                 <button
                   onClick={(e) => {
-                    e.stopPropagation(); // prevent tile click
+                    e.stopPropagation();
                     setActiveIndex(null);
                   }}
-                  className="absolute top-2 right-2 text-white text-lg"
+                  className="absolute top-2 right-2 text-black dark:text-white text-lg"
                 >
                   <FiX />
                 </button>
@@ -140,16 +134,15 @@ const WhyChooseUs: React.FC = () => {
                 alt={feature.text}
               />
               <p
-                className={`font-normal font-body text-center text-base transition-all duration-300 ${
+                className={`font-normal font-body text-center transition-all duration-300 ${
                   isActive ? 'text-base' : 'text-sm'
                 }`}
               >
                 {feature.text}
               </p>
 
-              {/* Description shown only when active */}
               {isActive && (
-                <p className="mt-2 text-[12px] text-white/90 text-center font-body">
+                <p className="mt-2 text-[12px] text-black/80 dark:text-white/90 text-center font-body">
                   {feature.description}
                 </p>
               )}
