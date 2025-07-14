@@ -1,4 +1,4 @@
-require('dotenv').config(); // Load environment variables
+require('dotenv').config({ path: path.resolve(__dirname, '../.env') }); // Load environment variables
 const mongoose = require('mongoose');
 const fs = require('fs');
 const path = require('path');
@@ -10,7 +10,7 @@ if (!MONGO_URI) {
   console.error('❌ MONGO_URI not set in environment variables.');
   process.exit(1);
 }
-const IMAGE_DIR = '/var/www/SuruchirajMain/images/products'; // VPS image directory
+const IMAGE_DIR = process.env.IMAGE_UPLOAD_DIR || path.join(__dirname, '../../images/products'); // VPS image directory
 
 // Utility to slugify product names and image filenames
 function slugify(str) {
@@ -45,7 +45,4 @@ async function associateImages() {
   mongoose.disconnect();
 }
 
-associateImages().catch(err => {
-  console.error(err);
-  mongoose.disconnect();
-}); 
+module.exports = associateImages; 

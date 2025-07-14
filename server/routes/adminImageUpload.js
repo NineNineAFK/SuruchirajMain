@@ -27,7 +27,7 @@ router.post('/upload-images', upload.array('images', 50), async (req, res) => {
   } catch (err) {
     console.error('Error running associateImages:', err);
   }
-  res.json({ message: 'Images uploaded successfully', files: req.files.map(f => f.filename) });
+  res.json({ message: 'Images uploaded successfully', files: req.files ? req.files.map(f => f.filename) : [] });
 });
 
 module.exports = router; 
