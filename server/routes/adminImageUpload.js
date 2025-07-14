@@ -8,12 +8,12 @@ const IMAGE_UPLOAD_DIR = process.env.IMAGE_UPLOAD_DIR || path.join(__dirname, '.
 
 // Set up multer storage
 const storage = multer.diskStorage({
-  destination: function (req, file, cb) {
+  destination: function (req, _, cb) {
     fs.mkdirSync(IMAGE_UPLOAD_DIR, { recursive: true });
     cb(null, IMAGE_UPLOAD_DIR);
   },
-  filename: function (req, file, cb) {
-    cb(null, file.originalname);
+  filename: function (req, _, cb) {
+    cb(null, _.originalname);
   }
 });
 
