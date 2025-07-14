@@ -1,10 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import type { Product } from '../types/product';
 import { getAllProducts, deleteProduct, getAllOrders, updateOrderStatus, deleteOrder as deleteOrderApi } from '../services/productService';
 import AdminProductForm from './AdminProductForm';
 import toast from 'react-hot-toast';
 import axios from 'axios';
 import { useLocation, useNavigate } from 'react-router-dom';
+import { useDropzone } from 'react-dropzone';
 
 const SIDEBAR_SECTIONS = [
   { key: 'products', label: 'Products' },
@@ -50,6 +51,33 @@ function exportOrdersToCSV(orders: any[]) {
   document.body.removeChild(a);
   URL.revokeObjectURL(url);
 }
+
+const ImageUpload: React.FC<{ onUpload?: () => void }> = ({ onUpload }) => {
+  const onDrop = useCallback(async (acceptedFiles: File[]) => {
+    const formData = new FormData();
+    acceptedFiles.forEach(file => formData.append('images', file));
+    try {
+      const res = await axios.post('/api/admin/upload-images', formData, {
+        headers: { 'Content-Type': 'multipart/form-data' }
+      });
+      toast.success('Upload successful: ' + res.data.files.join(', '));
+      if (onUpload) onUpload();
+    } catch (err) {
+      toast.error('Upload failed');
+    }
+  }, [onUpload]);
+
+  const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop, multiple: true });
+
+  return (
+    <div {...getRootProps()} style={{
+      border: '2px dashed #ccc', padding: 20, textAlign: 'center', marginBottom: 20, background: isDragActive ? '#f0f0f0' : '#fff', cursor: 'pointer'
+    }}>
+      <input {...getInputProps()} />
+      {isDragActive ? <p>Drop the images here ...</p> : <p>Drag & drop images here, or click to select files</p>}
+    </div>
+  );
+};
 
 const AdminDashboard: React.FC = () => {
   const [products, setProducts] = useState<Product[]>([]);
@@ -189,6 +217,8 @@ const AdminDashboard: React.FC = () => {
             </div>
           ) : (
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+              {/* Bulk Image Upload */}
+              <ImageUpload onUpload={fetchProducts} />
               <div className="flex justify-between items-center mb-8">
                 <h1 className="text-3xl font-bold text-gray-900">Products</h1>
                 <button

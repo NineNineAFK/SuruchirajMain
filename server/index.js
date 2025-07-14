@@ -59,6 +59,7 @@ app.use('/api/queries', restrictToLoggedInUserOnly, require("./routes/queryRoute
 app.use('/api/review', restrictToLoggedInUserOnly, require("./routes/reviewRoutes"));
 app.use('/products', productRoutes);
 app.use('/api/admin', require("./routes/adminRoutes"));
+app.use('/api/admin', require('./routes/adminImageUpload'));
 app.use('/cart', require("./routes/cartRoutes")); // Cart routes before catch-all
 app.use('/', require("./routes/addressRoutes")); // Address routes before catch-all
 app.use('/', require("./routes/paymentRoutes")); // Payment routes before catch-all
