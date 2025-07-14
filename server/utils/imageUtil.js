@@ -1,11 +1,12 @@
+require('dotenv').config();
 const mongoose = require('mongoose');
 const fs = require('fs');
 const path = require('path');
 const Product = require('./models/Product'); // adjust as per your project
 
 // MongoDB connection
-const MONGO_URI = 'mongodb://localhost:27017/yourdb';  // Change to your actual URI
-const BASE_IMAGE_URL = 'https://yourdomain.com/images/products/'; // Your Hostinger image URL
+const MONGO_URI = process.env.MONGO_URI;  // Change to your actual URI
+const BASE_IMAGE_URL = 'https://suruchiraj.com/images/products/'; // Your Hostinger image URL
 const IMAGE_DIR = path.join(__dirname, 'images/products'); // The local path on your VPS where images are stored
 
 async function mapProductImages() {
