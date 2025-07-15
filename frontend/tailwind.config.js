@@ -61,7 +61,7 @@ module.exports = {
   				'sans-serif'
   			],
   			heading: [
-  				'Cormorant Garamond"',
+  				'Cormorant Garamond',
   				'serif'
   			],
   			body: [
@@ -69,7 +69,7 @@ module.exports = {
   				'sans-serif'
   			],
   			button: [
-  				'Droid Sans"',
+  				'Droid Sans',
   				'sans-serif'
   			]
   		},

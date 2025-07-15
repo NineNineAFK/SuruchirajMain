@@ -86,7 +86,7 @@ const TrendingMasalas: React.FC = () => {
 
   return (
     <section id="trending" className="px-4 md:px-8 text-center relative font-heading">
-      <h2 className="text-3xl md:text-4xl font-extrabold mb-4 md:mb-10 text-white">
+      <h2 className="text-3xl md:text-4xl font-extrabold mb-4 md:mb-10 text-black dark:text-white">
         Trending <span className="text-yellow-400">Masalas</span>
       </h2>
 
@@ -97,7 +97,7 @@ const TrendingMasalas: React.FC = () => {
         className={`hidden md:flex absolute left-1 top-1/2 transform -translate-y-1/2 z-20 p-3 rounded-full transition ${
           isBeginning
             ? 'bg-white/10 text-gray-400 cursor-not-allowed'
-            : 'bg-white/20 text-white hover:bg-yellow-400 hover:text-black'
+            : 'bg-white/20 text-black dark:text-white hover:bg-yellow-400 hover:text-black'
         }`}
       >
         <FiChevronLeft className="text-2xl" />
@@ -108,7 +108,7 @@ const TrendingMasalas: React.FC = () => {
         className={`hidden md:flex absolute right-1 top-1/2 transform -translate-y-1/2 z-20 p-3 rounded-full transition ${
           isEnd
             ? 'bg-white/10 text-gray-400 cursor-not-allowed'
-            : 'bg-white/20 text-white hover:bg-yellow-400 hover:text-black'
+            : 'bg-white/20 text-black dark:text-white hover:bg-yellow-400 hover:text-black'
         }`}
       >
         <FiChevronRight className="text-2xl" />
@@ -159,7 +159,7 @@ const TrendingMasalas: React.FC = () => {
                         >
                           <FiHeart
                             className={`text-[3vw] transition ${
-                              isWishlisted(product.id) ? 'text-red-500 fill-red-500' : 'text-white'
+                              isWishlisted(product.id) ? 'text-red-500 fill-red-500' : 'text-black dark:text-white'
                             }`}
                           />
                         </div>
@@ -167,7 +167,7 @@ const TrendingMasalas: React.FC = () => {
                     )}
                   </div>
 
-                  <div className="-mt-[12vw] w-full bg-white/10 backdrop-blur-md border-l border-r border-b border-[#6B0073]/60 rounded-b-3xl px-[3vw] py-[4vw] text-white">
+                  <div className="-mt-[12vw] w-full bg-white/10 backdrop-blur-md border-l border-r border-b border-[#6B0073]/60 rounded-b-3xl px-[3vw] py-[4vw] text-black dark:text-white">
                     <div className="w-full mb-[1.5vw]">
                       <Link to={`/product/${product.id}`}>
                         <h3 className="text-[2.8vw] font-semibold font-body truncate">
@@ -180,9 +180,9 @@ const TrendingMasalas: React.FC = () => {
                     </div>
 
                     <div className="w-full flex items-center justify-between mb-[2vw]">
-                      <div className="text-[3vw] font-semibold font-sans text-white">
+                      <div className="text-[3vw] font-semibold font-sans text-black dark:text-white">
                         ₹<span className="line-through text-gray-300">{product.mrp}</span>{' '}
-                        <span className="text-white">{product.price}</span>
+                        <span className="text-black dark:text-white">{product.price}</span>
                       </div>
                       <div className="text-[2vw] bg-lime-400 text-black font-semibold px-[1.5vw] py-[0.5vw] rounded-full w-fit font-button">
                         {Math.round(((product.mrp - product.price) / product.mrp) * 100)}% off
@@ -224,7 +224,7 @@ const TrendingMasalas: React.FC = () => {
                       >
                         <FiHeart
                           className={`text-xl transition ${
-                            isWishlisted(product.id) ? 'text-red-500 fill-red-500' : 'text-white'
+                            isWishlisted(product.id) ? 'text-red-500 fill-red-500' : 'text-black dark:text-white'
                           }`}
                         />
                       </div>
@@ -232,9 +232,9 @@ const TrendingMasalas: React.FC = () => {
                   </div>
 
                   <div className="mt-[200px] px-2 pt-0">
-                    <div className="bg-transparent backdrop-blur-xl border-l border-r border-b border-[#6B0073]/60 rounded-b-3xl p-4 pb-5 text-white relative w-full">
+                    <div className="bg-transparent backdrop-blur-xl border-l border-r border-b border-[#6B0073]/60 rounded-b-3xl p-4 pb-5 text-black dark:text-white relative w-full">
                       <div className="flex items-center justify-between w-full mb-1">
-                        <div className="text-lg text-white font-sans">
+                        <div className="text-lg text-black dark:text-white font-sans">
                           ₹ <span className="line-through text-gray-400">{product.mrp}</span>{' '}
                           <span className="font-semibold">{product.price}</span>
                         </div>

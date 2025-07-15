@@ -66,7 +66,7 @@ const ProductDetailPage: React.FC = () => {
   };
 
   return (
-    <div className="bg-black text-white min-h-screen px-4 py-8">
+    <div className="bg-white text-black dark:bg-black dark:text-white min-h-screen px-4 py-8">
       <div className="max-w-7xl mx-auto grid md:grid-cols-12 gap-6">
         {/* Left image section */}
         <div className="col-span-5 flex flex-col-reverse md:flex-row gap-4 items-center md:items-start">
@@ -75,7 +75,7 @@ const ProductDetailPage: React.FC = () => {
             {(product.images && product.images.length > 0 ? product.images : [placeholder, placeholder, placeholder, placeholder]).slice(0, 4).map((img, idx) => (
               <div
                 key={idx}
-                className={`w-16 h-16 sm:w-20 sm:h-20 bg-white/10 rounded-xl flex items-center justify-center cursor-pointer border-2 transition-all duration-200 ${
+                className={`w-16 h-16 sm:w-20 sm:h-20 bg-black/5 dark:bg-white/10 rounded-xl flex items-center justify-center cursor-pointer border-2 transition-all duration-200 ${
                   selectedImage === img ? 'border-yellow-400' : 'border-transparent'
                 }`}
                 onClick={() => setSelectedImage(img)}
@@ -86,14 +86,14 @@ const ProductDetailPage: React.FC = () => {
           </div>
 
           {/* Main image */}
-          <div className="relative w-full sm:w-[90vw] md:w-full h-[300px] sm:h-[400px] bg-white/10 rounded-2xl flex items-center justify-center mx-auto">
+          <div className="relative w-full sm:w-[90vw] md:w-full h-[300px] sm:h-[400px] bg-black/5 dark:bg-white/10 rounded-2xl flex items-center justify-center mx-auto">
             <FiHeart
               className={`absolute top-4 right-4 text-2xl cursor-pointer transition-all ${
                 wishlisted ? 'text-yellow-400' : 'text-white'
               }`}
               onClick={handleWishlistToggle}
             />
-            <img src={`/images/products/${selectedImage}`} alt={product.product_name} className="h-3/4 object-contain" />
+            <img src={selectedImage} alt={product.product_name} className="h-3/4 object-contain" />
           </div>
         </div>
 
@@ -115,7 +115,7 @@ const ProductDetailPage: React.FC = () => {
           </div>
 
           <p className="mb-2 text-xl font-sans font-semibold">
-            <span className="text-white text-2xl font-heading">Subtotal</span>:- ₹{product.mrp && product.mrp.length > 0 ? Math.round(product.mrp[0] * quantity) : ''}
+            <span className="text-black dark:text-white text-2xl font-heading">Subtotal</span>:- ₹{product.mrp && product.mrp.length > 0 ? Math.round(product.mrp[0] * quantity) : ''}
           </p>
 
           <div className="flex flex-col gap-4 mb-6">
@@ -123,14 +123,16 @@ const ProductDetailPage: React.FC = () => {
           <div className="flex items-center gap-4 flex-wrap">
             <p className="font-semibold text-2xl font-heading">Quantity</p>
 
-            <div className="flex items-center border font-button border-white rounded-full px-4 py-1 gap-3">
+            <div className="flex items-center border font-button border-black dark:border-white rounded-full px-4 py-1 gap-3">
               <button onClick={() => handleQuantityChange(-1)}><FiMinus /></button>
               <span className="font-sans">{quantity}</span>
               <button onClick={() => handleQuantityChange(1)}><FiPlus /></button>
             </div>
 
             <button
-              className={`font-button px-4 py-1 rounded-full border transition duration-200 ${wishlisted ? 'border-yellow-400 text-yellow-400' : 'border-white text-white'}`}
+              className={`font-button px-4 py-1 rounded-full border transition duration-200 ${
+                wishlisted ? 'border-yellow-400 text-yellow-400' : 'border-black dark:border-white text-black dark:text-white'
+              }`}
               onClick={handleWishlistToggle}
             >
               {wishlisted ? 'Remove from Wishlist' : 'Add to Wishlist'}
@@ -148,7 +150,7 @@ const ProductDetailPage: React.FC = () => {
 
           {/* Row 2: Add to Cart Button */}
           <button
-            className="text-white font-button font-normal px-4 py-2 rounded-full border border-yellow-400 hover:brightness-125 transition duration-200 w-full sm:w-[51%]"
+            className="text-black dark:text-white font-button font-normal px-4 py-2 rounded-full border border-yellow-400 hover:brightness-125 transition duration-200 w-full sm:w-[51%]"
             onClick={handleAddToCart}
           >
             Add to Cart

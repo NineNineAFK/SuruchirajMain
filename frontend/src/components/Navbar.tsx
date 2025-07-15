@@ -195,11 +195,12 @@ const Navbar: React.FC = () => {
         <div className="flex w-full items-center justify-between md:hidden px-2">
           {/* Logo - far left */}
           <Link to="/" className="block">
-            <img src="/logo.png" alt="Suruchiraj Logo" className="h-12 w-auto" />
+            <img src="/Logo.png" alt="Suruchiraj Logo" className="h-12 w-auto" />
           </Link>
 
           {/* Right-side icons */}
           <div className="flex items-center space-x-4 text-yellow-400 ml-auto">
+            <ThemeToggle />
             <AuthButton />
             <Link to="/wishlist" className="relative">
               <FiHeart className="text-xl text-red-500" />

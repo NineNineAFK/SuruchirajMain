@@ -43,8 +43,8 @@ const InternationalCuisine: React.FC = () => {
 
   return (
     <section id="cuisines" className="md:-mt-4 px-4 md:px-8 text-center relative font-heading -mt-7">
-      <h2 className="text-3xl md:text-4xl font-extrabold mb-4 md:mb-10 text-white">
-        International <span className="text-yellow-400">Cuisines</span>
+      <h2 className="text-3xl md:text-4xl font-extrabold mb-4 md:mb-10 text-black dark:text-white">
+        International <span className="text-yellow-500 dark:text-yellow-400">Cuisines</span>
       </h2>
 
       {/* ✅ MOBILE LAYOUT: Swiper Carousel View */}
@@ -57,7 +57,7 @@ const InternationalCuisine: React.FC = () => {
           <SwiperSlide key={index} style={{ width: '7rem' }}>
             <div
               onClick={() => handleCuisineClick(cuisine.label)}
-              className="relative h-36 w-30 bg-white/5 backdrop-blur-md rounded-2xl border border-white/10 shadow-lg cursor-pointer overflow-hidden"
+              className="relative h-36 w-30 bg-white/60 dark:bg-white/5 backdrop-blur-md rounded-2xl border border-black/10 dark:border-white/10 shadow-lg cursor-pointer overflow-hidden"
             >
               <div className="absolute -top-[6vw] -left-[5vw] w-[32vw] h-[32vw] rounded-full overflow-hidden">
                 <img
@@ -66,40 +66,40 @@ const InternationalCuisine: React.FC = () => {
                   className="w-full h-full object-cover"
                 />
               </div>
-              <div className="absolute bottom-[1.5vw] w-full text-end px-[1.5vw] text-[4vw] font-semibold text-white font-body">
+              <div className="absolute bottom-[1.5vw] w-full text-end px-[1.5vw] text-[4vw] font-semibold text-black dark:text-white font-body">
                 {cuisine.label}
               </div>
             </div>
           </SwiperSlide>
         ))}
       </Swiper>
+
       <div className="relative max-w-5xl mx-auto overflow-visible hidden md:block">
-      {/* ✅ DESKTOP LAYOUT: Swiper */}
-      <button
-        onClick={() => swiperRef.current?.slidePrev()}
-        disabled={isBeginning}
-        className={`hidden md:flex absolute -left-20 top-1/2 transform -translate-y-1/2 z-20 p-3 rounded-full transition ${
-          isBeginning
-            ? 'bg-white/10 text-gray-400 cursor-not-allowed'
-            : 'bg-white/20 text-white hover:bg-yellow-400 hover:text-black'
-        }`}
-      >
-        <FiChevronLeft className="text-2xl" />
-      </button>
+        {/* ✅ DESKTOP LAYOUT: Swiper */}
+        <button
+          onClick={() => swiperRef.current?.slidePrev()}
+          disabled={isBeginning}
+          className={`hidden md:flex absolute -left-20 top-1/2 transform -translate-y-1/2 z-20 p-3 rounded-full transition ${
+            isBeginning
+              ? 'bg-black/10 dark:bg-white/10 text-gray-400 cursor-not-allowed'
+              : 'bg-black/20 dark:bg-white/20 text-black dark:text-white hover:bg-yellow-400 hover:text-black'
+          }`}
+        >
+          <FiChevronLeft className="text-2xl" />
+        </button>
 
-      <button
-        onClick={() => swiperRef.current?.slideNext()}
-        disabled={isEnd}
-        className={`hidden md:flex absolute -right-20 top-1/2 transform -translate-y-1/2 z-20 p-3 rounded-full transition ${
-          isEnd
-            ? 'bg-white/10 text-gray-400 cursor-not-allowed'
-            : 'bg-white/20 text-white hover:bg-yellow-400 hover:text-black'
-        }`}
-      >
-        <FiChevronRight className="text-2xl" />
-      </button>
+        <button
+          onClick={() => swiperRef.current?.slideNext()}
+          disabled={isEnd}
+          className={`hidden md:flex absolute -right-20 top-1/2 transform -translate-y-1/2 z-20 p-3 rounded-full transition ${
+            isEnd
+              ? 'bg-black/10 dark:bg-white/10 text-gray-400 cursor-not-allowed'
+              : 'bg-black/20 dark:bg-white/20 text-black dark:text-white hover:bg-yellow-400 hover:text-black'
+          }`}
+        >
+          <FiChevronRight className="text-2xl" />
+        </button>
 
-      
         <Swiper
           onSwiper={(swiper: SwiperType) => {
             swiperRef.current = swiper;
@@ -128,7 +128,7 @@ const InternationalCuisine: React.FC = () => {
             >
               <div
                 onClick={() => handleCuisineClick(cuisine.label)}
-                className="relative cursor-pointer h-[240px] w-[180px] bg-transparent backdrop-blur-md rounded-3xl overflow-hidden shadow-lg transition-transform duration-300 hover:scale-[1.03] border border-white/10"
+                className="relative cursor-pointer h-[240px] w-[180px] bg-white/60 dark:bg-transparent backdrop-blur-md rounded-3xl overflow-hidden shadow-lg transition-transform duration-300 hover:scale-[1.03] border border-black/10 dark:border-white/10"
               >
                 <div className="absolute -top-6 -left-10 w-52 h-52 rounded-full overflow-hidden transition-all duration-300 hover:scale-105 hover:opacity-90">
                   <img
@@ -137,10 +137,10 @@ const InternationalCuisine: React.FC = () => {
                     className="w-full h-full object-cover"
                   />
                 </div>
-                <div className="absolute bottom-4 right-4 text-white text-lg font-semibold font-body text-right opacity-90">
+                <div className="absolute bottom-4 right-4 text-black dark:text-white text-lg font-semibold font-body text-right opacity-90">
                   {cuisine.label}
                 </div>
-                <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/5 to-white/10 pointer-events-none" />
+                <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 dark:via-white/5 to-white/20 dark:to-white/10 pointer-events-none" />
               </div>
             </SwiperSlide>
           ))}

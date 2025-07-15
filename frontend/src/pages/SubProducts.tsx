@@ -142,7 +142,7 @@ const SubProducts = () => {
     const term = searchTerm.toLowerCase();
     const nameMatch = product.product_name && product.product_name.toLowerCase().includes(term);
 
-    // Category filter (used for both categories and cuisines)
+    // Category filter
     let categoryMatch = true;
     if (selectedCategories.length > 0) {
       if (Array.isArray(product.category)) {
@@ -195,13 +195,13 @@ const SubProducts = () => {
   });
 
   return (
-    <div className="bg-black text-white min-h-screen px-4 py-6 sm:px-6 sm:py-8">
+    <div className="bg-white text-black dark:bg-black dark:text-white min-h-screen px-4 py-6 sm:px-6 sm:py-8">
       {/* Mobile Filter Toggle */}
       <div className="sm:hidden flex justify-between items-center mb-4">
-        <h1 className="text-2xl font-bold text-yellow-400">Products</h1>
+        <h1 className="text-2xl font-bold text-yellow-500 dark:text-yellow-400">Products</h1>
         <button
           onClick={() => setIsFilterOpen(true)}
-          className="text-white flex items-center space-x-1 text-sm border px-3 py-1 rounded-full"
+          className="flex items-center space-x-1 text-sm border border-black dark:border-white px-3 py-1 rounded-full"
         >
           <FiFilter />
           <span>Filters</span>
@@ -210,11 +210,11 @@ const SubProducts = () => {
 
       <div className="flex gap-6">
         {/* Sidebar (Desktop Only) */}
-        <aside className="w-60 bg-black text-white hidden sm:block">
-          <h2 className="text-2xl font-medium text-yellow-400 font-body mb-4">Filters</h2>
+        <aside className="w-60 dark:bg-black bg-white text-white hidden sm:block">
+          <h2 className="text-2xl font-medium text-black dark:text-yellow-400 font-body mb-4">Filters</h2>
           <div className="mb-6 font-body">
-            <h3 className="font-semibold font-heading text-xl mb-2">Quantity</h3>
-            <ul className="space-y-2 text-sm text-gray-300">
+            <h3 className="font-semibold font-heading text-black dark:text-white text-xl mb-2">Quantity</h3>
+            <ul className="space-y-2 text-sm text-gray-700 dark:text-gray-300">
               {safeFilterQuantities.map((safeQty) => {
                 if (typeof safeQty !== 'string' || !safeQty.length) return null;
                 return (
@@ -224,7 +224,7 @@ const SubProducts = () => {
                         type="checkbox"
                         checked={safeSelectedQuantities.includes(safeQty)}
                         onChange={() => handleQuantityChange(safeQty)}
-                          className="w-5 h-5 appearance-none border-2 border-yellow-400 rounded bg-black relative checked:bg-black checked:border-yellow-400 transition-colors duration-200 checked:after:content-['✓'] checked:after:text-yellow-400 checked:after:absolute checked:after:inset-0 checked:after:flex checked:after:items-center checked:after:justify-center checked:after:text-sm"
+                          className="w-5 h-5 appearance-none border-2 border-yellow-400 rounded bg-white dark:bg-black relative checked:bg-white checked:dark:bg-black checked:border-yellow-400 transition-colors duration-200 checked:after:content-['✓'] checked:after:text-yellow-400 checked:after:absolute checked:after:inset-0 checked:after:flex checked:after:items-center checked:after:justify-center checked:after:text-sm"
                         />
                       <span>{safeQty}</span>
                     </label>
@@ -234,8 +234,8 @@ const SubProducts = () => {
             </ul>
           </div>
           <div>
-            <h3 className="font-semibold font-heading text-xl mb-2">Category</h3>
-            <ul className="space-y-2 text-sm text-gray-300">
+            <h3 className="font-semibold font-heading text-black dark:text-white text-xl mb-2">Category</h3>
+            <ul className="space-y-2 text-sm text-gray-700 dark:text-gray-300">
               {filterCategories.map((cat) => (
                 <li key={cat}>
                   <label className="inline-flex items-center space-x-2">
@@ -243,7 +243,7 @@ const SubProducts = () => {
                       type="checkbox"
                       checked={selectedCategories.includes(cat)}
                       onChange={() => handleCategoryChange(cat)}
-                        className="w-5 h-5 appearance-none border-2 border-yellow-400 rounded bg-black relative checked:bg-black checked:border-yellow-400 transition-colors duration-200 checked:after:content-['✓'] checked:after:text-yellow-400 checked:after:absolute checked:after:inset-0 checked:after:flex checked:after:items-center checked:after:justify-center checked:after:text-sm"
+                        className="w-5 h-5 appearance-none border-2 border-yellow-400 rounded bg-white dark:bg-black relative checked:bg-white checked:dark:bg-black checked:border-yellow-400 transition-colors duration-200 checked:after:content-['✓'] checked:after:text-yellow-400 checked:after:absolute checked:after:inset-0 checked:after:flex checked:after:items-center checked:after:justify-center checked:after:text-sm"
                       />
                     <span>{cat}</span>
                   </label>
@@ -256,14 +256,14 @@ const SubProducts = () => {
         {/* Product Grid */}
         <main className="flex-1 font-body">
           <div className="hidden sm:flex justify-between items-center mb-6">
-            <h1 className="text-3xl font-bold font-heading text-white">Products</h1>
+            <h1 className="text-3xl font-bold font-heading dark:text-white text-black">Products</h1>
             <span className="text-sm text-white font-medium cursor-pointer">All Categories</span>
           </div>
 
           {loading ? (
-            <p className="text-white text-center">Loading products...</p>
+            <p className="text-black dark:text-gray-100  text-center">Loading products...</p>
           ) : filteredProducts.length === 0 ? (
-            <p className="text-gray-400 text-center mt-10">No products found.</p>
+            <p className="text-black dark:text-gray-100  text-center mt-10">No products found.</p>
           ) : (
             <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-5">
               {filteredProducts.map((product) => {
@@ -273,7 +273,8 @@ const SubProducts = () => {
                 return (
                   <Link to={`/product/${product._id}`} key={String(product._id)}>
                     <div
-                      className="bg-[#141414] rounded-2xl overflow-hidden relative group transition transform hover:-translate-y-1"
+                      className="bg-white dark:bg-[#141414] rounded-2xl overflow-hidden relative group transition transform hover:-translate-y-1 shadow border border-black/10 dark:border-white/10"
+
                     >
                       {/* Wishlist Icon */}
                       <div className="absolute top-3 right-3 z-10">
@@ -282,11 +283,11 @@ const SubProducts = () => {
                           className="text-white text-sm"
                         >
                           <FiHeart
-                            className={`text-lg transition ${
-                              isWishlisted(product._id)
-                                ? 'text-red-500 fill-red-500'
-                                : 'text-white'
-                            }`}
+                          className={`text-lg transition ${
+                            isWishlisted(product._id)
+                              ? 'text-red-500 fill-red-500'
+                              : 'text-black dark:text-white'
+                          }`}
                           />
                         </button>
                       </div>
@@ -299,17 +300,17 @@ const SubProducts = () => {
                       />
 
                       {/* Product Info */}
-                      <div className="p-3 pt-4 text-white bg-[#141414]">
+                      <div className="p-3 pt-4 dark:text-white text-black dark:bg-[#141414] bg-gray-100">
                         <h3 className="text-sm font-medium">{product.product_name}</h3>
                       <div className="flex items-center justify-between font-sans text-lg mt-1">
                         {/* Price on the left */}
                         {product.mrp && product.mrp.length > 0 && (
-                          <span className="font-semibold text-white">₹{product.mrp[0]}</span>
+                          <span className="font-semibold dark:text-white text-black">₹{product.mrp[0]}</span>
                         )}
 
                         {/* Weight on the right */}
                         {product.net_wt && product.net_wt.length > 0 && (
-                          <span className="text-sm text-gray-300">
+                          <span className="text-sm text-gray-500 dark:text-gray-300">
                             {String(product.net_wt[0]?.value ?? '')} {product.net_wt[0]?.unit ?? ''}
                           </span>
                         )}
@@ -363,7 +364,7 @@ const SubProducts = () => {
           onClick={() => setIsFilterOpen(false)}
         >
           <div
-            className="bg-black w-3/4 max-w-xs p-6 overflow-y-auto"
+            className="bg-white dark:bg-black w-3/4 max-w-xs p-6 overflow-y-auto text-black dark:text-white"
             onClick={(e) => e.stopPropagation()}
           >
             <div className="flex justify-between items-center mb-4">
@@ -390,7 +391,7 @@ const SubProducts = () => {
 
             <div className="mb-6 font-body">
               <h3 className="font-medium font-heading text-xl mb-2">Quantity</h3>
-              <ul className="space-y-2 text-sm text-gray-300 list-none pl-0">
+              <ul className="space-y-2 text-sm text-gray-700 dark:text-gray-300 list-none pl-0">
                 {safeFilterQuantities.map((safeQty) => {
                   if (typeof safeQty !== 'string' || !safeQty.length) return null;
                   return (
@@ -400,7 +401,7 @@ const SubProducts = () => {
                           type="checkbox"
                           checked={safeSelectedQuantities.includes(safeQty)}
                           onChange={() => handleQuantityChange(safeQty)}
-                          className="w-5 h-5 appearance-none border-2 border-yellow-400 rounded bg-black relative checked:bg-black checked:border-yellow-400 transition-colors duration-200 checked:after:content-['✓'] checked:after:text-yellow-400 checked:after:absolute checked:after:inset-0 checked:after:flex checked:after:items-center checked:after:justify-center checked:after:text-sm"
+                          className="w-5 h-5 appearance-none border-2 border-yellow-400 rounded bg-white dark:bg-black relative checked:bg-white checked:dark:bg-black checked:border-yellow-400 transition-colors duration-200 checked:after:content-['✓'] checked:after:text-yellow-400 checked:after:absolute checked:after:inset-0 checked:after:flex checked:after:items-center checked:after:justify-center checked:after:text-sm"
                         />
                         <span>{safeQty}</span>
                       </label>
@@ -413,7 +414,7 @@ const SubProducts = () => {
 
             <div>
               <h3 className="font-semibold font-heading text-xl mb-2">Category</h3>
-              <ul className="space-y-2 text-sm text-gray-300">
+              <ul className="space-y-2 text-sm text-gray-700 dark:text-gray-300">
                 {filterCategories.map((cat) => (
                   <li key={cat}>
                     <span
