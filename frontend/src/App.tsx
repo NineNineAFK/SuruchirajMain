@@ -74,9 +74,35 @@ const ConditionalNavbar: React.FC = () => {
 
 const HomePage: React.FC = () => {
   return (
-    <>
+    <div className="min-h-screen transition-colors duration-300">
+      {/* Light theme: white background */}
+      <div className="block dark:hidden bg-white text-black">
+        <HeroSection />
+
+        <section className="py-5">
+          <WhyChooseUs />
+        </section>
+
+        <section className="py-5">
+          <TopCategories />
+        </section>
+
+        <section className="py-5">
+          <TrendingMasalas />
+        </section>
+
+        <section className="py-5">
+          <InternationalCuisine />
+        </section>
+
+        <section className="py-5">
+          <Testimonials />
+        </section>
+      </div>
+
+      {/* Dark theme: background image */}
       <div
-        className="bg-fixed bg-cover bg-center"
+        className="hidden dark:block bg-fixed bg-cover bg-center text-white"
         style={{ backgroundImage: "url('/pink-blue.png')" }}
       >
         <div className="bg-black bg-opacity-50">
@@ -103,9 +129,10 @@ const HomePage: React.FC = () => {
           </section>
         </div>
       </div>
-    </>
+    </div>
   );
 };
+
 
 const App: React.FC = () => {
   const user = useRecoilValue(userInfoAtom);
@@ -115,7 +142,7 @@ const App: React.FC = () => {
         <LoginModalProvider>
           <CartProvider>
             <WishlistProvider>
-              <div className="font-sans text-gray-900">
+              <div className="min-h-screen bg-white text-black dark:bg-gray-900 dark:text-white transition-colors duration-300 font-sans">
                 <ConditionalNavbar />
                 <Toaster position="top-right" toastOptions={{ duration: 3000 }} />
                 <LoginModal />

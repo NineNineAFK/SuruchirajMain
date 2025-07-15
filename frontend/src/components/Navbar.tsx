@@ -14,6 +14,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useRecoilValue, useSetRecoilState } from 'recoil';
 import { authStateAtom, userInfoAtom, searchTermAtom } from '../state/state'; //  ✅ import searchTermAtom
 import { useWishlist } from '../context/WishlistContext';
+import ThemeToggle from '../components/ThemeToggle';
 
 const AuthButton = () => {
   const isLoggedIn = useRecoilValue(authStateAtom);
@@ -169,7 +170,7 @@ const Navbar: React.FC = () => {
     { name: 'Products', href: '/sub-products' },
     { name: 'Contact', href: 'contact-us' },
     { name: 'About Us', href: 'about-us' },
-    { name: 'Admin Users', href: '/admin/users' },
+    //{ name: 'Admin Users', href: '/admin/users' },
   ];
 
 
@@ -194,7 +195,7 @@ const Navbar: React.FC = () => {
         <div className="flex w-full items-center justify-between md:hidden px-2">
           {/* Logo - far left */}
           <Link to="/" className="block">
-            <img src="/Logo1.PNG" alt="Suruchiraj Logo" className="h-12 w-auto" />
+            <img src="/logo.png" alt="Suruchiraj Logo" className="h-12 w-auto" />
           </Link>
 
           {/* Right-side icons */}
@@ -232,7 +233,7 @@ const Navbar: React.FC = () => {
           <div className="hidden md:flex items-center justify-between w-full gap-32">
             {/* Left: Logo only */}
             <Link to="/" className="flex-shrink-0">
-              <img src="/Logo1.PNG" alt="Suruchiraj Logo" className="h-14 w-auto" />
+              <img src="/Logo.png" alt="Suruchiraj Logo" className="h-14 w-auto" />
             </Link>
 
             {/* Right: Everything else */}
@@ -270,6 +271,7 @@ const Navbar: React.FC = () => {
 
               {/* Auth + Wishlist + Cart */}
               <div className="flex items-center space-x-4">
+                <ThemeToggle />
                 <AuthButton />
                 <Link
                   to="/wishlist"
