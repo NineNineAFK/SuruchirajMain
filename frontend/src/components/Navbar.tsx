@@ -8,7 +8,7 @@ import {
 } from 'react-icons/fi';
 import { useCart } from '../context/CartContext';
 import { useLoginModal } from '../context/LoginModalContext';
-import clsx from 'clsx';
+//import clsx from 'clsx';
 import CartDrawer from './CartDrawer';
 import { Link, useNavigate } from 'react-router-dom';
 import { useRecoilValue, useSetRecoilState } from 'recoil';
@@ -67,7 +67,7 @@ const AuthButton = () => {
       </button>
 
       {dropdownOpen && (
-        <div className="absolute right-0 mt-2 w-60 bg-white text-black rounded-md shadow-md z-50 divide-y divide-gray-200 font-body">
+        <div className="absolute -right-8 md:right-0 mt-2 w-60 bg-white text-black rounded-md shadow-md z-50 divide-y divide-gray-200 font-body">
           <div className="flex items-center p-4">
             <img
               src={userData.photo || '/user.png'}
@@ -119,7 +119,7 @@ const AuthButton = () => {
 
 const Navbar: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const [scrolled, setScrolled] = useState(false);
+  //const [scrolled, setScrolled] = useState(false);
   const [isCartOpen, setIsCartOpen] = useState(false);
   const [placeholderIndex, setPlaceholderIndex] = useState(0);
   const { cart } = useCart();
@@ -174,11 +174,11 @@ const Navbar: React.FC = () => {
   ];
 
 
-  useEffect(() => {
-    const handleScroll = () => setScrolled(window.scrollY > 10);
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+  //useEffect(() => {
+    //const handleScroll = () => setScrolled(window.scrollY > 10);
+    //window.addEventListener('scroll', handleScroll);
+    //return () => window.removeEventListener('scroll', handleScroll);
+  //}, []);
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -189,17 +189,17 @@ const Navbar: React.FC = () => {
 
   return (
     <>
-      <header className={clsx('sticky top-0 z-50 bg-black transition-all duration-300', scrolled ? 'bg-black/50 backdrop-blur-md shadow-md' : 'bg-black')}>
-        <div className="container mx-auto px-4 py-2 flex items-center justify-between font-roboto font-semibold">
+      <header className="sticky top-0 z-50 bg-black transition-all duration-300">
+        <div className="container mx-auto px-3 py-2 flex items-center justify-between font-roboto font-semibold">
         {/* Mobile */}
-        <div className="flex w-full items-center justify-between md:hidden px-2">
+        <div className="flex w-full items-center justify-between lg:hidden px-2 md:px-0 py-1">
           {/* Logo - far left */}
           <Link to="/" className="block">
-            <img src="/Logo.png" alt="Suruchiraj Logo" className="h-12 w-auto" />
+            <img src="/Logo.png" alt="Suruchiraj Logo" className="h-12 md:h-14 w-auto" />
           </Link>
 
           {/* Right-side icons */}
-          <div className="flex items-center space-x-4 text-yellow-400 ml-auto">
+          <div className="flex items-center space-x-3.5 md:space-x-4 text-yellow-400 ml-auto">
             <ThemeToggle />
             <AuthButton />
             <Link to="/wishlist" className="relative">
@@ -231,7 +231,7 @@ const Navbar: React.FC = () => {
 
 
           {/* Desktop */}
-          <div className="hidden md:flex items-center justify-between w-full gap-32">
+          <div className="hidden lg:flex items-center justify-between w-full gap-4 md:gap-10 lg:gap-16 xl:gap-24 px-2 md:px-2 lg:px-4">
             {/* Left: Logo only */}
             <Link to="/" className="flex-shrink-0">
               <img src="/Logo.png" alt="Suruchiraj Logo" className="h-14 w-auto" />
@@ -304,7 +304,7 @@ const Navbar: React.FC = () => {
 
         </div>
         {isOpen && (
-          <div className="md:hidden px-4 pb-4 bg-black text-white">
+          <div className="lg:hidden px-4 pb-4 bg-black text-white">
             <nav className="flex flex-col space-y-2 mb-4">
               {navLinks.map((link) => (
                 <Link key={link.name} to={link.href} onClick={() => setIsOpen(false)} className="hover:text-red-500 transition duration-200">{link.name}</Link>
@@ -315,7 +315,7 @@ const Navbar: React.FC = () => {
       </header>
 
       {/* Mobile search */}
-      <div className="md:hidden bg-black px-4 pt-3 pb-4">
+      <div className="lg:hidden bg-black px-4 pt-3 pb-4">
         <div className="relative flex items-center">
           <div className="absolute left-3">
             <img src="search.png" alt="search" className="w-6 h-6" />

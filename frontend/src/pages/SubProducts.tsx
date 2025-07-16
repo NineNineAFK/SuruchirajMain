@@ -265,7 +265,7 @@ const SubProducts = () => {
           ) : filteredProducts.length === 0 ? (
             <p className="text-black dark:text-gray-100  text-center mt-10">No products found.</p>
           ) : (
-            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-5">
+            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-3 lg:grid-cols-4 gap-5">
               {filteredProducts.map((product) => {
                 const cartItem = cart.find(item => item.productName === product.product_name);
                 const quantity = cartItem?.quantity || 0;

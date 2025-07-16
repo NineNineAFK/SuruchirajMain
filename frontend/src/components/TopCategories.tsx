@@ -118,7 +118,7 @@ const TopCategories: React.FC = () => {
           modules={[Navigation, Pagination]}
           breakpoints={{
             0: { slidesPerView: 2 },
-            640: { slidesPerView: 2 },
+            640: { slidesPerView: 4 },
             1024: { slidesPerView: 5 },
           }}
           className="pb-10"

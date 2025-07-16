@@ -89,32 +89,32 @@ const TrendingMasalas: React.FC = () => {
       <h2 className="text-3xl md:text-4xl font-extrabold mb-4 md:mb-10 text-black dark:text-white">
         Trending <span className="text-yellow-400">Masalas</span>
       </h2>
-
-      {/* Navigation Buttons - Desktop Only */}
-      <button
-        onClick={() => swiperRef.current?.slidePrev()}
-        disabled={isBeginning}
-        className={`hidden md:flex absolute left-1 top-1/2 transform -translate-y-1/2 z-20 p-3 rounded-full transition ${
-          isBeginning
-            ? 'bg-white/10 text-gray-400 cursor-not-allowed'
-            : 'bg-white/20 text-black dark:text-white hover:bg-yellow-400 hover:text-black'
-        }`}
-      >
-        <FiChevronLeft className="text-2xl" />
-      </button>
-      <button
-        onClick={() => swiperRef.current?.slideNext()}
-        disabled={isEnd}
-        className={`hidden md:flex absolute right-1 top-1/2 transform -translate-y-1/2 z-20 p-3 rounded-full transition ${
-          isEnd
-            ? 'bg-white/10 text-gray-400 cursor-not-allowed'
-            : 'bg-white/20 text-black dark:text-white hover:bg-yellow-400 hover:text-black'
-        }`}
-      >
-        <FiChevronRight className="text-2xl" />
-      </button>
-
       <div className="relative max-w-6xl mx-auto overflow-visible">
+      {/* Navigation Buttons - Desktop Only */}
+        <button
+          onClick={() => swiperRef.current?.slidePrev()}
+          disabled={isBeginning}
+          className={`hidden md:flex absolute -left-14 top-1/2 transform -translate-y-1/2 z-20 p-3 rounded-full transition ${
+            isBeginning
+              ? 'bg-gray-200 dark:bg-white/10 text-gray-400 cursor-not-allowed'
+              : 'bg-gray-100 dark:bg-white/20 text-black dark:text-white hover:bg-yellow-400 hover:text-black'
+          }`}
+        >
+          <FiChevronLeft className="text-2xl" />
+        </button>
+        <button
+          onClick={() => swiperRef.current?.slideNext()}
+          disabled={isEnd}
+          className={`hidden md:flex absolute -right-14 top-1/2 transform -translate-y-1/2 z-20 p-3 rounded-full transition ${
+            isEnd
+              ? 'bg-gray-200 dark:bg-white/10 text-gray-400 cursor-not-allowed'
+              : 'bg-gray-100 dark:bg-white/20 text-black dark:text-white hover:bg-yellow-400 hover:text-black'
+          }`}
+        >
+          <FiChevronRight className="text-2xl" />
+        </button>
+
+      
         <Swiper
           onSwiper={(swiper: SwiperType) => {
             swiperRef.current = swiper;

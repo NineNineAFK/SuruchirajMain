@@ -230,7 +230,7 @@ const Profile: React.FC = () => {
                 <img
                   src={user.profilePicture || user.photo || '/user.png'}
                   alt="Profile"
-                  className="w-24 h-24 rounded-full object-cover"
+                  className="w-16 h-16 md:w-24 md:h-24 rounded-full object-cover"
                 />
                 <button
                   onClick={() => {
@@ -239,13 +239,13 @@ const Profile: React.FC = () => {
                   }}
                   className="absolute bottom-0 right-0 bg-yellow-500 text-white p-2 rounded-full hover:bg-yellow-700 transition-colors"
                 >
-                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <svg className="w-2 h-2 md:h-4 md:w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
                   </svg>
                 </button>
               </div>
               <div>
-                <h2 className="text-3xl font-semibold font-heading dark:text-gray-200 text-black">{user.name}</h2>
+                <h2 className="text-xl md:text-3xl font-semibold font-heading dark:text-gray-200 text-black">{user.name}</h2>
                 <p className="dark:text-gray-200 text-black font-sans">{user.email}</p>
               </div>
             </div>

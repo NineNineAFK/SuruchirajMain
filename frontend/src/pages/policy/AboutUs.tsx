@@ -8,7 +8,7 @@ const AboutUs: React.FC = () => {
       <div className="max-w-7xl mx-auto space-y-16">
 
         {/* --- About Us Title --- */}
-        <h1 className="text-left text-3xl sm:text-5xl font-heading font-bold mb-5">
+        <h1 className="text-left text-4xl sm:text-5xl font-heading font-bold mb-5">
           About <span className="text-yellow-600 dark:text-yellow-400">us</span>
         </h1>
 
