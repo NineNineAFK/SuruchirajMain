@@ -195,10 +195,10 @@ const SubProducts = () => {
   });
 
   return (
-    <div className="bg-white text-black dark:bg-black dark:text-white min-h-screen px-4 py-6 sm:px-6 sm:py-8">
+    <div className="bg-east-side-100 text-black dark:bg-black dark:text-white min-h-screen px-4 py-6 sm:px-6 sm:py-8">
       {/* Mobile Filter Toggle */}
       <div className="sm:hidden flex justify-between items-center mb-4">
-        <h1 className="text-2xl font-bold text-yellow-500 dark:text-yellow-400">Products</h1>
+        <h1 className="text-3xl font-semibold font-heading text-black dark:text-white">Products</h1>
         <button
           onClick={() => setIsFilterOpen(true)}
           className="flex items-center space-x-1 text-sm border border-black dark:border-white px-3 py-1 rounded-full"
@@ -210,7 +210,7 @@ const SubProducts = () => {
 
       <div className="flex gap-6">
         {/* Sidebar (Desktop Only) */}
-        <aside className="w-60 dark:bg-black bg-white text-white hidden sm:block">
+        <aside className="w-60 dark:bg-black bg-east-side-100 text-white hidden sm:block">
           <h2 className="text-2xl font-medium text-black dark:text-yellow-400 font-body mb-4">Filters</h2>
           <div className="mb-6 font-body">
             <h3 className="font-semibold font-heading text-black dark:text-white text-xl mb-2">Quantity</h3>
@@ -224,7 +224,7 @@ const SubProducts = () => {
                         type="checkbox"
                         checked={safeSelectedQuantities.includes(safeQty)}
                         onChange={() => handleQuantityChange(safeQty)}
-                          className="w-5 h-5 appearance-none border-2 border-yellow-400 rounded bg-white dark:bg-black relative checked:bg-white checked:dark:bg-black checked:border-yellow-400 transition-colors duration-200 checked:after:content-['✓'] checked:after:text-yellow-400 checked:after:absolute checked:after:inset-0 checked:after:flex checked:after:items-center checked:after:justify-center checked:after:text-sm"
+                          className="w-5 h-5 appearance-none border-2 border-yellow-400 rounded bg-east-side-100 dark:bg-black relative checked:bg-east-side-100 checked:dark:bg-black checked:border-yellow-400 transition-colors duration-200 checked:after:content-['✓'] checked:after:text-yellow-400 checked:after:absolute checked:after:inset-0 checked:after:flex checked:after:items-center checked:after:justify-center checked:after:text-sm"
                         />
                       <span>{safeQty}</span>
                     </label>
@@ -243,7 +243,7 @@ const SubProducts = () => {
                       type="checkbox"
                       checked={selectedCategories.includes(cat)}
                       onChange={() => handleCategoryChange(cat)}
-                        className="w-5 h-5 appearance-none border-2 border-yellow-400 rounded bg-white dark:bg-black relative checked:bg-white checked:dark:bg-black checked:border-yellow-400 transition-colors duration-200 checked:after:content-['✓'] checked:after:text-yellow-400 checked:after:absolute checked:after:inset-0 checked:after:flex checked:after:items-center checked:after:justify-center checked:after:text-sm"
+                        className="w-5 h-5 appearance-none border-2 border-yellow-400 rounded bg-east-side-100 dark:bg-black relative checked:bg-east-side-100 checked:dark:bg-black checked:border-yellow-400 transition-colors duration-200 checked:after:content-['✓'] checked:after:text-yellow-400 checked:after:absolute checked:after:inset-0 checked:after:flex checked:after:items-center checked:after:justify-center checked:after:text-sm"
                       />
                     <span>{cat}</span>
                   </label>
@@ -257,7 +257,7 @@ const SubProducts = () => {
         <main className="flex-1 font-body">
           <div className="hidden sm:flex justify-between items-center mb-6">
             <h1 className="text-3xl font-bold font-heading dark:text-white text-black">Products</h1>
-            <span className="text-sm text-white font-medium cursor-pointer">All Categories</span>
+            <span className="text-sm dark:text-white text-gray-600 font-medium">All Categories</span>
           </div>
 
           {loading ? (
@@ -273,8 +273,8 @@ const SubProducts = () => {
                 return (
                   <Link to={`/product/${product._id}`} key={String(product._id)}>
                     <div
-                      className="bg-white dark:bg-[#141414] rounded-2xl overflow-hidden relative group transition transform hover:-translate-y-1 shadow border border-black/10 dark:border-white/10"
-
+                      className="bg-white dark:bg-[#141414] rounded-2xl overflow-hidden relative group transition transform hover:-translate-y-1 shadow border border-black/10 dark:border-white/10
+                      flex flex-col justify-between h-[320px] sm:h-[340px]"
                     >
                       {/* Wishlist Icon */}
                       <div className="absolute top-3 right-3 z-10">
@@ -364,7 +364,7 @@ const SubProducts = () => {
           onClick={() => setIsFilterOpen(false)}
         >
           <div
-            className="bg-white dark:bg-black w-3/4 max-w-xs p-6 overflow-y-auto text-black dark:text-white"
+            className="bg-east-side-100 dark:bg-black w-3/4 max-w-xs p-6 overflow-y-auto text-black dark:text-white"
             onClick={(e) => e.stopPropagation()}
           >
             <div className="flex justify-between items-center mb-4">
@@ -401,7 +401,7 @@ const SubProducts = () => {
                           type="checkbox"
                           checked={safeSelectedQuantities.includes(safeQty)}
                           onChange={() => handleQuantityChange(safeQty)}
-                          className="w-5 h-5 appearance-none border-2 border-yellow-400 rounded bg-white dark:bg-black relative checked:bg-white checked:dark:bg-black checked:border-yellow-400 transition-colors duration-200 checked:after:content-['✓'] checked:after:text-yellow-400 checked:after:absolute checked:after:inset-0 checked:after:flex checked:after:items-center checked:after:justify-center checked:after:text-sm"
+                          className="w-5 h-5 appearance-none border-2 border-yellow-400 rounded bg-east-side-100 dark:bg-black relative checked:bg-east-side-100 checked:dark:bg-black checked:border-yellow-400 transition-colors duration-200 checked:after:content-['✓'] checked:after:text-yellow-400 checked:after:absolute checked:after:inset-0 checked:after:flex checked:after:items-center checked:after:justify-center checked:after:text-sm"
                         />
                         <span>{safeQty}</span>
                       </label>

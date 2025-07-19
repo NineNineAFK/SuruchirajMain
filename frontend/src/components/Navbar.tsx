@@ -54,7 +54,7 @@ const AuthButton = () => {
           <img
             src={userData.photo}
             alt="avatar"
-            className="w-8 h-8 rounded-full object-cover"
+            className="w-8 h-8 ml-1 sm:ml-0 rounded-full object-cover"
           />
         ) : (
           <div className="w-8 h-8 bg-gray-600 rounded-full flex items-center justify-center">

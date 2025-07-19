@@ -113,7 +113,7 @@ const Testimonials: React.FC = () => {
   return (
     <section className="md:-mt-1 px-4 md:px-8 text-center relative font-heading">
     <h2 className="text-3xl md:text-4xl font-extrabold mb-4 md:mb-10 text-black dark:text-white">
-      What Our <span className="text-yellow-500 dark:text-yellow-400">Customers Say</span>
+      What Our <span className="text-east-side-900 dark:text-yellow-400">Customers Say</span>
     </h2>
 
 
@@ -122,14 +122,14 @@ const Testimonials: React.FC = () => {
         {/* Navigation Arrows */}
         <button
           onClick={() => swiperRef.current?.slidePrev()}
-          className="absolute -left-14 top-1/2 transform -translate-y-1/2 z-20 bg-white/20 text-black dark:text-white p-3 rounded-full hover:bg-yellow-400 hover:text-black transition"
+          className="absolute -left-14 top-1/2 transform -translate-y-1/2 z-20 bg-gray-100 dark:bg-white/20 text-black dark:text-white hover:bg-yellow-400 hover:text-black p-3 rounded-full transition"
         >
           <FiChevronLeft className="text-2xl" />
         </button>
 
         <button
           onClick={() => swiperRef.current?.slideNext()}
-          className="absolute -right-14 top-1/2 transform -translate-y-1/2 z-20 bg-white/20 text-black dark:text-white p-3 rounded-full hover:bg-yellow-400 hover:text-black transition"
+          className="absolute -right-14 top-1/2 transform -translate-y-1/2 z-20 bg-gray-100 dark:bg-white/20 text-black dark:text-white hover:bg-yellow-400 hover:text-black p-3 rounded-full transition"
         >
           <FiChevronRight className="text-2xl" />
         </button>
@@ -156,8 +156,8 @@ const Testimonials: React.FC = () => {
           coverflowEffect={{
             rotate: 0,
             stretch: 0,
-            depth: 150,
-            modifier: 2,
+            depth: 100,
+            //modifier: 1,
             slideShadows: false,
           }}
           pagination={{ clickable: true }}
@@ -174,8 +174,8 @@ const Testimonials: React.FC = () => {
                    shadow-[0_0_10px_rgba(0,0,0,0.1)] dark:shadow-[0_0_10px_rgba(255,255,255,0.3)] transition-all duration-5000
                   ${
                     isActive
-                      ? 'bg-gray-200 dark:bg-gradient-to-br dark:from-[#2e0545] dark:to-[#541d7a] backdrop-blur-lg'
-                      : 'bg-white/10 backdrop-blur-md blur-[5px] opacity-50 scale-[0.95]'
+                      ? 'bg-east-side-600 dark:bg-gradient-to-br dark:from-[#2e0545] dark:to-[#541d7a] backdrop-blur-lg'
+                      : 'bg-east-side-600/50 backdrop-blur-md blur-[5px] opacity-50 scale-[0.95]'
                   }`}
               >
                 <div>
@@ -194,7 +194,7 @@ const Testimonials: React.FC = () => {
                     />
                     <div>
                       <p className="text-sm font-semibold ml-2 font-body">{t.name}</p>
-                      <p className="text-sm dark:text-gray-300 text-gray-500 ml-2 font-body">{t.company}</p>
+                      <p className="text-sm dark:text-gray-300 text-gray-900 ml-2 font-body">{t.company}</p>
                       <div className="flex space-x-1 mt-1 ml-2">
                         {[...Array(5)].map((_, i) => (
                           <AiFillStar
@@ -226,7 +226,7 @@ const Testimonials: React.FC = () => {
         >
           {testimonials.map((t) => (
             <SwiperSlide key={t.id}>
-              <div className="bg-white/60 dark:bg-white/10 text-black dark:text-white border border-black/10 dark:border-white/20 p-4 rounded-[40px] shadow-md backdrop-blur-md">
+              <div className="bg-east-side-600 dark:bg-white/10 text-black dark:text-white border border-black/10 dark:border-white/20 p-4 rounded-[40px] shadow-md backdrop-blur-md">
                 <div className="text-4xl mb-2 mt-4 ml-4 text-left text-yellow-400 leading-none font-body">❝</div>
                 <p className="text-base leading-relaxed whitespace-pre-line font-body">{t.text}</p>
                 <div className="flex items-center gap-3 mt-4">

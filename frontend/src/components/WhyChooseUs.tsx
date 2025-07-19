@@ -37,12 +37,12 @@ const WhyChooseUs: React.FC = () => {
     <section className="px-4 md:px-8 md:mt-10 text-center relative font-heading">
       {/* Section Title */}
       <h2 className="text-3xl md:text-4xl font-extrabold mb-4 md:mb-10 text-black dark:text-white">
-        Why <span className="text-yellow-500 dark:text-yellow-400">Choose Us</span>
+        Why <span className="text-east-side-900 dark:text-yellow-400">Choose Us</span>
       </h2>
 
       {/* 🖥️ Desktop Layout */}
       <div className="hidden md:flex max-w-4xl mx-auto relative">
-        <div className="flex backdrop-blur-md rounded-3xl p-6 md:p-5 items-center justify-between gap-4 border border-black/10 dark:border-white/20 shadow-md dark:shadow-[0_0_10px_rgba(255,255,255,0.3)] bg-white/60 dark:bg-transparent w-full z-10">
+        <div className="flex backdrop-blur-md rounded-3xl p-6 md:p-5 items-center justify-between gap-4 border border-black/10 dark:border-white/20 shadow-md dark:shadow-[0_0_10px_rgba(255,255,255,0.3)] bg-east-side-500 dark:bg-transparent w-full z-10">
           {features.map((feature, index) => (
             <div
               key={index}
@@ -70,7 +70,7 @@ const WhyChooseUs: React.FC = () => {
             />
 
             <div
-              className="absolute top-1/2 left-1/2 z-40 transform -translate-x-1/2 -translate-y-1/2 bg-white/90 dark:bg-white/20 backdrop-blur-md border border-black/10 dark:border-white/30 shadow-md dark:shadow-yellow-400/40 w-[60%] p-6 rounded-2xl text-black dark:text-white flex flex-col items-center transition-all duration-300 cursor-pointer"
+              className="absolute top-1/2 left-1/2 z-40 transform -translate-x-1/2 -translate-y-1/2 bg-east-side-500 dark:bg-white/20 backdrop-blur-md border border-black/10 dark:border-white/30 shadow-md dark:shadow-yellow-400/40 w-[60%] p-6 rounded-2xl text-black dark:text-white flex flex-col items-center transition-all duration-300 cursor-pointer"
               onClick={() => setActiveIndex(null)}
             >
               <button
@@ -78,14 +78,14 @@ const WhyChooseUs: React.FC = () => {
                   e.stopPropagation();
                   setActiveIndex(null);
                 }}
-                className="absolute top-2 right-2 text-black dark:text-white text-lg"
+                className="absolute top-2 right-2 text-white dark:text-white text-lg"
               >
                 <FiX />
               </button>
 
               <img
                 src={features[activeIndex].icon}
-                className="h-24 w-24 object-contain mb-3"
+                className="h-24 w-24 object-contain mb-3 filter invert dark:filter-none"
                 alt={features[activeIndex].text}
               />
               <p className="text-lg font-body font-semibold text-center">
@@ -110,8 +110,8 @@ const WhyChooseUs: React.FC = () => {
               onClick={() => setActiveIndex(isActive ? null : index)}
               className={`flex flex-col items-center justify-center text-black dark:text-white border border-black/10 dark:border-white/20 rounded-2xl backdrop-blur-md transition-all duration-300 cursor-pointer overflow-hidden ${
                 isActive
-                  ? 'absolute top-1/2 left-1/2 z-50 transform -translate-x-1/2 -translate-y-1/2 bg-white/90 dark:bg-white/20 shadow-md dark:shadow-yellow-400/40 w-[90%] p-6'
-                  : 'p-4 bg-white/50 dark:bg-white/10 shadow-sm dark:shadow-[0_0_10px_rgba(255,255,255,0.2)]'
+                  ? 'absolute top-1/2 left-1/2 z-50 transform -translate-x-1/2 -translate-y-1/2 bg-east-side-500/50 dark:bg-white/20 shadow-md dark:shadow-yellow-400/40 w-[90%] p-6'
+                  : 'p-4 bg-east-side-500 dark:bg-white/10 shadow-sm dark:shadow-[0_0_10px_rgba(255,255,255,0.2)]'
               }`}
             >
               {isActive && (
@@ -128,7 +128,7 @@ const WhyChooseUs: React.FC = () => {
 
               <img
                 src={feature.icon}
-                className={`object-contain mb-3 transition-all duration-300 ${
+                className={`object-contain mb-3 transition-all duration-300 filter invert dark:filter-none ${
                   isActive ? 'h-24 w-24' : 'h-16 w-16'
                 }`}
                 alt={feature.text}

@@ -46,7 +46,7 @@ const TopCategories: React.FC = () => {
   return (
     <section id="categories" className="md:mt-8 px-4 md:px-8 text-center relative font-heading">
       <h2 className="text-3xl md:text-4xl font-extrabold mb-4 md:mb-10 text-black dark:text-white">
-        Top <span className="text-yellow-500 dark:text-yellow-400">Categories</span>
+        Top <span className="text-east-side-900 dark:text-yellow-400">Categories</span>
       </h2>
 
       {/* ✅ MOBILE LAYOUT */}
@@ -59,7 +59,7 @@ const TopCategories: React.FC = () => {
           <SwiperSlide key={index} style={{ width: '7rem' }}>
             <div
               onClick={() => handleCategoryClick(category.label)}
-              className="relative h-36 w-30 bg-white/60 dark:bg-white/5 backdrop-blur-md rounded-2xl border border-black/10 dark:border-white/10 shadow-md cursor-pointer overflow-hidden"
+              className="relative h-36 w-30 bg-palegold dark:bg-white/5 backdrop-blur-md rounded-2xl border border-black/10 dark:border-white/10 shadow-md cursor-pointer overflow-hidden"
             >
               <div className="absolute -top-[6vw] -left-[5vw] w-[32vw] h-[32vw] rounded-full overflow-hidden">
                 <img
@@ -130,7 +130,7 @@ const TopCategories: React.FC = () => {
             >
               <div
                 onClick={() => handleCategoryClick(category.label)}
-                className="relative cursor-pointer h-[240px] w-[180px] bg-white/60 dark:bg-transparent backdrop-blur-md rounded-3xl overflow-hidden shadow-md border border-black/10 dark:border-white/10"
+                className="relative cursor-pointer h-[240px] w-[180px] bg-palegold dark:bg-transparent backdrop-blur-md rounded-3xl overflow-hidden shadow-md border border-black/10 dark:border-white/10"
               >
                 <div className="absolute -top-6 -left-10 w-52 h-52 rounded-full overflow-hidden transition-all duration-300 hover:scale-105 hover:opacity-90">
                   <img

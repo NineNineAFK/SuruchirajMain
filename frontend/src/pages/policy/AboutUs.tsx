@@ -4,19 +4,19 @@ import { FiMapPin, FiPhone, FiMail } from 'react-icons/fi';
 
 const AboutUs: React.FC = () => {
   return (
-    <div className="bg-white dark:bg-black text-black dark:text-white min-h-screen transition-colors duration-300 py-10 px-6 sm:px-10 lg:px-20 font-body">
+    <div className="bg-east-side-100 dark:bg-black text-black dark:text-white min-h-screen transition-colors duration-300 py-10 px-6 sm:px-10 lg:px-20 font-body">
       <div className="max-w-7xl mx-auto space-y-16">
 
         {/* --- About Us Title --- */}
         <h1 className="text-left text-4xl sm:text-5xl font-heading font-bold mb-5">
-          About <span className="text-yellow-600 dark:text-yellow-400">us</span>
+          About <span className="text-east-side-900 dark:text-yellow-400">Us</span>
         </h1>
 
         {/* --- Who Are We Section --- */}
         <section className="flex flex-col lg:flex-row items-center gap-8 lg:gap-0">
           {/* Image */}
           <div className="relative w-full lg:w-1/2">
-            <div className="border-l-[16px] border-b-[16px] border-yellow-600 dark:border-yellow-400 w-fit">
+            <div className="border-l-[16px] border-b-[16px] border-east-side-900 dark:border-yellow-400 w-fit">
               <img
                 src="spices.png"
                 alt="Spice jars"
@@ -28,7 +28,7 @@ const AboutUs: React.FC = () => {
           {/* Text */}
           <div className="w-full lg:w-1/2 space-y-4">
             <h2 className="text-2xl sm:text-3xl font-body font-bold">
-              Who Are <span className="text-yellow-600 dark:text-yellow-400">We</span>
+              Who Are <span className="text-east-side-900 dark:text-yellow-400">We</span>
             </h2>
             <p className="text-gray-700 dark:text-gray-300 leading-relaxed">
               We are Suruchiraj Spices – a family-driven Indian brand dedicated to delivering pure,
@@ -46,7 +46,7 @@ const AboutUs: React.FC = () => {
         {/* --- Meet Our Team --- */}
         <section className="space-y-8">
           <h2 className="text-left text-3xl sm:text-4xl font-bold">
-            Meet our <span className="text-yellow-600 dark:text-yellow-400">team</span>
+            Meet our <span className="text-east-side-900 dark:text-yellow-400">team</span>
           </h2>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -115,18 +115,18 @@ const AboutUs: React.FC = () => {
         {/* --- Contact Section --- */}
         <section className="space-y-3">
           <h3 className="text-2xl font-semibold">
-            Connect With <span className="text-yellow-600 dark:text-yellow-400">Us</span>
+            Connect With <span className="text-east-side-900 dark:text-yellow-400">Us</span>
           </h3>
           <div className="text-gray-700 dark:text-gray-300 space-y-2">
             <p className="flex items-start gap-2">
-              <FiMapPin className="text-yellow-600 dark:text-yellow-400 mt-1" />
+              <FiMapPin className="text-east-side-900 dark:text-yellow-400 mt-1" />
               Suruchiraj Spices, Sarala Roses, Someshwarwadi Road, Near Hotel Rajwada, Pashan, Pune, Maharashtra 411008
             </p>
             <p className="flex items-center gap-2">
-              <FiPhone className="text-yellow-600 dark:text-yellow-400" /><span className="font-sans">9867604406</span>
+              <FiPhone className="text-east-side-900 dark:text-yellow-400" /><span className="font-sans">9867604406</span>
             </p>
             <p className="flex items-center gap-2">
-              <FiMail className="text-yellow-600 dark:text-yellow-400" /> support@suruchiraj.com
+              <FiMail className="text-east-side-900 dark:text-yellow-400" /> support@suruchiraj.com
             </p>
             <p className="text-sm text-gray-500 italic dark:text-gray-400">Website: www.suruchiraj.com</p>
           </div>

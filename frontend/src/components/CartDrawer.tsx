@@ -53,14 +53,14 @@ const CartDrawer: React.FC<CartDrawerProps> = ({ isOpen, onClose }) => {
 
   return (
     <div
-      className={`fixed top-0 right-0 h-full w-full sm:w-[400px] bg-white text-black dark:bg-black dark:text-white z-50 transform transition-transform duration-300 ${
+      className={`fixed top-0 right-0 h-full w-full sm:w-[400px] bg-east-side-100 text-black dark:bg-black dark:text-white z-50 transform transition-transform duration-300 ${
         isOpen ? 'translate-x-0' : 'translate-x-full'
       } flex flex-col`}
     >
       {/* Header */}
       <div className="flex items-center font-body justify-between px-4 py-3 border-b border-black/10 dark:border-white/10">
         <h2 className="text-2xl font-semibold">
-          <span className="dark:text-white text-black">Your</span> <span className="text-yellow-400">Cart</span>
+          <span className="dark:text-white text-black">Your</span> <span className="text-east-side-900 dark:text-yellow-400">Cart</span>
         </h2>
         <button onClick={onClose}>
           <FiX className="dark:text-white text-black text-2xl hover:text-yellow-400" />
@@ -77,6 +77,7 @@ const CartDrawer: React.FC<CartDrawerProps> = ({ isOpen, onClose }) => {
 
       {/* Delivery Info */}
       <div className="flex items-center gap-2 px-4 py-3 text-sm font-body text-black dark:text-white border-b border-black/10 dark:border-white/10">
+        <FiClock className="text-yellow-400" />
         <span>Delivery in 3 - 5 days</span>
       </div>
 

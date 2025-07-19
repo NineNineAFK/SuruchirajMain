@@ -76,7 +76,7 @@ const HomePage: React.FC = () => {
   return (
     <div className="min-h-screen transition-colors duration-300">
       {/* Light theme: white background */}
-      <div className="block dark:hidden bg-white text-black">
+      <div className="block dark:hidden bg-east-side-100 text-black">
         <HeroSection />
 
         <section className="py-5">
@@ -129,6 +129,20 @@ const HomePage: React.FC = () => {
           </section>
         </div>
       </div>
+
+      {/* ✅ WhatsApp Floating Button */}
+      <a
+        href="https://wa.me/918390369630"
+        className="fixed bottom-10 right-10 z-50 bg-white p-0 rounded-full shadow-lg hover:scale-110 transition-transform"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        <img
+          src="/whatsapp-icon.svg"
+          alt="WhatsApp"
+          className="w-10 h-10"
+        />
+      </a>
     </div>
   );
 };
