@@ -189,7 +189,7 @@ const Navbar: React.FC = () => {
 
   return (
     <>
-      <header className="sticky top-0 z-50 bg-black transition-all duration-300">
+      <header className="sticky top-0 z-50 bg-east-side-900 dark:bg-black transition-all duration-300">
         <div className="container mx-auto px-3 py-2 flex items-center justify-between font-roboto font-semibold">
         {/* Mobile */}
         <div className="flex w-full items-center justify-between lg:hidden px-2 md:px-0 py-1">
@@ -315,7 +315,7 @@ const Navbar: React.FC = () => {
       </header>
 
       {/* Mobile search */}
-      <div className="lg:hidden bg-black px-4 pt-3 pb-4">
+      <div className="lg:hidden bg-east-side-950 dark:bg-black px-4 pt-3 pb-4">
         <div className="relative flex items-center">
           <div className="absolute left-3">
             <img src="search.png" alt="search" className="w-6 h-6" />

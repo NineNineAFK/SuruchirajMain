@@ -152,7 +152,8 @@ const Testimonials: React.FC = () => {
             loop
             autoplay={{
               delay: 2000,
-              disableOnInteraction: true,
+              disableOnInteraction: false,
+              pauseOnMouseEnter: true,
             }}
             breakpoints={{
               1024: { slidesPerView: 3, spaceBetween: 90 },

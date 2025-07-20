@@ -47,7 +47,7 @@ const WhyChooseUs: React.FC = () => {
             <div
               key={index}
               onClick={() => setActiveIndex(index)}
-              className="flex flex-col items-center text-black dark:text-white w-full md:w-1/4 font-body cursor-pointer"
+              className="flex flex-col items-center text-white dark:text-white w-full md:w-1/4 font-body cursor-pointer"
             >
               <img
                 src={feature.icon}
