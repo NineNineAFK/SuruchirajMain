@@ -14,7 +14,8 @@ const addProduct = async (req, res) => {
             recipe,
             nutritionValue,
             fileName,
-            originalName
+            originalName,
+            stock
         } = req.body;
 
         // Validate required fields
@@ -44,7 +45,8 @@ const addProduct = async (req, res) => {
                 sugar: Number(sugar)
             },
             fileName: fileName || 'default.jpg',
-            originalName: originalName || 'default.jpg'
+            originalName: originalName || 'default.jpg',
+            stock: stock || 0
         });
 
         const savedProduct = await product.save();

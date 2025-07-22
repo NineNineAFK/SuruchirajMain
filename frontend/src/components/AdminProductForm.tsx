@@ -32,6 +32,7 @@ const emptyForm: ProductFormData = {
   category: [''],
   why_you_will_love_it: [''],
   images: [],
+  stock: 0,
 };
 
 const AdminProductForm: React.FC<AdminProductFormProps> = ({ product, onSuccess, onCancel }) => {
@@ -60,6 +61,7 @@ const AdminProductForm: React.FC<AdminProductFormProps> = ({ product, onSuccess,
         category: product.category || [''],
         why_you_will_love_it: product.why_you_will_love_it || [''],
         images: product.images || [],
+        stock: product.stock || 0,
       });
     } else {
       setFormData(emptyForm);
@@ -412,6 +414,18 @@ const AdminProductForm: React.FC<AdminProductFormProps> = ({ product, onSuccess,
               ))}
             </ul>
           )}
+        </div>
+        {/* Stock */}
+        <div>
+          <label className="block text-sm font-medium text-gray-700 mb-2">Stock (grams)</label>
+          <input
+            type="number"
+            name="stock"
+            value={formData.stock}
+            onChange={handleInputChange}
+            min={0}
+            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+          />
         </div>
         {/* Form Actions */}
         <div className="flex gap-4 pt-6">

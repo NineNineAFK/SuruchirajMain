@@ -27,6 +27,7 @@ const ProductSchema = new Schema({
     category: [{ type: String }],
     why_you_will_love_it: [{ type: String }],
     images: [{ type: String }], // Array of image URLs or filenames
+    stock: { type: Number, default: 0 }, // Stock in grams
 }, { timestamps: true });
 
 module.exports = mongoose.model('Product', ProductSchema);
