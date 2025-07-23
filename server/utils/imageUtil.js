@@ -2,7 +2,7 @@ require('dotenv').config();
 const mongoose = require('mongoose');
 const fs = require('fs');
 const path = require('path');
-const Product = require('./models/Product'); // adjust as per your project
+const Product = require('./model/Product'); // adjust as per your project
 
 // MongoDB connection
 const MONGO_URI = process.env.MONGO_URI;  // Change to your actual URI
