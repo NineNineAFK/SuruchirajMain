@@ -28,6 +28,9 @@ const ProductSchema = new Schema({
     why_you_will_love_it: [{ type: String }],
     images: [{ type: String }], // Array of image URLs or filenames
     stock: { type: Number, default: 0 }, // Stock in grams
+    packaging_50gms: { type: Number, default: 0 },
+    packaging_100gms: { type: Number, default: 0 },
+
 }, { timestamps: true });
 
 module.exports = mongoose.model('Product', ProductSchema);

@@ -40,6 +40,9 @@ export interface Product {
   images?: string[];
   createdAt?: string;
   updatedAt?: string;
+  stock: number; // add this for grams
+  packaging_50gms: number;
+  packaging_100gms: number;
 }
 
 export interface ProductFormData {
@@ -66,4 +69,7 @@ export interface ProductFormData {
   cuisine?: string[];
   why_you_will_love_it?: string[];
   images?: string[];
+  stock: number;
+  packaging_50gms: number;
+  packaging_100gms: number;
 } 

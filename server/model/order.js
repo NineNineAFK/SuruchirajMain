@@ -20,6 +20,21 @@ const orderSchema = new mongoose.Schema(
                 type: Number,
                 required: true,
             },
+            qty_50g: {
+                type: Number,
+                required: false,
+                default: 0
+            },
+            qty_100g: {
+                type: Number,
+                required: false,
+                default: 0
+            },
+            totalGrams: {
+                type: Number,
+                required: false,
+                default: 0
+            }
         }],
         totalAmount: {
             type: Number,

@@ -1,10 +1,13 @@
 const API_BASE_URL = import.meta.env.VITE_domainName;
 
 export interface CartItem {
-  productId?: string;
+  productId: string;
   productName: string;
   price: number;
   quantity: number;
+  qty_50g: number;
+  qty_100g: number;
+  totalGrams: number;
 }
 
 export interface Cart {
@@ -14,7 +17,7 @@ export interface Cart {
 }
 
 // Add item to cart
-export const addToCart = async (productId: string, quantity: number = 1): Promise<Cart> => {
+export const addToCart = async (productId: string, qty_50g: number = 0, qty_100g: number = 0): Promise<Cart> => {
   try {
     const response = await fetch(`${API_BASE_URL}/cart/add-to-cart`, {
       method: 'POST',
@@ -24,7 +27,8 @@ export const addToCart = async (productId: string, quantity: number = 1): Promis
       credentials: 'include', // Include cookies for authentication
       body: JSON.stringify({
         productId,
-        quantity
+        qty_50g,
+        qty_100g
       }),
     });
 
@@ -63,7 +67,7 @@ export const getCart = async (): Promise<Cart> => {
 };
 
 // Update item quantity
-export const updateQuantity = async (productName: string, quantity: number): Promise<Cart> => {
+export const updateQuantity = async (productId: string, qty_50g: number, qty_100g: number): Promise<Cart> => {
   try {
     const response = await fetch(`${API_BASE_URL}/cart/api/cart/update`, {
       method: 'PUT',
@@ -72,38 +76,32 @@ export const updateQuantity = async (productName: string, quantity: number): Pro
       },
       credentials: 'include',
       body: JSON.stringify({
-        productName,
-        quantity
+        productId,
+        qty_50g,
+        qty_100g
       }),
     });
-
     const data = await response.json();
-
     if (!response.ok) {
       throw new Error(data.error || 'Failed to update cart');
     }
-
     return data.cart;
   } catch (error) {
     console.error('Error updating cart:', error);
     throw error;
   }
 };
-
 // Remove item from cart
-export const removeFromCart = async (productName: string): Promise<Cart> => {
+export const removeFromCart = async (productId: string): Promise<Cart> => {
   try {
-    const response = await fetch(`${API_BASE_URL}/cart/api/cart/remove/${encodeURIComponent(productName)}`, {
+    const response = await fetch(`${API_BASE_URL}/cart/api/cart/remove/${encodeURIComponent(productId)}`, {
       method: 'DELETE',
       credentials: 'include',
     });
-
     const data = await response.json();
-
     if (!response.ok) {
       throw new Error(data.error || 'Failed to remove item from cart');
     }
-
     return data.cart;
   } catch (error) {
     console.error('Error removing item from cart:', error);
