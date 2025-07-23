@@ -1,7 +1,7 @@
+const path = require('path');
 require('dotenv').config({ path: path.resolve(__dirname, '../.env') }); // Load environment variables
 const mongoose = require('mongoose');
 const fs = require('fs');
-const path = require('path');
 const Product = require('../model/product'); // Corrected path for utils folder
 
 // Get Mongo URI from environment variable
