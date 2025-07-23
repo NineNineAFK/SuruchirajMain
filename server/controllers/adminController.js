@@ -15,7 +15,9 @@ const addProduct = async (req, res) => {
             nutritionValue,
             fileName,
             originalName,
-            stock
+            stock,
+            packaging_50gms,
+            packaging_100gms
         } = req.body;
 
         // Validate required fields
@@ -46,7 +48,9 @@ const addProduct = async (req, res) => {
             },
             fileName: fileName || 'default.jpg',
             originalName: originalName || 'default.jpg',
-            stock: stock || 0
+            stock: stock || 0,
+            packaging_50gms: packaging_50gms || 0,
+            packaging_100gms: packaging_100gms || 0
         });
 
         const savedProduct = await product.save();

@@ -33,6 +33,8 @@ const emptyForm: ProductFormData = {
   why_you_will_love_it: [''],
   images: [],
   stock: 0,
+  packaging_50gms: 0,
+  packaging_100gms: 0,
 };
 
 const AdminProductForm: React.FC<AdminProductFormProps> = ({ product, onSuccess, onCancel }) => {
@@ -62,6 +64,8 @@ const AdminProductForm: React.FC<AdminProductFormProps> = ({ product, onSuccess,
         why_you_will_love_it: product.why_you_will_love_it || [''],
         images: product.images || [],
         stock: product.stock || 0,
+        packaging_50gms: product.packaging_50gms || 0,
+        packaging_100gms: product.packaging_100gms || 0,
       });
     } else {
       setFormData(emptyForm);
@@ -422,6 +426,30 @@ const AdminProductForm: React.FC<AdminProductFormProps> = ({ product, onSuccess,
             type="number"
             name="stock"
             value={formData.stock}
+            onChange={handleInputChange}
+            min={0}
+            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+          />
+        </div>
+        {/* Packaging 50gms */}
+        <div>
+          <label className="block text-sm font-medium text-gray-700 mb-2">50g Pouches (packaging_50gms)</label>
+          <input
+            type="number"
+            name="packaging_50gms"
+            value={formData.packaging_50gms}
+            onChange={handleInputChange}
+            min={0}
+            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+          />
+        </div>
+        {/* Packaging 100gms */}
+        <div>
+          <label className="block text-sm font-medium text-gray-700 mb-2">100g Pouches (packaging_100gms)</label>
+          <input
+            type="number"
+            name="packaging_100gms"
+            value={formData.packaging_100gms}
             onChange={handleInputChange}
             min={0}
             className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"

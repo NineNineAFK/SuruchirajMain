@@ -2,6 +2,7 @@ const Order = require('../model/order');
 const Cart = require('../model/cart');
 const Address = require('../model/address');
 const phonepeService = require('../service/phonepeService');
+const Product = require('../model/product');
 
 // Create order and initiate payment
 const createOrderAndInitiatePayment = async (req, res) => {
@@ -105,9 +106,51 @@ const handlePaymentCallback = async (req, res) => {
 
         // Check payment status
         if (responseCode === 'PAYMENT_SUCCESS' || responseCode === 'SUCCESS') {
+            // Revalidate and deduct stock/packaging for each product in the order
+            let validationFailed = false;
+            let errorMsg = '';
+            for (const item of order.items) {
+                const product = await Product.findById(item.product);
+                if (!product) {
+                    validationFailed = true;
+                    errorMsg = `Product not found: ${item.productName}`;
+                    break;
+                }
+                if (item.totalGrams > product.stock) {
+                    validationFailed = true;
+                    errorMsg = `Not enough spice stock for ${item.productName}`;
+                    break;
+                }
+                if (item.qty_50g > product.packaging_50gms) {
+                    validationFailed = true;
+                    errorMsg = `Not enough 50g pouches for ${item.productName}`;
+                    break;
+                }
+                if (item.qty_100g > product.packaging_100gms) {
+                    validationFailed = true;
+                    errorMsg = `Not enough 100g pouches for ${item.productName}`;
+                    break;
+                }
+            }
+            if (validationFailed) {
+                order.paymentStatus = 'failed';
+                order.orderStatus = 'failed';
+                order.failureReason = errorMsg;
+                await order.save();
+                return res.status(400).json({ success: false, message: errorMsg });
+            }
+            // Deduct stock and packaging
+            for (const item of order.items) {
+                await Product.findByIdAndUpdate(item.product, {
+                    $inc: {
+                        stock: -item.totalGrams,
+                        packaging_50gms: -item.qty_50g,
+                        packaging_100gms: -item.qty_100g
+                    }
+                });
+            }
             order.paymentStatus = 'completed';
             order.orderStatus = 'N/A';
-            
             // Clear user's cart after successful payment
             await Cart.findOneAndDelete({ userId: order.userId });
         } else {
@@ -187,9 +230,52 @@ const handlePaymentRedirect = async (req, res) => {
         });
 
         if (isSuccess) {
+            // Repeat similar logic in handlePaymentRedirect for payment success (isSuccess) case, before clearing cart and redirecting to success page.
+            // Revalidate and deduct stock/packaging for each product in the order
+            let validationFailed = false;
+            let errorMsg = '';
+            for (const item of order.items) {
+                const product = await Product.findById(item.product);
+                if (!product) {
+                    validationFailed = true;
+                    errorMsg = `Product not found: ${item.productName}`;
+                    break;
+                }
+                if (item.totalGrams > product.stock) {
+                    validationFailed = true;
+                    errorMsg = `Not enough spice stock for ${item.productName}`;
+                    break;
+                }
+                if (item.qty_50g > product.packaging_50gms) {
+                    validationFailed = true;
+                    errorMsg = `Not enough 50g pouches for ${item.productName}`;
+                    break;
+                }
+                if (item.qty_100g > product.packaging_100gms) {
+                    validationFailed = true;
+                    errorMsg = `Not enough 100g pouches for ${item.productName}`;
+                    break;
+                }
+            }
+            if (validationFailed) {
+                order.paymentStatus = 'failed';
+                order.orderStatus = 'failed';
+                order.failureReason = errorMsg;
+                await order.save();
+                return res.redirect(`${process.env.CLIENT_URL}/payment/failure?error=stock_packaging_insufficient&merchantTransactionId=${merchantOrderId}&transactionId=${transactionId}&responseCode=${responseCode}&responseMessage=${responseMessage}`);
+            }
+            // Deduct stock and packaging
+            for (const item of order.items) {
+                await Product.findByIdAndUpdate(item.product, {
+                    $inc: {
+                        stock: -item.totalGrams,
+                        packaging_50gms: -item.qty_50g,
+                        packaging_100gms: -item.qty_100g
+                    }
+                });
+            }
             order.paymentStatus = 'completed';
             order.orderStatus = 'N/A';
-            
             // Clear user's cart after successful payment
             await Cart.findOneAndDelete({ userId: order.userId });
             

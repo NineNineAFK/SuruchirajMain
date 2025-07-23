@@ -7,9 +7,9 @@ import toast from 'react-hot-toast';
 
 interface CartContextType {
   cart: CartItem[];
-  addToCart: (item: { productId: string; quantity?: number }) => Promise<void>;
-  removeFromCart: (productName: string) => Promise<void>;
-  updateQuantity: (productName: string, quantity: number) => Promise<void>;
+  addToCart: (item: { productId: string; qty_50g: number; qty_100g: number }) => Promise<void>;
+  removeFromCart: (productId: string) => Promise<void>;
+  updateQuantity: (productId: string, qty_50g: number, qty_100g: number) => Promise<void>;
   clearCart: () => Promise<void>;
   loading: boolean;
   refreshCart: () => Promise<void>;
@@ -57,14 +57,14 @@ export const CartProvider: React.FC<CartProviderProps> = ({ children }) => {
     loadCart();
   }, [authState]);
 
-  const addToCart = async (item: { productId: string; quantity?: number }) => {
+  const addToCart = async (item: { productId: string; qty_50g: number; qty_100g: number }) => {
     if (!authState) {
       toast.error('Please login to add items to cart');
       return;
     }
     try {
       setLoading(true);
-      const cartData = await addToCartAPI(item.productId, item.quantity || 1);
+      const cartData = await addToCartAPI(item.productId, item.qty_50g, item.qty_100g);
       setCart(cartData.items || []);
       toast.success('Item added to cart successfully');
     } catch (error) {
@@ -80,14 +80,14 @@ export const CartProvider: React.FC<CartProviderProps> = ({ children }) => {
     }
   };
 
-  const removeFromCart = async (productName: string) => {
+  const removeFromCart = async (productId: string) => {
     if (!authState) {
       toast.error('Please login to manage your cart');
       return;
     }
     try {
       setLoading(true);
-      const cartData = await removeFromCartAPI(productName);
+      const cartData = await removeFromCartAPI(productId);
       setCart(cartData.items || []);
       toast.success('Item removed from cart');
     } catch (error) {
@@ -98,18 +98,18 @@ export const CartProvider: React.FC<CartProviderProps> = ({ children }) => {
     }
   };
 
-  const updateQuantity = async (productName: string, quantity: number) => {
+  const updateQuantity = async (productId: string, qty_50g: number, qty_100g: number) => {
     if (!authState) {
       toast.error('Please login to manage your cart');
       return;
     }
-    if (quantity <= 0) {
-      await removeFromCart(productName);
+    if (qty_50g <= 0 && qty_100g <= 0) {
+      await removeFromCart(productId);
       return;
     }
     try {
       setLoading(true);
-      const cartData = await updateQuantityAPI(productName, quantity);
+      const cartData = await updateQuantityAPI(productId, qty_50g, qty_100g);
       setCart(cartData.items || []);
     } catch (error) {
       console.error('Error updating cart:', error);
