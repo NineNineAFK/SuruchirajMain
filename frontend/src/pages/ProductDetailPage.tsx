@@ -14,7 +14,9 @@ const ProductDetailPage: React.FC = () => {
   const { id } = useParams();
   const [product, setProduct] = useState<Product | null>(null);
   const [selectedImage, setSelectedImage] = useState<string>(placeholder);
-  const [quantity, setQuantity] = useState(1);
+  const [selected50g, setSelected50g] = useState(0);
+  const [selected100g, setSelected100g] = useState(0);
+  const [error, setError] = useState('');
   const [loading, setLoading] = useState(true);
 
   const { isWishlisted, addToWishlist, removeFromWishlist, moveWishlistItemToCart } = useWishlist();
@@ -37,6 +39,20 @@ const ProductDetailPage: React.FC = () => {
     fetchProduct();
   }, [id]);
 
+  useEffect(() => {
+    if (!product) return;
+    const total_required_grams = (selected50g * 50) + (selected100g * 100);
+    let err = '';
+    if (total_required_grams > (product.stock || 0)) {
+      err = 'Not enough spice stock available';
+    } else if (selected50g > (product.packaging_50gms || 0)) {
+      err = 'Not enough 50g packaging available';
+    } else if (selected100g > (product.packaging_100gms || 0)) {
+      err = 'Not enough 100g packaging available';
+    }
+    setError(err);
+  }, [selected50g, selected100g, product]);
+
   if (loading) return <div className="text-center text-yellow-400 mt-10">Loading...</div>;
   if (!product) return <div className="text-center text-red-500 mt-10">Product not found.</div>;
 
@@ -54,14 +70,16 @@ const ProductDetailPage: React.FC = () => {
     moveWishlistItemToCart(product._id);
   };
 
-  const handleQuantityChange = (delta: number) => {
-    setQuantity((prev) => Math.max(1, prev + delta));
-  };
+  const max50g = product ? Math.min(Math.floor((product.stock || 0) / 50), product.packaging_50gms) : 0;
+  const max100g = product ? Math.min(Math.floor((product.stock || 0) / 100), product.packaging_100gms) : 0;
+  const total_required_grams = (selected50g * 50) + (selected100g * 100);
+  const canAddToCart = !error && (selected50g > 0 || selected100g > 0);
 
   const handleAddToCart = () => {
     addToCart({
       productId: product._id,
-      quantity,
+      qty_50g: selected50g,
+      qty_100g: selected100g,
     });
   };
 
@@ -103,59 +121,41 @@ const ProductDetailPage: React.FC = () => {
           <p className="text-yellow-400 font-body mb-2">12 sold in last 10 hours</p>
           <p className="text-xl font-semibold font-sans mb-3">₹{product.mrp && product.mrp.length > 0 ? Math.round(product.mrp[0]) : ''}</p>
 
-          <div className="mb-4">
-            <p className="mb-1 font-medium font-body">Select Unit</p>
-            <div className="flex gap-2 flex-wrap">
-              {product.net_wt && product.net_wt.map((wt, idx) => (
-                <button key={idx} className="px-4 py-2 border rounded-2xl font-button border-yellow-400 text-yellow-400">
-                  {wt.value}{wt.unit}
-                </button>
-              ))}
-            </div>
-          </div>
-
           <p className="mb-2 text-xl font-sans font-semibold">
-            <span className="text-black dark:text-white text-2xl font-heading">Subtotal</span>:- ₹{product.mrp && product.mrp.length > 0 ? Math.round(product.mrp[0] * quantity) : ''}
+            <span className="text-black dark:text-white text-2xl font-heading">Subtotal</span>:- ₹{product.mrp && product.mrp.length > 0 ? Math.round(product.mrp[0] * (selected50g + selected100g)) : ''}
           </p>
 
+          {/* Replace old quantity selector with new packet selectors and validation UI */}
           <div className="flex flex-col gap-4 mb-6">
-          {/* Row 1: Quantity and Wishlist */}
-          <div className="flex items-center gap-4 flex-wrap">
-            <p className="font-semibold text-2xl font-heading">Quantity</p>
-
-            <div className="flex items-center border font-button border-black dark:border-white rounded-full px-4 py-1 gap-3">
-              <button onClick={() => handleQuantityChange(-1)}><FiMinus /></button>
-              <span className="font-sans">{quantity}</span>
-              <button onClick={() => handleQuantityChange(1)}><FiPlus /></button>
+            <div className="flex items-center gap-4 flex-wrap">
+              <p className="font-semibold text-2xl font-heading">Select Packets</p>
+              <div className="flex flex-col gap-2">
+                <div className="flex items-center gap-2">
+                  <span className="font-body">50g:</span>
+                  <button onClick={() => setSelected50g(Math.max(0, selected50g - 1))} className="px-2">-</button>
+                  <span>{selected50g}</span>
+                  <button onClick={() => setSelected50g(Math.min(max50g, selected50g + 1))} className="px-2">+</button>
+                  <span className="text-xs text-gray-500">(max {max50g})</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <span className="font-body">100g:</span>
+                  <button onClick={() => setSelected100g(Math.max(0, selected100g - 1))} className="px-2">-</button>
+                  <span>{selected100g}</span>
+                  <button onClick={() => setSelected100g(Math.min(max100g, selected100g + 1))} className="px-2">+</button>
+                  <span className="text-xs text-gray-500">(max {max100g})</span>
+                </div>
+                <div className="text-sm text-gray-600 mt-1">Total grams: {total_required_grams}g / {(product.stock || 0)}g available</div>
+                {error && <div className="text-red-500 text-sm mt-1">{error}</div>}
+              </div>
             </div>
-
             <button
-              className={`font-button px-4 py-1 rounded-full border transition duration-200 ${
-                wishlisted ? 'border-yellow-400 text-yellow-400' : 'border-black dark:border-white text-black dark:text-white'
-              }`}
-              onClick={handleWishlistToggle}
+              className={`text-black dark:text-white font-button font-normal px-4 py-2 rounded-full border border-yellow-400 hover:brightness-125 transition duration-200 w-full sm:w-[51%] ${!canAddToCart ? 'opacity-50 cursor-not-allowed' : ''}`}
+              onClick={handleAddToCart}
+              disabled={!canAddToCart}
             >
-              {wishlisted ? 'Remove from Wishlist' : 'Add to Wishlist'}
+              Add to Cart
             </button>
-
-            {wishlisted && (
-              <button
-                className="bg-yellow-400 text-black font-button px-4 py-1 rounded-full border border-yellow-400 hover:brightness-125 transition duration-200"
-                onClick={handleMoveToCart}
-              >
-                Move to Cart
-              </button>
-            )}
           </div>
-
-          {/* Row 2: Add to Cart Button */}
-          <button
-            className="text-black dark:text-white font-button font-normal px-4 py-2 rounded-full border border-yellow-400 hover:brightness-125 transition duration-200 w-full sm:w-[51%]"
-            onClick={handleAddToCart}
-          >
-            Add to Cart
-          </button>
-        </div>
 
           {/* Delivery & Policy */}
           <div className="font-body mt-6 space-y-4 text-sm">

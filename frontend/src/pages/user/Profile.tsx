@@ -193,7 +193,7 @@ const Profile: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-white text-black dark:bg-black dark:text-white">
+    <div className="min-h-screen bg-[#4D6A3F]/10 text-black dark:bg-black dark:text-white">
       <div className="max-w-6xl mx-auto py-10 px-4">
         <h1 className="text-4xl font-bold mb-6 font-heading dark:text-white text-black">My Profile</h1>
         
@@ -203,7 +203,7 @@ const Profile: React.FC = () => {
             onClick={() => setActiveTab('profile')}
             className={`px-4 py-2 rounded-lg font-medium transition-colors ${
               activeTab === 'profile'
-                ? 'bg-yellow-500 text-white'
+                ? 'dark:bg-yellow-500 bg-[#4D6A3F] text-white'
                 : 'bg-gray-200 text-gray-700 hover:bg-gray-300 dark:bg-white/10 dark:text-white dark:hover:bg-white/20'
             }`}
           >
@@ -213,7 +213,7 @@ const Profile: React.FC = () => {
             onClick={() => setActiveTab('addresses')}
             className={`px-4 py-2 rounded-lg font-medium transition-colors ${
               activeTab === 'addresses'
-                ? 'bg-yellow-500 text-white'
+                ? 'dark:bg-yellow-500 bg-[#4D6A3F] text-white'
                 : 'bg-gray-200 text-gray-700 hover:bg-gray-300 dark:bg-white/10 dark:text-white dark:hover:bg-white/20'
             }`}
           >
@@ -237,7 +237,7 @@ const Profile: React.FC = () => {
                     const imageUrl = prompt('Enter image URL:');
                     if (imageUrl) handleProfilePictureUpdate(imageUrl);
                   }}
-                  className="absolute bottom-0 right-0 bg-yellow-500 text-white p-2 rounded-full hover:bg-yellow-700 transition-colors"
+                  className="absolute bottom-0 right-0 dark:bg-yellow-500 bg-[#4D6A3F] text-white p-2 rounded-full hover:bg-yellow-700 transition-colors"
                 >
                   <svg className="w-2 h-2 md:h-4 md:w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
@@ -259,7 +259,7 @@ const Profile: React.FC = () => {
                   value={profileData.name}
                   onChange={(e) => setProfileData({ ...profileData, name: e.target.value })}
                   disabled={!isEditing}
-                   className="w-full px-3 py-2 bg-white dark:bg-black border border-black dark:border-white rounded-lg text-black dark:text-white disabled:opacity-80 focus:outline-none focus:ring-2 focus:ring-yellow-500"
+                   className="w-full px-3 py-2 bg-white dark:bg-black border border-black dark:border-white rounded-lg text-black dark:text-white disabled:opacity-80 focus:outline-none focus:ring-2 focus:ring-[#4D6A3F] dark:focus:ring-yellow-500"
                 />
               </div>
               <div>
@@ -269,7 +269,7 @@ const Profile: React.FC = () => {
                   value={profileData.phone}
                   onChange={(e) => setProfileData({ ...profileData, phone: e.target.value })}
                   disabled={!isEditing}
-                  className="w-full px-3 py-2 bg-white dark:bg-black border border-black dark:border-white rounded-lg text-black dark:text-white disabled:opacity-80 focus:outline-none focus:ring-2 focus:ring-yellow-500"
+                  className="w-full px-3 py-2 bg-white dark:bg-black border border-black dark:border-white rounded-lg text-black dark:text-white disabled:opacity-80 focus:outline-none focus:ring-2 focus:ring-[#4D6A3F] dark:focus:ring-yellow-500"
                 />
               </div>
               <div>
@@ -279,7 +279,7 @@ const Profile: React.FC = () => {
                   value={profileData.dateOfBirth}
                   onChange={(e) => setProfileData({ ...profileData, dateOfBirth: e.target.value })}
                   disabled={!isEditing}
-                  className="w-full px-3 py-2 bg-white dark:bg-black border border-black dark:border-white rounded-lg text-black dark:text-white disabled:opacity-80 focus:outline-none focus:ring-2 focus:ring-yellow-500"
+                  className="w-full px-3 py-2 bg-white dark:bg-black border border-black dark:border-white rounded-lg text-black dark:text-white disabled:opacity-80 focus:outline-none focus:ring-2 focus:ring-[#4D6A3F] dark:focus:ring-yellow-500"
                 />
               </div>
               <div>
@@ -288,7 +288,7 @@ const Profile: React.FC = () => {
                   value={profileData.gender}
                   onChange={(e) => setProfileData({ ...profileData, gender: e.target.value })}
                   disabled={!isEditing}
-                  className="w-full px-3 py-2.5 bg-white dark:bg-black border border-black dark:border-white rounded-lg text-black dark:text-white disabled:opacity-80 focus:outline-none focus:ring-2 focus:ring-yellow-500"
+                  className="w-full px-3 py-2.5 bg-white dark:bg-black border border-black dark:border-white rounded-lg text-black dark:text-white disabled:opacity-80 focus:outline-none focus:ring-2 focus:ring-[#4D6A3F] dark:focus:ring-yellow-500"
                 >
                   <option value="">Select Gender</option>
                   <option value="male">Male</option>
@@ -304,7 +304,7 @@ const Profile: React.FC = () => {
               {!isEditing ? (
                 <button
                   onClick={() => setIsEditing(true)}
-                  className="px-6 py-2 bg-yellow-500 text-white rounded-lg hover:bg-yellow-700 transition-colors"
+                  className="px-6 py-2 dark:bg-yellow-500 bg-[#4D6A3F] text-white rounded-lg hover:bg-yellow-700 transition-colors"
                 >
                   Edit Profile
                 </button>
@@ -345,7 +345,7 @@ const Profile: React.FC = () => {
               <h2 className="text-2xl font-semibold font-heading dark:text-white text-black">My Addresses</h2>
               <button
                 onClick={() => setShowAddAddress(true)}
-                className="px-4 py-2 bg-yellow-500 text-white rounded-lg hover:bg-yellow-600 transition-colors"
+                className="px-4 py-2 dark:bg-yellow-500 bg-[#4D6A3F] text-white rounded-lg dark:hover:bg-yellow-600 hover:bg-[#4D6A3F]/80 transition-colors"
               >
                 Add New Address
               </button>
@@ -360,7 +360,7 @@ const Profile: React.FC = () => {
                     <div className="flex space-x-2">
                       <button
                         onClick={() => startEditAddress(address)}
-                        className="text-yellow-400 hover:text-yellow-500 text-sm font-medium"
+                        className="dark:text-yellow-400 text-[#4D6A3F] dark:hover:text-yellow-500 hover:text-[#4D6A3F]/80 text-sm font-medium"
                       >
                         Edit
                       </button>
@@ -397,7 +397,7 @@ const Profile: React.FC = () => {
                       value={addressData.addressName}
                       onChange={(e) => setAddressData({ ...addressData, addressName: e.target.value })}
                       placeholder="e.g., Home, Office"
-                      className="w-full px-3 py-2 bg-white dark:bg-black border border-black dark:border-white rounded-lg text-black dark:text-white focus:outline-none focus:ring-2 focus:ring-yellow-500"
+                      className="w-full px-3 py-2 bg-white dark:bg-black border border-black dark:border-white rounded-lg text-black dark:text-white focus:outline-none focus:ring-2 focus:ring-[#4D6A3F] dark:focus:ring-yellow-500"
                     />
                   </div>
                   <div>
@@ -406,7 +406,7 @@ const Profile: React.FC = () => {
                       type="text"
                       value={addressData.name}
                       onChange={(e) => setAddressData({ ...addressData, name: e.target.value })}
-                      className="w-full px-3 py-2 bg-white dark:bg-black border border-black dark:border-white rounded-lg text-black dark:text-white focus:outline-none focus:ring-2 focus:ring-yellow-500"
+                      className="w-full px-3 py-2 bg-white dark:bg-black border border-black dark:border-white rounded-lg text-black dark:text-white focus:outline-none focus:ring-2 focus:ring-[#4D6A3F] dark:focus:ring-yellow-500"
                     />
                   </div>
                   <div>
@@ -415,7 +415,7 @@ const Profile: React.FC = () => {
                       type="tel"
                       value={addressData.phone}
                       onChange={(e) => setAddressData({ ...addressData, phone: e.target.value })}
-                      className="w-full px-3 py-2 font-sans bg-white dark:bg-black border border-black dark:border-white rounded-lg text-black dark:text-white focus:outline-none focus:ring-2 focus:ring-yellow-500"
+                      className="w-full px-3 py-2 font-sans bg-white dark:bg-black border border-black dark:border-white rounded-lg text-black dark:text-white focus:outline-none focus:ring-2 focus:ring-[#4D6A3F] dark:focus:ring-yellow-500"
                     />
                   </div>
                   <div>
@@ -424,7 +424,7 @@ const Profile: React.FC = () => {
                       type="text"
                       value={addressData.addressLine1}
                       onChange={(e) => setAddressData({ ...addressData, addressLine1: e.target.value })}
-                      className="w-full px-3 py-2 bg-white dark:bg-black border border-black dark:border-white rounded-lg text-black dark:text-white focus:outline-none focus:ring-2 focus:ring-yellow-500"
+                      className="w-full px-3 py-2 bg-white dark:bg-black border border-black dark:border-white rounded-lg text-black dark:text-white focus:outline-none focus:ring-2 focus:ring-[#4D6A3F] dark:focus:ring-yellow-500"
                     />
                   </div>
                   <div>
@@ -433,7 +433,7 @@ const Profile: React.FC = () => {
                       type="text"
                       value={addressData.addressLine2}
                       onChange={(e) => setAddressData({ ...addressData, addressLine2: e.target.value })}
-                      className="w-full px-3 py-2 bg-white dark:bg-black border border-black dark:border-white rounded-lg text-black dark:text-white focus:outline-none focus:ring-2 focus:ring-yellow-500"
+                      className="w-full px-3 py-2 bg-white dark:bg-black border border-black dark:border-white rounded-lg text-black dark:text-white focus:outline-none focus:ring-2 focus:ring-[#4D6A3F] dark:focus:ring-yellow-500"
                     />
                   </div>
                   <div>
@@ -442,7 +442,7 @@ const Profile: React.FC = () => {
                       type="text"
                       value={addressData.city}
                       onChange={(e) => setAddressData({ ...addressData, city: e.target.value })}
-                      className="w-full px-3 py-2 bg-white dark:bg-black border border-black dark:border-white rounded-lg text-black dark:text-white focus:outline-none focus:ring-2 focus:ring-yellow-500"
+                      className="w-full px-3 py-2 bg-white dark:bg-black border border-black dark:border-white rounded-lg text-black dark:text-white focus:outline-none focus:ring-2 focus:ring-[#4D6A3F] dark:focus:ring-yellow-500"
                     />
                   </div>
                   <div>
@@ -451,7 +451,7 @@ const Profile: React.FC = () => {
                       type="text"
                       value={addressData.state}
                       onChange={(e) => setAddressData({ ...addressData, state: e.target.value })}
-                      className="w-full px-3 py-2 bg-white dark:bg-black border border-black dark:border-white rounded-lg text-black dark:text-white focus:outline-none focus:ring-2 focus:ring-yellow-500"
+                      className="w-full px-3 py-2 bg-white dark:bg-black border border-black dark:border-white rounded-lg text-black dark:text-white focus:outline-none focus:ring-2 focus:ring-[#4D6A3F] dark:focus:ring-yellow-500"
                     />
                   </div>
                   <div>
@@ -460,7 +460,7 @@ const Profile: React.FC = () => {
                       type="text"
                       value={addressData.pincode}
                       onChange={(e) => setAddressData({ ...addressData, pincode: e.target.value })}
-                      className="w-full px-3 py-2 font-sans bg-white dark:bg-black border border-black dark:border-white rounded-lg text-black dark:text-white focus:outline-none focus:ring-2 focus:ring-yellow-500"
+                      className="w-full px-3 py-2 font-sans bg-white dark:bg-black border border-black dark:border-white rounded-lg text-black dark:text-white focus:outline-none focus:ring-2 focus:ring-[#4D6A3F] dark:focus:ring-yellow-500"
                     />
                   </div>
                 </div>
@@ -468,7 +468,7 @@ const Profile: React.FC = () => {
                   <button
                     onClick={editingAddress ? handleUpdateAddress : handleAddAddress}
                     disabled={isLoading}
-                    className="px-6 py-2 bg-yellow-500 text-white rounded-lg hover:bg-yellow-600 transition-colors disabled:opacity-50"
+                    className="px-6 py-2 dark:bg-yellow-500 bg-[#4D6A3F] text-white rounded-lg dark:hover:bg-yellow-600 hover:bg-[#4D6A3F]/80 transition-colors disabled:opacity-50"
                   >
                     {isLoading ? 'Saving...' : (editingAddress ? 'Update Address' : 'Add Address')}
                   </button>

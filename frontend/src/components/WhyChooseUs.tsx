@@ -37,21 +37,21 @@ const WhyChooseUs: React.FC = () => {
     <section className="px-4 md:px-8 md:mt-10 text-center relative font-heading">
       {/* Section Title */}
       <h2 className="text-3xl md:text-4xl font-extrabold mb-4 md:mb-10 text-black dark:text-white">
-        Why <span className="text-east-side-900 dark:text-yellow-400">Choose Us</span>
+        Why <span className="text-[#4D6A3F] dark:text-yellow-400">Choose Us</span>
       </h2>
 
       {/* 🖥️ Desktop Layout */}
       <div className="hidden md:flex max-w-4xl mx-auto relative">
-        <div className="flex backdrop-blur-md rounded-3xl p-6 md:p-5 items-center justify-between gap-4 border border-black/10 dark:border-white/20 shadow-md dark:shadow-[0_0_10px_rgba(255,255,255,0.3)] bg-east-side-500 dark:bg-transparent w-full z-10">
+        <div className="flex backdrop-blur-md rounded-3xl p-6 md:p-5 items-center justify-between gap-4 border border-black/10 dark:border-white/20 shadow-md dark:shadow-[0_0_10px_rgba(255,255,255,0.3)] bg-[#2C941E]/40 dark:bg-transparent w-full z-10">
           {features.map((feature, index) => (
             <div
               key={index}
               onClick={() => setActiveIndex(index)}
-              className="flex flex-col items-center text-white dark:text-white w-full md:w-1/4 font-body cursor-pointer"
+              className="flex flex-col items-center text-black dark:text-white w-full md:w-1/4 font-body cursor-pointer"
             >
               <img
                 src={feature.icon}
-                className="h-20 w-20 object-contain mb-3 transition-transform duration-300 hover:scale-110"
+                className="h-20 w-20 object-contain mb-3 transition-transform duration-300 hover:scale-110 invert dark:invert-0"
                 alt={feature.text}
               />
               <p className="text-sm md:text-base font-medium text-center">
@@ -70,7 +70,7 @@ const WhyChooseUs: React.FC = () => {
             />
 
             <div
-              className="absolute top-1/2 left-1/2 z-40 transform -translate-x-1/2 -translate-y-1/2 bg-east-side-500 dark:bg-white/20 backdrop-blur-md border border-black/10 dark:border-white/30 shadow-md dark:shadow-yellow-400/40 w-[60%] p-6 rounded-2xl text-black dark:text-white flex flex-col items-center transition-all duration-300 cursor-pointer"
+              className="absolute top-1/2 left-1/2 z-40 transform -translate-x-1/2 -translate-y-1/2 bg-[#B8C2B3]/70 dark:bg-white/20 backdrop-blur-md border border-black/10 dark:border-white/30 shadow-md w-[60%] p-6 rounded-2xl text-black dark:text-white flex flex-col items-center transition-all duration-300 cursor-pointer"
               onClick={() => setActiveIndex(null)}
             >
               <button
@@ -78,7 +78,7 @@ const WhyChooseUs: React.FC = () => {
                   e.stopPropagation();
                   setActiveIndex(null);
                 }}
-                className="absolute top-2 right-2 text-white dark:text-white text-lg"
+                className="absolute top-2 right-2 text-black dark:text-white text-lg"
               >
                 <FiX />
               </button>
@@ -110,8 +110,8 @@ const WhyChooseUs: React.FC = () => {
               onClick={() => setActiveIndex(isActive ? null : index)}
               className={`flex flex-col items-center justify-center text-black dark:text-white border border-black/10 dark:border-white/20 rounded-2xl backdrop-blur-md transition-all duration-300 cursor-pointer overflow-hidden ${
                 isActive
-                  ? 'absolute top-1/2 left-1/2 z-50 transform -translate-x-1/2 -translate-y-1/2 bg-east-side-500/50 dark:bg-white/20 shadow-md dark:shadow-yellow-400/40 w-[90%] p-6'
-                  : 'p-4 bg-east-side-500 dark:bg-white/10 shadow-sm dark:shadow-[0_0_10px_rgba(255,255,255,0.2)]'
+                  ? 'absolute top-1/2 left-1/2 z-50 transform -translate-x-1/2 -translate-y-1/2 bg-[#B8C2B3]/70  dark:bg-white/20 shadow-md w-[90%] p-6'
+                  : 'p-4 bg-[#2C941E]/40 dark:bg-white/10 shadow-sm dark:shadow-[0_0_10px_rgba(255,255,255,0.2)]'
               }`}
             >
               {isActive && (

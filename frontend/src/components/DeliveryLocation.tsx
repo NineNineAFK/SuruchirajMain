@@ -44,7 +44,7 @@ const DeliveryLocation = () => {
 
   return (
     <p className="flex flex-wrap items-center gap-1">
-      <span className="text-yellow-400 font-heading text-lg font-semibold">
+      <span className="dark:text-yellow-400 text-[#4D6A3F] font-heading text-lg font-semibold">
         Deliver to:
       </span>{" "}
       {!location ? (
@@ -54,7 +54,7 @@ const DeliveryLocation = () => {
           onChange={handleChange}
           maxLength={6}
           placeholder="Enter pincode"
-          className="border border-yellow-400 bg-transparent px-3 py-1 w-[120px] text-sm font-sans dark:text-white text-gray-500 dark:placeholder-white placeholder-black rounded-full"
+          className="border dark:border-yellow-400 border-[#4D6A3F] bg-transparent px-3 py-1 w-[120px] text-sm font-sans dark:text-white text-gray-500 dark:placeholder-white placeholder-black rounded-full"
         />
       ) : (
         <>

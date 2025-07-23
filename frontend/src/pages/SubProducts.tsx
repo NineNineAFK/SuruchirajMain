@@ -21,7 +21,6 @@ const SubProducts = () => {
   const { openModal } = useLoginModal();
   const [filterQuantities, setFilterQuantities] = useState<string[]>([]);
   const [filterCategories, setFilterCategories] = useState<string[]>([]);
-  const [selectedQuantities, setSelectedQuantities] = useState<string[]>([]);
   const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
   const location = useLocation();
 
@@ -47,12 +46,11 @@ const SubProducts = () => {
     };
     const fetchFilters = async () => {
       try {
-        const { categories, quantities } = await getProductFilters();
+        const { categories } = await getProductFilters();
         setFilterCategories(categories || []);
-        setFilterQuantities(Array.isArray(quantities) ? quantities.filter((q): q is string => typeof q === 'string' && q.length > 0) : []);
+        // Removed quantity filter fetching
       } catch (err) {
         setFilterCategories([]);
-        setFilterQuantities([]);
       }
     };
     fetchProducts();
@@ -112,11 +110,7 @@ const SubProducts = () => {
   };
 
   const handleQuantityChange = (qty: string) => {
-    if (typeof qty !== 'string' || !qty || qty.length === 0) return;
-    setSelectedQuantities((prev) => {
-      const filteredPrev = prev.filter((q): q is string => typeof q === 'string' && q.length > 0);
-      return filteredPrev.includes(qty) ? filteredPrev.filter(q => q !== qty) : [...filteredPrev, qty];
-    });
+    // Removed quantity change handler
   };
 
   const handleCategoryChange = (cat: string) => {
@@ -125,19 +119,8 @@ const SubProducts = () => {
     );
   };
 
+  // Remove all logic and state related to selectedQuantities, filterQuantities, and safeSelectedQuantities
   // Ensure selectedQuantities and filterQuantities are always arrays of strings
-  const safeSelectedQuantities = (Array.isArray(selectedQuantities)
-    ? selectedQuantities.filter((q): q is string => typeof q === 'string' && q.length > 0)
-    : []) as string[];
-  const safeFilterQuantities: string[] = Array.isArray(filterQuantities)
-    ? filterQuantities.filter((q): q is string => typeof q === 'string' && q.length > 0)
-    : [];
-
-  // Debug logs for filter values
-  console.log('selectedQuantities:', selectedQuantities, selectedQuantities.map(q => typeof q));
-  console.log('filterQuantities:', filterQuantities, filterQuantities.map(q => typeof q));
-  console.log('safeSelectedQuantities:', safeSelectedQuantities, safeSelectedQuantities.map(q => typeof q));
-
   const filteredProducts = products.filter((product) => {
     const term = searchTerm.toLowerCase();
     const nameMatch = product.product_name && product.product_name.toLowerCase().includes(term);
@@ -154,34 +137,7 @@ const SubProducts = () => {
       }
     }
 
-    // Quantity filter
-    let quantityMatch = true;
-    if (safeSelectedQuantities.length > 0) {
-      if (Array.isArray(product.net_wt) && product.net_wt.length > 0) {
-        quantityMatch = product.net_wt.some(wt => {
-          if (
-            wt &&
-            (typeof wt.value === 'string' || typeof wt.value === 'number') &&
-            typeof wt.unit === 'string' &&
-            wt.unit && wt.unit.length > 0
-          ) {
-            const valueStr = String(wt.value).trim();
-            const unitStr = String(wt.unit).trim();
-            if (!valueStr || !unitStr) return false;
-            const productQty = `${valueStr} ${unitStr}`;
-            if (!Array.isArray(safeSelectedQuantities)) return false;
-            const stringSelectedQuantities = safeSelectedQuantities.filter((q): q is string => typeof q === 'string' && q.length > 0);
-            return (stringSelectedQuantities as string[]).some(selQty => {
-              const selQtyTrimmed = (selQty!).trim();
-              return selQtyTrimmed === productQty || selQtyTrimmed === valueStr || selQtyTrimmed === unitStr;
-            });
-          }
-          return false;
-        });
-      } else {
-        quantityMatch = false;
-      }
-    }
+    // Removed quantity filter logic
 
     // Search term (name/category)
     let searchMatch = nameMatch;
@@ -191,7 +147,7 @@ const SubProducts = () => {
       );
     }
 
-    return searchMatch && categoryMatch && quantityMatch;
+    return searchMatch && categoryMatch;
   });
 
   return (
@@ -212,27 +168,7 @@ const SubProducts = () => {
         {/* Sidebar (Desktop Only) */}
         <aside className="w-60 dark:bg-black bg-east-side-100 text-white hidden sm:block">
           <h2 className="text-2xl font-medium text-black dark:text-yellow-400 font-body mb-4">Filters</h2>
-          <div className="mb-6 font-body">
-            <h3 className="font-semibold font-heading text-black dark:text-white text-xl mb-2">Quantity</h3>
-            <ul className="space-y-2 text-sm text-gray-700 dark:text-gray-300">
-              {safeFilterQuantities.map((safeQty) => {
-                if (typeof safeQty !== 'string' || !safeQty.length) return null;
-                return (
-                  <li key={safeQty}>
-                    <label className="inline-flex items-center space-x-2">
-                      <input
-                        type="checkbox"
-                        checked={safeSelectedQuantities.includes(safeQty)}
-                        onChange={() => handleQuantityChange(safeQty)}
-                          className="w-5 h-5 appearance-none border-2 border-yellow-400 rounded bg-east-side-100 dark:bg-black relative checked:bg-east-side-100 checked:dark:bg-black checked:border-yellow-400 transition-colors duration-200 checked:after:content-['✓'] checked:after:text-yellow-400 checked:after:absolute checked:after:inset-0 checked:after:flex checked:after:items-center checked:after:justify-center checked:after:text-sm"
-                        />
-                      <span>{safeQty}</span>
-                    </label>
-                  </li>
-                );
-              })}
-            </ul>
-          </div>
+          {/* Removed Quantity filter UI */}
           <div>
             <h3 className="font-semibold font-heading text-black dark:text-white text-xl mb-2">Category</h3>
             <ul className="space-y-2 text-sm text-gray-700 dark:text-gray-300">
@@ -373,7 +309,7 @@ const SubProducts = () => {
                 <button
                   onClick={() => {
                     setSelectedCategories([]);
-                    setSelectedQuantities([]);
+                    // Removed setSelectedQuantities([])
                   }}
                   className="text-xs text-yellow-400 underline hover:text-yellow-300"
                 >
@@ -387,31 +323,7 @@ const SubProducts = () => {
                 </button>
               </div>
             </div>
-
-
-            <div className="mb-6 font-body">
-              <h3 className="font-medium font-heading text-xl mb-2">Quantity</h3>
-              <ul className="space-y-2 text-sm text-gray-700 dark:text-gray-300 list-none pl-0">
-                {safeFilterQuantities.map((safeQty) => {
-                  if (typeof safeQty !== 'string' || !safeQty.length) return null;
-                  return (
-                    <li key={safeQty}>
-                      <label className="inline-flex items-center space-x-2">
-                        <input
-                          type="checkbox"
-                          checked={safeSelectedQuantities.includes(safeQty)}
-                          onChange={() => handleQuantityChange(safeQty)}
-                          className="w-5 h-5 appearance-none border-2 border-yellow-400 rounded bg-east-side-100 dark:bg-black relative checked:bg-east-side-100 checked:dark:bg-black checked:border-yellow-400 transition-colors duration-200 checked:after:content-['✓'] checked:after:text-yellow-400 checked:after:absolute checked:after:inset-0 checked:after:flex checked:after:items-center checked:after:justify-center checked:after:text-sm"
-                        />
-                        <span>{safeQty}</span>
-                      </label>
-                    </li>
-                  );
-                })}
-              </ul>
-            </div>
-
-
+            {/* Removed Quantity filter UI */}
             <div>
               <h3 className="font-semibold font-heading text-xl mb-2">Category</h3>
               <ul className="space-y-2 text-sm text-gray-700 dark:text-gray-300">

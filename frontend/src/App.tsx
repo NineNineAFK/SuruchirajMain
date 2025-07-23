@@ -76,7 +76,8 @@ const HomePage: React.FC = () => {
   return (
     <div className="min-h-screen transition-colors duration-300">
       {/* Light theme: white background */}
-      <div className="block dark:hidden bg-east-side-100 text-black">
+      <div className="block dark:hidden bg-scroll bg-cover bg-center text-black"
+      style={{ backgroundImage: "url('/lightbg6.png')" }}>
         <HeroSection />
 
         <section className="py-5">
@@ -102,7 +103,7 @@ const HomePage: React.FC = () => {
 
       {/* Dark theme: background image */}
       <div
-        className="hidden dark:block bg-fixed bg-cover bg-center text-white"
+        className="hidden dark:block bg-scroll bg-cover bg-center text-white"
         style={{ backgroundImage: "url('/pink-blue.png')" }}
       >
         <div className="bg-black bg-opacity-50">

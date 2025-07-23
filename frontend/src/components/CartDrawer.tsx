@@ -6,6 +6,7 @@ import { useRecoilValue } from 'recoil';
 import { authStateAtom } from '../state/state';
 import { useLoginModal } from '../context/LoginModalContext';
 import { useLocation, useNavigate } from 'react-router-dom';
+import { getProductById } from '../services/productService';
 
 interface CartDrawerProps {
   isOpen: boolean;
@@ -13,11 +14,29 @@ interface CartDrawerProps {
 }
 
 const CartDrawer: React.FC<CartDrawerProps> = ({ isOpen, onClose }) => {
-  const { cart, removeFromCart, updateQuantity, loading } = useCart();
+  const { cart, removeFromCart, addToCart, loading, updateQuantity } = useCart();
   const authState = useRecoilValue(authStateAtom);
   const { openModal } = useLoginModal();
   const navigate = useNavigate();
   const location = useLocation();
+  const [productStocks, setProductStocks] = React.useState<Record<string, number>>({});
+
+  React.useEffect(() => {
+    // Fetch stock for all products in cart
+    const fetchStocks = async () => {
+      const stocks: Record<string, number> = {};
+      for (const item of cart) {
+        try {
+          const product = await getProductById(item.productId);
+          stocks[item.productId] = product.stock;
+        } catch {
+          stocks[item.productId] = 0;
+        }
+      }
+      setProductStocks(stocks);
+    };
+    if (cart.length > 0) fetchStocks();
+  }, [cart]);
 
   useEffect(() => {
     if (location.pathname === '/checkout') {
@@ -35,20 +54,20 @@ const CartDrawer: React.FC<CartDrawerProps> = ({ isOpen, onClose }) => {
     }
   };
 
-  const handleAddToCart = async (productName: string) => {
-    const item = cart.find(cartItem => cartItem.productName === productName);
-    if (item) {
-      await updateQuantity(productName, item.quantity + 1);
+  // Increment/decrement 50g or 100g packets
+  const handleChangePacket = async (item: any, type: 'qty_50g' | 'qty_100g', delta: number) => {
+    const newQty50g = type === 'qty_50g' ? item.qty_50g + delta : item.qty_50g;
+    const newQty100g = type === 'qty_100g' ? item.qty_100g + delta : item.qty_100g;
+    const newTotalGrams = (newQty50g * 50) + (newQty100g * 100);
+    const stock = productStocks[item.productId] || 0;
+    if (newQty50g < 0 || newQty100g < 0) return;
+    if (newTotalGrams > stock) return;
+    // If both are zero, remove from cart
+    if (newQty50g === 0 && newQty100g === 0) {
+      await removeFromCart(item.productId);
+      return;
     }
-  };
-
-  const handleRemoveFromCart = async (productName: string) => {
-    const item = cart.find(cartItem => cartItem.productName === productName);
-    if (item && item.quantity > 1) {
-      await updateQuantity(productName, item.quantity - 1);
-    } else {
-      await removeFromCart(productName);
-    }
+    await updateQuantity(item.productId, newQty50g, newQty100g);
   };
 
   return (
@@ -92,39 +111,55 @@ const CartDrawer: React.FC<CartDrawerProps> = ({ isOpen, onClose }) => {
             {authState ? 'Your cart is empty' : 'Please login to view your cart'}
           </div>
         ) : (
-          cart.map((item) => (
-            <div key={item.productName} className="flex justify-between items-center bg-gray-100 dark:bg-[#1a1a1a] rounded-lg p-3">
-              <div className="w-16 h-16 bg-gray-300 dark:bg-gray-700 rounded" />
-              <div className="flex-1 ml-4">
-                <h3 className="dark:text-white text-black font-semibold">{item.productName}</h3>
-                <p className="text-gray-400 font-sans text-sm">50 g</p>
-                <div className="flex items-center mt-2 space-x-2">
+          cart.map((item) => {
+            const stock = productStocks[item.productId] || 0;
+            const price50g = item.price; // Assuming price is for 50g, adjust if needed
+            const price100g = item.price * 2; // Assuming 100g is double, adjust if needed
+            const disable50gPlus = ((item.qty_50g + 1) * 50 + item.qty_100g * 100) > stock;
+            const disable100gPlus = (item.qty_50g * 50 + (item.qty_100g + 1) * 100) > stock;
+            return (
+              <div key={item.productId} className="flex flex-col bg-gray-100 dark:bg-[#1a1a1a] rounded-lg p-3 mb-4">
+                <div className="flex items-center justify-between">
+                  <div className="flex-1">
+                    <h3 className="dark:text-white text-black font-semibold">{item.productName}</h3>
+                  </div>
                   <button
-                    onClick={() => handleRemoveFromCart(item.productName)}
-                    className="px-2 py-1 rounded bg-white dark:bg-black border border-gray-800 text-black dark:text-white hover:bg-gray-200 dark:hover:bg-gray-700"
+                    onClick={() => removeFromCart(item.productId)}
+                    className="text-red-500 hover:text-red-600 ml-2"
                   >
-                    <FaMinus size={10} />
-                  </button>
-                  <span className="dark:text-white text-black">{item.quantity}</span>
-                  <button
-                    onClick={() => handleAddToCart(item.productName)}
-                    className="px-2 py-1 rounded bg-white dark:bg-black border border-gray-800 text-black dark:text-white hover:bg-gray-200 dark:hover:bg-gray-700"
-                  >
-                    <FaPlus size={10} />
+                    <FiTrash2 />
                   </button>
                 </div>
+                {/* 50g Block */}
+                <div className="flex items-center justify-between mt-2 p-2 bg-white dark:bg-black rounded">
+                  <div className="flex items-center gap-2">
+                    <span className="font-body font-semibold">50g</span>
+                    <button onClick={() => handleChangePacket(item, 'qty_50g', -1)} disabled={item.qty_50g <= 0 || loading} className="px-2">-</button>
+                    <span>{item.qty_50g || 0}</span>
+                    <button onClick={() => handleChangePacket(item, 'qty_50g', 1)} disabled={disable50gPlus || loading} className="px-2">+</button>
+                  </div>
+                  <div className="flex flex-col items-end">
+                    <span className="text-xs text-gray-500">₹{price50g} each</span>
+                    <span className="font-semibold">₹{item.qty_50g * price50g}</span>
+                  </div>
+                </div>
+                {/* 100g Block */}
+                <div className="flex items-center justify-between mt-2 p-2 bg-white dark:bg-black rounded">
+                  <div className="flex items-center gap-2">
+                    <span className="font-body font-semibold">100g</span>
+                    <button onClick={() => handleChangePacket(item, 'qty_100g', -1)} disabled={item.qty_100g <= 0 || loading} className="px-2">-</button>
+                    <span>{item.qty_100g || 0}</span>
+                    <button onClick={() => handleChangePacket(item, 'qty_100g', 1)} disabled={disable100gPlus || loading} className="px-2">+</button>
+                  </div>
+                  <div className="flex flex-col items-end">
+                    <span className="text-xs text-gray-500">₹{price100g} each</span>
+                    <span className="font-semibold">₹{item.qty_100g * price100g}</span>
+                  </div>
+                </div>
+                <div className="text-xs text-gray-500 mt-1">Total: {item.totalGrams}g / {stock}g available</div>
               </div>
-              <div className="text-right">
-                <p className="dark:text-white text-black text-lg font-sans font-bold">₹{item.price}</p>
-                <button
-                  onClick={() => removeFromCart(item.productName)}
-                  className="text-red-500 hover:text-red-600 mt-1"
-                >
-                  <FiTrash2 />
-                </button>
-              </div>
-            </div>
-          ))
+            );
+          })
         )}
       </div>
 

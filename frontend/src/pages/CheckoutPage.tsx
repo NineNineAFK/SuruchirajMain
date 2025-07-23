@@ -151,7 +151,7 @@ const CheckoutPage: React.FC = () => {
     return (
       <div className="min-h-screen bg-white text-black dark:bg-black dark:text-white flex items-center justify-center">
         <div className="text-center">
-          <div className="animate-spin h-12 w-12 rounded-full border-b-2 border-yellow-500 dark:border-yellow-400 mx-auto" />
+          <div className="animate-spin h-12 w-12 rounded-full border-b-2 dark:border-yellow-500 border-[#4D6A3F] mx-auto" />
           <p className="mt-4 text-gray-600 dark:text-gray-400">Loading addresses...</p>
         </div>
       </div>
@@ -161,7 +161,7 @@ const CheckoutPage: React.FC = () => {
   return (
     <div className="min-h-screen bg-white text-black dark:bg-black dark:text-white px-4 py-8">
       <div className="max-w-4xl mx-auto">
-        <h2 className="text-4xl font-bold text-yellow-600 dark:text-yellow-400 font-heading mb-6">Delivery <span className='text-black dark:text-white'>Address</span></h2>
+        <h2 className="text-4xl font-bold text-[#4D6A3F] dark:text-yellow-400 font-heading mb-6">Delivery <span className='text-black dark:text-white'>Address</span></h2>
 
         {/* Saved Addresses */}
         <div className="mb-8">
@@ -169,7 +169,7 @@ const CheckoutPage: React.FC = () => {
             <h3 className="text-xl font-semibold font-body text-gray-700 dark:text-gray-300">Saved Addresses</h3>
             <button
               onClick={() => setShowAddForm(true)}
-              className="flex items-center gap-2 font-button bg-yellow-400 text-black px-4 py-2 rounded hover:bg-yellow-300 transition"
+              className="flex items-center gap-2 font-button dark:bg-yellow-400 bg-[#4D6A3F] dark:text-black text-white px-4 py-2 rounded dark:hover:bg-yellow-300 hover:bg-[#4D6A3F]/80 transition"
             >
               <FiPlus />
               Add New Address
@@ -185,14 +185,14 @@ const CheckoutPage: React.FC = () => {
                   key={address._id}
                   className={`rounded-lg p-4 cursor-pointer transition border-2 ${
                     selectedAddress === address._id
-                      ? 'border-yellow-400 bg-gray-100 dark:bg-[#1a1a1a]'
-                      : 'border-gray-300 dark:border-gray-700 hover:border-yellow-400'
+                      ? 'dark:border-yellow-400 border-[#4D6A3F]  bg-gray-100 dark:bg-[#1a1a1a]'
+                      : 'border-gray-300 dark:border-gray-700 dark:hover:border-yellow-300 hover:border-[#4D6A3F]/80'
                   }`}
                   onClick={() => setSelectedAddress(address._id)}
                 >
                   <div className="flex justify-between items-start mb-2">
                     <div className="flex items-center gap-2">
-                      <span className="font-semibold text-lg text-yellow-500 dark:text-yellow-400">{address.addressName}</span>
+                      <span className="font-semibold text-lg text-[#4D6A3F] dark:text-yellow-400">{address.addressName}</span>
                       {address.isDefault && (
                         <span className="bg-green-600 text-white text-xs px-2 py-1 font-body rounded">Default</span>
                       )}
@@ -203,7 +203,7 @@ const CheckoutPage: React.FC = () => {
                           e.stopPropagation();
                           handleEdit(address);
                         }}
-                        className="text-black dark:text-white hover:text-yellow-600 dark:hover:text-yellow-400"
+                        className="text-black dark:text-white hover:text-[#4D6A3F] dark:hover:text-yellow-400"
                         title="Edit address"
                       >
                         <FiEdit size={16} />
@@ -235,7 +235,7 @@ const CheckoutPage: React.FC = () => {
                         e.stopPropagation();
                         handleSetDefault(address._id);
                       }}
-                      className="mt-2 text-sm text-yellow-500 dark:text-yellow-400 font-body hover:underline"
+                      className="mt-2 text-sm text-[#4D6A3F] dark:text-yellow-400 font-body hover:underline"
                     >
                       Set as default
                     </button>
@@ -261,7 +261,7 @@ const CheckoutPage: React.FC = () => {
                   value={form.addressName}
                   onChange={handleChange}
                   required
-                  className="bg-white dark:bg-zinc-900 border border-gray-300 dark:border-gray-600 text-black dark:text-white p-3 rounded placeholder-gray-400 focus:outline-none focus:border-yellow-400"
+                  className="bg-white dark:bg-zinc-900 border border-gray-300 dark:border-gray-600 text-black dark:text-white p-3 rounded placeholder-gray-400 focus:outline-none dark:focus:border-yellow-400 focus:border-[#4D6A3F]"
                 />
                 <input
                   name="name"
@@ -269,7 +269,7 @@ const CheckoutPage: React.FC = () => {
                   value={form.name}
                   onChange={handleChange}
                   required
-                  className="bg-white dark:bg-zinc-900 border border-gray-300 dark:border-gray-600 text-black dark:text-white p-3 rounded placeholder-gray-400 focus:outline-none focus:border-yellow-400"
+                  className="bg-white dark:bg-zinc-900 border border-gray-300 dark:border-gray-600 text-black dark:text-white p-3 rounded placeholder-gray-400 focus:outline-none dark:focus:border-yellow-400 focus:border-[#4D6A3F]"
                 />
               </div>
 
@@ -279,7 +279,7 @@ const CheckoutPage: React.FC = () => {
                 value={form.phone}
                 onChange={handleChange}
                 required
-                className="w-full bg-white dark:bg-zinc-900 border border-gray-300 dark:border-gray-600 text-black dark:text-white p-3 rounded placeholder-gray-400 focus:outline-none focus:border-yellow-400"
+                className="w-full bg-white dark:bg-zinc-900 border border-gray-300 dark:border-gray-600 text-black dark:text-white p-3 rounded placeholder-gray-400 focus:outline-none dark:focus:border-yellow-400 focus:border-[#4D6A3F]"
               />
 
               <input
@@ -288,7 +288,7 @@ const CheckoutPage: React.FC = () => {
                 value={form.addressLine1}
                 onChange={handleChange}
                 required
-                className="w-full bg-white dark:bg-zinc-900 border border-gray-300 dark:border-gray-600 text-black dark:text-white p-3 rounded placeholder-gray-400 focus:outline-none focus:border-yellow-400"
+                className="w-full bg-white dark:bg-zinc-900 border border-gray-300 dark:border-gray-600 text-black dark:text-white p-3 rounded placeholder-gray-400 focus:outline-none dark:focus:border-yellow-400 focus:border-[#4D6A3F]"
               />
 
               <input
@@ -296,7 +296,7 @@ const CheckoutPage: React.FC = () => {
                 placeholder="Address Line 2 (Optional)"
                 value={form.addressLine2}
                 onChange={handleChange}
-                className="w-full bg-white dark:bg-zinc-900 border border-gray-300 dark:border-gray-600 text-black dark:text-white p-3 rounded placeholder-gray-400 focus:outline-none focus:border-yellow-400"
+                className="w-full bg-white dark:bg-zinc-900 border border-gray-300 dark:border-gray-600 text-black dark:text-white p-3 rounded placeholder-gray-400 focus:outline-none dark:focus:border-yellow-400 focus:border-[#4D6A3F]"
               />
 
               <div className="grid grid-cols-2 gap-4">
@@ -306,7 +306,7 @@ const CheckoutPage: React.FC = () => {
                   value={form.city}
                   onChange={handleChange}
                   required
-                  className="bg-white dark:bg-zinc-900 border border-gray-300 dark:border-gray-600 text-black dark:text-white p-3 rounded placeholder-gray-400 focus:outline-none focus:border-yellow-400"
+                  className="bg-white dark:bg-zinc-900 border border-gray-300 dark:border-gray-600 text-black dark:text-white p-3 rounded placeholder-gray-400 focus:outline-none dark:focus:border-yellow-400 focus:border-[#4D6A3F]"
                 />
                 <input
                   name="state"
@@ -314,7 +314,7 @@ const CheckoutPage: React.FC = () => {
                   value={form.state}
                   onChange={handleChange}
                   required
-                  className="bg-white dark:bg-zinc-900 border border-gray-300 dark:border-gray-600 text-black dark:text-white p-3 rounded placeholder-gray-400 focus:outline-none focus:border-yellow-400"
+                  className="bg-white dark:bg-zinc-900 border border-gray-300 dark:border-gray-600 text-black dark:text-white p-3 rounded placeholder-gray-400 focus:outline-none dark:focus:border-yellow-400 focus:border-[#4D6A3F]"
                 />
               </div>
 
@@ -324,7 +324,7 @@ const CheckoutPage: React.FC = () => {
                 value={form.pincode}
                 onChange={handleChange}
                 required
-                className="bg-white dark:bg-zinc-900 border border-gray-300 dark:border-gray-600 text-black dark:text-white p-3 rounded placeholder-gray-400 focus:outline-none focus:border-yellow-400"
+                className="bg-white dark:bg-zinc-900 border border-gray-300 dark:border-gray-600 text-black dark:text-white p-3 rounded placeholder-gray-400 focus:outline-none dark:focus:border-yellow-400 focus:border-[#4D6A3F]"
               />
 
               <div className="flex items-center gap-2 text-gray-700 dark:text-gray-300">
@@ -342,14 +342,14 @@ const CheckoutPage: React.FC = () => {
                 <button
                   type="submit"
                   disabled={formLoading}
-                  className="flex-1 bg-yellow-400 text-black py-3 rounded hover:bg-yellow-300 font-semibold"
+                  className="flex-1 dark:bg-yellow-400 bg-[#4D6A3F] dark:text-black text-white py-3 rounded dark:hover:bg-yellow-300 hover:bg-[#4D6A3F]/80 font-semibold"
                 >
                   {formLoading ? 'Saving...' : editingAddress ? 'Update Address' : 'Save Address'}
                 </button>
                 <button
                   type="button"
                   onClick={resetForm}
-                  className="px-6 py-3 border border-gray-400 dark:border-gray-600 text-yellow-600 dark:text-yellow-400 rounded hover:bg-gray-100 dark:hover:bg-gray-700"
+                  className="px-6 py-3 border border-gray-400 dark:border-gray-600 text-[#4D6A3F]dark:text-yellow-400 rounded hover:bg-gray-100 dark:hover:bg-gray-700"
                 >
                   Cancel
                 </button>
@@ -368,7 +368,7 @@ const CheckoutPage: React.FC = () => {
               className={`w-full py-3 rounded-lg text-xl font-bold font-body transition ${
                 paymentLoading
                   ? 'bg-gray-200 dark:bg-gray-700 text-gray-500 dark:text-gray-400 cursor-not-allowed'
-                  : 'bg-yellow-400 dark:bg-yellow-400 text-black hover:bg-yellow-300 dark:hover:bg-yellow-300'
+                  : 'bg-[#4D6A3F] dark:bg-yellow-400 dark:text-black text-white dark:hover:bg-yellow-300 hover:bg-[#4D6A3F]/80'
               }`}
             >
               {paymentLoading ? 'Processing...' : 'Continue to Payment'}

@@ -82,7 +82,7 @@ const testimonials: Testimonial[] = [
     company: 'Facebook',
     text: ` Suruchiraj spices always deliver great flavor, which is perfect for my tech-driven cooking. They help me try new recipes and share my creations online.`,
     image: '/userpp/karan.png',
-    rating: 4,
+    rating: 5,
   },
   {
     id: 9,
@@ -98,7 +98,7 @@ const testimonials: Testimonial[] = [
     company: 'Facebook',
     text: `Cooking is fun with Suruchiraj because their spices are always good quality and easy to use. They make every meal a special and enjoyable experience.`,
     image: '/userpp/gopal.png',
-    rating: 4,
+    rating: 5,
   },
 ];
 
@@ -119,13 +119,13 @@ const Testimonials: React.FC = () => {
   return (
     <section className="md:-mt-1 px-4 md:px-8 text-center relative font-heading">
       <h2 className="text-3xl md:text-4xl font-extrabold mb-4 md:mb-10 text-black dark:text-white">
-        What Our <span className="text-east-side-900 dark:text-yellow-400">Customers Say</span>
+        What Our <span className="text-[#4D6A3F] dark:text-yellow-400">Customers Say</span>
       </h2>
 
       {/* ✅ FIX: Conditionally render the Desktop Swiper only on the client */}
       {isClient && (
-        <div className="relative max-w-6xl mx-auto hidden md:block">
-          {/* Navigation Arrows */}
+        <div className="hidden md:block relative w-full bg-contain bg-center bg-no-repeat bg-scroll bg-[url('/testimonial-bg.png')] dark:bg-none py-10">
+          {/* Navigation Arrows
           <button
             onClick={() => swiperRef.current?.slidePrev()}
             className="absolute -left-14 top-1/2 transform -translate-y-1/2 z-20 bg-gray-100 dark:bg-white/20 text-black dark:text-white hover:bg-yellow-400 hover:text-black p-3 rounded-full transition"
@@ -138,86 +138,87 @@ const Testimonials: React.FC = () => {
             className="absolute -right-14 top-1/2 transform -translate-y-1/2 z-20 bg-gray-100 dark:bg-white/20 text-black dark:text-white hover:bg-yellow-400 hover:text-black p-3 rounded-full transition"
           >
             <FiChevronRight className="text-2xl" />
-          </button>
+          </button> */}
+          <div className="relative max-w-6xl mx-auto hidden md:block">
+            <Swiper
+              onSwiper={(swiper: SwiperType) => {
+                swiperRef.current = swiper;
+                setActiveIndex(swiper.realIndex);
+              }}
+              onSlideChange={(swiper: { realIndex: React.SetStateAction<number>; }) => setActiveIndex(swiper.realIndex)}
+              effect="coverflow"
+              grabCursor
+              centeredSlides
+              loop
+              autoplay={{
+                delay: 2000,
+                disableOnInteraction: false,
+                pauseOnMouseEnter: true,
+              }}
+              breakpoints={{
+                1024: { slidesPerView: 3, spaceBetween: 90 },
+              }}
+              initialSlide={Math.floor(testimonials.length / 2)}
+              loopAdditionalSlides={3}
+              coverflowEffect={{
+                rotate: 0,
+                stretch: 0,
+                depth: 100,
+                slideShadows: false,
+              }}
+              pagination={{ clickable: true }}
+              modules={[EffectCoverflow, Pagination, Autoplay]}
+              className="pb-10"
+            >
+              {testimonials.map((t, index) => {
+                const isActive = index === activeIndex;
+                return (
+                  <SwiperSlide
+                    key={t.id}
+                    className={`h-[380px] flex flex-col justify-between rounded-xl 
+                      p-6 text-left text-black dark:text-white border border-black/10 dark:border-white/30
+                      shadow-[0_0_10px_rgba(0,0,0,0.1)] dark:shadow-[0_0_10px_rgba(255,255,255,0.3)] transition-all duration-500
+                      ${
+                        isActive
+                          ? 'bg-[#9EAF88] dark:bg-gradient-to-br dark:from-[#2e0545] dark:to-[#541d7a] backdrop-blur-lg'
+                          : 'bg-[#9EAF88]/50 dark:bg-gradient-to-br backdrop-blur-md blur-[5px] opacity-50 scale-[0.95]'
+                      }`}
+                  >
+                    <div>
+                      <div className="text-6xl mb-2 mt-6 ml-2 text-yellow-400 leading-none font-body">❝</div>
+                      <p className="text-lg leading-relaxed whitespace-pre-line font-body">
+                        {t.text}
+                      </p>
+                    </div>
 
-          <Swiper
-            onSwiper={(swiper: SwiperType) => {
-              swiperRef.current = swiper;
-              setActiveIndex(swiper.realIndex);
-            }}
-            onSlideChange={(swiper: { realIndex: React.SetStateAction<number>; }) => setActiveIndex(swiper.realIndex)}
-            effect="coverflow"
-            grabCursor
-            centeredSlides
-            loop
-            autoplay={{
-              delay: 2000,
-              disableOnInteraction: false,
-              pauseOnMouseEnter: true,
-            }}
-            breakpoints={{
-              1024: { slidesPerView: 3, spaceBetween: 90 },
-            }}
-            initialSlide={Math.floor(testimonials.length / 2)}
-            loopAdditionalSlides={3}
-            coverflowEffect={{
-              rotate: 0,
-              stretch: 0,
-              depth: 100,
-              slideShadows: false,
-            }}
-            pagination={{ clickable: true }}
-            modules={[EffectCoverflow, Pagination, Autoplay]}
-            className="pb-10"
-          >
-            {testimonials.map((t, index) => {
-              const isActive = index === activeIndex;
-              return (
-                <SwiperSlide
-                  key={t.id}
-                  className={`h-[380px] flex flex-col justify-between rounded-xl 
-                    p-6 text-left text-black dark:text-white border border-black/10 dark:border-white/30
-                    shadow-[0_0_10px_rgba(0,0,0,0.1)] dark:shadow-[0_0_10px_rgba(255,255,255,0.3)] transition-all duration-500
-                    ${
-                      isActive
-                        ? 'bg-east-side-600 dark:bg-gradient-to-br dark:from-[#2e0545] dark:to-[#541d7a] backdrop-blur-lg'
-                        : 'bg-east-side-600/50 backdrop-blur-md blur-[5px] opacity-50 scale-[0.95]'
-                    }`}
-                >
-                  <div>
-                    <div className="text-6xl mb-2 mt-6 ml-2 text-yellow-400 leading-none font-body">❝</div>
-                    <p className="text-lg leading-relaxed whitespace-pre-line font-body">
-                      {t.text}
-                    </p>
-                  </div>
-
-                  <div className="flex items-center justify-between mt-6">
-                    <div className="flex items-start gap-2">
-                      <img
-                        src={t.image}
-                        alt={t.name}
-                        className="w-16 h-16 rounded-full object-cover"
-                      />
-                      <div>
-                        <p className="text-sm font-semibold ml-2 font-body">{t.name}</p>
-                        <p className="text-sm dark:text-gray-300 text-gray-900 ml-2 font-body">{t.company}</p>
-                        <div className="flex space-x-1 mt-1 ml-2">
-                          {[...Array(5)].map((_, i) => (
-                            <AiFillStar
-                              key={i}
-                              className={`${
-                                i < t.rating ? 'text-yellow-400' : 'text-black dark:text-white'
-                              } text-xl`}
-                            />
-                          ))}
+                    <div className="flex items-center justify-between mt-6">
+                      <div className="flex items-start gap-2">
+                        <img
+                          src={t.image}
+                          alt={t.name}
+                          className="w-16 h-16 rounded-full object-cover"
+                        />
+                        <div>
+                          <p className="text-sm font-semibold ml-2 font-body">{t.name}</p>
+                          <p className="text-sm dark:text-gray-200 text-gray-900 ml-2 font-body">{t.company}</p>
+                          <div className="flex space-x-1 mt-1 ml-2">
+                            {[...Array(5)].map((_, i) => (
+                              <AiFillStar
+                                key={i}
+                                className={`${
+                                  i < t.rating ? 'text-yellow-400' : 'text-black dark:text-white'
+                                } text-xl`}
+                              />
+                            ))}
+                          </div>
                         </div>
                       </div>
                     </div>
-                  </div>
-                </SwiperSlide>
-              );
-            })}
-          </Swiper>
+                  </SwiperSlide>
+                );
+              })}
+            </Swiper>
+          </div>
         </div>
       )}
 
@@ -234,19 +235,19 @@ const Testimonials: React.FC = () => {
           >
             {testimonials.map((t) => (
               <SwiperSlide key={t.id}>
-                <div className="bg-east-side-600 dark:bg-white/10 text-black dark:text-white border border-black/10 dark:border-white/20 p-4 rounded-[40px] shadow-md backdrop-blur-md">
-                  <div className="text-4xl mb-2 mt-4 ml-4 text-left text-yellow-400 leading-none font-body">❝</div>
+                <div className="bg-[#2C941E]/40 dark:bg-white/10 text-black dark:text-white border border-black/10 dark:border-white/20 p-4 rounded-[40px] shadow-md backdrop-blur-md">
+                  <div className="text-4xl mb-2 mt-4 ml-4 text-left dark:text-yellow-400 text-yellow-700 leading-none font-body">❝</div>
                   <p className="text-base leading-relaxed whitespace-pre-line font-body">{t.text}</p>
                   <div className="flex items-center gap-3 mt-4">
                     <img src={t.image} alt={t.name} className="w-16 h-16 rounded-full object-cover" />
                     <div>
                       <p className="text-sm font-semibold font-body">{t.name}</p>
-                      <p className="text-xs text-gray-300 font-body">{t.company}</p>
+                      <p className="text-xs text-gray-700 dark:text-gray-200 font-body">{t.company}</p>
                       <div className="flex space-x-1 mt-1">
                         {[...Array(5)].map((_, i) => (
                           <AiFillStar
                             key={i}
-                            className={`${i < t.rating ? 'text-yellow-400' : 'text-black dark:text-white'} text-sm`}
+                            className={`${i < t.rating ? 'dark:text-yellow-400 text-yellow-600 ' : 'text-black dark:text-white'} text-sm`}
                           />
                         ))}
                       </div>

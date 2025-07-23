@@ -67,7 +67,7 @@ const AuthButton = () => {
       </button>
 
       {dropdownOpen && (
-        <div className="absolute -right-8 md:right-0 mt-2 w-60 bg-white text-black rounded-md shadow-md z-50 divide-y divide-gray-200 font-body">
+        <div className="absolute -right-8 md:right-0 mt-2 w-[60vw] md:w-60 bg-white text-black rounded-md shadow-md z-50 divide-y divide-gray-200 font-body">
           <div className="flex items-center p-4">
             <img
               src={userData.photo || '/user.png'}
@@ -109,7 +109,7 @@ const AuthButton = () => {
   ) : (
     <button
       onClick={openLoginModal}
-      className="flex items-center space-x-1 text-gray-300 hover:text-red-500 transition"
+      className="flex items-center space-x-1 text-white hover:text-red-500 transition"
     >
       <FiUser className="text-xl" />
       <span className="text-sm hidden md:inline">Sign In</span>
@@ -189,7 +189,7 @@ const Navbar: React.FC = () => {
 
   return (
     <>
-      <header className="sticky top-0 z-50 bg-east-side-900 dark:bg-black transition-all duration-300">
+      <header className="sticky top-0 z-50 bg-[#4D6A3F] dark:bg-black transition-all duration-300">
         <div className="container mx-auto px-3 py-2 flex items-center justify-between font-roboto font-semibold">
         {/* Mobile */}
         <div className="flex w-full items-center justify-between lg:hidden px-2 md:px-0 py-1">
@@ -246,7 +246,7 @@ const Navbar: React.FC = () => {
                     <Link
                       key={link.name}
                       to={link.href}
-                      className="text-gray-300 hover:text-red-500 transition duration-200"
+                      className="text-white hover:text-red-500 transition duration-200"
                     >
                       {link.name}
                     </Link>
@@ -276,7 +276,7 @@ const Navbar: React.FC = () => {
                 <AuthButton />
                 <Link
                   to="/wishlist"
-                  className="relative flex items-center space-x-1 text-gray-300 hover:text-red-500 transition"
+                  className="relative flex items-center space-x-1 text-white hover:text-red-500 transition"
                 >
                   <FiHeart className="text-xl" />
                   <span className="text-sm">Wishlist</span>
@@ -288,7 +288,7 @@ const Navbar: React.FC = () => {
                 </Link>
                 <button
                   onClick={() => setIsCartOpen(true)}
-                  className="relative flex items-center space-x-1 text-gray-300 hover:text-red-500 transition"
+                  className="relative flex items-center space-x-1 text-white hover:text-red-500 transition"
                 >
                   <FiShoppingCart className="text-xl" />
                   <span className="text-sm">My Cart</span>
@@ -304,7 +304,7 @@ const Navbar: React.FC = () => {
 
         </div>
         {isOpen && (
-          <div className="lg:hidden px-4 pb-4 bg-black text-white">
+          <div className="lg:hidden px-4 pb-4 dark:bg-black bg-[#4D6A3F] text-white">
             <nav className="flex flex-col space-y-2 mb-4">
               {navLinks.map((link) => (
                 <Link key={link.name} to={link.href} onClick={() => setIsOpen(false)} className="hover:text-red-500 transition duration-200">{link.name}</Link>
@@ -315,7 +315,7 @@ const Navbar: React.FC = () => {
       </header>
 
       {/* Mobile search */}
-      <div className="lg:hidden bg-east-side-950 dark:bg-black px-4 pt-3 pb-4">
+      <div className="lg:hidden bg-[#4D6A3F] dark:bg-black px-4 pt-3 pb-4">
         <div className="relative flex items-center">
           <div className="absolute left-3">
             <img src="search.png" alt="search" className="w-6 h-6" />

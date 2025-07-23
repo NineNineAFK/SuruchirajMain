@@ -37,7 +37,7 @@ const AboutUs: React.FC = () => {
         {/* --- Who Are We Section --- */}
         <section className="text-left">
           <h2 className="text-3xl sm:text-4xl font-heading font-bold mb-4">
-            Who Are <span className="text-east-side-900 dark:text-yellow-400">We</span>
+            Who Are <span className="text-[#4D6A3F] dark:text-yellow-400">We</span>
           </h2>
           <div className="max-w-3xl space-y-4 text-gray-700 dark:text-gray-300 leading-relaxed">
             <p>
@@ -55,7 +55,7 @@ const AboutUs: React.FC = () => {
         {/* --- Our Philosophy Section --- */}
         <section className="space-y-8">
             <h2 className="text-left text-3xl sm:text-4xl font-heading font-bold">
-                Our <span className="text-east-side-900 dark:text-yellow-400">Philosophy</span>
+                Our <span className="text-[#4D6A3F] dark:text-yellow-400">Philosophy</span>
             </h2>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
                 {/* Purity Card */}
@@ -83,14 +83,14 @@ const AboutUs: React.FC = () => {
         <section className="flex flex-col lg:flex-row items-center gap-12">
             <div className="w-full lg:w-1/2 space-y-4">
                 <h2 className="text-3xl sm:text-4xl font-heading font-bold">
-                    What Makes Us <span className="text-east-side-900 dark:text-yellow-400">Unique</span>
+                    What Makes Us <span className="text-[#4D6A3F] dark:text-yellow-400">Unique</span>
                 </h2>
                 <ul className="list-disc list-inside space-y-2 text-gray-700 dark:text-gray-300 leading-relaxed">
-                  <li><span className='font-semibold text-east-side-900 dark:text-yellow-400'>Authentic Indian Recipes:</span> Crafted with traditional methods and modern expertise.</li>
-                  <li><span className='font-semibold text-east-side-900 dark:text-yellow-400'>Quality-Controlled:</span> From sourcing to packaging, every step ensures hygiene and consistency.
+                  <li><span className='font-semibold text-[#4D6A3F] dark:text-yellow-400'>Authentic Indian Recipes:</span> Crafted with traditional methods and modern expertise.</li>
+                  <li><span className='font-semibold text-[#4D6A3F] dark:text-yellow-400'>Quality-Controlled:</span> From sourcing to packaging, every step ensures hygiene and consistency.
                   </li>
-                  <li><span className='font-semibold text-east-side-900 dark:text-yellow-400'>Global Reach, Local Heart:</span> Proudly rooted in Pune, available across the world.</li>
-                  <li><span className='font-semibold text-east-side-900 dark:text-yellow-400'>Customer First:</span> We value every customer's trust and strive to exceed expectations in taste and service.</li>
+                  <li><span className='font-semibold text-[#4D6A3F] dark:text-yellow-400'>Global Reach, Local Heart:</span> Proudly rooted in Pune, available across the world.</li>
+                  <li><span className='font-semibold text-[#4D6A3F] dark:text-yellow-400'>Customer First:</span> We value every customer's trust and strive to exceed expectations in taste and service.</li>
                 </ul>
             </div>
             <div className="w-full lg:w-1/2 h-80 bg-gray-200 dark:bg-zinc-800 rounded-lg">
@@ -101,7 +101,7 @@ const AboutUs: React.FC = () => {
         {/* --- Our Commitment --- */}
         <section className="text-center">
             <h2 className="text-3xl sm:text-4xl font-heading font-bold mb-4">
-                Our <span className="text-east-side-900 dark:text-yellow-400">Commitment</span>
+                Our <span className="text-[#4D6A3F] dark:text-yellow-400">Commitment</span>
             </h2>
             <p className="max-w-3xl mx-auto text-gray-700 dark:text-gray-300 leading-relaxed">
                 We are committed to quality, transparency, and customer satisfaction. Every pack of Suruchiraj Spices is a promise of good health and great taste. We strive to bring the authentic flavors of India to your kitchen, making every meal a celebration.
@@ -117,7 +117,7 @@ const AboutUs: React.FC = () => {
         {/* --- Meet Our Founders --- */}
         <section className="space-y-8">
           <h2 className="text-center text-3xl sm:text-4xl font-heading font-bold">
-            Meet our <span className="text-east-side-900 dark:text-yellow-400">Founders</span>
+            Meet our <span className="text-[#4D6A3F] dark:text-yellow-400">Founders</span>
           </h2>
           <div className="w-full h-80 bg-zinc-800/50 dark:bg-zinc-900 rounded-lg p-8 flex items-center justify-center">
             <p className="text-gray-400">Founder information and story will be displayed here.</p>
@@ -132,18 +132,18 @@ const AboutUs: React.FC = () => {
         {/* --- Contact Section --- */}
         <section className="space-y-3">
           <h3 className="text-3xl sm:text-4xl font-heading font-bold">
-            Connect With <span className="text-east-side-900 dark:text-yellow-400">Us</span>
+            Connect With <span className="text-[#4D6A3F] dark:text-yellow-400">Us</span>
           </h3>
           <div className="text-gray-700 dark:text-gray-300 space-y-2 pt-4">
             <p className="flex items-start gap-3">
-              <FiMapPin className="text-east-side-900 dark:text-yellow-400 mt-1 flex-shrink-0" size={20} />
+              <FiMapPin className="text-[#4D6A3F] dark:text-yellow-400 mt-1 flex-shrink-0" size={20} />
               <span>Suruchiraj Spices, Sarala Roses, Someshwarwadi Road, Near Hotel Rajwada, Pashan, Pune, Maharashtra 411008</span>
             </p>
             <p className="flex items-center gap-3">
-              <FiPhone className="text-east-side-900 dark:text-yellow-400" size={20} /><span className="font-sans">9867604406</span>
+              <FiPhone className="text-[#4D6A3F] dark:text-yellow-400" size={20} /><span className="font-sans">9867604406</span>
             </p>
             <p className="flex items-center gap-3">
-              <FiMail className="text-east-side-900 dark:text-yellow-400" size={20} /> <span>support@suruchiraj.com</span>
+              <FiMail className="text-[#4D6A3F] dark:text-yellow-400" size={20} /> <span>support@suruchiraj.com</span>
             </p>
             <p className="text-sm text-gray-500 italic dark:text-gray-400 pt-2">Website: www.suruchiraj.com</p>
           </div>

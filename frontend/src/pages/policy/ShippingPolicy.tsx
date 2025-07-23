@@ -5,15 +5,15 @@ const ShippingPolicy: React.FC = () => {
   return (
     <div className="bg-east-side-100 dark:bg-black text-black dark:text-white min-h-screen transition-colors duration-300">
       <div className="min-h-screen px-4 sm:px-8 py-10 max-w-5xl mx-auto font-body">
-        <h1 className="text-3xl sm:text-4xl font-bold font-heading text-east-side-900 dark:text-yellow-400 text-center mb-8">
+        <h1 className="text-3xl sm:text-4xl font-bold font-heading text-[#4D6A3F] dark:text-yellow-400 text-center mb-8">
           Shipping and Delivery Policy
         </h1>
 
         <p className="mb-6 text-gray-700 dark:text-gray-300">
-          At <span className="text-east-side-900 dark:text-yellow-400 font-semibold">Suruchiraj Spices</span>, we're committed to getting our flavorful products to your doorstep efficiently. This policy outlines our shipping and delivery procedures, both domestically and internationally.
+          At <span className="text-[#4D6A3F] dark:text-yellow-400 font-semibold">Suruchiraj Spices</span>, we're committed to getting our flavorful products to your doorstep efficiently. This policy outlines our shipping and delivery procedures, both domestically and internationally.
         </p>
 
-        <h2 className="text-xl font-semibold text-east-side-900 dark:text-yellow-400 mt-10 mb-2">Shipping Carriers</h2>
+        <h2 className="text-xl font-semibold text-[#4D6A3F] dark:text-yellow-400 mt-10 mb-2">Shipping Carriers</h2>
         <p className="mb-4 text-gray-700 dark:text-gray-300">
           <span className="font-semibold">International Shipments:</span> For our valued international buyers, all orders are exclusively shipped and delivered through registered international courier companies and/or International Speed Post.
         </p>
@@ -24,7 +24,7 @@ const ShippingPolicy: React.FC = () => {
           We carefully select reliable partners to ensure your spices arrive safely and on time.
         </p>
 
-        <h2 className="text-xl font-semibold text-east-side-900 dark:text-yellow-400 mt-10 mb-2">Order Processing and Dispatch</h2>
+        <h2 className="text-xl font-semibold text-[#4D6A3F] dark:text-yellow-400 mt-10 mb-2">Order Processing and Dispatch</h2>
         <p className="mb-4 text-gray-700 dark:text-gray-300">
           <span className="font-semibold">Dispatch Time:</span> Orders are typically dispatched within 0–7 business days from the date of order confirmation and payment. This timeline may vary if a specific delivery date has been mutually agreed upon at the time of order confirmation.
         </p>
@@ -35,7 +35,7 @@ const ShippingPolicy: React.FC = () => {
           <span className="font-semibold">Delivery is Subject to Carrier Norms:</span> The final delivery of your shipment is subject to the norms and operational schedules of the respective courier company or postal authority.
         </p>
 
-        <h2 className="text-xl font-semibold text-east-side-900 dark:text-yellow-400 mt-10 mb-2">Delivery Liability and Address Accuracy</h2>
+        <h2 className="text-xl font-semibold text-[#4D6A3F] dark:text-yellow-400 mt-10 mb-2">Delivery Liability and Address Accuracy</h2>
         <ul className="list-disc list-inside space-y-2 text-gray-700 dark:text-gray-300 mb-4">
           <li><span className="font-semibold">Delivery Delays:</span> Suruchiraj Spices is not liable for courier company delays after dispatch.</li>
           <li><span className="font-semibold">Delivery Address:</span> It is the customer’s responsibility to provide an accurate and complete shipping address.</li>
@@ -43,7 +43,7 @@ const ShippingPolicy: React.FC = () => {
           <li><span className="font-semibold">Delivery Attempts:</span> If the parcel is unclaimed or returned after multiple delivery attempts, re-shipping costs may apply.</li>
         </ul>
 
-        <h2 className="text-xl font-semibold text-east-side-900 dark:text-yellow-400 mt-10 mb-2">International Shipments: Customs, Duties, and Taxes</h2>
+        <h2 className="text-xl font-semibold text-[#4D6A3F] dark:text-yellow-400 mt-10 mb-2">International Shipments: Customs, Duties, and Taxes</h2>
         <p className="mb-4 text-gray-700 dark:text-gray-300">
           <span className="font-semibold">Customer Responsibility:</span> Buyers are responsible for any customs duties, import taxes, or tariffs charged by the destination country.
         </p>
@@ -51,7 +51,7 @@ const ShippingPolicy: React.FC = () => {
           <span className="font-semibold">Customs Clearance:</span> Suruchiraj Spices is not responsible for delays caused by customs processes.
         </p>
 
-        <h2 className="text-xl font-semibold text-east-side-900 dark:text-yellow-400 mt-10 mb-2">Delivery Confirmation and Tracking</h2>
+        <h2 className="text-xl font-semibold text-[#4D6A3F] dark:text-yellow-400 mt-10 mb-2">Delivery Confirmation and Tracking</h2>
         <p className="mb-4 text-gray-700 dark:text-gray-300">
           <span className="font-semibold">Service Confirmation:</span> After your order is dispatched, a confirmation email with tracking details (if available) will be sent to your registered email.
         </p>
@@ -59,15 +59,15 @@ const ShippingPolicy: React.FC = () => {
           <span className="font-semibold">Tracking:</span> You can use the provided tracking number to monitor your shipment’s progress on the carrier’s website.
         </p>
 
-        <h2 className="text-xl font-semibold text-east-side-900 dark:text-yellow-400 mt-10 mb-2">Assistance and Support</h2>
+        <h2 className="text-xl font-semibold text-[#4D6A3F] dark:text-yellow-400 mt-10 mb-2">Assistance and Support</h2>
         <p className="mb-4 text-gray-700 dark:text-gray-300">
           For any issues or queries regarding the utilization of our services, or for assistance with your shipment, please contact our helpdesk:
         </p>
         <p className="flex items-center gap-2 text-gray-700 dark:text-gray-300">
-          <FiPhone className="text-east-side-900 dark:text-yellow-400" /><span className='font-sans'>9867604406</span>
+          <FiPhone className="text-[#4D6A3F] dark:text-yellow-400" /><span className='font-sans'>9867604406</span>
         </p>
         <p className="flex items-center gap-2 text-gray-700 dark:text-gray-300">
-          <FiMail className="text-east-side-900 dark:text-yellow-400" /> support@suruchiraj.com
+          <FiMail className="text-[#4D6A3F] dark:text-yellow-400" /> support@suruchiraj.com
         </p>
       </div>
     </div>

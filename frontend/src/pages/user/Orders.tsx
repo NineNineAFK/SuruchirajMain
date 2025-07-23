@@ -105,7 +105,7 @@ const Orders: React.FC = () => {
   }
 
   return (
-    <div className="bg-white dark:bg-black min-h-screen">
+    <div className="bg-[#4D6A3F]/10 dark:bg-black min-h-screen">
       <div className="max-w-6xl mx-auto py-10 px-4">
          <h1 className="text-4xl font-bold mb-6 font-heading text-black dark:text-white">My Orders</h1>
 
@@ -178,7 +178,7 @@ const Orders: React.FC = () => {
 
                   <div className="mt-4 pt-4 border-t dark:border-gray-200 border-gray-700">
                     <button>
-                    <p className="text-yellow-600 text-sm font-semibold pointer-events-auto">
+                    <p className="dark:text-yellow-600 text-[#4D6A3F] text-sm font-semibold pointer-events-auto">
                       Click to view details →
                     </p>
                     </button>
@@ -195,7 +195,7 @@ const Orders: React.FC = () => {
             <div className="bg-white dark:bg-black font-body rounded-xl max-w-2xl w-full max-h-[90vh] overflow-y-auto">
               <div className="p-6">
                 <div className="flex justify-between items-start mb-6">
-                  <h2 className="text-2xl font-bold font-heading text-yellow-600">Order Details</h2>
+                  <h2 className="text-2xl font-bold font-heading dark:text-yellow-600 text-[#4D6A3F]">Order Details</h2>
                   <button
                     onClick={() => setShowOrderDetails(false)}
                     className="text-black dark:text-gray-100  hover:text-gray-500"
@@ -243,7 +243,7 @@ const Orders: React.FC = () => {
 
                 {/* Order Items */}
                 <div className="mb-6">
-                  <h4 className="font-semibold text-yellow-600 mb-4">Order Items</h4>
+                  <h4 className="font-semibold dark:text-yellow-600 text-[#4D6A3F] mb-4">Order Items</h4>
                   <div className="space-y-4">
                     {selectedOrder.items.map((item, index) => (
                       <div key={index} className="flex justify-between items-center bg-white dark:bg-black">
@@ -261,7 +261,7 @@ const Orders: React.FC = () => {
 
                 {/* Delivery Address */}
                 <div className="mb-6">
-                  <h4 className="font-semibold text-yellow-600 mb-4">Delivery Address</h4>
+                  <h4 className="font-semibold dark:text-yellow-600 text-[#4D6A3F] mb-4">Delivery Address</h4>
                   <div className="bg-gray-100 dark:bg-black p-4 border border-gray-300 dark:border-white/20 rounded-2xl">
                     <p className="font-medium text-black dark:text-gray-100">{selectedOrder.deliveryAddress.name}</p>
                     <p className="text-black dark:text-gray-100 font-sans">{selectedOrder.deliveryAddress.phone}</p>
@@ -277,7 +277,7 @@ const Orders: React.FC = () => {
 
                 {/* Order Timeline */}
                 <div>
-                  <h4 className="font-semibold text-yellow-600 mb-4">Order Timeline</h4>
+                  <h4 className="font-semibold dark:text-yellow-600 text-[#4D6A3F] mb-4">Order Timeline</h4>
                   <div className="space-y-3">
                     <div className="flex items-center space-x-3">
                       <div className="w-3 h-3 bg-green-500 rounded-full"></div>

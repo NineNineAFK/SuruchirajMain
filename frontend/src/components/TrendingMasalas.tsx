@@ -87,7 +87,7 @@ const TrendingMasalas: React.FC = () => {
   return (
     <section id="trending" className="px-4 md:px-8 text-center relative font-heading">
       <h2 className="text-3xl md:text-4xl font-extrabold mb-4 md:mb-10 text-black dark:text-white">
-        Trending <span className="text-east-side-900 dark:text-yellow-400">Masalas</span>
+        Trending <span className="text-[#4D6A3F] dark:text-yellow-400">Masalas</span>
       </h2>
       <div className="relative max-w-6xl mx-auto overflow-visible">
       {/* Navigation Buttons - Desktop Only */}

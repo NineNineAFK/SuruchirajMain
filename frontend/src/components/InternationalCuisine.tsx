@@ -44,7 +44,7 @@ const InternationalCuisine: React.FC = () => {
   return (
     <section id="cuisines" className="md:-mt-4 px-4 md:px-8 text-center relative font-heading -mt-7">
       <h2 className="text-3xl md:text-4xl font-extrabold mb-4 md:mb-10 text-black dark:text-white">
-        International <span className="text-east-side-900 dark:text-yellow-400">Cuisines</span>
+        Flavors of the <span className="text-[#4D6A3F] dark:text-yellow-400">World</span>
       </h2>
 
       {/* ✅ MOBILE LAYOUT: Swiper Carousel View */}
@@ -57,7 +57,7 @@ const InternationalCuisine: React.FC = () => {
           <SwiperSlide key={index} style={{ width: '7rem' }}>
             <div
               onClick={() => handleCuisineClick(cuisine.label)}
-              className="relative h-36 w-30 bg-palegold dark:bg-white/5 backdrop-blur-md rounded-2xl border border-black/10 dark:border-white/10 shadow-lg cursor-pointer overflow-hidden"
+              className="relative h-36 w-30 bg-[#9EAF88] dark:bg-white/5 backdrop-blur-md rounded-2xl border border-black/10 dark:border-white/10 shadow-lg cursor-pointer overflow-hidden"
             >
               <div className="absolute -top-[6vw] -left-[5vw] w-[32vw] h-[32vw] rounded-full overflow-hidden">
                 <img
@@ -128,7 +128,7 @@ const InternationalCuisine: React.FC = () => {
             >
               <div
                 onClick={() => handleCuisineClick(cuisine.label)}
-                className="relative cursor-pointer h-[240px] w-[180px] bg-palegold dark:bg-transparent backdrop-blur-md rounded-3xl overflow-hidden shadow-lg transition-transform duration-300 hover:scale-[1.03] border border-black/10 dark:border-white/10"
+                className="relative cursor-pointer h-[240px] w-[180px] bg-[#9EAF88] dark:bg-transparent backdrop-blur-md rounded-3xl overflow-hidden shadow-lg transition-transform duration-300 hover:scale-[1.03] border border-black/10 dark:border-white/10"
               >
                 <div className="absolute -top-6 -left-10 w-52 h-52 rounded-full overflow-hidden transition-all duration-300 hover:scale-105 hover:opacity-90">
                   <img

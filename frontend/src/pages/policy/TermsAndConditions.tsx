@@ -5,7 +5,7 @@ const TermsAndConditions: React.FC = () => {
   return (
     <div className="bg-east-side-100 dark:bg-black text-black dark:text-white min-h-screen transition-colors duration-300">
       <div className="min-h-screen px-4 sm:px-8 py-10 max-w-5xl mx-auto font-body">
-        <h1 className="text-3xl sm:text-4xl font-bold font-heading text-east-side-900 dark:text-yellow-400 text-center mb-8">
+        <h1 className="text-3xl sm:text-4xl font-bold font-heading text-[#4D6A3F] dark:text-yellow-400 text-center mb-8">
           Terms and Conditions
         </h1>
 
@@ -62,14 +62,14 @@ const TermsAndConditions: React.FC = () => {
           <p>If you have any questions about these Terms and Conditions, please contact us:</p>
           <div className="text-gray-700 dark:text-gray-300 space-y-2 mt-2">
             <p className="flex items-start gap-2">
-              <FiMapPin className="text-east-side-900 dark:text-yellow-400 mt-1" />
+              <FiMapPin className="text-[#4D6A3F] dark:text-yellow-400 mt-1" />
               Suruchiraj Spices, Sarala Roses, Someshwarwadi Road, Near Hotel Rajwada, Pashan, Pune, Maharashtra-411008
             </p>
             <p className="flex items-center gap-2">
-              <FiPhone className="text-east-side-900 dark:text-yellow-400" /><span className="font-sans">9867604406</span>
+              <FiPhone className="text-[#4D6A3F] dark:text-yellow-400" /><span className="font-sans">9867604406</span>
             </p>
             <p className="flex items-center gap-2">
-              <FiMail className="text-east-side-900 dark:text-yellow-400" /> support@suruchiraj.com
+              <FiMail className="text-[#4D6A3F] dark:text-yellow-400" /> support@suruchiraj.com
             </p>
             <p className="text-sm text-gray-500 italic">Website: www.suruchiraj.com</p>
           </div>
@@ -84,7 +84,7 @@ export default TermsAndConditions;
 // Optional helper for consistent sections
 const Section = ({ title, children }: { title: string; children: React.ReactNode }) => (
   <div className="mb-6">
-    <h2 className="text-xl font-semibold text-east-side-900 dark:text-yellow-400 mt-10 mb-2">{title}</h2>
+    <h2 className="text-xl font-semibold text-[#4D6A3F] dark:text-yellow-400 mt-10 mb-2">{title}</h2>
     <div className="space-y-2 text-gray-700 dark:text-gray-300">{children}</div>
   </div>
 );
