@@ -8,9 +8,9 @@ const { restrictToLoggedInUserOnly } = require('../middlewares/auth');
 
 // API routes for cart operations
 router.post('/add-to-cart', restrictToLoggedInUserOnly, cartController.addToCart);
-router.get('/api/cart', restrictToLoggedInUserOnly, cartController.getCart);
-router.put('/api/cart/update', restrictToLoggedInUserOnly, cartController.updateQuantity);
-router.delete('/api/cart/remove/:productId', restrictToLoggedInUserOnly, cartController.removeFromCart);
+router.get('/cart', restrictToLoggedInUserOnly, cartController.getCart);
+router.put('/update', restrictToLoggedInUserOnly, cartController.updateQuantity);
+router.delete('/remove/:productId', restrictToLoggedInUserOnly, cartController.removeFromCart);
 //router.delete('/api/cart/clear', restrictToLoggedInUserOnly, cartController.clearCart);
 
 module.exports = router; 

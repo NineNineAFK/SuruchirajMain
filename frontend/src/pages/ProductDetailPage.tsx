@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import { FiHeart, FiMinus, FiPlus } from 'react-icons/fi';
+import { FiHeart } from 'react-icons/fi';
 import { useWishlist } from '../context/WishlistContext';
 import { useCart } from '../context/CartContext';
-import toast from 'react-hot-toast';
+// import toast from 'react-hot-toast';
 import DeliveryLocation from '../components/DeliveryLocation';
 import { getProductById } from '../services/productService';
 import type { Product } from '../types/product';
@@ -45,9 +45,11 @@ const ProductDetailPage: React.FC = () => {
     let err = '';
     if (total_required_grams > (product.stock || 0)) {
       err = 'Not enough spice stock available';
-    } else if (selected50g > (product.packaging_50gms || 0)) {
+    }
+    if (selected50g > (product.packaging_50gms || 0)) {
       err = 'Not enough 50g packaging available';
-    } else if (selected100g > (product.packaging_100gms || 0)) {
+    }
+    if (selected100g > (product.packaging_100gms || 0)) {
       err = 'Not enough 100g packaging available';
     }
     setError(err);
@@ -66,9 +68,9 @@ const ProductDetailPage: React.FC = () => {
     }
   };
 
-  const handleMoveToCart = () => {
-    moveWishlistItemToCart(product._id);
-  };
+  // const handleMoveToCart = () => {
+  //   moveWishlistItemToCart(product._id);
+  // };
 
   const max50g = product ? Math.min(Math.floor((product.stock || 0) / 50), product.packaging_50gms) : 0;
   const max100g = product ? Math.min(Math.floor((product.stock || 0) / 100), product.packaging_100gms) : 0;
@@ -119,10 +121,17 @@ const ProductDetailPage: React.FC = () => {
         <div className="col-span-7">
           <h1 className="text-2xl sm:text-3xl font-bold font-heading mb-2">{product.product_name}</h1>
           <p className="text-yellow-400 font-body mb-2">12 sold in last 10 hours</p>
-          <p className="text-xl font-semibold font-sans mb-3">₹{product.mrp && product.mrp.length > 0 ? Math.round(product.mrp[0]) : ''}</p>
+          <p className="text-xl font-semibold font-sans mb-3">
+            50g: ₹{product.mrp && product.mrp.length > 0 ? Math.round(product.mrp[0]) : 'N/A'} &nbsp;|
+            100g: ₹{product.mrp && product.mrp.length > 1 ? Math.round(product.mrp[1]) : 'N/A'}
+          </p>
 
           <p className="mb-2 text-xl font-sans font-semibold">
-            <span className="text-black dark:text-white text-2xl font-heading">Subtotal</span>:- ₹{product.mrp && product.mrp.length > 0 ? Math.round(product.mrp[0] * (selected50g + selected100g)) : ''}
+            <span className="text-black dark:text-white text-2xl font-heading">Subtotal</span>:- ₹{
+              product.mrp && product.mrp.length > 1
+                ? Math.round((selected50g * product.mrp[0]) + (selected100g * product.mrp[1]))
+                : ''
+            }
           </p>
 
           {/* Replace old quantity selector with new packet selectors and validation UI */}
