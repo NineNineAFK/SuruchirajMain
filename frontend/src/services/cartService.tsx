@@ -1,9 +1,12 @@
 const API_BASE_URL = import.meta.env.VITE_domainName;
 
 export interface CartItem {
+  _id?: string;
   productId: string;
+  product?: string;  // Add this for MongoDB _id reference
   productName: string;
-  price: number;
+  price_50g: number;
+  price_100g: number;
   quantity: number;
   qty_50g: number;
   qty_100g: number;
@@ -32,7 +35,13 @@ export const addToCart = async (productId: string, qty_50g: number = 0, qty_100g
       }),
     });
 
-    const data = await response.json();
+    let data;
+    const contentType = response.headers.get("content-type");
+    if (contentType && contentType.includes("application/json")) {
+      data = await response.json();
+    } else {
+      throw new Error('Server returned non-JSON response');
+    }
 
     if (!response.ok) {
       throw new Error(data.error || 'Failed to add item to cart');
@@ -41,14 +50,17 @@ export const addToCart = async (productId: string, qty_50g: number = 0, qty_100g
     return data.cart;
   } catch (error) {
     console.error('Error adding item to cart:', error);
-    throw error;
+    if (error instanceof Error) {
+      throw new Error(`Failed to add item: ${error.message}`);
+    }
+    throw new Error('Failed to add item to cart');
   }
 };
 
 // Get user's cart
 export const getCart = async (): Promise<Cart> => {
   try {
-    const response = await fetch(`${API_BASE_URL}/cart/api/cart`, {
+    const response = await fetch(`${API_BASE_URL}/cart/cart`, {
       method: 'GET',
       credentials: 'include', // Include cookies for authentication
     });
@@ -69,7 +81,7 @@ export const getCart = async (): Promise<Cart> => {
 // Update item quantity
 export const updateQuantity = async (productId: string, qty_50g: number, qty_100g: number): Promise<Cart> => {
   try {
-    const response = await fetch(`${API_BASE_URL}/cart/api/cart/update`, {
+    const response = await fetch(`${API_BASE_URL}/cart/update`, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
@@ -94,18 +106,34 @@ export const updateQuantity = async (productId: string, qty_50g: number, qty_100
 // Remove item from cart
 export const removeFromCart = async (productId: string): Promise<Cart> => {
   try {
-    const response = await fetch(`${API_BASE_URL}/cart/api/cart/remove/${encodeURIComponent(productId)}`, {
+    if (!productId) {
+      throw new Error('Product ID is required to remove item from cart');
+    }
+    const response = await fetch(`${API_BASE_URL}/cart/remove/${encodeURIComponent(productId)}`, {
       method: 'DELETE',
       credentials: 'include',
+      headers: {
+        'Content-Type': 'application/json'
+      }
     });
-    const data = await response.json();
+    let data;
+    const contentType = response.headers.get("content-type");
+    if (contentType && contentType.includes("application/json")) {
+      data = await response.json();
+    } else {
+      throw new Error('Server returned non-JSON response');
+    }
+
     if (!response.ok) {
       throw new Error(data.error || 'Failed to remove item from cart');
     }
     return data.cart;
   } catch (error) {
     console.error('Error removing item from cart:', error);
-    throw error;
+    if (error instanceof Error) {
+      throw new Error(`Failed to remove item: ${error.message}`);
+    }
+    throw new Error('Failed to remove item from cart');
   }
 };
 

@@ -1,9 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
+<<<<<<< HEAD
 import { FiHeart, } from 'react-icons/fi';
 import { useWishlist } from '../context/WishlistContext';
 import { useCart } from '../context/CartContext';
 //import toast from 'react-hot-toast';
+=======
+import { FiHeart } from 'react-icons/fi';
+import { useWishlist } from '../context/WishlistContext';
+import { useCart } from '../context/CartContext';
+// import toast from 'react-hot-toast';
+>>>>>>> f4ea12b90c725b22160083c0187e025ec9b7e739
 import DeliveryLocation from '../components/DeliveryLocation';
 import { getProductById } from '../services/productService';
 import type { Product } from '../types/product';
@@ -71,9 +78,15 @@ const ProductDetailPage: React.FC = () => {
     }
   };
 
+<<<<<<< HEAD
   //const handleMoveToCart = () => {
   //  moveWishlistItemToCart(product._id);
   //};
+=======
+  // const handleMoveToCart = () => {
+  //   moveWishlistItemToCart(product._id);
+  // };
+>>>>>>> f4ea12b90c725b22160083c0187e025ec9b7e739
 
   const max50g = product ? Math.min(Math.floor((product.stock || 0) / 50), product.packaging_50gms) : 0;
   const max100g = product ? Math.min(Math.floor((product.stock || 0) / 100), product.packaging_100gms) : 0;
@@ -160,6 +173,10 @@ const ProductDetailPage: React.FC = () => {
             50g: ₹{product.mrp && product.mrp.length > 0 ? Math.round(product.mrp[0]) : 'N/A'} &nbsp;|
             100g: ₹{product.mrp && product.mrp.length > 1 ? Math.round(product.mrp[1]) : 'N/A'}
           </p>
+<<<<<<< HEAD
+=======
+
+>>>>>>> f4ea12b90c725b22160083c0187e025ec9b7e739
           <p className="mb-2 text-xl font-sans font-semibold">
             <span className="text-black dark:text-white text-2xl font-heading">Subtotal</span>:- ₹{
               product.mrp && product.mrp.length > 1
