@@ -1,16 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-<<<<<<< HEAD
 import { FiHeart, } from 'react-icons/fi';
 import { useWishlist } from '../context/WishlistContext';
 import { useCart } from '../context/CartContext';
-//import toast from 'react-hot-toast';
-=======
-import { FiHeart } from 'react-icons/fi';
-import { useWishlist } from '../context/WishlistContext';
-import { useCart } from '../context/CartContext';
 // import toast from 'react-hot-toast';
->>>>>>> f4ea12b90c725b22160083c0187e025ec9b7e739
+//import toast from 'react-hot-toast';
 import DeliveryLocation from '../components/DeliveryLocation';
 import { getProductById } from '../services/productService';
 import type { Product } from '../types/product';
@@ -56,7 +50,11 @@ const ProductDetailPage: React.FC = () => {
       err = 'Not enough spice stock available';
     }
     if (selected50g > (product.packaging_50gms || 0)) {
+    }
+    if (selected50g > (product.packaging_50gms || 0)) {
       err = 'Not enough 50g packaging available';
+    }
+    if (selected100g > (product.packaging_100gms || 0)) {
     }
     if (selected100g > (product.packaging_100gms || 0)) {
       err = 'Not enough 100g packaging available';
@@ -78,15 +76,12 @@ const ProductDetailPage: React.FC = () => {
     }
   };
 
-<<<<<<< HEAD
-  //const handleMoveToCart = () => {
-  //  moveWishlistItemToCart(product._id);
-  //};
-=======
   // const handleMoveToCart = () => {
   //   moveWishlistItemToCart(product._id);
   // };
->>>>>>> f4ea12b90c725b22160083c0187e025ec9b7e739
+  //const handleMoveToCart = () => {
+  //  moveWishlistItemToCart(product._id);
+  //};
 
   const max50g = product ? Math.min(Math.floor((product.stock || 0) / 50), product.packaging_50gms) : 0;
   const max100g = product ? Math.min(Math.floor((product.stock || 0) / 100), product.packaging_100gms) : 0;
@@ -173,11 +168,17 @@ const ProductDetailPage: React.FC = () => {
             50g: ₹{product.mrp && product.mrp.length > 0 ? Math.round(product.mrp[0]) : 'N/A'} &nbsp;|
             100g: ₹{product.mrp && product.mrp.length > 1 ? Math.round(product.mrp[1]) : 'N/A'}
           </p>
-<<<<<<< HEAD
-=======
 
->>>>>>> f4ea12b90c725b22160083c0187e025ec9b7e739
+          <p className="text-xl font-semibold font-sans mb-3">
+            50g: ₹{product.mrp && product.mrp.length > 0 ? Math.round(product.mrp[0]) : 'N/A'} &nbsp;|
+            100g: ₹{product.mrp && product.mrp.length > 1 ? Math.round(product.mrp[1]) : 'N/A'}
+          </p>
           <p className="mb-2 text-xl font-sans font-semibold">
+            <span className="text-black dark:text-white text-2xl font-heading">Subtotal</span>:- ₹{
+              product.mrp && product.mrp.length > 1
+                ? Math.round((selected50g * product.mrp[0]) + (selected100g * product.mrp[1]))
+                : ''
+            }
             <span className="text-black dark:text-white text-2xl font-heading">Subtotal</span>:- ₹{
               product.mrp && product.mrp.length > 1
                 ? Math.round((selected50g * product.mrp[0]) + (selected100g * product.mrp[1]))
