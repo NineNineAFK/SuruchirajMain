@@ -4,7 +4,6 @@ import { FiHeart, } from 'react-icons/fi';
 import { useWishlist } from '../context/WishlistContext';
 import { useCart } from '../context/CartContext';
 // import toast from 'react-hot-toast';
-//import toast from 'react-hot-toast';
 import DeliveryLocation from '../components/DeliveryLocation';
 import { getProductById } from '../services/productService';
 import type { Product } from '../types/product';
@@ -79,9 +78,7 @@ const ProductDetailPage: React.FC = () => {
   // const handleMoveToCart = () => {
   //   moveWishlistItemToCart(product._id);
   // };
-  //const handleMoveToCart = () => {
-  //  moveWishlistItemToCart(product._id);
-  //};
+
 
   const max50g = product ? Math.min(Math.floor((product.stock || 0) / 50), product.packaging_50gms) : 0;
   const max100g = product ? Math.min(Math.floor((product.stock || 0) / 100), product.packaging_100gms) : 0;
@@ -161,24 +158,14 @@ const ProductDetailPage: React.FC = () => {
 
 
         {/* Product Info */}
-        <div className="col-span-7">
+        <div className="col-span-7 md:mt-10">
           <h1 className="text-2xl sm:text-3xl font-bold font-heading mb-2">{product.product_name}</h1>
-          <p className="text-yellow-400 font-body mb-2">12 sold in last 10 hours</p>
           <p className="text-xl font-semibold font-sans mb-3">
             50g: ₹{product.mrp && product.mrp.length > 0 ? Math.round(product.mrp[0]) : 'N/A'} &nbsp;|
             100g: ₹{product.mrp && product.mrp.length > 1 ? Math.round(product.mrp[1]) : 'N/A'}
           </p>
 
-          <p className="text-xl font-semibold font-sans mb-3">
-            50g: ₹{product.mrp && product.mrp.length > 0 ? Math.round(product.mrp[0]) : 'N/A'} &nbsp;|
-            100g: ₹{product.mrp && product.mrp.length > 1 ? Math.round(product.mrp[1]) : 'N/A'}
-          </p>
           <p className="mb-2 text-xl font-sans font-semibold">
-            <span className="text-black dark:text-white text-2xl font-heading">Subtotal</span>:- ₹{
-              product.mrp && product.mrp.length > 1
-                ? Math.round((selected50g * product.mrp[0]) + (selected100g * product.mrp[1]))
-                : ''
-            }
             <span className="text-black dark:text-white text-2xl font-heading">Subtotal</span>:- ₹{
               product.mrp && product.mrp.length > 1
                 ? Math.round((selected50g * product.mrp[0]) + (selected100g * product.mrp[1]))
@@ -225,14 +212,14 @@ const ProductDetailPage: React.FC = () => {
               Delivery within <span className="font-sans">3-5</span> days
             </p>
             <DeliveryLocation />
-            <p>
+            {/* <p>
               <span className="text-yellow-400 font-heading text-lg font-semibold">Manufactured by:</span>{' '}
               {product.manufactured_marketed_by || 'Suruchiraj Spices, Pune'}
             </p>
             <p>
               <span className="text-yellow-400 font-heading text-lg font-semibold">Customer Care:</span>{' '}
               <span className="font-sans">{product.customer_care_no || '+91 9867104406'}</span>
-            </p>
+            </p> */}
           </div>
         </div>
       </div>
