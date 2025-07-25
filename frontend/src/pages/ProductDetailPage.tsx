@@ -9,7 +9,7 @@ import { getProductById } from '../services/productService';
 import type { Product } from '../types/product';
 import { AiFillHeart } from 'react-icons/ai';
 
-//const placeholder = '/testing/Batata Wada Masala Lifestyle Shot.webp';
+
 
 
 const ProductDetailPage: React.FC = () => {

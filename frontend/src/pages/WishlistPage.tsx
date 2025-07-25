@@ -22,18 +22,18 @@ const WishlistPage: React.FC = () => {
             {wishlist.map((item) => (
               <div
                 key={item.id}
-                className="bg-white dark:bg-zinc-900 rounded-xl shadow-md border border-black/10 dark:border-white/10 flex flex-col justify-between min-h-[250px] p-3"
+                className="rounded-lg border border-black/10 dark:border-white/40 flex flex-col justify-between min-h-[250px] p-3"
               >
                 {/* Product Image */}
                 <img
-                  src={'\testing\Batata Wada Masala Lifestyle Shot.webp'}
+                  src={'/testing/Batata Wada Masala Lifestyle Shot.webp'}
                   alt={item.name}
-                  className="w-32 h-32 object-contain mx-auto mb-4"
+                  className="w-full h-full object-contain mx-auto mb-4"
                 />
 
                 {/* Product Name & Price */}
                 <div className="flex justify-between items-start flex-wrap gap-x-2 mb-2">
-                  <h2 className="font-heading font-semibold text-black dark:text-white text-sm sm:text-base break-words leading-tight line-clamp-2 max-w-[70%]">
+                  <h2 className="font-heading font-semibold text-black dark:text-white text-sm sm:text-base break-words leading-tight line-clamp-2 max-w-[50%]">
                     {item.name}
                   </h2>
                   <p className="text-[#4D6A3F] dark:text-yellow-400 font-bold font-sans text-sm sm:text-base text-right">

@@ -213,7 +213,7 @@ const SubProducts = () => {
                       flex flex-col justify-between h-[320px] sm:h-[30vw]"
                     >
                       {/* Wishlist Icon */}
-                      <div className="absolute md:top-8 md:right-4 top-4 right-2 z-10">
+                      <div className="absolute md:top-8 md:right-4 top-4 right-2 z-20">
                         <button
                           onClick={e => { e.preventDefault(); handleWishlistToggle(product); }}
                           className="text-white text-sm"
@@ -328,17 +328,18 @@ const SubProducts = () => {
               <h3 className="font-semibold font-heading text-xl mb-2">Category</h3>
               <ul className="space-y-2 text-sm text-gray-700 dark:text-gray-300">
                 {filterCategories.map((cat) => (
-                  <li key={cat}>
-                    <span
-                      className={`cursor-pointer hover:text-yellow-400 ${
-                        selectedCategories.includes(cat) ? 'text-yellow-400' : ''
-                      }`}
-                      onClick={() => handleCategoryChange(cat)}
-                    >
-                      {cat}
-                    </span>
-                  </li>
-                ))}
+                <li key={cat}>
+                  <label className="inline-flex items-center space-x-2">
+                    <input
+                      type="checkbox"
+                      checked={selectedCategories.includes(cat)}
+                      onChange={() => handleCategoryChange(cat)}
+                        className="w-5 h-5 appearance-none border-2 border-yellow-400 rounded bg-east-side-100 dark:bg-black relative checked:bg-east-side-100 checked:dark:bg-black checked:border-yellow-400 transition-colors duration-200 checked:after:content-['✓'] checked:after:text-yellow-400 checked:after:absolute checked:after:inset-0 checked:after:flex checked:after:items-center checked:after:justify-center checked:after:text-sm"
+                      />
+                    <span>{cat}</span>
+                  </label>
+                </li>
+              ))}
               </ul>
             </div>
           </div>
