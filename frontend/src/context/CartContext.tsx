@@ -59,14 +59,19 @@ export const CartProvider: React.FC<CartProviderProps> = ({ children }) => {
 
   const addToCart = async (item: { productId: string; qty_50g: number; qty_100g: number }) => {
     if (!authState) {
-      toast.error('Please login to add items to cart');
+      toast.error('Please login to add items to cart', {position: 'bottom-center',});
       return;
     }
     try {
       setLoading(true);
       const cartData = await addToCartAPI(item.productId, item.qty_50g, item.qty_100g);
       setCart(cartData.items || []);
-      toast.success('Item added to cart successfully');
+      toast.success('Item added to cart successfully',{
+        position: 'top-right',
+        style: {
+          marginTop: '60px',
+        },
+      });
     } catch (error) {
       console.error('Error adding to cart:', error);
       if (error instanceof Error && error.message.includes('not authenticated')) {
@@ -89,7 +94,12 @@ export const CartProvider: React.FC<CartProviderProps> = ({ children }) => {
       setLoading(true);
       const cartData = await removeFromCartAPI(productId);
       setCart(cartData.items || []);
-      toast.success('Item removed from cart');
+      toast.success('Item removed from cart', {
+        position: 'top-right',
+        style: {
+          marginTop: '60px',
+        },
+      });
     } catch (error) {
       console.error('Error removing from cart:', error);
       toast.error('Failed to remove item from cart');

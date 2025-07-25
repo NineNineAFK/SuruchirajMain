@@ -124,7 +124,9 @@ const Testimonials: React.FC = () => {
 
       {/* ✅ FIX: Conditionally render the Desktop Swiper only on the client */}
       {isClient && (
-        <div className="hidden md:block relative w-full bg-contain bg-center bg-no-repeat bg-scroll bg-[url('/testimonial-bg.png')] dark:bg-none py-10">
+        <div className="hidden md:block relative w-full py-10"> 
+        {/* bg-contain bg-center bg-no-repeat bg-scroll bg-[url('/testimonial-bg.png')] dark:bg-none */}
+         
           {/* Navigation Arrows
           <button
             onClick={() => swiperRef.current?.slidePrev()}
@@ -181,7 +183,7 @@ const Testimonials: React.FC = () => {
                       ${
                         isActive
                           ? 'bg-[#9EAF88] dark:bg-gradient-to-br dark:from-[#2e0545] dark:to-[#541d7a] backdrop-blur-lg'
-                          : 'bg-[#9EAF88]/50 dark:bg-gradient-to-br backdrop-blur-md blur-[5px] opacity-50 scale-[0.95]'
+                          : 'bg-[#9EAF88]/50 dark:bg-gradient-to-br dark:from-[#2e0545] dark:to-[#541d7a] backdrop-blur-md blur-[5px] opacity-50 scale-[0.95]'
                       }`}
                   >
                     <div>
