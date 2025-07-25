@@ -11,10 +11,29 @@ import { AiFillHeart } from 'react-icons/ai';
 
 //const placeholder = '/testing/Batata Wada Masala Lifestyle Shot.webp';
 
+
 const ProductDetailPage: React.FC = () => {
+    // 1. Define a hardcoded array and selected image for consistent testing.
+    const testImages = [
+      '/testing/Batata Wada Masala Close Up Shot.webp',
+      '/testing/Batata Wada Masala Cooked Dish Shot.webp',
+      '/testing/Batata Wada Masala Hand Held Shot.webp',
+      '/testing/Batata Wada Masala Hero Shot.webp',
+      '/testing/Batata Wada Masala Label Shot.webp',
+      '/testing/Batata Wada Masala Lifestyle Shot.webp'
+    ];
+  // Lifestyle Shot.webp is the default image for the product.
+  const getDefaultImage = () => {
+    const lifestyleImage = testImages.find((img) =>
+      img.includes('Lifestyle Shot.webp')
+    );
+    return lifestyleImage || testImages[0];
+  };
+  const [selectedImage, setSelectedImage] = useState(getDefaultImage());
   const { id } = useParams();
   const [product, setProduct] = useState<Product | null>(null);
   //const [selectedImage, setSelectedImage] = useState<string>(placeholder);
+  //const [selectedImage, setSelectedImage] = useState<string>(testImages[0]);
   
   const [selected50g, setSelected50g] = useState(0);
   const [selected100g, setSelected100g] = useState(0);
@@ -92,18 +111,7 @@ const ProductDetailPage: React.FC = () => {
       qty_100g: selected100g,
     });
   };
-    // 1. Define a hardcoded array and selected image for consistent testing.
-  const testImages = [
-    '/testing/Batata Wada Masala Close Up Shot.webp',
-    '/testing/Batata Wada Masala Cooked Dish Shot.webp',
-    '/testing/Batata Wada Masala Hand Held Shot.webp',
-    '/testing/Batata Wada Masala Hero Shot.webp',
-    '/testing/Batata Wada Masala Label Shot.webp',
-    '/testing/Batata Wada Masala Lifestyle Shot.webp'
-  ];
-  const selectedImage = testImages[0];
-  
-  // --- End of hardcoded section ---
+
   return (
   <div className="bg-white text-black dark:bg-black dark:text-white min-h-screen px-4 py-8">
     <div className="max-w-7xl mx-auto grid md:grid-cols-12 gap-6">
@@ -118,7 +126,8 @@ const ProductDetailPage: React.FC = () => {
               className={`rounded-xl flex items-center justify-center cursor-pointer transition-all duration-200 ${
                 selectedImage === img ? 'ring-1 ring-yellow-400' : ''
               }`}
-              // Smaller on mobile, slightly larger on desktop
+              
+              onClick={() => setSelectedImage(img)}
               style={{
                 width: '50px',
                 height: '50px',
