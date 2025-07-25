@@ -209,11 +209,11 @@ const SubProducts = () => {
                 return (
                   <Link to={`/product/${product._id}`} key={String(product._id)}>
                     <div
-                      className="bg-white dark:bg-[#141414] rounded-2xl overflow-hidden relative group transition transform hover:-translate-y-1 shadow border border-black/10 dark:border-white/10
-                      flex flex-col justify-between h-[320px] sm:h-[340px]"
+                      className="relative group transition transform hover:-translate-y-1
+                      flex flex-col justify-between h-[320px] sm:h-[30vw]"
                     >
                       {/* Wishlist Icon */}
-                      <div className="absolute top-3 right-3 z-10">
+                      <div className="absolute md:top-8 md:right-4 top-4 right-2 z-10">
                         <button
                           onClick={e => { e.preventDefault(); handleWishlistToggle(product); }}
                           className="text-white text-sm"
@@ -222,7 +222,7 @@ const SubProducts = () => {
                           className={`text-lg transition ${
                             isWishlisted(product._id)
                               ? 'text-red-500 fill-red-500'
-                              : 'text-black dark:text-white'
+                              : 'text-black'
                           }`}
                           />
                         </button>
@@ -230,15 +230,15 @@ const SubProducts = () => {
 
                       {/* Product Image */}
                       <img
-                        src={product.images && product.images.length > 0 ? `/images/products/${product.images[0]}` : '/placeholder.png'}
+                        src={product.images && product.images.length > 0 ? `/images/products/${product.images[0]}` : '/testing/Batata Wada Masala Lifestyle Shot.webp'}
                         alt={product.product_name}
-                        className="w-full h-36 object-cover"
+                        className="w-full h-full object-contain rounded-2xl z-10"
                       />
 
                       {/* Product Info */}
-                      <div className="p-3 pt-4 dark:text-white text-black dark:bg-[#141414] bg-gray-100">
-                        <h3 className="text-sm font-medium">{product.product_name}</h3>
-                      <div className="flex items-center justify-between font-sans text-lg mt-1">
+                      <div className="p-2 dark:text-white text-black border-l-2 border-r-2 border-b-2 md:-mt-[2vw] -mt-[4vw] lg:-mt-[3vw] rounded-md shadow-md flex flex-col justify-between">
+                        <h3 className="mt-[3vw] md:mt-[2vw] text-sm font-medium leading-tight h-[3rem] overflow-hidden">{product.product_name}</h3>
+                      <div className="flex items-center justify-between font-sans text-lg">
                         {/* Price on the left */}
                         {product.mrp && product.mrp.length > 0 && (
                           <span className="font-semibold dark:text-white text-black">₹{product.mrp[0]}</span>
