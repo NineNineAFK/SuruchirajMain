@@ -60,10 +60,20 @@ export const WishlistProvider = ({ children }: { children: ReactNode }) => {
       const res = await userApi.addToWishlist(productId);
       if (res.success) {
         await fetchWishlist();
-        toast.success('Added to wishlist');
+        toast.success('Added to wishlist',{
+        position: 'top-right',
+        style: {
+          marginTop: '60px',
+        },
+      });
       }
     } catch (err) {
-      toast.error('Failed to add to wishlist');
+      toast.error('Failed to add to wishlist',{
+        position: 'top-right',
+        style: {
+          marginTop: '60px',
+        },
+      });
     }
   };
 
@@ -72,10 +82,20 @@ export const WishlistProvider = ({ children }: { children: ReactNode }) => {
       const res = await userApi.removeFromWishlist(productId);
       if (res.success) {
         await fetchWishlist();
-        toast.success('Removed from wishlist');
+        toast.success('Removed from wishlist',{
+        position: 'top-right',
+        style: {
+          marginTop: '60px',
+        },
+      });
       }
     } catch (err) {
-      toast.error('Failed to remove from wishlist');
+      toast.error('Failed to remove from wishlist',{
+        position: 'top-right',
+        style: {
+          marginTop: '60px',
+        },
+      });
     }
   };
 
@@ -85,10 +105,20 @@ export const WishlistProvider = ({ children }: { children: ReactNode }) => {
       if (res.success) {
         await fetchWishlist();
         await refreshCart();
-        toast.success('Moved to cart');
+        toast.success('Moved to cart',{
+        position: 'top-right',
+        style: {
+          marginTop: '60px',
+        },
+      });
       }
     } catch (err) {
-      toast.error('Failed to move to cart');
+      toast.error('Failed to move to cart',{
+        position: 'top-right',
+        style: {
+          marginTop: '60px',
+        },
+      });
     }
   };
 
