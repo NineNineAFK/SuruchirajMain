@@ -26,7 +26,7 @@ const WishlistPage: React.FC = () => {
               >
                 {/* Product Image */}
                 <img
-                  src={item.image || '/placeholder.png'}
+                  src={'\testing\Batata Wada Masala Lifestyle Shot.webp'}
                   alt={item.name}
                   className="w-32 h-32 object-contain mx-auto mb-4"
                 />

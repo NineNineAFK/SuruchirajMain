@@ -59,7 +59,12 @@ export const CartProvider: React.FC<CartProviderProps> = ({ children }) => {
 
   const addToCart = async (item: { productId: string; qty_50g: number; qty_100g: number }) => {
     if (!authState) {
-      toast.error('Please login to add items to cart', {position: 'bottom-center',});
+      toast.error('Please login to add items to cart', {
+        position: 'top-right',
+        style: {
+          marginTop: '60px',
+        },
+      });
       return;
     }
     try {
@@ -75,10 +80,20 @@ export const CartProvider: React.FC<CartProviderProps> = ({ children }) => {
     } catch (error) {
       console.error('Error adding to cart:', error);
       if (error instanceof Error && error.message.includes('not authenticated')) {
-        toast.error('Please login to add items to cart');
+        toast.error('Please login to add items to cart',{
+        position: 'top-right',
+        style: {
+          marginTop: '60px',
+        },
+      });
         return;
       } else {
-        toast.error('Failed to add item to cart');
+        toast.error('Failed to add item to cart',{
+        position: 'top-right',
+        style: {
+          marginTop: '60px',
+        },
+      });
       }
     } finally {
       setLoading(false);
@@ -87,7 +102,12 @@ export const CartProvider: React.FC<CartProviderProps> = ({ children }) => {
 
   const removeFromCart = async (productId: string) => {
     if (!authState) {
-      toast.error('Please login to manage your cart');
+      toast.error('Please login to manage your cart',{
+        position: 'top-right',
+        style: {
+          marginTop: '60px',
+        },
+      });
       return;
     }
     try {
@@ -102,7 +122,12 @@ export const CartProvider: React.FC<CartProviderProps> = ({ children }) => {
       });
     } catch (error) {
       console.error('Error removing from cart:', error);
-      toast.error('Failed to remove item from cart');
+      toast.error('Failed to remove item from cart',{
+        position: 'top-right',
+        style: {
+          marginTop: '60px',
+        },
+      });
     } finally {
       setLoading(false);
     }
@@ -110,7 +135,12 @@ export const CartProvider: React.FC<CartProviderProps> = ({ children }) => {
 
   const updateQuantity = async (productId: string, qty_50g: number, qty_100g: number) => {
     if (!authState) {
-      toast.error('Please login to manage your cart');
+      toast.error('Please login to manage your cart',{
+        position: 'top-right',
+        style: {
+          marginTop: '60px',
+        },
+      });
       return;
     }
     if (qty_50g <= 0 && qty_100g <= 0) {
@@ -123,7 +153,12 @@ export const CartProvider: React.FC<CartProviderProps> = ({ children }) => {
       setCart(cartData.items || []);
     } catch (error) {
       console.error('Error updating cart:', error);
-      toast.error('Failed to update cart');
+      toast.error('Failed to update cart',{
+        position: 'top-right',
+        style: {
+          marginTop: '60px',
+        },
+      });
     } finally {
       setLoading(false);
     }
@@ -131,7 +166,12 @@ export const CartProvider: React.FC<CartProviderProps> = ({ children }) => {
 
   const clearCart = async () => {
     if (!authState) {
-      toast.error('Please login to manage your cart');
+      toast.error('Please login to manage your cart',{
+        position: 'top-right',
+        style: {
+          marginTop: '60px',
+        },
+      });
       return;
     }
     try {
@@ -141,7 +181,12 @@ export const CartProvider: React.FC<CartProviderProps> = ({ children }) => {
       toast.success('Cart cleared successfully');
     } catch (error) {
       console.error('Error clearing cart:', error);
-      toast.error('Failed to clear cart');
+      toast.error('Failed to clear cart',{
+        position: 'top-right',
+        style: {
+          marginTop: '60px',
+        },
+      });
     } finally {
       setLoading(false);
     }
