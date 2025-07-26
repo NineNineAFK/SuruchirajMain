@@ -236,7 +236,7 @@ const SubProducts = () => {
                       {/* Product Image */}
                       {product.images && product.images.length > 0 && (
                         <img
-                          src={`https://suruchiraj.com/images/products/${product.images[0]}`}
+                          src={`https://suruchiraj.com/images/products/${product.images.find(img => img.toLowerCase().includes('lifestyle shot')) || product.images[0]}`}
                           alt={product.product_name}
                           className="w-full h-full object-contain rounded-2xl z-10"
                         />
