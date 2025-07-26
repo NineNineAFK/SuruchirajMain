@@ -13,14 +13,8 @@ import { OptimizedImage } from '../components/OptimizedImage';
 
 
 const ProductDetailPage: React.FC = () => {
-  const getDefaultImage = (productImages: string[]) => {
-    const lifestyleImage = productImages.find((img) =>
-      img.toLowerCase().includes('lifestyle shot')
-    );
-    return lifestyleImage || productImages[0] || '/spices.png';
-  };
-  
-  const [selectedImage, setSelectedImage] = useState<string>('/spices.png');
+  // Initialize with empty string instead of fallback
+  const [selectedImage, setSelectedImage] = useState<string>('');
   const { id } = useParams();
   const [product, setProduct] = useState<Product | null>(null);
   //const [selectedImage, setSelectedImage] = useState<string>(placeholder);

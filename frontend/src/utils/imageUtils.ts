@@ -16,9 +16,14 @@ export const sortProductImages = (images: string[]): string[] => {
 
 // Get full image URL with proper error handling
 export const getProductImageUrl = (imageName: string | undefined): string => {
-  if (!imageName || imageName === 'default-product.png') return '/spices.png'; // Default fallback image
-  if (imageName.startsWith('/')) return BASE_DOMAIN + imageName; // Local path
-  if (imageName.startsWith('http')) return imageName; // Already a complete URL
+  // Handle empty, undefined, or default product cases
+  if (!imageName || imageName === 'default-product.png' || imageName === 'spices.png') {
+    return BASE_DOMAIN + '/images/products/spices.png';
+  }
+  
+  // Handle absolute paths and full URLs
+  if (imageName.startsWith('/')) return BASE_DOMAIN + imageName;
+  if (imageName.startsWith('http')) return imageName;
   
   // Keep original filename with spaces intact as your server handles spaces correctly
   const url = `${IMAGE_BASE_URL}${imageName}`;
