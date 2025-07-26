@@ -33,6 +33,7 @@ export const OptimizedImage: React.FC<OptimizedImageProps> = ({
 
       // If not cached, get the full URL
       const imageUrl = getProductImageUrl(imageName);
+      console.log('Attempting to load image:', { imageName, imageUrl }); // Debug log
       
       try {
         // Preload the image

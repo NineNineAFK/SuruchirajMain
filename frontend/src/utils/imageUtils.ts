@@ -14,8 +14,10 @@ export const sortProductImages = (images: string[]): string[] => {
 // Get full image URL with proper error handling
 export const getProductImageUrl = (imageName: string | undefined): string => {
   if (!imageName) return '/spices.png'; // Default fallback image
-  // Use encodeURIComponent only for the filename, not the whole path
-  return `${IMAGE_BASE_URL}${encodeURIComponent(imageName).replace(/%20/g, ' ')}`;
+  if (imageName.startsWith('/')) return imageName; // Already a complete path
+  if (imageName.startsWith('http')) return imageName; // Already a complete URL
+  // Add spaces back after encoding to match server expectation
+  return `${IMAGE_BASE_URL}${imageName}`;
 };
 
 // Function to preload an image

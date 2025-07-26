@@ -40,11 +40,14 @@ const ProductDetailPage: React.FC = () => {
       setLoading(true);
       try {
         const data = await getProductById(id);
+        console.log('Product data:', data); // Debug log
         setProduct(data);
         if (data.images && data.images.length > 0) {
+          console.log('Available images:', data.images); // Debug log
           // Find lifestyle shot or use first image
           const defaultImage = data.images.find(img => img.toLowerCase().includes('lifestyle shot')) || data.images[0];
-          setSelectedImage(defaultImage); // Just store the filename, OptimizedImage will handle the URL
+          console.log('Selected default image:', defaultImage); // Debug log
+          setSelectedImage(defaultImage);
         }
       } catch (err) {
         setProduct(null);
