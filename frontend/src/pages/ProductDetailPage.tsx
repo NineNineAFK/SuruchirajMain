@@ -44,7 +44,7 @@ const ProductDetailPage: React.FC = () => {
         if (data.images && data.images.length > 0) {
           // Find lifestyle shot or use first image
           const defaultImage = data.images.find(img => img.toLowerCase().includes('lifestyle shot')) || data.images[0];
-          setSelectedImage(`https://suruchiraj.com/images/products/${defaultImage}`);
+          setSelectedImage(defaultImage); // Just store the filename, OptimizedImage will handle the URL
         }
       } catch (err) {
         setProduct(null);
@@ -119,9 +119,9 @@ const ProductDetailPage: React.FC = () => {
             <div
               key={idx}
               className={`rounded-xl flex items-center justify-center cursor-pointer transition-all duration-200 ${
-                selectedImage === `https://suruchiraj.com/images/products/${img}` ? 'ring-1 ring-yellow-400' : ''
+                selectedImage === img ? 'ring-1 ring-yellow-400' : ''
               }`}
-              onClick={() => setSelectedImage(`https://suruchiraj.com/images/products/${img}`)}
+              onClick={() => setSelectedImage(img)}
               style={{
                 width: '50px',
                 height: '50px',

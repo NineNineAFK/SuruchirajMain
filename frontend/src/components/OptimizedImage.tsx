@@ -54,7 +54,7 @@ export const OptimizedImage: React.FC<OptimizedImageProps> = ({
 
   return (
     <img
-      src={error ? '/public/spices.png' : src}
+      src={error ? '/spices.png' : src}
       alt={alt}
       className={`transition-opacity duration-300 ${loaded ? 'opacity-100' : 'opacity-0'} ${className}`}
       loading={lazy ? 'lazy' : 'eager'}

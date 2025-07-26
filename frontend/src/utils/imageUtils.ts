@@ -1,4 +1,4 @@
-const IMAGE_BASE_URL = 'https://suruchiraj.com/images/products/';
+const IMAGE_BASE_URL = `${import.meta.env.VITE_domainName}/images/products/`;
 
 // Helper to sort images putting lifestyle shots first
 export const sortProductImages = (images: string[]): string[] => {
@@ -13,8 +13,9 @@ export const sortProductImages = (images: string[]): string[] => {
 
 // Get full image URL with proper error handling
 export const getProductImageUrl = (imageName: string | undefined): string => {
-  if (!imageName) return '/public/spices.png'; // Default fallback image
-  return `${IMAGE_BASE_URL}${encodeURIComponent(imageName)}`;
+  if (!imageName) return '/spices.png'; // Default fallback image
+  // Use encodeURIComponent only for the filename, not the whole path
+  return `${IMAGE_BASE_URL}${encodeURIComponent(imageName).replace(/%20/g, ' ')}`;
 };
 
 // Function to preload an image
