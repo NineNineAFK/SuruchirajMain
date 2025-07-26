@@ -34,7 +34,7 @@ export interface Product {
   mrp?: number[];
   net_wt?: NetWeight[];
   best_before?: string;
-  category?: string[];
+  category: string[];
   cuisine?: string[];
   why_you_will_love_it?: string[];
   images?: string[];
@@ -43,6 +43,7 @@ export interface Product {
   stock: number; // add this for grams
   packaging_50gms: number;
   packaging_100gms: number;
+  isVisible: boolean;
 }
 
 export interface ProductFormData {

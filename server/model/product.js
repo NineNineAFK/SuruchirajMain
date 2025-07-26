@@ -30,7 +30,10 @@ const ProductSchema = new Schema({
     stock: { type: Number, default: 0 }, // Stock in grams
     packaging_50gms: { type: Number, default: 0 },
     packaging_100gms: { type: Number, default: 0 },
+    isVisible: { type: Boolean, default: true },
 
 }, { timestamps: true });
+
+
 
 module.exports = mongoose.model('Product', ProductSchema);

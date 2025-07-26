@@ -14,12 +14,15 @@ import { Link, useLocation } from 'react-router-dom';
 const SubProducts = () => {
   const [isFilterOpen, setIsFilterOpen] = useState(false);
   const [products, setProducts] = useState<Product[]>([]);
+  // Only visible products for user-facing display
+  const visibleProducts = products.filter(product => product.isVisible);
   const [loading, setLoading] = useState(true);
   const { cart, addToCart, removeFromCart, updateQuantity, loading: cartLoading } = useCart();
   const { isWishlisted, addToWishlist, removeFromWishlist } = useWishlist();
   const searchTerm = useRecoilValue(searchTermAtom);
   const authState = useRecoilValue(authStateAtom);
   const { openModal } = useLoginModal();
+  // Categories derived from visible products only
   const [filterCategories, setFilterCategories] = useState<string[]>([]);
   const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
   const location = useLocation();
@@ -38,23 +41,20 @@ const SubProducts = () => {
         setLoading(true);
         const data = await getAllProducts();
         setProducts(data);
+        // Dynamically set categories from only visible products
+        const categories = Array.from(new Set(
+          data.filter((p: Product) => p.isVisible && Array.isArray(p.category))
+            .flatMap((p: Product) => p.category)
+        ));
+        setFilterCategories(categories);
       } catch (err) {
         toast.error('Failed to load products');
+        setFilterCategories([]);
       } finally {
         setLoading(false);
       }
     };
-    const fetchFilters = async () => {
-      try {
-        const { categories } = await getProductFilters();
-        setFilterCategories(categories || []);
-        // Removed quantity filter fetching
-      } catch (err) {
-        setFilterCategories([]);
-      }
-    };
     fetchProducts();
-    fetchFilters();
   }, []);
 
   const handleWishlistToggle = (product: Product) => {
@@ -126,7 +126,7 @@ const SubProducts = () => {
 
   // Remove all logic and state related to selectedQuantities, filterQuantities, and safeSelectedQuantities
   // Ensure selectedQuantities and filterQuantities are always arrays of strings
-  const filteredProducts = products.filter((product) => {
+  const filteredProducts = visibleProducts.filter((product) => {
     const term = searchTerm.toLowerCase();
     const nameMatch = product.product_name && product.product_name.toLowerCase().includes(term);
 
@@ -184,8 +184,8 @@ const SubProducts = () => {
                       type="checkbox"
                       checked={selectedCategories.includes(cat)}
                       onChange={() => handleCategoryChange(cat)}
-                        className="w-5 h-5 appearance-none border-2 border-yellow-400 rounded bg-east-side-100 dark:bg-black relative checked:bg-east-side-100 checked:dark:bg-black checked:border-yellow-400 transition-colors duration-200 checked:after:content-['✓'] checked:after:text-yellow-400 checked:after:absolute checked:after:inset-0 checked:after:flex checked:after:items-center checked:after:justify-center checked:after:text-sm"
-                      />
+                      className="w-5 h-5 appearance-none border-2 border-yellow-400 rounded bg-east-side-100 dark:bg-black relative checked:bg-east-side-100 checked:dark:bg-black checked:border-yellow-400 transition-colors duration-200 checked:after:content-['✓'] checked:after:text-yellow-400 checked:after:absolute checked:after:inset-0 checked:after:flex checked:after:items-center checked:after:justify-center checked:after:text-sm"
+                    />
                     <span>{cat}</span>
                   </label>
                 </li>
@@ -224,11 +224,10 @@ const SubProducts = () => {
                           className="text-white text-sm"
                         >
                           <FiHeart
-                          className={`text-lg transition ${
-                            isWishlisted(product._id)
+                            className={`text-lg transition ${isWishlisted(product._id)
                               ? 'text-red-500 fill-red-500'
                               : 'text-black'
-                          }`}
+                              }`}
                           />
                         </button>
                       </div>
@@ -245,29 +244,28 @@ const SubProducts = () => {
                       {/* Product Info */}
                       <div className="p-2 dark:text-white text-black border-l-2 border-r-2 border-b-2 md:-mt-[2vw] -mt-[4vw] lg:-mt-[3vw] rounded-md shadow-md flex flex-col justify-between">
                         <h3 className="mt-[3vw] md:mt-[2vw] text-sm font-medium leading-tight h-[3rem] overflow-hidden">{product.product_name}</h3>
-                      <div className="flex items-center justify-between font-sans text-lg">
-                        {/* Price on the left */}
-                        {product.mrp && product.mrp.length > 0 && (
-                          <span className="font-semibold dark:text-white text-black">₹{product.mrp[0]}</span>
-                        )}
+                        <div className="flex items-center justify-between font-sans text-lg">
+                          {/* Price on the left */}
+                          {product.mrp && product.mrp.length > 0 && (
+                            <span className="font-semibold dark:text-white text-black">₹{product.mrp[0]}</span>
+                          )}
 
-                        {/* Weight on the right */}
-                        {product.net_wt && product.net_wt.length > 0 && (
-                          <span className="text-sm text-gray-500 dark:text-gray-300">
-                            {String(product.net_wt[0]?.value ?? '')} {product.net_wt[0]?.unit ?? ''}
-                          </span>
-                        )}
-                      </div>
+                          {/* Weight on the right */}
+                          {product.net_wt && product.net_wt.length > 0 && (
+                            <span className="text-sm text-gray-500 dark:text-gray-300">
+                              {String(product.net_wt[0]?.value ?? '')} {product.net_wt[0]?.unit ?? ''}
+                            </span>
+                          )}
+                        </div>
 
                         {quantity === 0 ? (
                           <button
                             onClick={e => { e.preventDefault(); handleAddToCart(product); }}
                             disabled={cartLoading}
-                            className={`mt-3 w-full text-sm font-button font-semibold py-1.5 rounded-full transition ${
-                              cartLoading 
-                                ? 'bg-gray-600 text-gray-400 cursor-not-allowed' 
-                                : 'bg-yellow-400 text-black hover:bg-yellow-300'
-                            }`}
+                            className={`mt-3 w-full text-sm font-button font-semibold py-1.5 rounded-full transition ${cartLoading
+                              ? 'bg-gray-600 text-gray-400 cursor-not-allowed'
+                              : 'bg-yellow-400 text-black hover:bg-yellow-300'
+                              }`}
                           >
                             {cartLoading ? 'Adding...' : 'Add To Cart'}
                           </button>
@@ -335,18 +333,18 @@ const SubProducts = () => {
               <h3 className="font-semibold font-heading text-xl mb-2">Category</h3>
               <ul className="space-y-2 text-sm text-gray-700 dark:text-gray-300">
                 {filterCategories.map((cat) => (
-                <li key={cat}>
-                  <label className="inline-flex items-center space-x-2">
-                    <input
-                      type="checkbox"
-                      checked={selectedCategories.includes(cat)}
-                      onChange={() => handleCategoryChange(cat)}
+                  <li key={cat}>
+                    <label className="inline-flex items-center space-x-2">
+                      <input
+                        type="checkbox"
+                        checked={selectedCategories.includes(cat)}
+                        onChange={() => handleCategoryChange(cat)}
                         className="w-5 h-5 appearance-none border-2 border-yellow-400 rounded bg-east-side-100 dark:bg-black relative checked:bg-east-side-100 checked:dark:bg-black checked:border-yellow-400 transition-colors duration-200 checked:after:content-['✓'] checked:after:text-yellow-400 checked:after:absolute checked:after:inset-0 checked:after:flex checked:after:items-center checked:after:justify-center checked:after:text-sm"
                       />
-                    <span>{cat}</span>
-                  </label>
-                </li>
-              ))}
+                      <span>{cat}</span>
+                    </label>
+                  </li>
+                ))}
               </ul>
             </div>
           </div>

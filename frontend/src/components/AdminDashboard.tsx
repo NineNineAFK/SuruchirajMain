@@ -260,7 +260,25 @@ const AdminDashboard: React.FC = () => {
                             <span className="font-medium">Ingredients:</span> {product.ingredients ? product.ingredients.length : 0} items
                           </p>
                         </div>
-                        <div className="flex gap-2">
+                        <div className="flex gap-2 items-center">
+                          {/* Visibility Toggle */}
+                          <label className="flex items-center cursor-pointer select-none mr-2">
+                            <span className="mr-1 text-xs text-gray-600">Visible</span>
+                            <input
+                              type="checkbox"
+                              checked={product.isVisible}
+                              onChange={async () => {
+                                try {
+                                  await import('../services/productService').then(mod => mod.toggleProductVisibility(product._id));
+                                  toast.success(`Product is now ${!product.isVisible ? 'visible' : 'hidden'}!`);
+                                  fetchProducts();
+                                } catch (err) {
+                                  toast.error('Failed to toggle visibility');
+                                }
+                              }}
+                              className="form-checkbox h-5 w-5 text-blue-600 transition duration-150"
+                            />
+                          </label>
                           <button
                             onClick={() => handleEditProduct(product)}
                             className="flex-1 bg-green-600 text-white px-3 py-2 rounded-md hover:bg-green-700 text-sm"
