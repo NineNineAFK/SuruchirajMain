@@ -1,6 +1,7 @@
 // In development, images are served from localhost
 // In production, they are served from the root domain
-const IMAGE_BASE_URL = `${import.meta.env.VITE_domainName}/images/products/`;
+const BASE_DOMAIN = import.meta.env.VITE_domainName.replace('/api', '');
+const IMAGE_BASE_URL = `${BASE_DOMAIN}/images/products/`;
 
 // Helper to sort images putting lifestyle shots first
 export const sortProductImages = (images: string[]): string[] => {
@@ -15,8 +16,8 @@ export const sortProductImages = (images: string[]): string[] => {
 
 // Get full image URL with proper error handling
 export const getProductImageUrl = (imageName: string | undefined): string => {
-  if (!imageName) return '/spices.png'; // Default fallback image
-  if (imageName.startsWith('/')) return imageName; // Already a complete path
+  if (!imageName || imageName === 'default-product.png') return '/spices.png'; // Default fallback image
+  if (imageName.startsWith('/')) return BASE_DOMAIN + imageName; // Local path
   if (imageName.startsWith('http')) return imageName; // Already a complete URL
   
   // Keep original filename with spaces intact as your server handles spaces correctly
