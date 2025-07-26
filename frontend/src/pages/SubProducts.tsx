@@ -9,6 +9,7 @@ import { searchTermAtom, authStateAtom } from '../state/state';
 import { useLoginModal } from '../context/LoginModalContext';
 import type { Product } from '../types/product';
 import { Link, useLocation } from 'react-router-dom';
+import { OptimizedImage } from '../components/OptimizedImage';
 
 const SubProducts = () => {
   const [isFilterOpen, setIsFilterOpen] = useState(false);
@@ -19,7 +20,6 @@ const SubProducts = () => {
   const searchTerm = useRecoilValue(searchTermAtom);
   const authState = useRecoilValue(authStateAtom);
   const { openModal } = useLoginModal();
-  const [filterQuantities, setFilterQuantities] = useState<string[]>([]);
   const [filterCategories, setFilterCategories] = useState<string[]>([]);
   const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
   const location = useLocation();
@@ -74,7 +74,8 @@ const SubProducts = () => {
     try {
       await addToCart({
         productId: product._id,
-        quantity: 1
+        qty_50g: 1,
+        qty_100g: 0
       });
     } catch (error) {
       console.error('Error adding to cart:', error);
@@ -89,7 +90,11 @@ const SubProducts = () => {
 
     const cartItem = cart.find(item => item.productName === product.product_name);
     if (cartItem) {
-      await updateQuantity(product.product_name, cartItem.quantity + 1);
+      await updateQuantity(
+        product.product_name,
+        cartItem.qty_50g + 1,
+        cartItem.qty_100g
+      );
     }
   };
 
@@ -102,15 +107,15 @@ const SubProducts = () => {
     const cartItem = cart.find(item => item.productName === product.product_name);
     if (cartItem) {
       if (cartItem.quantity > 1) {
-        await updateQuantity(product.product_name, cartItem.quantity - 1);
+        await updateQuantity(
+          product.product_name,
+          cartItem.qty_50g - 1,
+          cartItem.qty_100g
+        );
       } else {
         await removeFromCart(product.product_name);
       }
     }
-  };
-
-  const handleQuantityChange = (qty: string) => {
-    // Removed quantity change handler
   };
 
   const handleCategoryChange = (cat: string) => {
@@ -229,8 +234,8 @@ const SubProducts = () => {
                       </div>
 
                       {/* Product Image */}
-                      <img
-                        src={product.images && product.images.length > 0 ? `/images/products/${product.images[0]}` : '/testing/Batata Wada Masala Lifestyle Shot.webp'}
+                      <OptimizedImage
+                        imageName={product.images && product.images.length > 0 ? product.images[0] : "default-product.png"}
                         alt={product.product_name}
                         className="w-full h-full object-contain rounded-2xl z-10"
                       />

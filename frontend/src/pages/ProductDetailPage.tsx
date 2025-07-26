@@ -8,28 +8,19 @@ import DeliveryLocation from '../components/DeliveryLocation';
 import { getProductById } from '../services/productService';
 import type { Product } from '../types/product';
 import { AiFillHeart } from 'react-icons/ai';
-
+import { OptimizedImage } from '../components/OptimizedImage';
 
 
 
 const ProductDetailPage: React.FC = () => {
-    // 1. Define a hardcoded array and selected image for consistent testing.
-    const testImages = [
-      '/testing/Batata Wada Masala Close Up Shot.webp',
-      '/testing/Batata Wada Masala Cooked Dish Shot.webp',
-      '/testing/Batata Wada Masala Hand Held Shot.webp',
-      '/testing/Batata Wada Masala Hero Shot.webp',
-      '/testing/Batata Wada Masala Label Shot.webp',
-      '/testing/Batata Wada Masala Lifestyle Shot.webp'
-    ];
-  // Lifestyle Shot.webp is the default image for the product.
-  const getDefaultImage = () => {
-    const lifestyleImage = testImages.find((img) =>
-      img.includes('Lifestyle Shot.webp')
+  const getDefaultImage = (productImages: string[]) => {
+    const lifestyleImage = productImages.find((img) =>
+      img.toLowerCase().includes('lifestyle shot')
     );
-    return lifestyleImage || testImages[0];
+    return lifestyleImage || productImages[0] || '/spices.png';
   };
-  const [selectedImage, setSelectedImage] = useState(getDefaultImage());
+  
+  const [selectedImage, setSelectedImage] = useState<string>('/spices.png');
   const { id } = useParams();
   const [product, setProduct] = useState<Product | null>(null);
   //const [selectedImage, setSelectedImage] = useState<string>(placeholder);
@@ -50,7 +41,11 @@ const ProductDetailPage: React.FC = () => {
       try {
         const data = await getProductById(id);
         setProduct(data);
-        //setSelectedImage(data.images && data.images.length > 0 ? data.images[0] : placeholder);
+        if (data.images && data.images.length > 0) {
+          // Find lifestyle shot or use first image
+          const defaultImage = data.images.find(img => img.toLowerCase().includes('lifestyle shot')) || data.images[0];
+          setSelectedImage(`https://suruchiraj.com/images/products/${defaultImage}`);
+        }
       } catch (err) {
         setProduct(null);
       } finally {
@@ -120,28 +115,23 @@ const ProductDetailPage: React.FC = () => {
         
         {/* Thumbnails */}
         <div className="flex flex-row md:flex-col md:gap-8 gap-3">
-          {testImages.map((img, idx) => (
+          {product.images?.map((img, idx) => (
             <div
               key={idx}
               className={`rounded-xl flex items-center justify-center cursor-pointer transition-all duration-200 ${
-                selectedImage === img ? 'ring-1 ring-yellow-400' : ''
+                selectedImage === `https://suruchiraj.com/images/products/${img}` ? 'ring-1 ring-yellow-400' : ''
               }`}
-              
-              onClick={() => setSelectedImage(img)}
+              onClick={() => setSelectedImage(`https://suruchiraj.com/images/products/${img}`)}
               style={{
                 width: '50px',
                 height: '50px',
               }}
             >
-              <img
-                src={img}
-                alt={`thumbnail-${idx}`}
-                className="object-contain"
-                style={{
-                  width: '100%',
-                  height: '100%',
-                  borderRadius: '0.5rem',
-                }}
+              <OptimizedImage
+                imageName={img}
+                alt={`${product.product_name} thumbnail ${idx + 1}`}
+                className="object-contain rounded-lg"
+                lazy={false}
               />
             </div>
           ))}
@@ -160,7 +150,12 @@ const ProductDetailPage: React.FC = () => {
               onClick={handleWishlistToggle}
             />
           )}
-          <img src={selectedImage} alt={product.product_name} className="w-[90%] h-[90%] object-contain rounded-xl"  />
+          <OptimizedImage
+            imageName={selectedImage.split('/').pop() || ''}
+            alt={product.product_name}
+            className="w-[90%] h-[90%] object-contain rounded-xl"
+            lazy={false}
+          />
         </div>
       </div>
 
