@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { FiX, FiClock, FiTrash2 } from 'react-icons/fi';
+import { FiX, FiClock, FiTrash } from 'react-icons/fi';
 import { FaMinus, FaPlus } from 'react-icons/fa';
 import { useCart } from '../context/CartContext';
 import { useRecoilValue } from 'recoil';
@@ -40,6 +40,24 @@ const CartDrawer: React.FC<CartDrawerProps> = ({ isOpen, onClose }) => {
     }
   };
 
+  // const handleAddToCart = async (productName: string) => {
+  //   const item = cart.find(cartItem => cartItem.productName === productName);
+  //   if (item) {
+  //     await updateQuantity(productName, item.qty_50g + 1, item.qty_100g + 1);
+  //   }
+  // };
+
+  // const handleRemoveFromCart = async (productName: string) => {
+  //   const item = cart.find(cartItem => cartItem.productName === productName);
+  //   if (item && item.quantity > 1) {
+  //     await updateQuantity(productName, item.qty_50g - 1, item.qty_100g - 1);
+  //   } else {
+  //     await removeFromCart(productName);
+  //   }
+  // };
+
+  
+
   return (
     <div
       className={`fixed top-0 right-0 h-full w-full sm:w-[400px] bg-east-side-100 text-black dark:bg-black dark:text-white z-50 transform transition-transform duration-300 ${
@@ -79,60 +97,100 @@ const CartDrawer: React.FC<CartDrawerProps> = ({ isOpen, onClose }) => {
 
         ) : (
           cart.map((item) => {
-            const subtotal =
-              (item.qty_50g > 0 ? item.qty_50g * item.price_50g : 0) +
-              (item.qty_100g > 0 ? item.qty_100g * item.price_100g : 0);
-            // Use item._id if available, fallback to productId
+          //  const subtotal =
+          //    (item.qty_50g > 0 ? item.qty_50g * item.price_50g : 0) +
+          //    (item.qty_100g > 0 ? item.qty_100g * item.price_100g : 0);
+          // Use item._id if available, fallback to productId
             const key = item._id || item.productId;
             return (
-              <div key={key} className="mb-6 border-b pb-4">
-                <div className="font-semibold text-lg">{item.productName}</div>
-                {item.qty_50g > 0 && (
-                  <div className="flex text-sm justify-between mt-2">
-                    <span>50g x {item.qty_50g}</span>
-                    <span>
-                      ₹{item.price_50g} each | ₹{item.qty_50g * item.price_50g}
-                    </span>
+              <div key={key} className="mb-6 pb-4 border-b border-gray-300 dark:border-white/10">
+                <div className="flex items-start gap-4">
+                {/* Product Image */}
+                <img
+                  src={item.productImage || '/testing/Batata Wada Masala Lifestyle Shot.webp'}
+                  alt={item.productName}
+                  className="w-20 h-20 md:w-24 md:h-24 rounded object-cover"
+                />
+
+                {/* Product Details */}
+                <div className="flex-1">
+                  <div className="font-semibold text-lg text-black dark:text-white">
+                    {item.productName}
                   </div>
-                )}
-                {item.qty_100g > 0 && (
-                  <div className="flex text-sm justify-between mt-2">
-                    <span>100g x {item.qty_100g}</span>
-                    <span>
-                      ₹{item.price_100g} each | ₹{item.qty_100g * item.price_100g}
-                    </span>
-                  </div>
-                )}
-                <div className="flex justify-between mt-2 font-bold">
-                  <span>Subtotal:</span>
-                  <span>₹{subtotal}</span>
+
+                  {item.qty_50g > 0 && (
+                    <div className="flex justify-between items-center text-sm mt-2 text-gray-700 dark:text-gray-300">
+                      <span>50g x {item.qty_50g}</span>
+                      <div className="flex items-center gap-2">
+                        <span>₹{item.qty_50g * item.price_50g}</span>
+                        <button
+                          onClick={async () => {
+                            const id = item.product || item._id || item.productId;
+                            if (id) {
+                              try {
+                                await updateQuantity(id.toString(), 0, item.qty_100g);
+                              } catch (error) {
+                                console.error('Failed to remove 50g item:', error);
+                              }
+                            }
+                          }}
+                          className="text-red-500 hover:text-red-700"
+                        >
+                          <FiTrash className="w-4 h-4" />
+                        </button>
+                      </div>
+                    </div>
+                  )}
+
+                  {item.qty_100g > 0 && (
+                    <div className="flex justify-between items-center text-sm mt-2 text-gray-700 dark:text-gray-300">
+                      <span>100g x {item.qty_100g}</span>
+                      <div className="flex items-center gap-2">
+                        <span>₹{item.qty_100g * item.price_100g}</span>
+                        <button
+                          onClick={async () => {
+                            const id = item.product || item._id || item.productId;
+                            if (id) {
+                              try {
+                                await updateQuantity(id.toString(), item.qty_50g, 0);
+                              } catch (error) {
+                                console.error('Failed to remove 100g item:', error);
+                              }
+                            }
+                          }}
+                          className="text-red-500 hover:text-red-700"
+                        >
+                          <FiTrash className="w-4 h-4" />
+                        </button>
+                      </div>
+                    </div>
+                  )}
                 </div>
-                <button
-                  className="mt-3 px-3 py-1 bg-red-500 text-white rounded hover:bg-red-600"
-                  onClick={async () => {
-                    // First try the product reference, then fallback to _id or productId
-                    const id = item.product || item._id || item.productId;
-                    if (id) {
-                      try {
-                        await removeFromCart(id.toString());
-                      } catch (error) {
-                        console.error('Failed to remove item:', error);
-                      }
-                    } else {
-                      console.error('No product ID found for item:', item);
-                    }
-                  }}
-                >
-                  Remove
-                </button>
               </div>
+            </div>
+
             );
           })
         )}
       </div>
-      <div className="p-4 border-t flex justify-between items-center font-bold text-lg">
-        <span>Total:</span>
-        <span>₹{totalPrice}</span>
+      {/* Checkout Footer – STAYS FIXED */}
+      <div className="px-4 py-3 bg-gray-100 dark:bg-[#111] font-body border-t border-black/10 dark:border-white/10">
+        <div className="flex justify-between">
+          <span className="text-gray-800 dark:text-gray-300 font-semibold">To Pay</span>
+          <span className="dark:text-yellow-400 text-black text-xl font-bold font-sans">₹{totalPrice}</span>
+        </div>
+        <p className="text-sm text-gray-600 dark:text-gray-500 mb-4">Incl. all taxes and charges</p>
+        <button
+          onClick={handleCheckout}
+          disabled={cart.length === 0 || loading}
+          className={`w-full py-2 font-button rounded-2xl font-medium transition ${
+            cart.length === 0 || loading
+              ? 'bg-gray-700 text-gray-400 cursor-not-allowed'
+              : 'bg-yellow-400 text-black hover:bg-yellow-300'
+          }`}
+        >
+          {loading ? 'Loading...' : authState ? 'Checkout' : 'Login to Checkout'}
+        </button>
       </div>
     </div>
   );
