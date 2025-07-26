@@ -1,3 +1,5 @@
+// In development, images are served from localhost
+// In production, they are served from the root domain
 const IMAGE_BASE_URL = `${import.meta.env.VITE_domainName}/images/products/`;
 
 // Helper to sort images putting lifestyle shots first
@@ -16,8 +18,11 @@ export const getProductImageUrl = (imageName: string | undefined): string => {
   if (!imageName) return '/spices.png'; // Default fallback image
   if (imageName.startsWith('/')) return imageName; // Already a complete path
   if (imageName.startsWith('http')) return imageName; // Already a complete URL
-  // Add spaces back after encoding to match server expectation
-  return `${IMAGE_BASE_URL}${imageName}`;
+  
+  // Keep original filename with spaces intact as your server handles spaces correctly
+  const url = `${IMAGE_BASE_URL}${imageName}`;
+  console.log('Constructing image URL:', { imageName, baseUrl: IMAGE_BASE_URL, fullUrl: url });
+  return url;
 };
 
 // Function to preload an image
