@@ -9,7 +9,7 @@ import { searchTermAtom, authStateAtom } from '../state/state';
 import { useLoginModal } from '../context/LoginModalContext';
 import type { Product } from '../types/product';
 import { Link, useLocation } from 'react-router-dom';
-import { OptimizedImage } from '../components/OptimizedImage';
+
 
 const SubProducts = () => {
   const [isFilterOpen, setIsFilterOpen] = useState(false);
@@ -234,11 +234,13 @@ const SubProducts = () => {
                       </div>
 
                       {/* Product Image */}
-                      <OptimizedImage
-                        imageName={product.images && product.images.length > 0 ? product.images[0] : "default-product.png"}
-                        alt={product.product_name}
-                        className="w-full h-full object-contain rounded-2xl z-10"
-                      />
+                      {product.images && product.images.length > 0 && (
+                        <img
+                          src={`https://suruchiraj.com/images/products/${product.images[0]}`}
+                          alt={product.product_name}
+                          className="w-full h-full object-contain rounded-2xl z-10"
+                        />
+                      )}
 
                       {/* Product Info */}
                       <div className="p-2 dark:text-white text-black border-l-2 border-r-2 border-b-2 md:-mt-[2vw] -mt-[4vw] lg:-mt-[3vw] rounded-md shadow-md flex flex-col justify-between">

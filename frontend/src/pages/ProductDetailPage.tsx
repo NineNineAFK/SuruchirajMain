@@ -8,8 +8,6 @@ import DeliveryLocation from '../components/DeliveryLocation';
 import { getProductById } from '../services/productService';
 import type { Product } from '../types/product';
 import { AiFillHeart } from 'react-icons/ai';
-import { OptimizedImage } from '../components/OptimizedImage';
-
 
 
 const ProductDetailPage: React.FC = () => {
@@ -34,14 +32,11 @@ const ProductDetailPage: React.FC = () => {
       setLoading(true);
       try {
         const data = await getProductById(id);
-        console.log('Product data:', data); // Debug log
         setProduct(data);
         if (data.images && data.images.length > 0) {
-          console.log('Available images:', data.images); // Debug log
           // Find lifestyle shot or use first image
           const defaultImage = data.images.find(img => img.toLowerCase().includes('lifestyle shot')) || data.images[0];
-          console.log('Selected default image:', defaultImage); // Debug log
-          setSelectedImage(defaultImage);
+          setSelectedImage(`https://suruchiraj.com/images/products/${defaultImage}`);
         }
       } catch (err) {
         setProduct(null);
@@ -118,17 +113,16 @@ const ProductDetailPage: React.FC = () => {
               className={`rounded-xl flex items-center justify-center cursor-pointer transition-all duration-200 ${
                 selectedImage === img ? 'ring-1 ring-yellow-400' : ''
               }`}
-              onClick={() => setSelectedImage(img)}
+              onClick={() => setSelectedImage(`https://suruchiraj.com/images/products/${img}`)}
               style={{
                 width: '50px',
                 height: '50px',
               }}
             >
-              <OptimizedImage
-                imageName={img}
+              <img
+                src={`https://suruchiraj.com/images/products/${img}`}
                 alt={`${product.product_name} thumbnail ${idx + 1}`}
-                className="object-contain rounded-lg"
-                lazy={false}
+                className="object-contain rounded-lg w-full h-full"
               />
             </div>
           ))}
@@ -147,11 +141,10 @@ const ProductDetailPage: React.FC = () => {
               onClick={handleWishlistToggle}
             />
           )}
-          <OptimizedImage
-            imageName={selectedImage.split('/').pop() || ''}
+          <img
+            src={selectedImage}
             alt={product.product_name}
             className="w-[90%] h-[90%] object-contain rounded-xl"
-            lazy={false}
           />
         </div>
       </div>
