@@ -68,7 +68,7 @@ const ProductDetailPage: React.FC = () => {
   }, [selected50g, selected100g, product]);
 
 
-  if (loading) return <div className="text-center text-yellow-400 mt-10">Loading...</div>;
+  if (loading) return <div className="text-center text-[#4D6A3F] dark:text-yellow-400 mt-10">Loading...</div>;
   if (!product) return <div className="text-center text-red-500 mt-10">Product not found.</div>;
 
   const wishlisted = isWishlisted(product._id);
@@ -106,12 +106,12 @@ const ProductDetailPage: React.FC = () => {
       <div className="col-span-5 flex flex-col-reverse md:flex-row gap-4 items-center md:items-start">
         
         {/* Thumbnails */}
-        <div className="flex flex-row md:flex-col md:gap-8 gap-3">
+        <div className="flex flex-row md:flex-col md:gap-8 gap-2">
           {product.images?.map((img, idx) => (
             <div
               key={idx}
               className={`rounded-xl flex items-center justify-center cursor-pointer transition-all duration-200 ${
-                selectedImage === img ? 'ring-1 ring-yellow-400' : ''
+                selectedImage === img ? 'ring-1 ring-[#4D6A3F] dark:ring-yellow-400' : ''
               }`}
               onClick={() => setSelectedImage(`https://suruchiraj.com/images/products/${img}`)}
               style={{
@@ -191,7 +191,7 @@ const ProductDetailPage: React.FC = () => {
               </div>
             </div>
             <button
-              className={`text-black dark:text-white font-button font-normal px-4 py-2 rounded-full border border-yellow-400 hover:brightness-125 transition duration-200 w-full sm:w-[51%] ${!canAddToCart ? 'opacity-50 cursor-not-allowed' : ''}`}
+              className={`text-black dark:text-white font-button font-normal px-4 py-2 rounded-full border border-[#4D6A3F] dark:border-yellow-400 hover:brightness-125 transition duration-200 w-full sm:w-[51%] ${!canAddToCart ? 'opacity-50 cursor-not-allowed' : ''}`}
               onClick={handleAddToCart}
               disabled={!canAddToCart}
             >
@@ -202,7 +202,7 @@ const ProductDetailPage: React.FC = () => {
           {/* Delivery & Policy */}
           <div className="font-body mt-6 space-y-4 text-sm">
             <p>
-              <span className="text-yellow-400 font-heading text-lg font-semibold">Delivery Info:</span>{' '}
+              <span className="text-[#4D6A3F] dark:text-yellow-400 font-heading text-lg font-semibold">Delivery Info:</span>{' '}
               Delivery within <span className="font-sans">3-5</span> days
             </p>
             <DeliveryLocation />
@@ -221,20 +221,20 @@ const ProductDetailPage: React.FC = () => {
       {/* Product Details */}
       <div className="font-body text-lg max-w-7xl mx-auto mt-12">
         <h2 className="text-2xl font-heading font-semibold mb-2">Product Details</h2>
-        <p className="text-yellow-400 font-semibold">Ingredients</p>
+        <p className="text-[#4D6A3F] dark:text-yellow-400 font-semibold">Ingredients</p>
         <p className="mb-2">
           {product.ingredients && product.ingredients.length > 0 ? product.ingredients.join(', ') : 'N/A'}
         </p>
-        <p className="text-yellow-400 font-semibold mb-2">No Preservatives</p>
+        <p className="text-[#4D6A3F] dark:text-yellow-400 font-semibold mb-2">No Preservatives</p>
         <div className="flex items-center gap-2 mb-2">
-          <p className="text-yellow-400 font-semibold">Unit:</p>
+          <p className="text-[#4D6A3F] dark:text-yellow-400 font-semibold">Unit:</p>
           <span className="font-sans">
             {product.net_wt && product.net_wt.length > 0
               ? `${product.net_wt[0].value}${product.net_wt[0].unit}`
               : 'N/A'}
           </span>
         </div>
-        <p className="text-yellow-400 font-semibold">Why You'll Love It</p>
+        <p className="text-[#4D6A3F] dark:text-yellow-400 font-semibold">Why You'll Love It</p>
         <ul className="list-disc list-inside mb-2">
           {product.why_you_will_love_it && product.why_you_will_love_it.length > 0 ? (
             product.why_you_will_love_it.map((item, idx) => <li key={idx}>{item}</li>)
@@ -242,7 +242,7 @@ const ProductDetailPage: React.FC = () => {
             <li>Full of rich biryani aroma and taste</li>
           )}
         </ul>
-        <p className="text-yellow-400 font-semibold">How to Use (Simple Recipe)</p>
+        <p className="text-[#4D6A3F] dark:text-yellow-400 font-semibold">How to Use (Simple Recipe)</p>
         <ol className="list-decimal list-inside mb-2">
           {product.recipe && Array.isArray(product.recipe) && product.recipe.length > 0 ? (
             product.recipe.map((step, idx) => <li key={idx}>{step}</li>)
@@ -250,7 +250,7 @@ const ProductDetailPage: React.FC = () => {
             <li>Use as per your taste and recipe.</li>
           )}
         </ol>
-        <p><span className="text-yellow-400 font-semibold">Shelf Life</span> <span className="font-sans">{product.best_before || '12 Months'}</span></p>
+        <p><span className="text-[#4D6A3F] dark:text-yellow-400 font-semibold">Shelf Life</span> <span className="font-sans">{product.best_before || '12 Months'}</span></p>
       </div>
     </div>
   );

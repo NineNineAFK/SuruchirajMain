@@ -17,10 +17,10 @@ const cuisines: Cuisine[] = [
   { label: 'Intl. American', image: '/international cuisine/American Cuisine.png', path: '/cuisines/american' },
   { label: 'Intl. Chinese', image: '/international cuisine/Chinese Cuisine.png', path: '/cuisines/chinese' },
   { label: 'Intl. Mexican', image: '/international cuisine/Mexican Cuisine.png', path: '/cuisines/mexican' },
-  { label: 'Intl. Thai', image: '/international cuisine/Thai Cuisine1.png', path: '/cuisines/thai' },
+//  { label: 'Intl. Thai', image: '/international cuisine/Thai Cuisine1.png', path: '/cuisines/thai' },
   { label: 'Intl. Italian', image: '/international cuisine/Italian Cuisine.png', path: '/cuisines/italian' },
   { label: 'Intl. Lebanese', image: '/international cuisine/Lebanese Cuisine.png', path: '/cuisines/other' },
-  { label: 'Intl. Malaysian', image: '/international cuisine/Malaysian Cuisine.png', path: '/cuisines/other' },
+//  { label: 'Intl. Malaysian', image: '/international cuisine/Malaysian Cuisine.png', path: '/cuisines/other' },
 ];
 
 const InternationalCuisine: React.FC = () => {

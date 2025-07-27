@@ -184,8 +184,8 @@ const SubProducts = () => {
                       type="checkbox"
                       checked={selectedCategories.includes(cat)}
                       onChange={() => handleCategoryChange(cat)}
-                      className="w-5 h-5 appearance-none border-2 border-yellow-400 rounded bg-east-side-100 dark:bg-black relative checked:bg-east-side-100 checked:dark:bg-black checked:border-yellow-400 transition-colors duration-200 checked:after:content-['✓'] checked:after:text-yellow-400 checked:after:absolute checked:after:inset-0 checked:after:flex checked:after:items-center checked:after:justify-center checked:after:text-sm"
-                    />
+                        className="w-5 h-5 appearance-none border-2 border-[#4D6A3F] dark:border-yellow-400 rounded bg-east-side-100 dark:bg-black relative checked:bg-east-side-100 checked:dark:bg-black checked:border-[#4D6A3F] dark:checked:border-yellow-400 transition-colors duration-200 checked:after:content-['✓'] checked:after:text-[#4D6A3F] dark:checked:after:text-yellow-400 checked:after:absolute checked:after:inset-0 checked:after:flex checked:after:items-center checked:after:justify-center checked:after:text-sm"
+                      />
                     <span>{cat}</span>
                   </label>
                 </li>
@@ -333,13 +333,13 @@ const SubProducts = () => {
               <h3 className="font-semibold font-heading text-xl mb-2">Category</h3>
               <ul className="space-y-2 text-sm text-gray-700 dark:text-gray-300">
                 {filterCategories.map((cat) => (
-                  <li key={cat}>
-                    <label className="inline-flex items-center space-x-2">
-                      <input
-                        type="checkbox"
-                        checked={selectedCategories.includes(cat)}
-                        onChange={() => handleCategoryChange(cat)}
-                        className="w-5 h-5 appearance-none border-2 border-yellow-400 rounded bg-east-side-100 dark:bg-black relative checked:bg-east-side-100 checked:dark:bg-black checked:border-yellow-400 transition-colors duration-200 checked:after:content-['✓'] checked:after:text-yellow-400 checked:after:absolute checked:after:inset-0 checked:after:flex checked:after:items-center checked:after:justify-center checked:after:text-sm"
+                <li key={cat}>
+                  <label className="inline-flex items-center space-x-2">
+                    <input
+                      type="checkbox"
+                      checked={selectedCategories.includes(cat)}
+                      onChange={() => handleCategoryChange(cat)}
+                        className="w-5 h-5 appearance-none border-2 border-[#4D6A3F] dark:border-yellow-400 rounded bg-east-side-100 dark:bg-black relative checked:bg-east-side-100 checked:dark:bg-black checked:border-[#4D6A3F] dark:checked:border-yellow-400 transition-colors duration-200 checked:after:content-['✓'] checked:after:text-[#4D6A3F] dark:checked:after:text-yellow-400 checked:after:absolute checked:after:inset-0 checked:after:flex checked:after:items-center checked:after:justify-center checked:after:text-sm"
                       />
                       <span>{cat}</span>
                     </label>

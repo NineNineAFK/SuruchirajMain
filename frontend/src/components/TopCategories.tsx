@@ -19,10 +19,10 @@ const categories: Category[] = [
   { label: 'Maharashtrian', image: '/categories/Maharashtrian Veg fp.png', path: '/categories/maharashtrian' },
   { label: 'Beverages', image: '/categories/Beverage fp.png', path: '/categories/beverages' }, 
   { label: 'Snacks', image: '/categories/Snacks fp.png', path: '/categories/snacks' },
-  { label: 'Soups', image: '/categories/soup fp.png', path: '/categories/soups' },
+//  { label: 'Soups', image: '/categories/soup fp.png', path: '/categories/soups' },
   { label: 'Rice Mixes', image: '/categories/Biryani fp.png', path: '/categories/biryani' },
-  { label: 'South Indian', image: '/categories/south india fp.png', path: '/categories/southindian' },
-  { label: 'Pickle', image: '/categories/Pickle fp.png', path: '/categories/pickle' },
+//  { label: 'South Indian', image: '/categories/south india fp.png', path: '/categories/southindian' },
+//  { label: 'Pickle', image: '/categories/Pickle fp.png', path: '/categories/pickle' },
 ];
 
 const TopCategories: React.FC = () => {

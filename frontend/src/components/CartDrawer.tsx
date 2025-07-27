@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { FiX, FiClock, FiTrash2 } from 'react-icons/fi';
+import { FiX, FiClock, FiTrash } from 'react-icons/fi';
 import { FaMinus, FaPlus } from 'react-icons/fa';
 import { useCart } from '../context/CartContext';
 import { useRecoilValue } from 'recoil';
@@ -39,6 +39,24 @@ const CartDrawer: React.FC<CartDrawerProps> = ({ isOpen, onClose }) => {
       navigate('/checkout');
     }
   };
+
+  // const handleAddToCart = async (productName: string) => {
+  //   const item = cart.find(cartItem => cartItem.productName === productName);
+  //   if (item) {
+  //     await updateQuantity(productName, item.qty_50g + 1, item.qty_100g + 1);
+  //   }
+  // };
+
+  // const handleRemoveFromCart = async (productName: string) => {
+  //   const item = cart.find(cartItem => cartItem.productName === productName);
+  //   if (item && item.quantity > 1) {
+  //     await updateQuantity(productName, item.qty_50g - 1, item.qty_100g - 1);
+  //   } else {
+  //     await removeFromCart(productName);
+  //   }
+  // };
+
+  
 
   return (
     <div
@@ -82,7 +100,7 @@ const CartDrawer: React.FC<CartDrawerProps> = ({ isOpen, onClose }) => {
             const subtotal =
               (item.qty_50g > 0 ? item.qty_50g * item.price_50g : 0) +
               (item.qty_100g > 0 ? item.qty_100g * item.price_100g : 0);
-            // Use item._id if available, fallback to productId
+          // Use item._id if available, fallback to productId
             const key = item._id || item.productId;
             return (
               <div key={key} className="mb-6 border-b pb-4">
