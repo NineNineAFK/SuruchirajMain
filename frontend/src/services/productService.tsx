@@ -1,3 +1,20 @@
+// Toggle product visibility (admin)
+export const toggleProductVisibility = async (id: string): Promise<boolean> => {
+  try {
+    const response = await fetch(`${API_BASE_URL}/api/admin/products/${id}/toggle-visibility`, {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json' },
+    });
+    const data = await response.json();
+    if (!response.ok) {
+      throw new Error(data.error || 'Failed to toggle product visibility');
+    }
+    return data.isVisible;
+  } catch (error) {
+    console.error('Error toggling product visibility:', error);
+    throw error;
+  }
+};
 import type { Product, ProductFormData } from '../types/product';
 
 const API_BASE_URL = import.meta.env.VITE_domainName;

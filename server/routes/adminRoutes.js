@@ -5,11 +5,17 @@ const adminController = require('../controllers/adminController');
 
 // Admin routes for product management
 // Temporarily removed authentication for testing
+
+// Product management
 router.post('/addProduct', adminController.addProduct);
 router.put('/updateProduct/:id', adminController.updateProduct);
 router.delete('/deleteProduct/:id', adminController.deleteProduct);
+router.put('/products/:id/toggle-visibility', adminController.toggleProductVisibility);
+
+// Order management
 router.get('/orders', adminController.getAllOrders);
 router.put('/orders/:orderId/status', adminController.updateOrderStatus);
 router.delete('/orders/:orderId', adminController.deleteOrder);
+
 
 module.exports = router; 

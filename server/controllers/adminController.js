@@ -172,11 +172,32 @@ const deleteOrder = async (req, res) => {
     }
 };
 
+
+
+
+// Toggle product visibility
+const toggleProductVisibility = async (req, res) => {
+    try {
+        const { id } = req.params;
+        const product = await Product.findById(id);
+        if (!product) {
+            return res.status(404).json({ error: 'Product not found' });
+        }
+        product.isVisible = !product.isVisible;
+        await product.save();
+        res.json({ success: true, isVisible: product.isVisible });
+    } catch (error) {
+        console.error('Error toggling product visibility:', error);
+        res.status(500).json({ error: 'Internal server error' });
+    }
+};
+
 module.exports = {
     addProduct,
     updateProduct,
     deleteProduct,
     getAllOrders,
     updateOrderStatus,
-    deleteOrder
-}; 
+    deleteOrder,
+    toggleProductVisibility,
+};
