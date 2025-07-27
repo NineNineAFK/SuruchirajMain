@@ -1,14 +1,14 @@
 import { useState, useEffect } from 'react';
 import { FiFilter, FiHeart, FiX } from 'react-icons/fi';
-import { useCart } from '../context/CartContext';
+// import { useCart } from '../context/CartContext';
 import { useWishlist } from '../context/WishlistContext';
-import { getAllProducts, getProductFilters } from '../services/productService';
+import { getAllProducts } from '../services/productService';
 import toast from 'react-hot-toast';
 import { useRecoilValue } from 'recoil';
-import { searchTermAtom, authStateAtom } from '../state/state';
-import { useLoginModal } from '../context/LoginModalContext';
-import type { Product } from '../types/product';
-import { Link, useLocation } from 'react-router-dom';
+import { searchTermAtom } from '../state/state';
+// import { useLoginModal } from '../context/LoginModalContext';
+import type { Product } from '../types/product.tsx';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 
 
 const SubProducts = () => {
@@ -17,11 +17,10 @@ const SubProducts = () => {
   // Only visible products for user-facing display
   const visibleProducts = products.filter(product => product.isVisible);
   const [loading, setLoading] = useState(true);
-  const { cart, addToCart, removeFromCart, updateQuantity, loading: cartLoading } = useCart();
+  const navigate = useNavigate();
   const { isWishlisted, addToWishlist, removeFromWishlist } = useWishlist();
   const searchTerm = useRecoilValue(searchTermAtom);
-  const authState = useRecoilValue(authStateAtom);
-  const { openModal } = useLoginModal();
+
   // Categories derived from visible products only
   const [filterCategories, setFilterCategories] = useState<string[]>([]);
   const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
@@ -66,57 +65,12 @@ const SubProducts = () => {
     }
   };
 
-  const handleAddToCart = async (product: Product) => {
-    if (!authState) {
-      openModal();
-      return;
-    }
-    try {
-      await addToCart({
-        productId: product._id,
-        qty_50g: 1,
-        qty_100g: 0
-      });
-    } catch (error) {
-      console.error('Error adding to cart:', error);
-    }
+
+  const handleBuyNow = (product: Product) => {
+    navigate(`/product/${product._id}`);
   };
 
-  const handleIncreaseQuantity = async (product: Product) => {
-    if (!authState) {
-      openModal();
-      return;
-    }
 
-    const cartItem = cart.find(item => item.productName === product.product_name);
-    if (cartItem) {
-      await updateQuantity(
-        product.product_name,
-        cartItem.qty_50g + 1,
-        cartItem.qty_100g
-      );
-    }
-  };
-
-  const handleDecreaseQuantity = async (product: Product) => {
-    if (!authState) {
-      openModal();
-      return;
-    }
-
-    const cartItem = cart.find(item => item.productName === product.product_name);
-    if (cartItem) {
-      if (cartItem.quantity > 1) {
-        await updateQuantity(
-          product.product_name,
-          cartItem.qty_50g - 1,
-          cartItem.qty_100g
-        );
-      } else {
-        await removeFromCart(product.product_name);
-      }
-    }
-  };
 
   const handleCategoryChange = (cat: string) => {
     setSelectedCategories((prev) =>
@@ -207,92 +161,62 @@ const SubProducts = () => {
             <p className="text-black dark:text-gray-100  text-center mt-10">No products found.</p>
           ) : (
             <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-3 lg:grid-cols-4 gap-5">
-              {filteredProducts.map((product) => {
-                const cartItem = cart.find(item => item.productName === product.product_name);
-                const quantity = cartItem?.quantity || 0;
-
-                return (
-                  <Link to={`/product/${product._id}`} key={String(product._id)}>
-                    <div
-                      className="relative group transition transform hover:-translate-y-1
-                      flex flex-col justify-between h-[320px] sm:h-[30vw]"
-                    >
-                      {/* Wishlist Icon */}
-                      <div className="absolute md:top-8 md:right-4 top-4 right-2 z-20">
-                        <button
-                          onClick={e => { e.preventDefault(); handleWishlistToggle(product); }}
-                          className="text-white text-sm"
-                        >
-                          <FiHeart
-                            className={`text-lg transition ${isWishlisted(product._id)
-                              ? 'text-red-500 fill-red-500'
-                              : 'text-black'
-                              }`}
-                          />
-                        </button>
-                      </div>
-
-                      {/* Product Image */}
-                      {product.images && product.images.length > 0 && (
-                        <img
-                          src={`https://suruchiraj.com/images/products/${product.images.find(img => img.toLowerCase().includes('lifestyle shot')) || product.images[0]}`}
-                          alt={product.product_name}
-                          className="w-full h-full object-contain rounded-t-3xl z-10"
+              {filteredProducts.map((product) => (
+                <Link to={`/product/${product._id}`} key={String(product._id)}>
+                  <div
+                    className="relative group transition transform hover:-translate-y-1 flex flex-col justify-between h-[320px] sm:h-[30vw]"
+                  >
+                    {/* Wishlist Icon */}
+                    <div className="absolute md:top-8 md:right-4 top-4 right-2 z-20">
+                      <button
+                        onClick={e => { e.preventDefault(); handleWishlistToggle(product); }}
+                        className="text-white text-sm"
+                      >
+                        <FiHeart
+                          className={`text-lg transition ${isWishlisted(product._id)
+                            ? 'text-red-500 fill-red-500'
+                            : 'text-black'
+                            }`}
                         />
-                      )}
+                      </button>
+                    </div>
 
-                      {/* Product Info */}
-                      <div className="p-2 dark:text-white text-black border-l-2 border-r-2 border-b-2 md:-mt-[2vw] -mt-[4vw] lg:-mt-[3vw] rounded-md shadow-md flex flex-col justify-between">
-                        <h3 className="mt-[3vw] md:mt-[2vw] text-sm font-medium leading-tight h-[3rem] overflow-hidden">{product.product_name}</h3>
-                        <div className="flex items-center justify-between font-sans text-lg">
-                          {/* Price on the left */}
-                          {product.mrp && product.mrp.length > 0 && (
-                            <span className="font-semibold dark:text-white text-black">₹{product.mrp[0]}</span>
-                          )}
+                    {/* Product Image */}
+                    {product.images && product.images.length > 0 && (
+                      <img
+                        src={`https://suruchiraj.com/images/products/${product.images.find(img => img.toLowerCase().includes('lifestyle shot')) || product.images[0]}`}
+                        alt={product.product_name}
+                        className="w-full h-full object-contain rounded-2xl z-10"
+                      />
+                    )}
 
-                          {/* Weight on the right */}
-                          {product.net_wt && product.net_wt.length > 0 && (
-                            <span className="text-sm text-gray-500 dark:text-gray-300">
-                              {String(product.net_wt[0]?.value ?? '')} {product.net_wt[0]?.unit ?? ''}
-                            </span>
-                          )}
-                        </div>
+                    {/* Product Info */}
+                    <div className="p-2 dark:text-white text-black border-l-2 border-r-2 border-b-2 md:-mt-[2vw] -mt-[4vw] lg:-mt-[3vw] rounded-md shadow-md flex flex-col justify-between">
+                      <h3 className="mt-[3vw] md:mt-[2vw] text-sm font-medium leading-tight h-[3rem] overflow-hidden">{product.product_name}</h3>
+                      <div className="flex items-center justify-between font-sans text-lg">
+                        {/* Price on the left */}
+                        {product.mrp && product.mrp.length > 0 && (
+                          <span className="font-semibold dark:text-white text-black">₹{product.mrp[0]}</span>
+                        )}
 
-                        {quantity === 0 ? (
-                          <button
-                            onClick={e => { e.preventDefault(); handleAddToCart(product); }}
-                            disabled={cartLoading}
-                            className={`mt-3 w-full text-sm font-button font-semibold py-1.5 rounded-full transition ${cartLoading
-                              ? 'bg-gray-600 text-gray-400 cursor-not-allowed'
-                              : 'bg-yellow-400 text-black hover:bg-yellow-300'
-                              }`}
-                          >
-                            {cartLoading ? 'Adding...' : 'Add To Cart'}
-                          </button>
-                        ) : (
-                          <div className="mt-3 flex items-center justify-between bg-yellow-400 rounded-full px-3 py-1.5 text-black font-button font-semibold text-sm">
-                            <button
-                              onClick={e => { e.preventDefault(); handleDecreaseQuantity(product); }}
-                              disabled={cartLoading}
-                              className={`px-2 ${cartLoading ? 'opacity-50 cursor-not-allowed' : 'hover:bg-yellow-300 rounded'}`}
-                            >
-                              −
-                            </button>
-                            <span>{quantity}</span>
-                            <button
-                              onClick={e => { e.preventDefault(); handleIncreaseQuantity(product); }}
-                              disabled={cartLoading}
-                              className={`px-2 ${cartLoading ? 'opacity-50 cursor-not-allowed' : 'hover:bg-yellow-300 rounded'}`}
-                            >
-                              +
-                            </button>
-                          </div>
+                        {/* Weight on the right */}
+                        {product.net_wt && product.net_wt.length > 0 && (
+                          <span className="text-sm text-gray-500 dark:text-gray-300">
+                            {String(product.net_wt[0]?.value ?? '')} {product.net_wt[0]?.unit ?? ''}
+                          </span>
                         )}
                       </div>
+
+                      <button
+                        onClick={e => { e.preventDefault(); handleBuyNow(product); }}
+                        className="mt-3 w-full text-sm font-button font-semibold py-1.5 rounded-full transition bg-yellow-400 text-black hover:bg-yellow-300"
+                      >
+                        Buy Now
+                      </button>
                     </div>
-                  </Link>
-                );
-              })}
+                  </div>
+                </Link>
+              ))}
             </div>
           )}
         </main>

@@ -1,15 +1,13 @@
 import React, { useRef, useState, useEffect } from 'react';
 import {
   FiHeart,
-  FiPlus,
-  FiMinus,
   FiChevronLeft,
   FiChevronRight,
 } from 'react-icons/fi';
-import { useCart } from '../context/CartContext';
+// import { useCart } from '../context/CartContext';
 import { useWishlist } from '../context/WishlistContext';
 import toast from 'react-hot-toast';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation, Pagination } from 'swiper/modules';
 import type { Swiper as SwiperType } from 'swiper/types';
@@ -28,43 +26,19 @@ const TrendingMasalas: React.FC = () => {
   const [isBeginning, setIsBeginning] = useState(true);
   const [isEnd, setIsEnd] = useState(false);
   const swiperRef = useRef<SwiperType | null>(null);
-  const { cart, addToCart, updateQuantity, removeFromCart } = useCart();
-  const { isWishlisted, toggleWishlist } = useWishlist();
+  // const { cart, addToCart, updateQuantity, removeFromCart } = useCart();
+  const navigate = useNavigate();
+  const { isWishlisted } = useWishlist();
 
-  const handleWishlistToggle = (product: Product) => {
-    if (isWishlisted(product._id)) {
-      removeFromWishlist(product._id);
-    } else {
-      addToWishlist(product._id);
-    }
+
+  // Wishlist toggle logic removed (not used)
+
+
+  const handleBuyNow = (product: Product) => {
+    navigate(`/product/${product._id}`);
   };
 
-  const handleAddToCart = (product: Product) => {
-    addToCart({
-      productId: product._id,
-      qty_50g: 1,
-      qty_100g: 0
-    });
-    toast.success(`${product.product_name} added to cart!`);
-  };
 
-  const handleIncrement = (productId: string) => {
-    const item = cart.find((item) => item.productId === productId);
-    if (item) {
-      updateQuantity(productId, item.qty_50g + 1, item.qty_100g);
-    }
-  };
-
-  const handleDecrement = (productId: string) => {
-    const item = cart.find((item) => item.productId === productId);
-    if (item) {
-      if (item.qty_50g > 1) {
-        updateQuantity(productId, item.qty_50g - 1, item.qty_100g);
-      } else {
-        removeFromCart(productId);
-      }
-    }
-  };
 
 
 
@@ -151,8 +125,7 @@ const TrendingMasalas: React.FC = () => {
           ) : products.length === 0 ? (
             <div className="text-center py-8">No trending products found.</div>
           ) : products.map((product) => {
-            const cartItem = cart.find((item) => item.productId === product._id);
-            const quantity = (cartItem?.qty_50g || 0) + (cartItem?.qty_100g || 0);
+            // Removed cart/quantity logic
             // Prefer lifestyle shot, else first image
             const image = product.images && product.images.length > 0
               ? `https://suruchiraj.com/images/products/${product.images.find((img: string) => img.toLowerCase().includes('lifestyle shot')) || product.images[0]}`
@@ -172,7 +145,6 @@ const TrendingMasalas: React.FC = () => {
                         </Link>
                         <div
                           className="absolute top-[4vw] right-[4vw] z-10 cursor-pointer"
-                          onClick={() => handleWishlistToggle(product)}
                         >
                           <FiHeart
                             className={`text-[3vw] transition ${
@@ -205,20 +177,19 @@ const TrendingMasalas: React.FC = () => {
                       {/* </div>  */}
 
                     <div className="w-full">
-                      {quantity === 0 ? (
-                        <button
-                          onClick={() => handleAddToCart(product)}
-                          className="w-full h-[7vw] bg-yellow-400 hover:bg-yellow-300 text-black font-semibold font-button rounded-full flex items-center justify-center text-[3.5vw] shadow-md transition-all duration-200 ease-in-out"
-                        >
-                          Add
-                        </button>
-                      ) : (
+                      <button
+                        onClick={() => handleBuyNow(product)}
+                        className="w-full h-[7vw] bg-yellow-400 hover:bg-yellow-300 text-black font-semibold font-button rounded-full flex items-center justify-center text-[3.5vw] shadow-md transition-all duration-200 ease-in-out"
+                      >
+                        Buy Now
+                      </button>
+                      {/*
                         <div className="flex justify-between items-center w-full bg-yellow-400 text-black rounded-full px-[3vw] py-[1vw] text-[3.5vw] font-semibold font-button shadow-md">
                           <button onClick={() => handleDecrement(product._id)}><FiMinus /></button>
                           <span>{quantity}</span>
                           <button onClick={() => handleIncrement(product._id)}><FiPlus /></button>
                         </div>
-                      )}
+                      */}
                     </div>
                   </div>
                 </div>
@@ -232,7 +203,6 @@ const TrendingMasalas: React.FC = () => {
                       </Link>
                       <div
                         className="absolute top-1 right-2 z-50 cursor-pointer"
-                        onClick={() => handleWishlistToggle(product)}
                       >
                         <FiHeart
                           className={`text-xl transition ${
@@ -267,20 +237,19 @@ const TrendingMasalas: React.FC = () => {
                       
 
                       <div className="w-full">
-                        {quantity === 0 ? (
-                          <button
-                          onClick={() => handleAddToCart(product)}
-                            className="w-full bg-yellow-400 text-black px-3 py-1 text-sm rounded-full font-semibold hover:brightness-110 transition font-button"
-                          >
-                            Add
-                          </button>
-                        ) : (
+                        <button
+                          onClick={() => handleBuyNow(product)}
+                          className="w-full bg-yellow-400 text-black px-3 py-1 text-sm rounded-full font-semibold hover:brightness-110 transition font-button"
+                        >
+                          Buy Now
+                        </button>
+                        {/*
                           <div className="flex justify-between items-center w-full bg-yellow-400 rounded-full px-4 py-1 text-black text-sm font-button">
                           <button onClick={() => handleDecrement(product._id)}><FiMinus /></button>
                           <span>{quantity}</span>
                           <button onClick={() => handleIncrement(product._id)}><FiPlus /></button>
                           </div>
-                        )}
+                        */}
                       </div>
                     </div>
                   </div>
