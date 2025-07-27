@@ -160,18 +160,18 @@ const TrendingMasalas: React.FC = () => {
             return (
               <SwiperSlide
                 key={product._id}
-                className="relative w-full overflow-visible transition-transform duration-300 hover:scale-[1.03]"
+                className="relative w-full overflow-visible transition-transform duration-300 hover:scale-[1]"
               >
                 {/* Mobile Version */}
                 <div className="block md:hidden w-full max-w-[96vw] mx-auto">
                   <div className="relative w-full aspect-[3/4]">
                     {image && (
-                      <div className="relative w-full h-full rounded-t-3xl overflow-hidden">
+                      <div className="relative w-full h-full rounded-t-full overflow-hidden z-20">
                         <Link to={`/product/${product._id}`}>
                           <img src={image} alt={product.product_name} className="w-full h-[80%] object-cover drop-shadow-xl pointer-events-none" />
                         </Link>
                         <div
-                          className="absolute top-[1vw] right-[2vw] z-50 cursor-pointer"
+                          className="absolute top-[4vw] right-[4vw] z-10 cursor-pointer"
                           onClick={() => handleWishlistToggle(product)}
                         >
                           <FiHeart
@@ -184,7 +184,7 @@ const TrendingMasalas: React.FC = () => {
                     )}
                   </div>
 
-                  <div className="-mt-[12vw] w-full bg-white/10 backdrop-blur-md border-l border-r border-b border-[#6B0073]/60 rounded-b-3xl px-[3vw] py-[4vw] text-black dark:text-white">
+                  <div className="-mt-[11vw] w-full bg-white/10 backdrop-blur-md border-l border-r border-b dark:border-[#6B0073]/60 border-lime-900 rounded-b-3xl px-[3vw] py-[4vw] text-black dark:text-white">
                     <div className="w-full mb-[1.5vw]">
                       <Link to={`/product/${product._id}`}>
                         <h3 className="text-[2.8vw] font-semibold font-body truncate">
@@ -230,7 +230,7 @@ const TrendingMasalas: React.FC = () => {
                   <div className="absolute -top-0 inset-x-0 z-40 px-2 pointer-events-drag cursor-pointer">
                     <div className="relative">
                       <Link to={`/product/${product._id}`}>
-                        <img src={image} alt={product.product_name} className="h-full w-full object-fill drop-shadow-xl pointer-events-none cursor-pointer" />
+                        <img src={image} alt={product.product_name} className="h-full w-full rounded-t-full object-fill drop-shadow-xl pointer-events-none cursor-pointer" />
                       </Link>
                       <div
                         className="absolute top-1 right-2 z-50 cursor-pointer"
@@ -246,7 +246,7 @@ const TrendingMasalas: React.FC = () => {
                   </div>
 
                   <div className="mt-[200px] px-2 pt-0">
-                    <div className="bg-transparent backdrop-blur-xl border-l border-r border-b border-[#6B0073]/60 rounded-b-3xl p-4 pb-5 text-black dark:text-white relative w-full">
+                    <div className="bg-transparent backdrop-blur-xl border-l border-r border-b dark:border-[#6B0073]/60 border-lime-900 rounded-b-3xl p-4 pb-5 text-black dark:text-white relative w-full">
                       <div className="flex items-center justify-between w-full mb-1">
                         <div className="text-lg text-black dark:text-white font-sans">
                           ₹ <span className="line-through text-gray-400">{product.mrp && product.mrp[0]}</span>{' '}

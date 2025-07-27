@@ -129,7 +129,8 @@ const ProductDetailPage: React.FC = () => {
         </div>
 
         {/* Main Image */}
-        <div className="relative w-full sm:w-[90vw] md:w-full aspect-square flex items-center justify-center mx-auto">
+        <div className="relative w-full aspect-square flex items-center justify-center">
+        {/* <div className="relative w-full sm:w-[90vw] md:w-full aspect-square flex items-center justify-center mx-auto"> */}
           {wishlisted ? (
             <AiFillHeart
               className="absolute top-8 right-8 text-2xl text-red-500 cursor-pointer transition-all"
@@ -191,7 +192,7 @@ const ProductDetailPage: React.FC = () => {
               </div>
             </div>
             <button
-              className={`text-black dark:text-white font-button font-normal px-4 py-2 rounded-full border border-[#4D6A3F] dark:border-yellow-400 hover:brightness-125 transition duration-200 w-full sm:w-[51%] ${!canAddToCart ? 'opacity-50 cursor-not-allowed' : ''}`}
+              className={`text-black dark:text-white font-button font-normal px-2 py-2 rounded-full border border-[#4D6A3F] dark:border-yellow-400 hover:brightness-125 transition duration-200 w-[60vw] sm:w-[50%] ${!canAddToCart ? 'opacity-50 cursor-not-allowed' : ''}`}
               onClick={handleAddToCart}
               disabled={!canAddToCart}
             >
