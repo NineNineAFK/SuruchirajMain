@@ -1,3 +1,37 @@
+// Get trending products
+import type { Product } from '../types/product.tsx';
+
+export const getTrendingProducts = async (): Promise<Product[]> => {
+  try {
+    const response = await fetch(`${API_BASE_URL}/products/api/trending`);
+    const data = await response.json();
+    if (!response.ok) {
+      throw new Error(data.error || 'Failed to fetch trending products');
+    }
+    return data.products;
+  } catch (error) {
+    console.error('Error fetching trending products:', error);
+    throw error;
+  }
+};
+// Update trending rank (admin)
+export const updateTrendingRank = async (id: string, trendingRank: number | null): Promise<number | null> => {
+  try {
+    const response = await fetch(`${API_BASE_URL}/api/admin/products/${id}/trending-rank`, {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ trendingRank }),
+    });
+    const data = await response.json();
+    if (!response.ok) {
+      throw new Error(data.error || 'Failed to update trending rank');
+    }
+    return data.trendingRank;
+  } catch (error) {
+    console.error('Error updating trending rank:', error);
+    throw error;
+  }
+};
 // Toggle product visibility (admin)
 export const toggleProductVisibility = async (id: string): Promise<boolean> => {
   try {

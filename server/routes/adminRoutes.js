@@ -11,6 +11,7 @@ router.post('/addProduct', adminController.addProduct);
 router.put('/updateProduct/:id', adminController.updateProduct);
 router.delete('/deleteProduct/:id', adminController.deleteProduct);
 router.put('/products/:id/toggle-visibility', adminController.toggleProductVisibility);
+router.put('/products/:id/trending-rank', adminController.updateTrendingRank);
 
 // Order management
 router.get('/orders', adminController.getAllOrders);

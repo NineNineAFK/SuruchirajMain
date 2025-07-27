@@ -279,6 +279,30 @@ const AdminDashboard: React.FC = () => {
                               className="form-checkbox h-5 w-5 text-blue-600 transition duration-150"
                             />
                           </label>
+                          {/* Trending Rank Dropdown */}
+                          <label className="flex items-center cursor-pointer select-none mr-2">
+                            <span className="mr-1 text-xs text-yellow-600">Trending Rank</span>
+                            <select
+                              value={product.trendingRank ?? ''}
+                              onChange={async (e) => {
+                                const value = e.target.value === '' ? null : Number(e.target.value);
+                                try {
+                                  await import('../services/productService').then(mod => mod.updateTrendingRank(product._id, value));
+                                  toast.success(value ? `Trending rank set to ${value}` : 'Trending rank cleared');
+                                  fetchProducts();
+                                } catch (err) {
+                                  toast.error('Failed to update trending rank');
+                                }
+                              }}
+                              className="border rounded px-2 py-1 text-xs"
+                              disabled={!product.isVisible}
+                            >
+                              <option value="">None</option>
+                              {[...Array(10)].map((_, i) => (
+                                <option key={i + 1} value={i + 1}>{i + 1}</option>
+                              ))}
+                            </select>
+                          </label>
                           <button
                             onClick={() => handleEditProduct(product)}
                             className="flex-1 bg-green-600 text-white px-3 py-2 rounded-md hover:bg-green-700 text-sm"

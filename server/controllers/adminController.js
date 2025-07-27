@@ -1,3 +1,20 @@
+// Update trending rank for a product
+const updateTrendingRank = async (req, res) => {
+    try {
+        const { id } = req.params;
+        const { trendingRank } = req.body;
+        const product = await Product.findById(id);
+        if (!product) {
+            return res.status(404).json({ error: 'Product not found' });
+        }
+        product.trendingRank = trendingRank === null || trendingRank === '' ? null : Number(trendingRank);
+        await product.save();
+        res.json({ success: true, trendingRank: product.trendingRank });
+    } catch (error) {
+        console.error('Error updating trending rank:', error);
+        res.status(500).json({ error: 'Internal server error' });
+    }
+};
 const Product = require('../model/product');
 const Order = require('../model/order');
 const User = require('../model/user');
@@ -200,4 +217,5 @@ module.exports = {
     updateOrderStatus,
     deleteOrder,
     toggleProductVisibility,
+    updateTrendingRank,
 };

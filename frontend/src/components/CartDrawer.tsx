@@ -148,9 +148,18 @@ const CartDrawer: React.FC<CartDrawerProps> = ({ isOpen, onClose }) => {
           })
         )}
       </div>
-      <div className="p-4 border-t flex justify-between items-center font-bold text-lg">
-        <span>Total:</span>
-        <span>₹{totalPrice}</span>
+      <div className="p-4 border-t flex flex-col gap-3 font-bold text-lg">
+        <div className="flex justify-between items-center">
+          <span>Total:</span>
+          <span>₹{totalPrice}</span>
+        </div>
+        <button
+          className="mt-2 w-full bg-yellow-400 hover:bg-yellow-500 text-black font-semibold py-2 px-4 rounded transition-colors disabled:opacity-60"
+          onClick={handleCheckout}
+          disabled={cart.length === 0}
+        >
+          Checkout
+        </button>
       </div>
     </div>
   );

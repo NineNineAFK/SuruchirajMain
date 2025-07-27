@@ -31,6 +31,7 @@ const ProductSchema = new Schema({
     packaging_50gms: { type: Number, default: 0 },
     packaging_100gms: { type: Number, default: 0 },
     isVisible: { type: Boolean, default: true },
+    trendingRank: { type: Number, default: null },
 
 }, { timestamps: true });
 

@@ -44,6 +44,7 @@ export interface Product {
   packaging_50gms: number;
   packaging_100gms: number;
   isVisible: boolean;
+  trendingRank: number | null;
 }
 
 export interface ProductFormData {

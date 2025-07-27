@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import {
   FiHeart,
   FiPlus,
@@ -16,23 +16,12 @@ import type { Swiper as SwiperType } from 'swiper/types';
 import 'swiper/css';
 import 'swiper/css/pagination';
 
-interface Product {
-  id: number;
-  name: string;
-  image: string;
-  bgColor: string;
-  price: number;
-  mrp: number;
-}
+import type { Product } from '../types/product.tsx';
 
-const products: Product[] = [
-  { id: 1, name: 'Turmeric Powder', image: '/trending masalas/turmeric.png', bgColor: 'bg-[#FFD343]', price: 49, mrp: 80 },
-  { id: 2, name: 'Red Powder', image: '/trending masalas/chilli.png', bgColor: 'bg-[#C94C45]', price: 49, mrp: 80 },
-  { id: 3, name: 'Dhaniya Powder', image: '/trending masalas/dhaniya.png', bgColor: 'bg-[#A89A5D]', price: 49, mrp: 80 },
-  { id: 4, name: 'Dummy Masala', image: '/trending masalas/turmeric.png', bgColor: 'bg-[#eab308]', price: 49, mrp: 80 },
-  { id: 5, name: 'Dummy Masala', image: '/trending masalas/chilli.png', bgColor: 'bg-[#f87171]', price: 49, mrp: 80 },
-  { id: 6, name: 'Dummy Masala', image: '/trending masalas/dhaniya.png', bgColor: 'bg-[#60a5fa]', price: 49, mrp: 80 },
-];
+
+import { getTrendingProducts } from '../services/productService';
+
+// Only one TrendingMasalas component definition should exist. (If duplicate, remove the extra one.)
 
 const TrendingMasalas: React.FC = () => {
   
@@ -43,38 +32,59 @@ const TrendingMasalas: React.FC = () => {
   const { isWishlisted, toggleWishlist } = useWishlist();
 
   const handleWishlistToggle = (product: Product) => {
-    toggleWishlist(product);
-    toast.success(isWishlisted(product.id) ? 'Removed from wishlist' : 'Added to wishlist');
+    if (isWishlisted(product._id)) {
+      removeFromWishlist(product._id);
+    } else {
+      addToWishlist(product._id);
+    }
   };
 
   const handleAddToCart = (product: Product) => {
     addToCart({
-      id: product.id,
-      name: product.name,
-      quantity: 1,
-      price: product.price,
+      productId: product._id,
+      qty_50g: 1,
+      qty_100g: 0
     });
-    toast.success(`${product.name} added to cart!`);
+    toast.success(`${product.product_name} added to cart!`);
   };
 
-  const handleIncrement = (id: number) => {
-    const item = cart.find((item) => item.id === id);
+  const handleIncrement = (productId: string) => {
+    const item = cart.find((item) => item.productId === productId);
     if (item) {
-      updateQuantity(id, item.quantity + 1);
+      updateQuantity(productId, item.qty_50g + 1, item.qty_100g);
     }
   };
 
-  const handleDecrement = (id: number) => {
-    const item = cart.find((item) => item.id === id);
+  const handleDecrement = (productId: string) => {
+    const item = cart.find((item) => item.productId === productId);
     if (item) {
-      if (item.quantity > 1) {
-        updateQuantity(id, item.quantity - 1);
+      if (item.qty_50g > 1) {
+        updateQuantity(productId, item.qty_50g - 1, item.qty_100g);
       } else {
-        removeFromCart(id);
-
+        removeFromCart(productId);
       }
     }
   };
+
+
+
+  const [products, setProducts] = useState<Product[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchTrending = async () => {
+      try {
+        setLoading(true);
+        const trending = await getTrendingProducts();
+        setProducts(trending);
+      } catch (err) {
+        toast.error('Failed to load trending products');
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchTrending();
+  }, []);
 
   const handleSlideChange = () => {
     const swiper = swiperRef.current;
@@ -136,22 +146,29 @@ const TrendingMasalas: React.FC = () => {
             1024: { slidesPerView: 5 },
           }}
         >
-          {products.map((product) => {
-            const cartItem = cart.find((item) => item.id === product.id);
-            const quantity = cartItem?.quantity || 0;
-
+          {loading ? (
+            <div className="text-center py-8">Loading...</div>
+          ) : products.length === 0 ? (
+            <div className="text-center py-8">No trending products found.</div>
+          ) : products.map((product) => {
+            const cartItem = cart.find((item) => item.productId === product._id);
+            const quantity = (cartItem?.qty_50g || 0) + (cartItem?.qty_100g || 0);
+            // Prefer lifestyle shot, else first image
+            const image = product.images && product.images.length > 0
+              ? `https://suruchiraj.com/images/products/${product.images.find((img: string) => img.toLowerCase().includes('lifestyle shot')) || product.images[0]}`
+              : '';
             return (
               <SwiperSlide
-                key={product.id}
+                key={product._id}
                 className="relative w-full overflow-visible transition-transform duration-300 hover:scale-[1.03]"
               >
                 {/* Mobile Version */}
                 <div className="block md:hidden w-full max-w-[96vw] mx-auto">
                   <div className="relative w-full aspect-[3/4]">
-                    {product.image && (
+                    {image && (
                       <div className="relative w-full h-full rounded-t-3xl overflow-hidden">
-                        <Link to={`/product/${product.id}`}>
-                          <img src={product.image} alt={product.name} className="w-full h-[80%] object-cover drop-shadow-xl pointer-events-none" />
+                        <Link to={`/product/${product._id}`}>
+                          <img src={image} alt={product.product_name} className="w-full h-[80%] object-cover drop-shadow-xl pointer-events-none" />
                         </Link>
                         <div
                           className="absolute top-[1vw] right-[2vw] z-50 cursor-pointer"
@@ -159,7 +176,7 @@ const TrendingMasalas: React.FC = () => {
                         >
                           <FiHeart
                             className={`text-[3vw] transition ${
-                              isWishlisted(product.id) ? 'text-red-500 fill-red-500' : 'text-black dark:text-white'
+                              isWishlisted(product._id) ? 'text-red-500 fill-red-500' : 'text-black dark:text-white'
                             }`}
                           />
                         </div>
@@ -169,9 +186,9 @@ const TrendingMasalas: React.FC = () => {
 
                   <div className="-mt-[12vw] w-full bg-white/10 backdrop-blur-md border-l border-r border-b border-[#6B0073]/60 rounded-b-3xl px-[3vw] py-[4vw] text-black dark:text-white">
                     <div className="w-full mb-[1.5vw]">
-                      <Link to={`/product/${product.id}`}>
+                      <Link to={`/product/${product._id}`}>
                         <h3 className="text-[2.8vw] font-semibold font-body truncate">
-                          {product.name}
+                          {product.product_name}
                         </h3>
                         <span className="text-[2vw] text-gray-300 font-sans font-medium mt-[0.5vw] block">
                           50g
@@ -181,30 +198,27 @@ const TrendingMasalas: React.FC = () => {
 
                     <div className="w-full flex items-center justify-between mb-[2vw]">
                       <div className="text-[3vw] font-semibold font-sans text-black dark:text-white">
-                        ₹<span className="line-through text-gray-300">{product.mrp}</span>{' '}
-                        <span className="text-black dark:text-white">{product.price}</span>
+                        ₹<span className="line-through text-gray-300">{product.mrp && product.mrp[0]}</span>{' '}
+                        <span className="text-black dark:text-white">{product.mrp && product.mrp[0]}</span>
                       </div>
                       <div className="text-[2vw] bg-lime-400 text-black font-semibold px-[1.5vw] py-[0.5vw] rounded-full w-fit font-button">
-                        {Math.round(((product.mrp - product.price) / product.mrp) * 100)}% off
+                        {/* Discount calculation can be added if you have price and mrp */}
                       </div>
                     </div>
 
                     <div className="w-full">
                       {quantity === 0 ? (
                         <button
-                          onClick={() => {
-                            
-                            handleAddToCart(product);
-                          }}
+                          onClick={() => handleAddToCart(product)}
                           className="w-full h-[7vw] bg-yellow-400 hover:bg-yellow-300 text-black font-semibold font-button rounded-full flex items-center justify-center text-[3.5vw] shadow-md transition-all duration-200 ease-in-out"
                         >
                           Add
                         </button>
                       ) : (
                         <div className="flex justify-between items-center w-full bg-yellow-400 text-black rounded-full px-[3vw] py-[1vw] text-[3.5vw] font-semibold font-button shadow-md">
-                          <button onClick={() => handleDecrement(product.id)}><FiMinus /></button>
+                          <button onClick={() => handleDecrement(product._id)}><FiMinus /></button>
                           <span>{quantity}</span>
-                          <button onClick={() => handleIncrement(product.id)}><FiPlus /></button>
+                          <button onClick={() => handleIncrement(product._id)}><FiPlus /></button>
                         </div>
                       )}
                     </div>
@@ -215,8 +229,8 @@ const TrendingMasalas: React.FC = () => {
                 <div className="hidden md:block">
                   <div className="absolute -top-0 inset-x-0 z-40 px-2 pointer-events-drag cursor-pointer">
                     <div className="relative">
-                      <Link to={`/product/${product.id}`}>
-                        <img src={product.image} alt={product.name} className="h-full w-full object-fill drop-shadow-xl pointer-events-none cursor-pointer" />
+                      <Link to={`/product/${product._id}`}>
+                        <img src={image} alt={product.product_name} className="h-full w-full object-fill drop-shadow-xl pointer-events-none cursor-pointer" />
                       </Link>
                       <div
                         className="absolute top-1 right-2 z-50 cursor-pointer"
@@ -224,7 +238,7 @@ const TrendingMasalas: React.FC = () => {
                       >
                         <FiHeart
                           className={`text-xl transition ${
-                            isWishlisted(product.id) ? 'text-red-500 fill-red-500' : 'text-black dark:text-white'
+                            isWishlisted(product._id) ? 'text-red-500 fill-red-500' : 'text-black dark:text-white'
                           }`}
                         />
                       </div>
@@ -235,18 +249,16 @@ const TrendingMasalas: React.FC = () => {
                     <div className="bg-transparent backdrop-blur-xl border-l border-r border-b border-[#6B0073]/60 rounded-b-3xl p-4 pb-5 text-black dark:text-white relative w-full">
                       <div className="flex items-center justify-between w-full mb-1">
                         <div className="text-lg text-black dark:text-white font-sans">
-                          ₹ <span className="line-through text-gray-400">{product.mrp}</span>{' '}
-                          <span className="font-semibold">{product.price}</span>
+                          ₹ <span className="line-through text-gray-400">{product.mrp && product.mrp[0]}</span>{' '}
+                          <span className="font-semibold">{product.mrp && product.mrp[0]}</span>
                         </div>
-                        <div className="text-xs bg-lime-400 text-black font-semibold px-2 py-0.5 rounded-full font-button">
-                          {Math.round(((product.mrp - product.price) / product.mrp) * 100)}% off
-                        </div>
+                        {/* Discount calculation can be added if you have price and mrp */}
                       </div>
 
                       <div className="mb-2 w-full">
-                        <Link to={`/product/${product.id}`}>
+                        <Link to={`/product/${product._id}`}>
                           <h3 className="text-base font-semibold font-body truncate w-full text-left flex items-center gap-2">
-                            {product.name}
+                            {product.product_name}
                             <span className="text-sm text-gray-300 font-sans font-normal">(50g)</span>
                           </h3>
                         </Link>
@@ -255,19 +267,16 @@ const TrendingMasalas: React.FC = () => {
                       <div className="w-full">
                         {quantity === 0 ? (
                           <button
-                            onClick={() => {
-                              
-                              handleAddToCart(product);
-                            }}
+                          onClick={() => handleAddToCart(product)}
                             className="w-full bg-yellow-400 text-black px-3 py-1 text-sm rounded-full font-semibold hover:brightness-110 transition font-button"
                           >
                             Add
                           </button>
                         ) : (
                           <div className="flex justify-between items-center w-full bg-yellow-400 rounded-full px-4 py-1 text-black text-sm font-button">
-                            <button onClick={() => handleDecrement(product.id)}><FiMinus /></button>
-                            <span>{quantity}</span>
-                            <button onClick={() => handleIncrement(product.id)}><FiPlus /></button>
+                          <button onClick={() => handleDecrement(product._id)}><FiMinus /></button>
+                          <span>{quantity}</span>
+                          <button onClick={() => handleIncrement(product._id)}><FiPlus /></button>
                           </div>
                         )}
                       </div>

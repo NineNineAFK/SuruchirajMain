@@ -1,3 +1,15 @@
+// Get trending products (isVisible: true, trendingRank != null, sorted by trendingRank)
+const getTrendingProducts = async (req, res) => {
+    try {
+        const products = await Product.find({ isVisible: true, trendingRank: { $ne: null } })
+            .sort({ trendingRank: 1 })
+            .limit(10);
+        res.json({ success: true, products });
+    } catch (error) {
+        console.error('Error fetching trending products:', error);
+        res.status(500).json({ error: 'Internal server error' });
+    }
+};
 const Product = require('../model/product');
 //const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY); 
 const listProducts = async (req, res) => {
@@ -147,5 +159,6 @@ module.exports = {
     name,
     getAllProducts,
     getProductById,
-    getUniqueCategoriesAndQuantities
+    getUniqueCategoriesAndQuantities,
+    getTrendingProducts,
 };
