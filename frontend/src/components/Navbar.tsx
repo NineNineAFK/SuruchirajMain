@@ -195,7 +195,7 @@ const Navbar: React.FC = () => {
         <div className="flex w-full items-center justify-between lg:hidden px-2 md:px-0 py-1">
           {/* Logo - far left */}
           <Link to="/" className="block">
-            <img src="/Logo.png" alt="Suruchiraj Logo" className="h-12 md:h-14 w-auto" />
+            <img src="/newlogo.PNG" alt="Suruchiraj Logo" className="h-12 md:h-14 w-auto" />
           </Link>
 
           {/* Right-side icons */}
@@ -234,7 +234,7 @@ const Navbar: React.FC = () => {
           <div className="hidden lg:flex items-center justify-between w-full gap-4 md:gap-10 lg:gap-16 xl:gap-24 px-2 md:px-2 lg:px-4">
             {/* Left: Logo only */}
             <Link to="/" className="flex-shrink-0">
-              <img src="/Logo.png" alt="Suruchiraj Logo" className="h-14 w-auto" />
+              <img src="/newlogo.PNG" alt="Suruchiraj Logo" className="h-14 w-auto" />
             </Link>
 
             {/* Right: Everything else */}

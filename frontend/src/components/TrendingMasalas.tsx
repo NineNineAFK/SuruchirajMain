@@ -187,23 +187,22 @@ const TrendingMasalas: React.FC = () => {
                   <div className="-mt-[11vw] w-full bg-white/10 backdrop-blur-md border-l border-r border-b dark:border-[#6B0073]/60 border-lime-900 rounded-b-3xl px-[3vw] py-[4vw] text-black dark:text-white">
                     <div className="w-full mb-[1.5vw]">
                       <Link to={`/product/${product._id}`}>
-                        <h3 className="text-[2.8vw] font-semibold font-body truncate">
+                        <h3 className="text-[3vw] font-semibold font-body truncate">
                           {product.product_name}
                         </h3>
-                        <span className="text-[2vw] text-gray-300 font-sans font-medium mt-[0.5vw] block">
-                          50g
-                        </span>
                       </Link>
                     </div>
 
-                    <div className="w-full flex items-center justify-between mb-[2vw]">
-                      <div className="text-[3vw] font-semibold font-sans text-black dark:text-white">
-                        ₹<span className="text-black dark:text-white">{product.mrp && product.mrp[0]}</span>
+                      <div className="flex justify-between items-center w-full mb-1">
+                        <div className="text-[3vw] text-black dark:text-white font-sans">
+                          ₹ <span className="font-semibold">{product.mrp && product.mrp[0]}</span>
+                        </div>
+                        
+                        <span className="text-[2.5vw] dark:text-gray-200 text-gray-900 font-sans font-normal">(50g)</span>
                       </div>
-                      <div className="text-[2vw] bg-lime-400 text-black font-semibold px-[1.5vw] py-[0.5vw] rounded-full w-fit font-button">
+                      {/* <div className="text-[2vw] bg-lime-400 text-black font-semibold px-[1.5vw] py-[0.5vw] rounded-full w-fit font-button">
                         {/* Discount calculation can be added if you have price and mrp */}
-                      </div>
-                    </div>
+                      {/* </div>  */}
 
                     <div className="w-full">
                       {quantity === 0 ? (
@@ -246,21 +245,26 @@ const TrendingMasalas: React.FC = () => {
 
                   <div className="mt-[200px] px-2 pt-0">
                     <div className="bg-transparent backdrop-blur-xl border-l border-r border-b dark:border-[#6B0073]/60 border-lime-900 rounded-b-3xl p-4 pb-5 text-black dark:text-white relative w-full">
-                      <div className="flex items-center justify-between w-full mb-1">
+                      <div className="mb-2 w-full">
+                        <Link to={`/product/${product._id}`}>
+                          <h3 className="text-base font-semibold font-body truncate flex justify-center gap-2">
+                            {product.product_name}
+                          </h3>
+                          
+                        </Link>
+                      </div>
+                      <div className="flex justify-between items-center w-full mb-1">
                         <div className="text-lg text-black dark:text-white font-sans">
                           ₹ <span className="font-semibold">{product.mrp && product.mrp[0]}</span>
                         </div>
-                        {/* Discount calculation can be added if you have price and mrp */}
+                        
+                        <span className="text-sm dark:text-gray-200 text-gray-900 font-sans font-normal">(50g)</span>
                       </div>
 
-                      <div className="mb-2 w-full">
-                        <Link to={`/product/${product._id}`}>
-                          <h3 className="text-base font-semibold font-body truncate w-full text-left flex items-center gap-2">
-                            {product.product_name}
-                            <span className="text-sm text-gray-300 font-sans font-normal">(50g)</span>
-                          </h3>
-                        </Link>
-                      </div>
+                        {/* Discount calculation can be added if you have price and mrp */}
+ 
+
+                      
 
                       <div className="w-full">
                         {quantity === 0 ? (

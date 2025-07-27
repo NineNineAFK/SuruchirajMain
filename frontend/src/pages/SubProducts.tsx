@@ -7,7 +7,7 @@ import toast from 'react-hot-toast';
 import { useRecoilValue } from 'recoil';
 import { searchTermAtom, authStateAtom } from '../state/state';
 import { useLoginModal } from '../context/LoginModalContext';
-import type { Product } from '../types/product.tsx';
+import type { Product } from '../types/product';
 import { Link, useLocation } from 'react-router-dom';
 
 
@@ -237,7 +237,7 @@ const SubProducts = () => {
                         <img
                           src={`https://suruchiraj.com/images/products/${product.images.find(img => img.toLowerCase().includes('lifestyle shot')) || product.images[0]}`}
                           alt={product.product_name}
-                          className="w-full h-full object-contain rounded-2xl z-10"
+                          className="w-full h-full object-contain rounded-t-3xl z-10"
                         />
                       )}
 
