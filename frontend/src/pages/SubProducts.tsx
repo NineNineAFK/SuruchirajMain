@@ -7,7 +7,7 @@ import toast from 'react-hot-toast';
 import { useRecoilValue } from 'recoil';
 import { searchTermAtom, authStateAtom } from '../state/state';
 import { useLoginModal } from '../context/LoginModalContext';
-import type { Product } from '../types/product';
+import type { Product } from '../types/product.tsx';
 import { Link, useLocation } from 'react-router-dom';
 
 

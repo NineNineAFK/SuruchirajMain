@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import type { Product } from '../types/product';
+import type { Product } from '../types/product.tsx';
 import { getAllProducts, deleteProduct, getAllOrders, updateOrderStatus, deleteOrder as deleteOrderApi } from '../services/productService';
 import AdminProductForm from './AdminProductForm';
 import toast from 'react-hot-toast';

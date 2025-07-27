@@ -15,7 +15,7 @@ export const toggleProductVisibility = async (id: string): Promise<boolean> => {
     throw error;
   }
 };
-import type { Product, ProductFormData } from '../types/product';
+import type { Product, ProductFormData } from '../types/product.tsx';
 
 const API_BASE_URL = import.meta.env.VITE_domainName;
 
