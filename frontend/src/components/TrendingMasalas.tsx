@@ -198,8 +198,7 @@ const TrendingMasalas: React.FC = () => {
 
                     <div className="w-full flex items-center justify-between mb-[2vw]">
                       <div className="text-[3vw] font-semibold font-sans text-black dark:text-white">
-                        ₹<span className="line-through text-gray-300">{product.mrp && product.mrp[0]}</span>{' '}
-                        <span className="text-black dark:text-white">{product.mrp && product.mrp[0]}</span>
+                        ₹<span className="text-black dark:text-white">{product.mrp && product.mrp[0]}</span>
                       </div>
                       <div className="text-[2vw] bg-lime-400 text-black font-semibold px-[1.5vw] py-[0.5vw] rounded-full w-fit font-button">
                         {/* Discount calculation can be added if you have price and mrp */}
@@ -249,8 +248,7 @@ const TrendingMasalas: React.FC = () => {
                     <div className="bg-transparent backdrop-blur-xl border-l border-r border-b dark:border-[#6B0073]/60 border-lime-900 rounded-b-3xl p-4 pb-5 text-black dark:text-white relative w-full">
                       <div className="flex items-center justify-between w-full mb-1">
                         <div className="text-lg text-black dark:text-white font-sans">
-                          ₹ <span className="line-through text-gray-400">{product.mrp && product.mrp[0]}</span>{' '}
-                          <span className="font-semibold">{product.mrp && product.mrp[0]}</span>
+                          ₹ <span className="font-semibold">{product.mrp && product.mrp[0]}</span>
                         </div>
                         {/* Discount calculation can be added if you have price and mrp */}
                       </div>
