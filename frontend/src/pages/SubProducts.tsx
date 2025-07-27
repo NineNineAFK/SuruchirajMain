@@ -8,7 +8,7 @@ import { useRecoilValue } from 'recoil';
 import { searchTermAtom } from '../state/state';
 // import { useLoginModal } from '../context/LoginModalContext';
 import type { Product } from '../types/product.tsx';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 
 
 const SubProducts = () => {
@@ -78,6 +78,8 @@ const SubProducts = () => {
     );
   };
 
+  // Remove all logic and state related to selectedQuantities, filterQuantities, and safeSelectedQuantities
+  // Ensure selectedQuantities and filterQuantities are always arrays of strings
   const filteredProducts = visibleProducts.filter((product) => {
     const term = searchTerm.toLowerCase();
     const nameMatch = product.product_name && product.product_name.toLowerCase().includes(term);
@@ -94,6 +96,8 @@ const SubProducts = () => {
       }
     }
 
+    // Removed quantity filter logic
+
     // Search term (name/category)
     let searchMatch = nameMatch;
     if (!searchMatch && Array.isArray(product.category)) {
@@ -104,6 +108,10 @@ const SubProducts = () => {
 
     return searchMatch && categoryMatch;
   });
+
+  return (
+    <div className="bg-east-side-100 text-black dark:bg-black dark:text-white min-h-screen px-4 py-6 sm:px-6 sm:py-8">
+      {/* Mobile Filter Toggle */}
       <div className="sm:hidden flex justify-between items-center mb-4">
         <h1 className="text-3xl font-semibold font-heading text-black dark:text-white">Products</h1>
         <button
@@ -173,14 +181,14 @@ const SubProducts = () => {
                       </button>
                     </div>
 
-                      {/* Product Image */}
-                      {product.images && product.images.length > 0 && (
-                        <img
-                          src={`https://suruchiraj.com/images/products/${product.images.find(img => img.toLowerCase().includes('lifestyle shot')) || product.images[0]}`}
-                          alt={product.product_name}
-                          className="w-full h-full object-contain rounded-2xl z-10"
-                        />
-                      )}
+                    {/* Product Image */}
+                    {product.images && product.images.length > 0 && (
+                      <img
+                        src={`https://suruchiraj.com/images/products/${product.images.find(img => img.toLowerCase().includes('lifestyle shot')) || product.images[0]}`}
+                        alt={product.product_name}
+                        className="w-full h-full object-contain rounded-2xl z-10"
+                      />
+                    )}
 
                     {/* Product Info */}
                     <div className="p-2 dark:text-white text-black border-l-2 border-r-2 border-b-2 md:-mt-[2vw] -mt-[4vw] lg:-mt-[3vw] rounded-md shadow-md flex flex-col justify-between">
