@@ -21,7 +21,7 @@ const listProducts = async (req, res) => {
             discountedAmount: 0, // Default when no coupon applied
             couponError: null,
             couponCode: req.query.coupon || ''
-          });  // You can replace this with rendering a view if needed
+          });  // You can replace this with rendering a view if needed (rendering view is for ejs)
         
     } catch (error) {
         res.status(500).send('An error occurred while fetching products');
