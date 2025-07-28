@@ -155,14 +155,14 @@ const ProductDetailPage: React.FC = () => {
         {/* Product Info */}
         <div className="col-span-7 md:mt-10">
           <h1 className="text-2xl sm:text-3xl font-bold font-body mb-2">{product.product_name}</h1>
-          <div className="flex items-center gap-3 mb-3">
-            <span className="bg-amber-100 text-amber-800 font-medium px-3 py-1 rounded-full text-sm sm:text-base">
+          {/* <div className="flex items-center gap-3 mb-3">
+            {/* <span className="bg-amber-100 text-amber-800 font-medium px-3 py-1 rounded-full text-sm sm:text-base">
               50g: ₹{product.mrp && product.mrp.length > 0 ? Math.round(product.mrp[0]) : 'N/A'}
-            </span>
+            </span> 
             <span className="bg-green-100 text-green-800 font-medium px-3 py-1 rounded-full text-sm sm:text-base">
               100g: ₹{product.mrp && product.mrp.length > 1 ? Math.round(product.mrp[1]) : 'N/A'}
             </span>
-          </div>
+          </div> */}
 
 
           <p className="mb-2 text-xl font-sans font-semibold">
@@ -174,49 +174,74 @@ const ProductDetailPage: React.FC = () => {
           </p>
 
           {/* Replace old quantity selector with new packet selectors and validation UI */}
-          <div className="flex flex-col gap-4 mb-6">
-            <div className="flex flex-col gap-4 md:flex-row md:items-start md:gap-6">
-              <p className="font-semibold text-2xl font-heading">Select Packets</p>
-              
-              <div className="flex flex-col gap-3">
-                <div className="w-[38vw] md:w-full flex items-center gap-3 bg-gray-100 dark:bg-transparent border dark:border-yellow-400 border-[#4D6A3F] rounded-2xl px-3 py-1 shadow-sm text-sm md:text-base md:px-4">
-                  <span className="font-sans text-base text-gray-800 dark:text-white">50g:</span>
-                  <button
-                    onClick={() => setSelected50g(Math.max(0, selected50g - 1))}
-                    className="bg-transparent text-black dark:text-white px-1 py-1"
-                  >
-                    −
-                  </button>
-                  <span className="w-6 text-center font-medium">{selected50g}</span>
-                  <button
-                    onClick={() => setSelected50g(Math.min(max50g, selected50g + 1))}
-                    className="bg-transparent text-black dark:text-white px-1 py-1"
-                  >
-                    +
-                  </button>
-                  {/* <span className="text-xs text-gray-500">(max {max50g})</span> */}
+          <div className="flex flex-col gap-6 mb-6">
+            {/* ----------  PACKET SELECT  ---------- */}
+            <div className="flex flex-col gap-4 md:items-start md:gap-4">
+              <p className="font-heading font-semibold text-2xl">Select Units</p>
+
+              {/* cards container */}
+              <div className="flex flex-col md:flex-row gap-4">
+
+                {/* --- 100 g CARD --- */}
+                <div className="w-[50vw] md:w-full relative rounded-2xl p-[2px] border border:bg-gradient-to-r from-lime-400/10 to-lime-400/30 hover:bg-gradient-to-r hover:from-lime-400/10 hover:to-lime-400/30">
+                  <div className="flex items-center justify-between gap-4 bg-black/90 dark:bg-transparent rounded-2xl px-3 py-3">
+                    {/* label + price */}
+                    <div className="flex flex-col gap-x-5">
+                      <span className="text-white font-medium text-base">100g</span>
+                      <span className="text-yellow-400 font-medium text-sm">₹{product.mrp && product.mrp.length > 1 ? Math.round(product.mrp[1]) : 'N/A'}</span>
+                    </div>
+
+                    {/* qty pill */}
+                    <div className="p-[1px] rounded-full bg-gradient-to-r from-slate-50 to-slate-400">
+                      <div className="flex items-center rounded-full bg-black/100 px-2">
+                        <button
+                          onClick={() => setSelected100g(Math.max(0, selected100g - 1))}
+                          className="text-white px-1"
+                        >
+                          −
+                        </button>
+                        <span className="w-6 text-center text-white">{selected100g}</span>
+                        <button
+                          onClick={() => setSelected100g(Math.min(max100g, selected100g + 1))}
+                          className="text-white px-1"
+                        >
+                          +
+                        </button>
+                      </div>
+                    </div>
+                  </div>
                 </div>
 
-                <div className="w-[39vw] md:w-full flex items-center gap-3 bg-gray-100 dark:bg-transparent border dark:border-yellow-400 border-[#4D6A3F] rounded-2xl px-3 py-1 shadow-sm text-sm md:text-base md:px-4">
-                  <span className="font-sans text-base text-gray-800 dark:text-white">100g:</span>
-                  <button
-                    onClick={() => setSelected100g(Math.max(0, selected100g - 1))}
-                    className="bg-transparent text-black dark:text-white px-1 py-1"
-                  >
-                    −
-                  </button>
-                  <span className="w-6 text-center font-medium">{selected100g}</span>
-                  <button
-                    onClick={() => setSelected100g(Math.min(max100g, selected100g + 1))}
-                    className="bg-transparent text-black dark:text-white px-1 py-1"
-                  >
-                    +
-                  </button>
-                  {/* <span className="text-xs text-gray-500">(max {max100g})</span> */}
-                </div>
+                {/* --- 50 g CARD --- */}
+                <div className="w-[50vw] md:w-full relative rounded-2xl p-[2px] border border:bg-gradient-to-r from-lime-400/10 to-lime-400/30 hover:bg-gradient-to-r hover:from-lime-400/10 hover:to-lime-400/30">
+                  <div className="flex items-center justify-between gap-4 bg-black/90 dark:bg-transparent rounded-2xl px-3 py-3">
 
-                {/* <div className="text-sm text-gray-600 mt-1">Total grams: {total_required_grams}g / {(product.stock || 0)}g available</div> */}
-                {error && <div className="text-red-500 text-sm mt-1">{error}</div>}
+                    {/* label + price */}
+                    <div className="flex flex-col">
+                      <span className="text-white font-medium text-base">50g</span>
+                      <span className="text-yellow-400 font-medium text-sm">₹{product.mrp && product.mrp.length > 0 ? Math.round(product.mrp[0]) : 'N/A'}</span>
+                    </div>
+
+                    {/* qty pill */}
+                    <div className="p-[1px] rounded-full bg-gradient-to-r from-slate-50 to-slate-400">
+                      <div className="flex items-center rounded-full bg-black/100 px-2">
+                        <button
+                          onClick={() => setSelected50g(Math.max(0, selected50g - 1))}
+                          className="text-white px-1"
+                        >
+                          −
+                        </button>
+                        <span className="w-6 text-center text-white">{selected50g}</span>
+                        <button
+                          onClick={() => setSelected50g(Math.min(max50g, selected50g + 1))}
+                          className="text-white px-1"
+                        >
+                          +
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
 
