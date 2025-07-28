@@ -42,7 +42,7 @@ const WhyChooseUs: React.FC = () => {
 
       {/* 🖥️ Desktop Layout */}
       <div className="hidden md:flex max-w-4xl mx-auto relative">
-        <div className="flex backdrop-blur-md rounded-3xl p-6 md:p-5 items-center justify-between gap-4 border border-black/10 dark:border-white/20 shadow-md dark:shadow-[0_0_10px_rgba(255,255,255,0.3)] bg-[#2C941E]/40 dark:bg-transparent w-full z-10">
+        <div className="flex backdrop-blur-md rounded-3xl p-6 md:p-5 items-center justify-between gap-4 border border-black/10 dark:border-white/20 shadow-md dark:shadow-[0_0_10px_rgba(255,255,255,0.3)] bg-[#2C941E]/15 dark:bg-transparent w-full z-10">
           {features.map((feature, index) => (
             <div
               key={index}
@@ -111,7 +111,7 @@ const WhyChooseUs: React.FC = () => {
               className={`flex flex-col items-center justify-center text-black dark:text-white border border-black/10 dark:border-white/20 rounded-2xl backdrop-blur-md transition-all duration-300 cursor-pointer overflow-hidden ${
                 isActive
                   ? 'absolute top-1/2 left-1/2 z-50 transform -translate-x-1/2 -translate-y-1/2 bg-[#B8C2B3]/70  dark:bg-white/20 shadow-md w-[90%] p-6'
-                  : 'p-4 bg-[#2C941E]/40 dark:bg-white/10 shadow-sm dark:shadow-[0_0_10px_rgba(255,255,255,0.2)]'
+                  : 'p-4 bg-[#2C941E]/15 dark:bg-white/10 shadow-sm dark:shadow-[0_0_10px_rgba(255,255,255,0.2)]'
               }`}
             >
               {isActive && (

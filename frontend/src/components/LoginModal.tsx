@@ -16,10 +16,10 @@ const LoginModal: React.FC = () => {
           <FiX size={24} />
         </button>
 
-        <h2 className="text-xl font-bold mb-2 text-center">Welcome Back!</h2>
+        <h2 className="text-xl font-bold mb-2 text-center">Welcome <span className="text-yellow-400">Back!</span></h2>
         <p className="text-sm text-gray-300 mb-6 text-center">Login to your account</p>
 
-        <label className="text-left text-sm">Enter Your WhatsApp Number</label>
+        {/* <label className="text-left text-sm">Enter Your WhatsApp Number</label>
         <input
           type="text"
           placeholder="+91"
@@ -34,7 +34,7 @@ const LoginModal: React.FC = () => {
           Get OTP <img src="/whatsapp-icon.svg" alt="wa" className="h-5 w-5" />
         </button>
 
-        <div className="text-center text-gray-400 mb-4">OR</div>
+        <div className="text-center text-gray-400 mb-4">OR</div> */}
 
         <button
           onClick={() => {
