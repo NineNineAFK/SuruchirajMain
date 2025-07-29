@@ -26,7 +26,7 @@ const CancellationPolicy: React.FC = () => {
           <BulletList items={[
             `<strong class="text-black dark:text-white">Timely Requests:</strong> Cancellations must be requested on the same calendar day as the order (before 11:59 PM IST).`,
             `<strong class="text-black dark:text-white">Order Processing:</strong> If your order is already processed or dispatched, cancellation may not be possible.`,
-            `<strong class="text-black dark:text-white">How to Cancel:</strong> Contact us at <em class="font-bold">support@suruchiraj.com</em> or <em class="font-bold font-sans">8793796955</em> with your order details.`
+            `<strong class="text-black dark:text-white">How to Cancel:</strong> Contact us at <em class="font-bold">support@suruchiraj.com</em> or <em class="font-bold font-sans">8390369630</em> with your order details.`
           ]} />
         </Section>
 
@@ -77,7 +77,7 @@ const CancellationPolicy: React.FC = () => {
               Suruchiraj Spices, Sarala Roses, Someshwarwadi Road, Near Hotel Rajwada, Pashan, Pune, Maharashtra-411008
             </p>
             <p className="flex items-center gap-2">
-              <FiPhone className="text-[#4D6A3F] dark:text-yellow-400" /> <span className="font-sans">8793796955</span>
+              <FiPhone className="text-[#4D6A3F] dark:text-yellow-400" /> <span className="font-sans">8390369630</span>
             </p>
             <p className="flex items-center gap-2">
               <FiMail className="text-[#4D6A3F] dark:text-yellow-400" /> support@suruchiraj.com
