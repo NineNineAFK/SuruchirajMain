@@ -64,7 +64,7 @@ const testimonials: Testimonial[] = [
     id: 6,
     name: 'Arjun Verma',
     company: 'Instagram',
-    text: `Suruchiraj spices are cheap and make my simple meals taste great. It's easy to cook delicious food without spending a lot of money.`,
+    text: `Suruchiraj spices are reasonable and make my simple meals taste great. It's easy to cook delicious food without spending a lot of money.`,
     image: '/userpp/arjun.png',
     rating: 4,
   },

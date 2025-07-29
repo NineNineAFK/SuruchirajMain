@@ -78,6 +78,58 @@ const HomePage: React.FC = () => {
       {/* Light theme: white background */}
       <div className="block dark:hidden bg-scroll bg-cover bg-center text-black"
       style={{ backgroundImage: "url('/lightbg6.png')" }}>
+        <div className="relative md:hidden z-0">
+          <img
+            src="/bgicons/4.png"
+            alt="icon 1"
+            className="absolute top-[15rem] left-3 w-16 h-16 opacity-60 rotate-[30deg]"
+          />
+          <img
+            src="/bgicons/2.png"
+            alt="icon 2"
+            className="absolute top-[17rem] right-2 w-12 h-12 opacity-40"
+          />
+          <img
+            src="/bgicons/5.png"
+            alt="icon 3"
+            className="absolute top-[80rem] -left-10 w-24 h-24 opacity-60 rotate-180"
+          />
+          <img
+            src="/bgicons/1.png"
+            alt="icon 3"
+            className="absolute top-[75rem] right-1 w-24 h-24 opacity-60"
+          />
+          <img
+            src="/bgicons/6.png"
+            alt="icon 3"
+            className="absolute top-[73rem] -left-12 w-24 h-24 opacity-60 rotate-[30deg]"
+          />
+          <img
+            src="/bgicons/9.png"
+            alt="icon 3"
+            className="absolute top-[99rem] -left-7 w-24 h-24 opacity-60 rotate-[30deg]"
+          />
+          <img
+            src="/bgicons/2.png"
+            alt="icon 4"
+            className="absolute top-[56rem] -left-8 w-16 h-16 opacity-40"
+          />
+          <img
+            src="/bgicons/7.png"
+            alt="icon 4"
+            className="absolute top-[55rem] right-1 w-16 h-16 opacity-40"
+          />
+          <img
+            src="/bgicons/8.png"
+            alt="icon 4"
+            className="absolute top-[95rem] right-1 w-36 h-36 opacity-70"
+          />
+          <img
+            src="/bgicons/4.png"
+            alt="icon 4"
+            className="absolute top-[99rem] right-1 w-12 h-12 opacity-60 -rotate-12"
+          />
+        </div>
         <HeroSection />
 
         <section className="py-5">

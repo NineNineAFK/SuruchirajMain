@@ -100,13 +100,9 @@ const ProductDetailPage: React.FC = () => {
   };
 
   return (
-  <div className="bg-white text-black dark:bg-black dark:text-white min-h-screen px-4 py-8">
-    {/* <img
-      src="/bgicons/9.png"
-      alt="Snowflake"
-      className="absolute top-4 left-6 w-4 h-4 opacity-40 "
-    />
-    <img
+  <div className="overflow-x-hidden bg-white text-black dark:bg-black dark:text-white min-h-screen px-4 py-8">
+  {/* Background images (uncomment if needed    */}
+    {/*<img
       src="/icons/leaf.svg"
       alt="Leaf"
       className="absolute top-20 right-10 w-3 h-3 opacity-30"
