@@ -26,7 +26,7 @@ const CancellationPolicy: React.FC = () => {
           <BulletList items={[
             `<strong class="text-black dark:text-white">Timely Requests:</strong> Cancellations must be requested on the same calendar day as the order (before 11:59 PM IST).`,
             `<strong class="text-black dark:text-white">Order Processing:</strong> If your order is already processed or dispatched, cancellation may not be possible.`,
-            `<strong class="text-black dark:text-white">How to Cancel:</strong> Contact us at <em class="font-bold">support@suruchiraj.com</em> or <em class="font-bold font-sans">9867604406</em> with your order details.`
+            `<strong class="text-black dark:text-white">How to Cancel:</strong> Contact us at <em class="font-bold">support@suruchiraj.com</em> or <em class="font-bold font-sans">8793796955</em> with your order details.`
           ]} />
         </Section>
 
@@ -53,20 +53,22 @@ const CancellationPolicy: React.FC = () => {
         </Section>
 
         <Section title="Manufacturer Warranties">
-          For items with manufacturer warranties, please contact the manufacturer directly.
+         For warranties related to items manufactured by entities other than Suruchiraj Spices, please contact the manufacturer directly.
           Suruchiraj Spices can assist in sharing their contact details.
         </Section>
 
         <Section title="Return Shipping Costs">
           If the return is due to our error (damaged/incorrect item), we will cover the return shipping.
-          If it’s for other reasons (e.g., change of mind), the customer may bear the return cost.
+          If it’s for other reasons (e.g., change of mind), no returns are encouraged.
         </Section>
 
         <Section title="Refund Processing Time">
-          Approved refunds will be processed on the same day.
-          The refunded amount may take 5-7 business days to reflect, depending on your payment provider.
+          Approved refunds will be credited within 3-5 days.
+          Replacements and Exchanges will be delivered within 7 days. depending on your payment provider.
         </Section>
-
+           <Section title="Replacement & Exchanges">
+          Replacement and exchanges if approved, will be delivered within 7 days depnding on the availability of the logistics partner.
+        </Section>
         <Section title="Contact Information">
           For cancellation or refund assistance, reach out to us at:
           <div className="mt-4 space-y-2 text-gray-700 dark:text-gray-300">
@@ -75,7 +77,7 @@ const CancellationPolicy: React.FC = () => {
               Suruchiraj Spices, Sarala Roses, Someshwarwadi Road, Near Hotel Rajwada, Pashan, Pune, Maharashtra-411008
             </p>
             <p className="flex items-center gap-2">
-              <FiPhone className="text-[#4D6A3F] dark:text-yellow-400" /> <span className="font-sans">9867604406</span>
+              <FiPhone className="text-[#4D6A3F] dark:text-yellow-400" /> <span className="font-sans">8793796955</span>
             </p>
             <p className="flex items-center gap-2">
               <FiMail className="text-[#4D6A3F] dark:text-yellow-400" /> support@suruchiraj.com
