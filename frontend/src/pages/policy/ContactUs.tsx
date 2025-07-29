@@ -1,7 +1,27 @@
 import React from 'react';
 import { FaInstagram, FaFacebookF, FaLinkedinIn } from 'react-icons/fa';
+import axios from 'axios';
 
 const ContactUs: React.FC = () => {
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+
+    const formData = {
+      name: (document.getElementById('name') as HTMLInputElement).value,
+      email: (document.getElementById('email') as HTMLInputElement).value,
+      message: (document.getElementById('message') as HTMLTextAreaElement).value,
+    };
+
+    try {
+      const response = await axios.post(`${import.meta.env.VITE_domainName}/api/queries`, formData);
+      console.log('Form submitted successfully:', response.data);
+      alert('Your message has been sent successfully!');
+    } catch (error) {
+      console.error('Error submitting the form:', error);
+      alert('An error occurred. Please try again later.');
+    }
+  };
+
   return (
     <div className="bg-east-side-100 dark:bg-black text-black dark:text-white min-h-screen transition-colors duration-300">
       <div className="px-4 sm:px-8 py-10 max-w-5xl mx-auto font-body">
@@ -19,7 +39,7 @@ const ContactUs: React.FC = () => {
         </p>
 
         <h2 className="text-xl font-semibold text-[#4D6A3F] dark:text-yellow-400 mt-6 mb-2">✍️ Drop Us a Message</h2>
-        <form className="space-y-4">
+        <form className="space-y-4" onSubmit={handleSubmit}>
           <div>
             <label className="block text-gray-700 dark:text-gray-300 mb-1" htmlFor="name">Name</label>
             <input id="name" type="text" className="w-full px-4 py-2 bg-gray-300 dark:bg-gray-800 rounded text-black dark:text-white" placeholder="Your name" />

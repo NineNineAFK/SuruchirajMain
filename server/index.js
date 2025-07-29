@@ -55,7 +55,7 @@ app.use("/user", require("./routes/user"));
 app.use("/home", restrictToLoggedInUserOnly, require("./routes/staticRouter"));
 app.use("/open", require("./routes/openRouter"));
 app.use("/auth", require("./routes/auth"));
-app.use('/api/queries', restrictToLoggedInUserOnly, require("./routes/queryRoutes"));
+app.use('/api/queries', require("./routes/queryRoutes"));
 app.use('/api/review', restrictToLoggedInUserOnly, require("./routes/reviewRoutes"));
 app.use('/products', productRoutes);
 app.use('/api/admin', require("./routes/adminRoutes"));
