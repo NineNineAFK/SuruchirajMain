@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import { FiHeart, } from 'react-icons/fi';
-import { useWishlist } from '../context/WishlistContext';
+// import { FiHeart, } from 'react-icons/fi';
+// import { AiFillHeart } from 'react-icons/ai';
+// import { useWishlist } from '../context/WishlistContext';
 import { useCart } from '../context/CartContext';
 // import toast from 'react-hot-toast';
 import DeliveryLocation from '../components/DeliveryLocation';
 import { getProductById } from '../services/productService';
 import type { Product } from '../types/product';
-import { AiFillHeart } from 'react-icons/ai';
 
 
 const ProductDetailPage: React.FC = () => {
@@ -23,7 +23,7 @@ const ProductDetailPage: React.FC = () => {
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(true);
 
-  const { isWishlisted, addToWishlist, removeFromWishlist, moveWishlistItemToCart } = useWishlist();
+  // const { isWishlisted, addToWishlist, removeFromWishlist, moveWishlistItemToCart } = useWishlist();
   const { addToCart } = useCart();
 
   useEffect(() => {
@@ -71,15 +71,15 @@ const ProductDetailPage: React.FC = () => {
   if (loading) return <div className="text-center text-[#4D6A3F] dark:text-yellow-400 mt-10">Loading...</div>;
   if (!product) return <div className="text-center text-red-500 mt-10">Product not found.</div>;
 
-  const wishlisted = isWishlisted(product._id);
+  // const wishlisted = isWishlisted(product._id);
 
-  const handleWishlistToggle = () => {
-    if (wishlisted) {
-      removeFromWishlist(product._id);
-    } else {
-      addToWishlist(product._id);
-    }
-  };
+  // const handleWishlistToggle = () => {
+  //   if (wishlisted) {
+  //     removeFromWishlist(product._id);
+  //   } else {
+  //     addToWishlist(product._id);
+  //   }
+  // };
 
   // const handleMoveToCart = () => {
   //   moveWishlistItemToCart(product._id);
@@ -88,7 +88,6 @@ const ProductDetailPage: React.FC = () => {
 
   const max50g = product ? Math.min(Math.floor((product.stock || 0) / 50), product.packaging_50gms) : 0;
   const max100g = product ? Math.min(Math.floor((product.stock || 0) / 100), product.packaging_100gms) : 0;
-  const total_required_grams = (selected50g * 50) + (selected100g * 100);
   const canAddToCart = !error && (selected50g > 0 || selected100g > 0);
 
   const handleAddToCart = () => {
@@ -147,7 +146,7 @@ const ProductDetailPage: React.FC = () => {
         {/* Main Image */}
         <div className="relative w-full aspect-square flex items-center justify-center">
         {/* <div className="relative w-full sm:w-[90vw] md:w-full aspect-square flex items-center justify-center mx-auto"> */}
-          {wishlisted ? (
+          {/* {wishlisted ? (
             <AiFillHeart
               className="absolute top-8 right-8 text-2xl text-red-500 cursor-pointer transition-all"
               onClick={handleWishlistToggle}
@@ -157,7 +156,7 @@ const ProductDetailPage: React.FC = () => {
               className="absolute top-8 right-8 text-2xl text-black cursor-pointer transition-all"
               onClick={handleWishlistToggle}
             />
-          )}
+          )} */}
           <img
             src={selectedImage}
             alt={product.product_name}

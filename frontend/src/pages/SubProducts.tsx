@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
-import { FiFilter, FiHeart, FiX } from 'react-icons/fi';
+import { FiFilter, FiX } from 'react-icons/fi';
 // import { useCart } from '../context/CartContext';
-import { useWishlist } from '../context/WishlistContext';
+// import { useWishlist } from '../context/WishlistContext';
 import { getAllProducts } from '../services/productService';
 import toast from 'react-hot-toast';
 import { useRecoilValue } from 'recoil';
@@ -18,7 +18,6 @@ const SubProducts = () => {
   const visibleProducts = products.filter(product => product.isVisible);
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
-  const { isWishlisted, addToWishlist, removeFromWishlist } = useWishlist();
   const searchTerm = useRecoilValue(searchTermAtom);
 
   // Categories derived from visible products only
@@ -56,14 +55,14 @@ const SubProducts = () => {
     fetchProducts();
   }, []);
 
-  const handleWishlistToggle = (product: Product) => {
-    const id = product._id;
-    if (isWishlisted(id)) {
-      removeFromWishlist(id);
-    } else {
-      addToWishlist(id);
-    }
-  };
+  // const handleWishlistToggle = (product: Product) => {
+  //   const id = product._id;
+  //   if (isWishlisted(id)) {
+  //     removeFromWishlist(id);
+  //   } else {
+  //     addToWishlist(id);
+  //   }
+  // };
 
 
   const handleBuyNow = (product: Product) => {
@@ -168,7 +167,8 @@ const SubProducts = () => {
                   >
                     {/* Wishlist Icon */}
                     <div className="absolute md:top-8 md:right-4 top-4 right-2 z-20">
-                      <button
+                      {/* Wishlist functionality disabled */}
+                      {/* <button
                         onClick={e => { e.preventDefault(); handleWishlistToggle(product); }}
                         className="text-white text-sm"
                       >
@@ -178,7 +178,8 @@ const SubProducts = () => {
                             : 'text-black'
                             }`}
                         />
-                      </button>
+                      </button> */}
+                      {/* <FiHeart className="text-xl text-gray-400" /> */}
                     </div>
 
                     {/* Product Image */}
