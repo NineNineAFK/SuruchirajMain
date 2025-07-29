@@ -101,6 +101,26 @@ const ProductDetailPage: React.FC = () => {
 
   return (
   <div className="bg-white text-black dark:bg-black dark:text-white min-h-screen px-4 py-8">
+    {/* <img
+      src="/bgicons/9.png"
+      alt="Snowflake"
+      className="absolute top-4 left-6 w-4 h-4 opacity-40 "
+    />
+    <img
+      src="/icons/leaf.svg"
+      alt="Leaf"
+      className="absolute top-20 right-10 w-3 h-3 opacity-30"
+    />
+    <img
+      src="/icons/star.svg"
+      alt="Star"
+      className="absolute bottom-10 left-4 w-4 h-4 opacity-20"
+    />
+    <img
+      src="/icons/branch.svg"
+      alt="Branch"
+      className="absolute bottom-20 right-6 w-3 h-3 opacity-30"
+    /> */}
     <div className="max-w-7xl mx-auto grid md:grid-cols-12 gap-6">
       {/* Image Section */}
       <div className="col-span-5 flex flex-col-reverse md:flex-row gap-4 items-center md:items-start">
@@ -138,7 +158,7 @@ const ProductDetailPage: React.FC = () => {
             />
           ) : (
             <FiHeart
-              className="absolute top-8 right-8 text-2xl text-white cursor-pointer transition-all"
+              className="absolute top-8 right-8 text-2xl text-black cursor-pointer transition-all"
               onClick={handleWishlistToggle}
             />
           )}
@@ -153,8 +173,8 @@ const ProductDetailPage: React.FC = () => {
 
 
         {/* Product Info */}
-        <div className="col-span-7 md:mt-10">
-          <h1 className="text-2xl sm:text-3xl font-bold font-body mb-2">{product.product_name}</h1>
+        <div className="col-span-7 md:mt-7">
+          <h1 className="text-2xl sm:text-3xl font-bold font-body mb-5">{product.product_name}</h1>
           {/* <div className="flex items-center gap-3 mb-3">
             {/* <span className="bg-amber-100 text-amber-800 font-medium px-3 py-1 rounded-full text-sm sm:text-base">
               50g: ₹{product.mrp && product.mrp.length > 0 ? Math.round(product.mrp[0]) : 'N/A'}
@@ -165,35 +185,29 @@ const ProductDetailPage: React.FC = () => {
           </div> */}
 
 
-          <p className="mb-2 text-xl font-sans font-semibold">
-            <span className="text-black dark:text-white text-2xl font-heading">Subtotal</span>:- ₹{
-              product.mrp && product.mrp.length > 1
-                ? Math.round((selected50g * product.mrp[0]) + (selected100g * product.mrp[1]))
-                : ''
-            }
-          </p>
+          
 
           {/* Replace old quantity selector with new packet selectors and validation UI */}
-          <div className="flex flex-col gap-6 mb-6">
+          <div className="flex flex-col gap-6 md:mb-8 mb-4">
             {/* ----------  PACKET SELECT  ---------- */}
             <div className="flex flex-col gap-4 md:items-start md:gap-4">
-              <p className="font-heading font-semibold text-2xl">Select Units</p>
+              <p className="font-heading font-semibold text-2xl"><span className='dark:text-yellow-400 text-[#4D6A3F]'>Select</span> Units</p>
 
               {/* cards container */}
-              <div className="flex flex-col md:flex-row gap-4">
+              <div className="flex flex-col md:flex-row gap-3">
 
                 {/* --- 100 g CARD --- */}
-                <div className="w-[50vw] md:w-full relative rounded-2xl p-[2px] border border:bg-gradient-to-r from-lime-400/10 to-lime-400/30 hover:bg-gradient-to-r hover:from-lime-400/10 hover:to-lime-400/30">
-                  <div className="flex items-center justify-between gap-4 bg-black/90 dark:bg-transparent rounded-2xl px-3 py-3">
+                <div className="w-[50vw] md:w-full relative rounded-2xl p-[2px] border dark:border:bg-gradient-to-r dark:from-lime-400/10 dark:to-lime-400/30 dark:hover:bg-gradient-to-r dark:hover:from-lime-400/10 dark:hover:to-lime-400/30">
+                  <div className="flex items-center justify-between gap-4 bg-transparent rounded-2xl px-3 py-3">
                     {/* label + price */}
                     <div className="flex flex-col gap-x-5">
-                      <span className="text-white font-medium text-base">100g</span>
-                      <span className="text-yellow-400 font-medium text-sm">₹{product.mrp && product.mrp.length > 1 ? Math.round(product.mrp[1]) : 'N/A'}</span>
+                      <span className="dark:text-white text-[#4D6A3F] font-medium text-base">100g</span>
+                      <span className="dark:text-yellow-400 text-black font-medium text-sm">₹{product.mrp && product.mrp.length > 1 ? Math.round(product.mrp[1]) : 'N/A'}</span>
                     </div>
 
                     {/* qty pill */}
-                    <div className="p-[1px] rounded-full bg-gradient-to-r from-slate-50 to-slate-400">
-                      <div className="flex items-center rounded-full bg-black/100 px-2">
+                    <div className="p-[1px] rounded-full bg-blend-color-burn bg-[#4D6A3F]/70 dark:bg-gradient-to-r dark:from-slate-50 dark:to-slate-400">
+                      <div className="flex items-center rounded-full bg-transparent dark:bg-black/100 px-2">
                         <button
                           onClick={() => setSelected100g(Math.max(0, selected100g - 1))}
                           className="text-white px-1"
@@ -213,18 +227,18 @@ const ProductDetailPage: React.FC = () => {
                 </div>
 
                 {/* --- 50 g CARD --- */}
-                <div className="w-[50vw] md:w-full relative rounded-2xl p-[2px] border border:bg-gradient-to-r from-lime-400/10 to-lime-400/30 hover:bg-gradient-to-r hover:from-lime-400/10 hover:to-lime-400/30">
-                  <div className="flex items-center justify-between gap-4 bg-black/90 dark:bg-transparent rounded-2xl px-3 py-3">
+                <div className="w-[50vw] md:w-full relative rounded-2xl p-[2px] border dark:border:bg-gradient-to-r dark:from-lime-400/10 dark:to-lime-400/30 dark:hover:bg-gradient-to-r dark:hover:from-lime-400/10 dark:hover:to-lime-400/30">
+                  <div className="flex items-center justify-between gap-4 bg-transparent rounded-2xl px-3 py-3">
 
                     {/* label + price */}
                     <div className="flex flex-col">
-                      <span className="text-white font-medium text-base">50g</span>
-                      <span className="text-yellow-400 font-medium text-sm">₹{product.mrp && product.mrp.length > 0 ? Math.round(product.mrp[0]) : 'N/A'}</span>
+                      <span className="dark:text-white text-[#4D6A3F] font-medium text-base">50g</span>
+                      <span className="dark:text-yellow-400 text-black font-medium text-sm">₹{product.mrp && product.mrp.length > 0 ? Math.round(product.mrp[0]) : 'N/A'}</span>
                     </div>
 
                     {/* qty pill */}
-                    <div className="p-[1px] rounded-full bg-gradient-to-r from-slate-50 to-slate-400">
-                      <div className="flex items-center rounded-full bg-black/100 px-2">
+                    <div className="p-[1px] rounded-full bg-blend-color-burn bg-[#4D6A3F]/70 dark:bg-gradient-to-r dark:from-slate-50 dark:to-slate-400">
+                      <div className="flex items-center rounded-full bg-transparent dark:bg-black/100 px-2">
                         <button
                           onClick={() => setSelected50g(Math.max(0, selected50g - 1))}
                           className="text-white px-1"
@@ -244,7 +258,14 @@ const ProductDetailPage: React.FC = () => {
                 </div>
               </div>
             </div>
-
+            
+            <p className="text-xl font-sans font-semibold">
+              <span className="text-[#4D6A3F] dark:text-yellow-400 text-2xl font-heading">Subtotal :</span> ₹{
+                product.mrp && product.mrp.length > 1
+                  ? Math.round((selected50g * product.mrp[0]) + (selected100g * product.mrp[1]))
+                  : ''
+              }
+            </p>
             <button
               className={`text-black dark:text-white font-button font-normal px-2 py-2 rounded-full border border-[#4D6A3F] dark:border-yellow-400 hover:brightness-125 transition duration-200 w-[60vw] sm:w-[50%] ${!canAddToCart ? 'opacity-50 cursor-not-allowed' : ''}`}
               onClick={handleAddToCart}
@@ -274,38 +295,38 @@ const ProductDetailPage: React.FC = () => {
       </div>
 
       {/* Product Details */}
-      <div className="font-body text-lg max-w-7xl mx-auto mt-12">
-        <h2 className="text-2xl font-heading font-semibold mb-2">Product Details</h2>
-        <p className="text-[#4D6A3F] dark:text-yellow-400 font-semibold">Ingredients</p>
-        <p className="mb-2">
+      <div className="font-body max-w-7xl mx-auto mt-12">
+        <h2 className="text-2xl sm:text-3xl font-heading font-semibold mb-2">Product Details</h2>
+        <p className="text-[#4D6A3F] text-lg sm:text-xl dark:text-yellow-400 font-semibold">Ingredients</p>
+        <p className="mb-2 text-base sm:text-lg">
           {product.ingredients && product.ingredients.length > 0 ? product.ingredients.join(', ') : 'N/A'}
         </p>
-        <p className="text-[#4D6A3F] dark:text-yellow-400 font-semibold mb-2">No Preservatives</p>
+        <p className="text-[#4D6A3F] text-lg sm:text-xl dark:text-yellow-400 font-semibold mb-2">No Preservatives</p>
         <div className="flex items-center gap-2 mb-2">
-          <p className="text-[#4D6A3F] dark:text-yellow-400 font-semibold">Unit:</p>
-          <span className="font-sans">
+          <p className="text-[#4D6A3F] text-lg sm:text-xl dark:text-yellow-400 font-semibold">Unit:</p>
+          <span className="font-sans text-base sm:text-lg">
             {product.net_wt && product.net_wt.length > 0
               ? `${product.net_wt[0].value}${product.net_wt[0].unit}`
               : 'N/A'}
           </span>
         </div>
-        <p className="text-[#4D6A3F] dark:text-yellow-400 font-semibold">Why You'll Love It</p>
-        <ul className="list-disc list-inside mb-2">
+        <p className="text-[#4D6A3F] text-lg sm:text-xl dark:text-yellow-400 font-semibold">Why You'll Love It</p>
+        <ul className="list-disc list-inside mb-2 text-base sm:text-lg">
           {product.why_you_will_love_it && product.why_you_will_love_it.length > 0 ? (
             product.why_you_will_love_it.map((item, idx) => <li key={idx}>{item}</li>)
           ) : (
             <li>Full of rich biryani aroma and taste</li>
           )}
         </ul>
-        <p className="text-[#4D6A3F] dark:text-yellow-400 font-semibold">How to Use (Simple Recipe)</p>
-        <ol className="list-decimal list-inside mb-2">
+        <p className="text-[#4D6A3F] text-lg sm:text-xl dark:text-yellow-400 font-semibold">How to Use (Simple Recipe)</p>
+        <ol className="list-decimal list-inside mb-2 text-base sm:text-lg">
           {product.recipe && Array.isArray(product.recipe) && product.recipe.length > 0 ? (
             product.recipe.map((step, idx) => <li key={idx}>{step}</li>)
           ) : (
             <li>Use as per your taste and recipe.</li>
           )}
         </ol>
-        <p><span className="text-[#4D6A3F] dark:text-yellow-400 font-semibold">Shelf Life</span> <span className="font-sans">{product.best_before || '12 Months'}</span></p>
+        <p><span className="text-[#4D6A3F] text-lg sm:text-xl dark:text-yellow-400 font-semibold">Shelf Life</span> <span className="font-sans text-base sm:text-lg">{product.best_before || '12 Months'}</span></p>
       </div>
     </div>
   );

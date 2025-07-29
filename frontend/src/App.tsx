@@ -8,7 +8,7 @@ import HeroSection from './components/HeroSection';
 import WhyChooseUs from './components/WhyChooseUs';
 import TopCategories from './components/TopCategories';
 import TrendingMasalas from './components/TrendingMasalas';
-import InternationalCuisine from './components/InternationalCuisine';
+//import InternationalCuisine from './components/InternationalCuisine';
 import Testimonials from './components/Testimonials';
 import Footer from './components/Footer';
 import LoginModal from './components/LoginModal';
@@ -92,9 +92,9 @@ const HomePage: React.FC = () => {
           <TrendingMasalas />
         </section>
 
-        <section className="py-5">
+        {/* <section className="py-5">
           <InternationalCuisine />
-        </section>
+        </section> */}
 
         <section className="py-5">
           <Testimonials />
@@ -121,9 +121,9 @@ const HomePage: React.FC = () => {
             <TrendingMasalas />
           </section>
 
-          <section className="py-5">
+          {/* <section className="py-5">
             <InternationalCuisine />
-          </section>
+          </section> */}
 
           <section className="py-5">
             <Testimonials />

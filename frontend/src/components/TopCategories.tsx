@@ -22,7 +22,7 @@ const categories: Category[] = [
 //  { label: 'Soups', image: '/categories/soup fp.png', path: '/categories/soups' },
   { label: 'Rice Mixes', image: '/categories/Biryani fp.png', path: '/categories/biryani' },
 //  { label: 'South Indian', image: '/categories/south india fp.png', path: '/categories/southindian' },
-//  { label: 'Pickle', image: '/categories/Pickle fp.png', path: '/categories/pickle' },
+  { label: 'Others', image: '/categories/Pickle fp.png', path: '/categories/pickle' },
 ];
 
 const TopCategories: React.FC = () => {
