@@ -7,7 +7,7 @@ const Footer = () => {
           {/* Thank You Note + Social Media */}
           <div className="flex flex-col items-center text-center max-w-xs px-4">
             <span className="text-[13px] sm:text-sm font-medium font-body leading-relaxed">
-              Thanks for scrolling! 🍕 Do visit <span className="font-bold">Suruchiraj Spices</span> again for a taste of happiness.
+              Thanks for scrolling! Do visit <span className="font-bold">Suruchiraj Spices</span> again for a taste of happiness.
             </span>
 
             <div className="mt-4 flex space-x-6 text-white text-base sm:text-xl font-body">

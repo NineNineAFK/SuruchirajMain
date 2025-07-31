@@ -181,39 +181,39 @@ const SubProducts = () => {
                       </button> */}
                       {/* <FiHeart className="text-xl text-gray-400" /> */}
                     </div>
+                    <div className="rounded-t-[3rem] rounded-b-lg overflow-hidden border border-gray-200 dark:border-white/30 shadow-md bg-white dark:bg-black flex flex-col">
+                      {/* Product Image */}
+                      {product.images && product.images.length > 0 && (
+                        <img
+                          src={`https://suruchiraj.com/images/products/${product.images.find(img => img.toLowerCase().includes('lifestyle shot')) || product.images[0]}`}
+                          alt={product.product_name}
+                          className="w-full aspect-square object-cover"
+                        />
+                      )}
 
-                    {/* Product Image */}
-                    {product.images && product.images.length > 0 && (
-                      <img
-                        src={`https://suruchiraj.com/images/products/${product.images.find(img => img.toLowerCase().includes('lifestyle shot')) || product.images[0]}`}
-                        alt={product.product_name}
-                        className="w-full h-full object-contain rounded-2xl z-10"
-                      />
-                    )}
+                      {/* Product Info */}
+                      <div className="p-4 dark:text-white text-black flex flex-col justify-between gap-2"><h3 className="text-sm md:text-lg font-medium leading-tight line-clamp-1">{product.product_name}</h3>
+                        <div className="-mt-1 flex items-center justify-between font-sans md:text-lg text-base">
+                          {/* Price on the left */}
+                          {product.mrp && product.mrp.length > 0 && (
+                            <span className="font-semibold dark:text-white text-black">₹{product.mrp[0]}</span>
+                          )}
 
-                    {/* Product Info */}
-                    <div className="p-2 dark:text-white text-black border-l-2 border-r-2 border-b-2 md:-mt-[2vw] -mt-[4vw] lg:-mt-[3vw] rounded-md shadow-md flex flex-col justify-between">
-                      <h3 className="mt-[3vw] md:mt-[2vw] text-sm font-medium leading-tight h-[3rem] overflow-hidden">{product.product_name}</h3>
-                      <div className="flex items-center justify-between font-sans text-lg">
-                        {/* Price on the left */}
-                        {product.mrp && product.mrp.length > 0 && (
-                          <span className="font-semibold dark:text-white text-black">₹{product.mrp[0]}</span>
-                        )}
+                          {/* Weight on the right */}
+                          {product.net_wt && product.net_wt.length > 0 && (
+                            <span className="text-sm text-gray-500 dark:text-gray-300">
+                              {String(product.net_wt[0]?.value ?? '')} {product.net_wt[0]?.unit ?? ''}
+                            </span>
+                          )}
+                        </div>
 
-                        {/* Weight on the right */}
-                        {product.net_wt && product.net_wt.length > 0 && (
-                          <span className="text-sm text-gray-500 dark:text-gray-300">
-                            {String(product.net_wt[0]?.value ?? '')} {product.net_wt[0]?.unit ?? ''}
-                          </span>
-                        )}
+                        <button
+                          onClick={e => { e.preventDefault(); handleBuyNow(product); }}
+                          className="mt-1 w-full text-sm font-button font-semibold py-1.5 rounded-full transition bg-yellow-400 text-black hover:bg-yellow-300"
+                        >
+                          Buy Now
+                        </button>
                       </div>
-
-                      <button
-                        onClick={e => { e.preventDefault(); handleBuyNow(product); }}
-                        className="mt-3 w-full text-sm font-button font-semibold py-1.5 rounded-full transition bg-yellow-400 text-black hover:bg-yellow-300"
-                      >
-                        Buy Now
-                      </button>
                     </div>
                   </div>
                 </Link>

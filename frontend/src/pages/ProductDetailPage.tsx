@@ -262,7 +262,7 @@ const ProductDetailPage: React.FC = () => {
               }
             </p>
             <button
-              className={`text-black dark:text-white font-button font-normal px-2 py-2 rounded-full border border-[#4D6A3F] dark:border-yellow-400 hover:brightness-125 transition duration-200 w-[60vw] sm:w-[50%] ${!canAddToCart ? 'opacity-50 cursor-not-allowed' : ''}`}
+              className={`text-black dark:text-white font-button font-normal px-2 py-2 rounded-full border border-[#4D6A3F] dark:border-yellow-400 hover:brightness-125 transition duration-200 w-[50vw] md:w-[23vw] ${!canAddToCart ? 'opacity-50 cursor-not-allowed' : ''}`}
               onClick={handleAddToCart}
               disabled={!canAddToCart}
             >
