@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useSearchParams, useNavigate } from 'react-router-dom';
-import { FiCheckCircle, FiPackage, FiMapPin, FiClock } from 'react-icons/fi';
-import { getOrderStatus, type Order } from '../services/paymentService';
+import { FiCheckCircle, FiPackage, FiClock } from 'react-icons/fi';
+import { type Order } from '../services/paymentService';
 import toast from 'react-hot-toast';
 
 const PaymentSuccessPage: React.FC = () => {
@@ -112,12 +112,6 @@ const PaymentSuccessPage: React.FC = () => {
               <p className="text-sm text-gray-600 font-mono">{merchantTransactionId}</p>
             </div>
           )}
-          {transactionId && (
-            <div>
-              <p className="font-medium text-gray-900">PhonePe Transaction ID</p>
-              <p className="text-sm text-gray-600 font-mono">{transactionId}</p>
-            </div>
-          )}
         </div>
         {/* Next Steps */}
         <div className="bg-blue-50 rounded-lg p-6 mb-6">
@@ -148,4 +142,4 @@ const PaymentSuccessPage: React.FC = () => {
   );
 };
 
-export default PaymentSuccessPage; 
+export default PaymentSuccessPage;

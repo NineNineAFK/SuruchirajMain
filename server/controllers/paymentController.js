@@ -1,8 +1,20 @@
 const Order = require('../model/order');
 const Cart = require('../model/cart');
 const Address = require('../model/address');
-const phonepeService = require('../service/phonepeService');
 const Product = require('../model/product');
+const crypto = require('crypto');
+const axios = require('axios');
+
+// PhonePe API endpoints
+const PHONEPE_API_URL = 'https://api.phonepe.com/apis/hermes';
+const PHONEPE_PAY_API = '/pg/v1/pay';
+
+// Helper function to generate PhonePe checksum
+const generateChecksum = (payload, salt) => {
+    const data = payload + '/pg/v1/pay' + salt;
+    const checksum = crypto.createHash('sha256').update(data).digest('hex') + '###1';
+    return checksum;
+};
 
 // Create order and initiate payment
 const createOrderAndInitiatePayment = async (req, res) => {
@@ -46,385 +58,59 @@ const createOrderAndInitiatePayment = async (req, res) => {
                 state: address.state,
                 pincode: address.pincode,
             },
-            paymentStatus: 'pending',
-            orderStatus: 'pending'
+            orderStatus: 'pending',
+            paymentDetails: {
+                status: 'pending',
+                amount: totalAmount,
+                merchantTransactionId: `ORDER_${Date.now()}_${userId}`,
+            }
         });
 
         await order.save();
 
-        // Prepare order data for PhonePe
-        const orderData = {
-            userId: userId.toString(),
-            totalAmount,
-            deliveryAddress: order.deliveryAddress
+        // Create PhonePe payment payload
+        const payload = {
+            merchantId: process.env.PHONEPE_CLIENT_ID,
+            merchantTransactionId: order.paymentDetails.merchantTransactionId,
+            amount: totalAmount * 100, // Convert to paise
+            redirectUrl: `${process.env.CLIENT_URL}/payment/status`,
+            redirectMode: 'POST',
+            callbackUrl: `${process.env.CLIENT_URL}/api/payment/webhook`,
+            merchantUserId: userId.toString(),
+            paymentInstrument: {
+                type: 'PAY_PAGE'
+            }
         };
 
-        // Initiate PhonePe payment
-        const paymentResponse = await phonepeService.initiatePayment(orderData);
+        // Generate checksum
+        const base64Payload = Buffer.from(JSON.stringify(payload)).toString('base64');
+        const checksum = generateChecksum(base64Payload, process.env.PHONEPE_CLIENT_SECRET);
 
-        // Update order with PhonePe details
-        order.phonepeMerchantTransactionId = paymentResponse.merchantTransactionId;
-        order.phonepeTransactionId = paymentResponse.transactionId;
-        order.phonepeRedirectUrl = paymentResponse.redirectUrl;
-        await order.save();
-
-        res.status(200).json({
-            success: true,
-            message: 'Order created and payment initiated',
-            orderId: order._id,
-            redirectUrl: paymentResponse.redirectUrl,
-            merchantTransactionId: paymentResponse.merchantTransactionId
-        });
-
-    } catch (error) {
-        console.error('Error creating order and initiating payment:', error);
-        res.status(500).json({
-            success: false,
-            message: 'Internal server error'
-        });
-    }
-};
-
-// PhonePe callback handler
-const handlePaymentCallback = async (req, res) => {
-    try {
-        const { merchantOrderId, transactionId, amount, responseCode, responseMessage, paymentInstrument } = req.body;
-
-        // Find order by merchant transaction ID
-        const order = await Order.findOne({ phonepeMerchantTransactionId: merchantOrderId });
-        if (!order) {
-            return res.status(404).json({
-                success: false,
-                message: 'Order not found'
-            });
-        }
-
-        // Update order with payment details
-        order.phonepeResponseCode = responseCode;
-        order.phonepeResponseMessage = responseMessage;
-        order.phonepePaymentInstrument = paymentInstrument;
-
-        // Check payment status
-        if (responseCode === 'PAYMENT_SUCCESS' || responseCode === 'SUCCESS') {
-            // Revalidate and deduct stock/packaging for each product in the order
-            let validationFailed = false;
-            let errorMsg = '';
-            for (const item of order.items) {
-                const product = await Product.findById(item.product);
-                if (!product) {
-                    validationFailed = true;
-                    errorMsg = `Product not found: ${item.productName}`;
-                    break;
-                }
-                if (item.totalGrams > product.stock) {
-                    validationFailed = true;
-                    errorMsg = `Not enough spice stock for ${item.productName}`;
-                    break;
-                }
-                if (item.qty_50g > product.packaging_50gms) {
-                    validationFailed = true;
-                    errorMsg = `Not enough 50g pouches for ${item.productName}`;
-                    break;
-                }
-                if (item.qty_100g > product.packaging_100gms) {
-                    validationFailed = true;
-                    errorMsg = `Not enough 100g pouches for ${item.productName}`;
-                    break;
-                }
+        // Make request to PhonePe
+        const response = await axios.post(`${PHONEPE_API_URL}${PHONEPE_PAY_API}`, {
+            request: base64Payload
+        }, {
+            headers: {
+                'Content-Type': 'application/json',
+                'X-VERIFY': checksum
             }
-            if (validationFailed) {
-                order.paymentStatus = 'failed';
-                order.orderStatus = 'failed';
-                order.failureReason = errorMsg;
-                await order.save();
-                return res.status(400).json({ success: false, message: errorMsg });
-            }
-            // Deduct stock and packaging
-            for (const item of order.items) {
-                await Product.findByIdAndUpdate(item.product, {
-                    $inc: {
-                        stock: -item.totalGrams,
-                        packaging_50gms: -item.qty_50g,
-                        packaging_100gms: -item.qty_100g
-                    }
-                });
-            }
-            order.paymentStatus = 'completed';
-            order.orderStatus = 'N/A';
-            // Clear user's cart after successful payment
-            await Cart.findOneAndDelete({ userId: order.userId });
-        } else {
-            order.paymentStatus = 'failed';
-        }
-
-        await order.save();
-
-        res.status(200).json({
-            success: true,
-            message: 'Payment callback processed successfully'
         });
 
-    } catch (error) {
-        console.error('Error processing payment callback:', error);
-        res.status(500).json({
-            success: false,
-            message: 'Internal server error'
-        });
-    }
-};
-
-// Handle payment redirect (for frontend)
-const handlePaymentRedirect = async (req, res) => {
-    try {
-        console.log('Payment Redirect - Query Parameters:', req.query);
-        console.log('Payment Redirect - Body:', req.body);
-        console.log('Payment Redirect - Headers:', req.headers);
-
-        // PhonePe can send parameters in different ways, let's handle all possibilities
-        const merchantOrderId = req.query.merchantOrderId || req.query.merchantTransactionId || req.query.orderId;
-        const transactionId = req.query.transactionId || req.query.phonepeTransactionId;
-        const responseCode = req.query.responseCode || req.query.code || req.query.status;
-        const responseMessage = req.query.responseMessage || req.query.message || req.query.description;
-
-        console.log('Extracted Parameters:', {
-            merchantOrderId,
-            transactionId,
-            responseCode,
-            responseMessage
-        });
-
-        // If no merchantOrderId is provided, this might be a direct redirect from PhonePe
-        // In this case, we need to check the session or use a different approach
-        if (!merchantOrderId) {
-            // No merchantOrderId, cannot verify payment status
-            return res.redirect(`${process.env.CLIENT_URL}/payment/failure?error=missing_parameters`);
-        }
-
-        // Find order by merchant transaction ID
-        const order = await Order.findOne({ phonepeMerchantTransactionId: merchantOrderId });
-        if (!order) {
-            console.log('Order not found for merchantOrderId:', merchantOrderId);
-            return res.redirect(`${process.env.CLIENT_URL}/payment/failure?error=order_not_found`);
-        }
-
-        console.log('Found Order:', {
-            orderId: order._id,
-            paymentStatus: order.paymentStatus,
-            orderStatus: order.orderStatus
-        });
-
-        // Update order with payment details
-        order.phonepeResponseCode = responseCode;
-        order.phonepeResponseMessage = responseMessage;
-        order.phonepeTransactionId = transactionId;
-
-        // Check payment status - PhonePe might send different status codes
-        const successCodes = ['PAYMENT_SUCCESS', 'SUCCESS', 'COMPLETED', 'SUCCESSFUL'];
-        // Only treat as success if responseCode is present and matches a success code
-        const isSuccess = responseCode && successCodes.includes(responseCode.toUpperCase());
-
-        console.log('Payment Status Check:', {
-            responseCode,
-            isSuccess,
-            successCodes
-        });
-
-        if (isSuccess) {
-            // Repeat similar logic in handlePaymentRedirect for payment success (isSuccess) case, before clearing cart and redirecting to success page.
-            // Revalidate and deduct stock/packaging for each product in the order
-            let validationFailed = false;
-            let errorMsg = '';
-            for (const item of order.items) {
-                const product = await Product.findById(item.product);
-                if (!product) {
-                    validationFailed = true;
-                    errorMsg = `Product not found: ${item.productName}`;
-                    break;
-                }
-                if (item.totalGrams > product.stock) {
-                    validationFailed = true;
-                    errorMsg = `Not enough spice stock for ${item.productName}`;
-                    break;
-                }
-                if (item.qty_50g > product.packaging_50gms) {
-                    validationFailed = true;
-                    errorMsg = `Not enough 50g pouches for ${item.productName}`;
-                    break;
-                }
-                if (item.qty_100g > product.packaging_100gms) {
-                    validationFailed = true;
-                    errorMsg = `Not enough 100g pouches for ${item.productName}`;
-                    break;
-                }
-            }
-            if (validationFailed) {
-                order.paymentStatus = 'failed';
-                order.orderStatus = 'failed';
-                order.failureReason = errorMsg;
-                await order.save();
-                return res.redirect(`${process.env.CLIENT_URL}/payment/failure?error=stock_packaging_insufficient&merchantTransactionId=${merchantOrderId}&transactionId=${transactionId}&responseCode=${responseCode}&responseMessage=${responseMessage}`);
-            }
-            // Deduct stock and packaging
-            for (const item of order.items) {
-                await Product.findByIdAndUpdate(item.product, {
-                    $inc: {
-                        stock: -item.totalGrams,
-                        packaging_50gms: -item.qty_50g,
-                        packaging_100gms: -item.qty_100g
-                    }
-                });
-            }
-            order.paymentStatus = 'completed';
-            order.orderStatus = 'N/A';
-            // Clear user's cart after successful payment
-            await Cart.findOneAndDelete({ userId: order.userId });
-            
-            console.log('Payment Successful - Redirecting to success page');
-            // Redirect to success page
-            res.redirect(`${process.env.CLIENT_URL}/payment/success?merchantTransactionId=${merchantOrderId}&transactionId=${transactionId || 'TXN_' + Date.now()}`);
-        } else {
-            order.paymentStatus = 'failed';
-            
-            console.log('Payment Failed - Redirecting to failure page');
-            // Redirect to failure page
-            res.redirect(`${process.env.CLIENT_URL}/payment/failure?merchantTransactionId=${merchantOrderId}&transactionId=${transactionId}&responseCode=${responseCode}&responseMessage=${responseMessage}`);
-        }
-
-        await order.save();
-
-    } catch (error) {
-        console.error('Error handling payment redirect:', error);
-        res.redirect(`${process.env.CLIENT_URL}/payment/failure?error=server_error`);
-    }
-};
-
-// Mock payment success handler for development mode
-const handleMockPaymentSuccess = async (req, res) => {
-    try {
-        const { merchantTransactionId } = req.query;
-
-        // Find order by merchant transaction ID
-        const order = await Order.findOne({ phonepeMerchantTransactionId: merchantTransactionId });
-        if (!order) {
-            return res.redirect(`${process.env.CLIENT_URL}/payment/failure?error=order_not_found`);
-        }
-
-        // Update order with mock payment success details
-        order.paymentStatus = 'completed';
-        order.orderStatus = 'N/A';
-        order.phonepeResponseCode = 'PAYMENT_SUCCESS';
-        order.phonepeResponseMessage = 'Mock payment successful';
-        order.phonepeTransactionId = 'MOCK_TXN_' + Date.now();
-        
-        // Clear user's cart after successful payment
-        await Cart.findOneAndDelete({ userId: order.userId });
-        
-        await order.save();
-
-        // Redirect to success page
-        res.redirect(`${process.env.CLIENT_URL}/payment/success?merchantTransactionId=${merchantTransactionId}&transactionId=${order.phonepeTransactionId}`);
-
-    } catch (error) {
-        console.error('Error processing mock payment success:', error);
-        res.redirect(`${process.env.CLIENT_URL}/payment/failure?error=server_error`);
-    }
-};
-
-// Get test QR information
-const getTestQRInfo = async (req, res) => {
-    try {
-        res.status(200).json({
-            success: true,
-            message: 'PhonePe UAT Test Information',
-            testCredentials: {
-                upi: {
-                    success: 'success@upi',
-                    failure: 'failure@upi',
-                    pending: 'pending@upi'
-                },
-                card: {
-                    number: '4111 1111 1111 1111',
-                    expiry: '12/25',
-                    cvv: '123',
-                    name: 'Test User'
-                },
-                netbanking: 'Use any test bank credentials'
-            },
-            instructions: [
-                '1. Scan the QR code with any UPI app',
-                '2. Use success@upi for successful payment',
-                '3. Use failure@upi for failed payment',
-                '4. Use pending@upi for pending payment',
-                '5. Or use the test card details provided'
-            ],
-            environment: 'PhonePe UAT (User Acceptance Testing)',
-            note: 'This is a test environment. No real money will be charged.'
-        });
-    } catch (error) {
-        console.error('Error getting test QR info:', error);
-        res.status(500).json({
-            success: false,
-            message: 'Internal server error'
-        });
-    }
-};
-
-// Check payment status using PhonePe SDK
-const checkPaymentStatus = async (req, res) => {
-    try {
-        const { merchantOrderId } = req.params;
-        const userId = req.user._id;
-
-        console.log('Checking payment status for:', merchantOrderId);
-
-        // Find order
-        const order = await Order.findOne({ phonepeMerchantTransactionId: merchantOrderId, userId });
-        if (!order) {
-            return res.status(404).json({
-                success: false,
-                message: 'Order not found'
-            });
-        }
-
-        // Check status using PhonePe SDK
-        const phonepeService = require('../service/phonepeService');
-        const statusResponse = await phonepeService.verifyPayment(merchantOrderId);
-
-        console.log('PhonePe Status Response:', statusResponse);
-
-        // Update order with latest status
-        if (statusResponse.success) {
-            order.phonepeResponseCode = statusResponse.state;
-            order.phonepeResponseMessage = statusResponse.message;
-
-            if (statusResponse.state === 'PAYMENT_SUCCESS' || statusResponse.state === 'COMPLETED') {
-                order.paymentStatus = 'completed';
-                order.orderStatus = 'N/A';
-                
-                // Clear cart if payment is successful
-                await Cart.findOneAndDelete({ userId: order.userId });
-            } else if (statusResponse.state === 'PAYMENT_ERROR' || statusResponse.state === 'FAILED') {
-                order.paymentStatus = 'failed';
-            }
-
+        if (response.data.success) {
+            // Update order with payment URL
+            order.paymentDetails.status = 'processing';
             await order.save();
+
+            res.status(200).json({
+                success: true,
+                paymentUrl: response.data.data.instrumentResponse.redirectInfo.url
+            });
+        } else {
+            throw new Error('Payment initialization failed');
         }
 
-        res.status(200).json({
-            success: true,
-            order: {
-                _id: order._id,
-                paymentStatus: order.paymentStatus,
-                orderStatus: order.orderStatus,
-                phonepeResponseCode: order.phonepeResponseCode,
-                phonepeResponseMessage: order.phonepeResponseMessage,
-                phonepeTransactionId: order.phonepeTransactionId
-            },
-            phonepeStatus: statusResponse
-        });
-
     } catch (error) {
-        console.error('Error checking payment status:', error);
+        console.error('Error creating order:', error);
         res.status(500).json({
             success: false,
             message: 'Internal server error'
@@ -453,7 +139,6 @@ const getOrderStatus = async (req, res) => {
                 items: order.items,
                 totalAmount: order.totalAmount,
                 deliveryAddress: order.deliveryAddress,
-                paymentStatus: order.paymentStatus,
                 orderStatus: order.orderStatus,
                 createdAt: order.createdAt
             }
@@ -491,13 +176,62 @@ const getUserOrders = async (req, res) => {
     }
 };
 
+// Handle PhonePe webhook
+const handleWebhook = async (req, res) => {
+    try {
+        // Verify X-VERIFY header
+        const incomingChecksum = req.headers['x-verify'];
+        const payload = req.body;
+        
+        const generatedChecksum = generateChecksum(
+            payload,
+            process.env.PHONEPE_CLIENT_SECRET
+        );
+
+        if (incomingChecksum !== generatedChecksum) {
+            throw new Error('Invalid webhook signature');
+        }
+
+        const {
+            merchantTransactionId,
+            transactionId,
+            amount,
+            paymentInstrument,
+            responseCode
+        } = payload;
+
+        // Find and update order
+        const order = await Order.findOne({
+            'paymentDetails.merchantTransactionId': merchantTransactionId
+        });
+
+        if (!order) {
+            throw new Error('Order not found');
+        }
+
+        // Update payment details
+        order.paymentDetails = {
+            ...order.paymentDetails,
+            transactionId,
+            status: responseCode === 'SUCCESS' ? 'completed' : 'failed',
+            paymentMethod: paymentInstrument.type,
+            paymentTimestamp: new Date(),
+            errorMessage: responseCode === 'SUCCESS' ? null : payload.message
+        };
+
+        await order.save();
+
+        res.status(200).json({ success: true });
+
+    } catch (error) {
+        console.error('Webhook processing error:', error);
+        res.status(500).json({ success: false, error: error.message });
+    }
+};
+
 module.exports = {
     createOrderAndInitiatePayment,
-    handlePaymentCallback,
-    handlePaymentRedirect,
-    handleMockPaymentSuccess,
-    getTestQRInfo,
-    checkPaymentStatus,
     getOrderStatus,
-    getUserOrders
-}; 
+    getUserOrders,
+    handleWebhook
+};

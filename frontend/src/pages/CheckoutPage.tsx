@@ -137,7 +137,7 @@ const CheckoutPage: React.FC = () => {
       toast.loading('Creating order and initiating payment...');
       const paymentResponse = await createOrderAndInitiatePayment(selectedAddress);
       toast.dismiss();
-      toast.success('Redirecting to PhonePe payment...');
+      toast.success('Redirecting to payment gateway...');
       window.location.href = paymentResponse.redirectUrl;
     } catch (error) {
       toast.dismiss();

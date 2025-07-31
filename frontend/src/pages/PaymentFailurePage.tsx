@@ -7,7 +7,6 @@ const PaymentFailurePage: React.FC = () => {
   const navigate = useNavigate();
 
   const merchantTransactionId = searchParams.get('merchantTransactionId');
-  const transactionId = searchParams.get('transactionId');
   const responseCode = searchParams.get('responseCode');
   const responseMessage = searchParams.get('responseMessage');
 
@@ -59,13 +58,6 @@ const PaymentFailurePage: React.FC = () => {
                 <p className="text-sm text-gray-600 font-mono">{merchantTransactionId}</p>
               </div>
             )}
-
-            {transactionId && (
-              <div>
-                <p className="font-medium text-gray-900">PhonePe Transaction ID</p>
-                <p className="text-sm text-gray-600 font-mono">{transactionId}</p>
-              </div>
-            )}
           </div>
         </div>
 
@@ -112,4 +104,4 @@ const PaymentFailurePage: React.FC = () => {
   );
 };
 
-export default PaymentFailurePage; 
+export default PaymentFailurePage;

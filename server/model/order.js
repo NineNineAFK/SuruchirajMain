@@ -7,6 +7,27 @@ const orderSchema = new mongoose.Schema(
             ref: 'user',
             required: true,
         },
+        paymentDetails: {
+            transactionId: String,
+            merchantTransactionId: {
+                type: String,
+                unique: true,
+                sparse: true
+            },
+            status: {
+                type: String,
+                enum: ['pending', 'processing', 'completed', 'failed'],
+                default: 'pending'
+            },
+            paymentMethod: String,
+            amount: Number,
+            paymentTimestamp: Date,
+            errorMessage: String,
+            retryCount: {
+                type: Number,
+                default: 0
+            }
+        },
         items: [{
             productName: {
                 type: String,
@@ -60,28 +81,12 @@ const orderSchema = new mongoose.Schema(
             enum: ['pending', 'confirmed', 'shipped', 'delivered', 'cancelled', 'N/A'],
             default: 'pending',
         },
-        // PhonePe payment details
-        phonepeTransactionId: {
-            type: String,
-            sparse: true,
-        },
-        phonepeMerchantTransactionId: {
-            type: String,
-            sparse: true,
-        },
-        phonepeResponseCode: String,
-        phonepeResponseMessage: String,
-        phonepePaymentInstrument: String,
-        phonepeRedirectUrl: String,
-        phonepeCallbackUrl: String,
     },
     { timestamps: true }
 );
 
 // Index for efficient queries
 orderSchema.index({ userId: 1, createdAt: -1 });
-orderSchema.index({ phonepeTransactionId: 1 }, { unique: true, sparse: true });
-orderSchema.index({ phonepeMerchantTransactionId: 1 }, { unique: true, sparse: true });
 
 const Order = mongoose.model('order', orderSchema);
 module.exports = Order;

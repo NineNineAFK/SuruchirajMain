@@ -18,6 +18,12 @@ export interface Order {
     state: string;
     pincode: string;
   };
+  paymentDetails?: {
+    status: 'pending' | 'processing' | 'completed' | 'failed';
+    transactionId?: string;
+    paymentMethod?: string;
+    errorMessage?: string;
+  };
   paymentStatus: 'pending' | 'completed' | 'failed';
   orderStatus: 'pending' | 'confirmed' | 'shipped' | 'delivered' | 'cancelled';
   createdAt: string;
@@ -49,7 +55,17 @@ export const createOrderAndInitiatePayment = async (addressId: string): Promise<
       throw new Error(data.message || 'Failed to create order');
     }
 
-    return data;
+    if (!data.success) {
+      throw new Error(data.message || 'Payment initialization failed');
+    }
+
+    return {
+      success: true,
+      message: 'Payment initiated',
+      orderId: data.orderId,
+      redirectUrl: data.paymentUrl,
+      merchantTransactionId: data.merchantTransactionId
+    };
   } catch (error) {
     console.error('Error creating order:', error);
     throw error;

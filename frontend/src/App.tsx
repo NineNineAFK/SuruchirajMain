@@ -15,9 +15,7 @@ import LoginModal from './components/LoginModal';
 import SearchResults from './pages/SearchResults';
 import ProductDetailPage from './pages/ProductDetailPage';
 import CheckoutPage from './pages/CheckoutPage';
-import PaymentSuccessPage from './pages/PaymentSuccessPage';
-import PaymentFailurePage from './pages/PaymentFailurePage';
-import PaymentCheck from './pages/PaymentCheck';
+import PaymentStatusPage from './pages/PaymentStatusPage';
 import { CartProvider } from './context/CartContext';
 import { userInfoAtom } from './state/state';
 import { useRecoilValue } from 'recoil';
@@ -249,9 +247,7 @@ const App: React.FC = () => {
                   <Route path="/checkout" element={<CheckoutPage />} />
 
                   {/* Payment Pages */}
-                  <Route path="/payment/success" element={<PaymentSuccessPage />} />
-                  <Route path="/payment/failure" element={<PaymentFailurePage />} />
-                  <Route path="/payment/check" element={<PaymentCheck />} />
+                  <Route path="/payment/status" element={<PaymentStatusPage />} />
 
                   {/* User Profile Page */}
                   <Route path="/user/dashboard/profile" element={<Profile />} />
