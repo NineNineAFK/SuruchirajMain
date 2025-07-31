@@ -75,12 +75,12 @@ const CartDrawer: React.FC<CartDrawerProps> = ({ isOpen, onClose }) => {
       </div>
 
       {/* Free Delivery Banner */}
-      <div className="flex items-center gap-2 text-sm font-body bg-yellow-100 dark:bg-black/10 border border-yellow-400 rounded-2xl px-3 py-2 mt-4">
+      {/* <div className="flex items-center gap-2 text-sm font-body bg-yellow-100 dark:bg-black/10 border border-yellow-400 rounded-2xl px-3 py-2 mt-4">
         <span className="text-yellow-400 text-lg">✅</span>
         <span>
         <span className="text-green-400 font-semibold">Free Delivery Unlocked</span>, apply coupon to avail
         </span>
-      </div>
+      </div> */}
 
       {/* Delivery Info */}
       <div className="flex items-center gap-2 px-4 py-3 text-sm font-sans text-black dark:text-white border-b border-black/10 dark:border-white/10">
@@ -121,10 +121,10 @@ const CartDrawer: React.FC<CartDrawerProps> = ({ isOpen, onClose }) => {
                     </span>
                   </div>
                 )}
-                <div className="flex justify-between mt-2 font-bold">
+                {/* <div className="flex justify-between mt-2 font-bold">
                   <span>Subtotal:</span>
                   <span>₹{subtotal}</span>
-                </div>
+                </div> */}
                 <button
                   className="mt-3 px-3 py-1 bg-red-500 text-white rounded hover:bg-red-600"
                   onClick={async () => {
