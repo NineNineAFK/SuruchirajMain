@@ -192,7 +192,7 @@ const ProductDetailPage: React.FC = () => {
               <div className="flex flex-col md:flex-row gap-3">
 
                 {/* --- 100 g CARD --- */}
-                <div className="w-[50vw] md:w-full relative rounded-2xl p-[2px] border dark:border:bg-gradient-to-r dark:from-lime-400/10 dark:to-lime-400/30 dark:hover:bg-gradient-to-r dark:hover:from-lime-400/10 dark:hover:to-lime-400/30">
+                <div className="w-[50vw] md:w-full relative rounded-2xl p-[2px] border dark:border:bg-gradient-to-r dark:from-lime-400/10 dark:to-lime-400/30">
                   <div className="flex items-center justify-between gap-4 bg-transparent rounded-2xl px-3 py-3">
                     {/* label + price */}
                     <div className="flex flex-col gap-x-5">
@@ -201,7 +201,7 @@ const ProductDetailPage: React.FC = () => {
                     </div>
 
                     {/* qty pill */}
-                    <div className="p-[1px] rounded-full bg-blend-color-burn bg-[#4D6A3F]/70 dark:bg-gradient-to-r dark:from-slate-50 dark:to-slate-400">
+                    <div className="p-[1px] rounded-full bg-blend-color-burn bg-[#4D6A3F]/70 dark:bg-gradient-to-r dark:from-yellow-50 dark:to-yellow-400">
                       <div className="flex items-center rounded-full bg-transparent dark:bg-black/100 px-2">
                         <button
                           onClick={() => setSelected100g(Math.max(0, selected100g - 1))}
@@ -222,7 +222,7 @@ const ProductDetailPage: React.FC = () => {
                 </div>
 
                 {/* --- 50 g CARD --- */}
-                <div className="w-[50vw] md:w-full relative rounded-2xl p-[2px] border dark:border:bg-gradient-to-r dark:from-lime-400/10 dark:to-lime-400/30 dark:hover:bg-gradient-to-r dark:hover:from-lime-400/10 dark:hover:to-lime-400/30">
+                <div className="w-[50vw] md:w-full relative rounded-2xl p-[2px] border dark:border:bg-gradient-to-r dark:from-lime-400/10 dark:to-lime-400/30 ">
                   <div className="flex items-center justify-between gap-4 bg-transparent rounded-2xl px-3 py-3">
 
                     {/* label + price */}
@@ -232,7 +232,7 @@ const ProductDetailPage: React.FC = () => {
                     </div>
 
                     {/* qty pill */}
-                    <div className="p-[1px] rounded-full bg-blend-color-burn bg-[#4D6A3F]/70 dark:bg-gradient-to-r dark:from-slate-50 dark:to-slate-400">
+                    <div className="p-[1px] rounded-full bg-blend-color-burn bg-[#4D6A3F]/70 dark:bg-gradient-to-r dark:from-yellow-50 dark:to-yellow-400">
                       <div className="flex items-center rounded-full bg-transparent dark:bg-black/100 px-2">
                         <button
                           onClick={() => setSelected50g(Math.max(0, selected50g - 1))}
