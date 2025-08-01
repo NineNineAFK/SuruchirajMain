@@ -40,13 +40,36 @@ const createOrderAndInitiatePayment = async (req, res) => {
             });
         }
 
-        // Calculate total amount
-        const totalAmount = cart.items.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+        // Format cart items and calculate total
+        const formattedItems = cart.items.map(item => ({
+            productName: item.productName,
+            price_50g: Number(item.price_50g),
+            price_100g: Number(item.price_100g),
+            qty_50g: Number(item.qty_50g) || 0,
+            qty_100g: Number(item.qty_100g) || 0,
+            totalGrams: item.totalGrams || 0
+        }));
+
+        // Calculate total amount with validation
+        const totalAmount = formattedItems.reduce((sum, item) => {
+            const itemTotal = (item.qty_50g * item.price_50g) + (item.qty_100g * item.price_100g);
+            if (isNaN(itemTotal)) {
+                throw new Error(`Invalid price or quantity for product: ${item.productName}`);
+            }
+            return sum + itemTotal;
+        }, 0);
+
+        if (isNaN(totalAmount) || totalAmount <= 0) {
+            return res.status(400).json({
+                success: false,
+                message: 'Invalid total amount calculated'
+            });
+        }
 
         // Create order
         const order = new Order({
             userId,
-            items: cart.items,
+            items: formattedItems,
             totalAmount,
             deliveryAddress: {
                 addressName: address.addressName,

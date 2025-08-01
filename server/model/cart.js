@@ -13,7 +13,7 @@ const cartSchema = new mongoose.Schema({
       productName: { type: String, required: true },
       price_50g: { type: Number, default: 0 },
       price_100g: { type: Number, default: 0 },
-      quantity: { type: Number, default: 1 },
+     // quantity: { type: Number, default: 1 },
       qty_50g: { type: Number, default: 0 },
       qty_100g: { type: Number, default: 0 },
       totalGrams: { type: Number, default: 0 },
