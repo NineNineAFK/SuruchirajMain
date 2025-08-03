@@ -132,7 +132,7 @@ const TopCategories: React.FC = () => {
                 onClick={() => handleCategoryClick(category.label)}
                 className="relative cursor-pointer mb-4 h-[240px] w-[180px] bg-[#B8C2B3] dark:bg-transparent backdrop-blur-md rounded-3xl overflow-hidden shadow-md border border-black/10 dark:border-white/10"
               >
-                <div className="absolute -top-6 -left-10 w-52 h-52 rounded-full overflow-hidden transition-all duration-300 hover:scale-105 hover:opacity-90">
+                <div className="absolute -top-6 -left-10 w-52 h-52 rounded-full overflow-hidden transition-all duration-300 hover:scale-105 hover:opacity-100">
                   <img
                     src={category.image}
                     alt={category.label}

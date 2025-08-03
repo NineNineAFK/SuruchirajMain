@@ -117,7 +117,14 @@ const HeroCarousel: React.FC = () => {
       loop
       slidesPerView={1}
       navigation
-      pagination={{ clickable: true }}
+      pagination={{
+        type: 'fraction',
+        renderFraction: (currentClass:string, totalClass:string) => `
+          <span class="${currentClass} text-white font-semibold text-sm"></span>
+          /
+          <span class="${totalClass} text-white/60 text-sm"></span>
+        `,
+      }}
     >
       {slides.map((slide, index) => (
         <SwiperSlide key={index}>

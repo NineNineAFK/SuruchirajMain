@@ -297,14 +297,14 @@ const ProductDetailPage: React.FC = () => {
           {product.ingredients && product.ingredients.length > 0 ? product.ingredients.join(', ') : 'N/A'}
         </p>
         <p className="text-[#4D6A3F] text-lg sm:text-xl dark:text-yellow-400 font-semibold mb-2">No Preservatives</p>
-        <div className="flex items-center gap-2 mb-2">
+        {/* <div className="flex items-center gap-2 mb-2">
           <p className="text-[#4D6A3F] text-lg sm:text-xl dark:text-yellow-400 font-semibold">Unit:</p>
           <span className="font-sans text-base sm:text-lg">
             {product.net_wt && product.net_wt.length > 0
               ? `${product.net_wt[0].value}${product.net_wt[0].unit}`
               : 'N/A'}
           </span>
-        </div>
+        </div> */}
         <p className="text-[#4D6A3F] text-lg sm:text-xl dark:text-yellow-400 font-semibold">Why You'll Love It</p>
         <ul className="list-disc list-inside mb-2 text-base sm:text-lg">
           {product.why_you_will_love_it && product.why_you_will_love_it.length > 0 ? (

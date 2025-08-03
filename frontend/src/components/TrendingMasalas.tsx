@@ -87,10 +87,10 @@ const TrendingMasalas: React.FC = () => {
         </button>
         <button
           onClick={() => swiperRef.current?.slideNext()}
-          disabled={isEnd}
+          // disabled={isEnd}
           className={`hidden md:flex absolute -right-14 top-1/2 transform -translate-y-1/2 z-20 p-3 rounded-full transition ${
             isEnd
-              ? 'bg-gray-200 dark:bg-white/10 text-gray-400 cursor-not-allowed'
+              ? 'bg-gray-200 dark:bg-white/10 text-gray-400'
               : 'bg-gray-100 dark:bg-white/20 text-black dark:text-white dark:hover:bg-yellow-400 hover:text-black'
           }`}
         >

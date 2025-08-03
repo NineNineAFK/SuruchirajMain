@@ -48,10 +48,10 @@ const Footer = () => {
               <h3 className="text-base sm:text-lg font-semibold mb-2">Company</h3>
               <ul className="text-sm sm:text-sm space-y-1">
                 <li><a href="#" className="hover:text-red-400">Home</a></li>
-                <li><a href="/about-us" className="hover:text-red-400">About</a></li>
-                <li><a href="/sub-products" className="hover:text-red-400">Menu</a></li>
+                <li><a href="/about-us" className="hover:text-red-400">About Us</a></li>
+                <li><a href="/sub-products" className="hover:text-red-400">Products</a></li>
                 <li><a href="/sub-products" className="hover:text-red-400">International Cuisine</a></li>
-                <li><a href="/contact-us" className="hover:text-red-400">Contact</a></li>
+                <li><a href="/contact-us" className="hover:text-red-400">Contact Us</a></li>
               </ul>
             </div>
 

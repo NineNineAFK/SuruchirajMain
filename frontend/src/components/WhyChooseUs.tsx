@@ -104,51 +104,63 @@ const WhyChooseUs: React.FC = () => {
         {features.map((feature, index) => {
           const isActive = activeIndex === index;
 
+          // Show empty placeholder in grid to reserve space
+          if (isActive) {
+            return (
+              <div
+                key={`placeholder-${index}`}
+                className="invisible border border-transparent rounded-2xl p-4"
+              />
+            );
+          }
+
           return (
             <div
               key={index}
-              onClick={() => setActiveIndex(isActive ? null : index)}
-              className={`flex flex-col items-center justify-center text-black dark:text-white border border-black/10 dark:border-white/20 rounded-2xl backdrop-blur-md transition-all duration-300 cursor-pointer overflow-hidden ${
-                isActive
-                  ? 'absolute top-1/2 left-1/2 z-50 transform -translate-x-1/2 -translate-y-1/2 bg-[#B8C2B3]/70  dark:bg-white/20 shadow-md w-[90%] p-6'
-                  : 'p-4 bg-[#2C941E]/15 dark:bg-white/10 shadow-sm dark:shadow-[0_0_10px_rgba(255,255,255,0.2)]'
-              }`}
+              onClick={() => setActiveIndex(index)}
+              className="flex flex-col items-center justify-center text-black dark:text-white border border-black/10 dark:border-white/20 rounded-2xl backdrop-blur-md cursor-pointer overflow-hidden p-4 bg-[#2C941E]/15 dark:bg-white/10 shadow-sm dark:shadow-[0_0_10px_rgba(255,255,255,0.2)]"
             >
-              {isActive && (
-                <button
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    setActiveIndex(null);
-                  }}
-                  className="absolute top-2 right-2 text-black dark:text-white text-lg"
-                >
-                  <FiX />
-                </button>
-              )}
-
               <img
                 src={feature.icon}
-                className={`object-contain mb-3 transition-all duration-300 filter invert dark:filter-none ${
-                  isActive ? 'h-24 w-24' : 'h-16 w-16'
-                }`}
+                className="object-contain mb-3 h-16 w-16 filter invert dark:filter-none"
                 alt={feature.text}
               />
-              <p
-                className={`font-normal font-body text-center transition-all duration-300 ${
-                  isActive ? 'text-base' : 'text-sm'
-                }`}
-              >
+              <p className="font-normal font-body text-center text-sm">
                 {feature.text}
               </p>
-
-              {isActive && (
-                <p className="mt-2 text-[12px] text-black/80 dark:text-white/90 text-center font-body">
-                  {feature.description}
-                </p>
-              )}
             </div>
           );
         })}
+
+        {/* Active tile displayed separately and centered */}
+        {activeIndex !== null && (
+          <div
+            className="absolute top-1/2 left-1/2 z-50 transform -translate-x-1/2 -translate-y-1/2 bg-[#B8C2B3]/70 dark:bg-white/20 shadow-md w-[90%] p-6 rounded-2xl text-black dark:text-white border border-black/10 dark:border-white/20 flex flex-col items-center justify-center backdrop-blur-md"
+            onClick={() => setActiveIndex(null)}
+          >
+            <button
+              onClick={(e) => {
+                e.stopPropagation();
+                setActiveIndex(null);
+              }}
+              className="absolute top-2 right-2 text-black dark:text-white text-lg"
+            >
+              <FiX />
+            </button>
+
+            <img
+              src={features[activeIndex].icon}
+              className="object-contain mb-3 h-24 w-24 filter invert dark:filter-none"
+              alt={features[activeIndex].text}
+            />
+            <p className="font-normal font-body text-center text-base">
+              {features[activeIndex].text}
+            </p>
+            <p className="mt-2 text-[12px] text-black/80 dark:text-white/90 text-center font-body">
+              {features[activeIndex].description}
+            </p>
+          </div>
+        )}
       </div>
     </section>
   );
