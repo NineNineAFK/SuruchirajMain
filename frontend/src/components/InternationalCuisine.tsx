@@ -82,7 +82,7 @@ const InternationalCuisine: React.FC = () => {
           className={`hidden md:flex absolute -left-20 top-1/2 transform -translate-y-1/2 z-20 p-3 rounded-full transition ${
             isBeginning
               ? 'bg-gray-200 dark:bg-white/10 text-gray-400 cursor-not-allowed'
-              : 'bg-gray-100 dark:bg-white/20 text-black dark:text-white hover:bg-yellow-400 hover:text-black'
+              : 'bg-gray-100 dark:bg-white/20 text-black dark:text-white dark:hover:bg-yellow-400 hover:text-black'
           }`}
         >
           <FiChevronLeft className="text-2xl" />
@@ -94,7 +94,7 @@ const InternationalCuisine: React.FC = () => {
           className={`hidden md:flex absolute -right-20 top-1/2 transform -translate-y-1/2 z-20 p-3 rounded-full transition ${
             isEnd
               ? 'bg-gray-200 dark:bg-white/10 text-gray-400 cursor-not-allowed'
-              : 'bg-gray-100 dark:bg-white/20 text-black dark:text-white hover:bg-yellow-400 hover:text-black'
+              : 'bg-gray-100 dark:bg-white/20 text-black dark:text-white dark:hover:bg-yellow-400 hover:text-black'
           }`}
         >
           <FiChevronRight className="text-2xl" />

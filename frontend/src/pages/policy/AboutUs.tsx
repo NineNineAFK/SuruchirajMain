@@ -115,19 +115,19 @@ const AboutUs: React.FC = () => {
         </section>
 
         {/* --- Meet Our Founders --- */}
-        <section className="space-y-8">
+        {/* <section className="space-y-8">
           <h2 className="text-center text-3xl sm:text-4xl font-heading font-bold">
             Meet our <span className="text-[#4D6A3F] dark:text-yellow-400">Founders</span>
           </h2>
           <div className="w-full h-80 bg-zinc-800/50 dark:bg-zinc-900 rounded-lg p-8 flex items-center justify-center">
             <p className="text-gray-400">Founder information and story will be displayed here.</p>
           </div>
-        </section>
+        </section> */}
 
         {/* --- Why choose us --- */}
-        <div className="mt-16">
+        {/* <div className="mt-16">
           <WhyChooseUs />
-        </div>
+        </div> */}
 
         {/* --- Contact Section --- */}
         <section className="space-y-3">

@@ -41,6 +41,7 @@ const TopCategories: React.FC = () => {
 
   const handleCategoryClick = (label: string) => {
     navigate(`/sub-products?category=${encodeURIComponent(label)}`);
+    window.scrollTo({ top: 0, behavior: 'smooth' }); 
   };
 
   return (

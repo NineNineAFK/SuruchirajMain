@@ -130,19 +130,19 @@ const HomePage: React.FC = () => {
         </div>
         <HeroSection />
 
-        <section className="py-5">
+        <section className="py-6">
           <WhyChooseUs />
         </section>
 
-        <section className="py-5">
+        <section className="py-6">
           <TopCategories />
         </section>
 
-        <section className="py-5">
+        <section className="py-6">
           <TrendingMasalas />
         </section>
 
-        <section className="py-5">
+        <section className="py-6">
           <InternationalCuisine />
         </section>
 
