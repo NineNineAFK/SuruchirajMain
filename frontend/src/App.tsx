@@ -254,7 +254,7 @@ const App: React.FC = () => {
                   <Route path="/user/dashboard/orders" element={<Orders />} />
 
                   {/* Admin Dashboard Route */}
-                  <Route path="/admin" element={<AdminDashboard />} />
+                  <Route path="/admins" element={<AdminDashboard />} />
           
                   {/* Products Page Route */}
                   <Route path="/products" element={<ProductsPage />} />
