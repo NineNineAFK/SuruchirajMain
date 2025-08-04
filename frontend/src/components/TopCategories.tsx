@@ -17,12 +17,12 @@ const categories: Category[] = [
   { label: 'Veg', image: '/categories/veg fp.png', path: '/categories/veg' },
   { label: 'Non-Veg', image: '/categories/non veg fp.png', path: '/categories/nonveg' },
   { label: 'Maharashtrian', image: '/categories/Maharashtrian Veg fp.png', path: '/categories/maharashtrian' },
-//  { label: 'Beverages', image: '/categories/Beverage fp.png', path: '/categories/beverages' }, 
+  { label: 'Beverages', image: '/categories/Beverage fp.png', path: '/categories/beverages' }, 
   { label: 'Snacks', image: '/categories/Snacks fp.png', path: '/categories/snacks' },
-//  { label: 'Soups', image: '/categories/soup fp.png', path: '/categories/soups' },
+  { label: 'Soups', image: '/categories/soup fp.png', path: '/categories/soups' },
   { label: 'Rice Mixes', image: '/categories/Biryani fp.png', path: '/categories/biryani' },
-//  { label: 'South Indian', image: '/categories/south india fp.png', path: '/categories/southindian' },
-  { label: 'Others', image: '/categories/Pickle fp.png', path: '/categories/pickle' },
+  { label: 'South Indian', image: '/categories/south india fp.png', path: '/categories/southindian' },
+  //{ label: 'Others', image: '/categories/Pickle fp.png', path: '/categories/pickle' },
 ];
 
 const TopCategories: React.FC = () => {
