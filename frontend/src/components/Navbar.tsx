@@ -128,7 +128,10 @@ const Navbar: React.FC = () => {
   const [showSuggestions, setShowSuggestions] = useState(false);
 
   
-  const cartCount = cart.reduce((sum, item) => sum + item.quantity, 0);
+  const cartCount = cart.reduce(
+    (total, item) => total + (item.qty_50g || 0) + (item.qty_100g || 0),
+    0
+  );
   const trendingMasalas = [
     'Chhole Masala',
     'Dal Fry Masala',
