@@ -90,8 +90,8 @@ const TrendingMasalas: React.FC = () => {
           // disabled={isEnd}
           className={`hidden md:flex absolute -right-14 top-1/2 transform -translate-y-1/2 z-20 p-3 rounded-full transition ${
             isEnd
-              ? 'bg-gray-200 dark:bg-white/10 text-gray-400'
-              : 'bg-gray-100 dark:bg-white/20 text-black dark:text-white dark:hover:bg-yellow-400 hover:text-black'
+              ? 'bg-gray-100 dark:bg-white/10 text-black'
+              : 'bg-gray-100 dark:bg-white/10 text-black dark:text-white dark:hover:bg-yellow-400 hover:text-black'
           }`}
         >
           <FiChevronRight className="text-2xl" />
@@ -199,7 +199,7 @@ const TrendingMasalas: React.FC = () => {
                   <div className="absolute -top-0 inset-x-0 z-40 px-2 pointer-events-drag cursor-pointer">
                     <div className="relative">
                       <Link to={`/product/${product._id}`}>
-                        <img src={image} alt={product.product_name} className="h-full w-full rounded-t-full object-fill drop-shadow-xl pointer-events-none cursor-pointer" />
+                        <img src={image} alt={product.product_name} className="h-full w-full rounded-t-full object-fill pointer-events-none cursor-pointer" />
                       </Link>
                       <div
                         className="absolute top-1 right-2 z-50 cursor-pointer"

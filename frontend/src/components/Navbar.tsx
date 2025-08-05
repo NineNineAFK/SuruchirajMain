@@ -124,7 +124,10 @@ const Navbar: React.FC = () => {
   const searchQuery = useRecoilValue(searchTermAtom); // ✅ get searchTerm from Recoil
   const setSearchQuery = useSetRecoilState(searchTermAtom); // ✅ set searchTerm from input
   const navigate = useNavigate();
+  const [filteredSuggestions, setFilteredSuggestions] = useState<string[]>([]);
+  const [showSuggestions, setShowSuggestions] = useState(false);
 
+  
   const cartCount = cart.reduce((sum, item) => sum + item.quantity, 0);
   const trendingMasalas = [
     'Chhole Masala',
@@ -134,17 +137,17 @@ const Navbar: React.FC = () => {
     'Tikka Masala',
     'Tandoori Masala',
     'Curry Masala',
-    'C. K. P. Masala',
+    'CKP Masala',
     'Goda Masala',
-    'Sol Kadhi Masala',
-    'Masale Bhat',
+    'Solkadhi Masala',
+    'Masala Bhat',
     'Nagpuri Saoji Masala',
     'Kolhapuri Misal Masala',
-    'Batata Vada Masala',
+    'Batata Wada Masala',
     'Samosa Masala',
     'Chicken Chettinad Masala',
     'Peri-Peri Spice Mix',
-    'Falafal Spice Mix',
+    'Lebanese Falafal',
     'Mexican Spice Mix',
     'Garlic Bread Spice Mix',
     'Manchurian Spice Mix'
@@ -164,12 +167,18 @@ const Navbar: React.FC = () => {
     //window.addEventListener('scroll', handleScroll);
     //return () => window.removeEventListener('scroll', handleScroll);
   //}, []);
-
+  const allSuggestions = trendingMasalas.map((m) => m.toLowerCase());
   useEffect(() => {
     const interval = setInterval(() => {
       setPlaceholderIndex((prevIndex) => (prevIndex + 1) % trendingMasalas.length);
     }, 2500);
     return () => clearInterval(interval);
+  }, []);
+
+  useEffect(() => {
+    const handleClickOutside = () => setShowSuggestions(false);
+    window.addEventListener('click', handleClickOutside);
+    return () => window.removeEventListener('click', handleClickOutside);
   }, []);
 
   return (
@@ -233,18 +242,52 @@ const Navbar: React.FC = () => {
                   <input
                     type="text"
                     value={searchQuery}
-                    onChange={(e) => setSearchQuery(e.target.value)}
+                    onChange={(e) => {
+                      const value = e.target.value;
+                      setSearchQuery(value);
+
+                      if (value.trim() === '') {
+                        setFilteredSuggestions([]);
+                        setShowSuggestions(false);
+                        return;
+                      }
+
+                      const matches = allSuggestions.filter((s) =>
+                        s.toLowerCase().includes(value.toLowerCase())
+                      );
+                      setFilteredSuggestions(matches);
+                      setShowSuggestions(true);
+                    }}
                     onKeyDown={(e) => e.key === 'Enter' && navigate('/sub-products')}
                     placeholder={`Search for "${trendingMasalas[placeholderIndex]}"`}
-                    className="w-full px-4 pr-1 py-2 rounded-full border font-normal border-gray-500 text-sm text-gray-800 focus:outline-none focus:ring-2 focus:ring-red-500 transition-all duration-300"
+                    className="w-full font-body font-medium px-4 pr-10 py-2 rounded-lg border border-gray-500 text-sm text-gray-800 transition-all duration-300"
                   />
                   <img
                     src="search.png"
                     alt="search"
                     onClick={() => navigate('/sub-products')}
-                    className="absolute right-1.5 top-1/2 -translate-y-1/2 w-7 h-7 cursor-pointer"
+                    className="absolute right-3 top-1/2 -translate-y-1/2 w-7 h-7 cursor-pointer"
                   />
+
+                  {showSuggestions && filteredSuggestions.length > 0 && (
+                    <ul className="absolute top-full left-0 w-full bg-white border border-t-0 border-gray-500 rounded-b-xl max-h-60 overflow-y-auto shadow-md z-50 text-left">
+                      {filteredSuggestions.map((suggestion, idx) => (
+                        <li
+                          key={idx}
+                          onClick={() => {
+                            setSearchQuery(suggestion);
+                            setShowSuggestions(false);
+                            navigate(`/sub-products?search=${encodeURIComponent(suggestion)}`);
+                          }}
+                          className="px-4 py-2 dark:hover:bg-yellow-100 hover:bg-[#4D6A3F]/20 cursor-pointer text-sm text-gray-800"
+                        >
+                          {suggestion}
+                        </li>
+                      ))}
+                    </ul>
+                  )}
                 </div>
+
               </div>
 
               {/* Auth + Wishlist + Cart */}
@@ -281,20 +324,64 @@ const Navbar: React.FC = () => {
 
       {/* Mobile search */}
       <div className="lg:hidden bg-[#4D6A3F] dark:bg-black px-4 pt-3 pb-4">
-        <div className="relative flex items-center">
-          <div className="absolute left-3">
-            <img src="search.png" alt="search" className="w-6 h-6" />
+        <div className="relative">
+          <div className="absolute left-3 top-1/2 transform -translate-y-1/2 z-10">
+            <img
+              src="search.png"
+              alt="search"
+              onClick={() => navigate('/sub-products')}
+              className="w-6 h-6"
+            />
           </div>
-          <input
-            type="text"
-            value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)} // ✅ update atom
-            onKeyDown={(e) => e.key === 'Enter' && navigate('/sub-products')} 
-            placeholder={`Search for "${trendingMasalas[placeholderIndex]}"`}
-            className="w-full pl-10 pr-10 py-2 rounded-full text-sm text-gray-800 bg-white focus:outline-none"
-          />
+
+          <div className="relative w-full">
+            <input
+              type="text"
+              value={searchQuery}
+              onChange={(e) => {
+                const value = e.target.value;
+                setSearchQuery(value);
+
+                if (value.trim() === '') {
+                  setFilteredSuggestions([]);
+                  setShowSuggestions(false);
+                  return;
+                }
+
+                const matches = allSuggestions.filter((s) =>
+                  s.includes(value.toLowerCase())
+                );
+                setFilteredSuggestions(matches);
+                setShowSuggestions(true);
+              }}
+              onKeyDown={(e) => e.key === 'Enter' && navigate('/sub-products')}
+              placeholder={`Search for "${trendingMasalas[placeholderIndex]}"`}
+              className={`w-full pl-10 pr-4 py-2 rounded-t-lg ${
+                showSuggestions ? '' : 'rounded-b-lg'
+              } text-sm text-gray-800 bg-white focus:outline-none border border-gray-300`}
+            />
+
+            {showSuggestions && filteredSuggestions.length > 0 && (
+              <ul className="absolute top-full left-0 w-full border border-t-0 border-gray-300 rounded-b-lg bg-white max-h-60 overflow-y-auto shadow-md z-20">
+                {filteredSuggestions.map((suggestion, idx) => (
+                  <li
+                    key={idx}
+                    onClick={() => {
+                      setSearchQuery(suggestion);
+                      setShowSuggestions(false);
+                      navigate(`/sub-products?search=${encodeURIComponent(suggestion)}`);
+                    }}
+                    className="px-4 py-2 dark:hover:bg-yellow-100 hover:bg-[#4D6A3F]/20 cursor-pointer text-sm text-gray-800"
+                  >
+                    {suggestion}
+                  </li>
+                ))}
+              </ul>
+            )}
+          </div>
         </div>
       </div>
+
 
       <CartDrawer isOpen={isCartOpen} onClose={() => setIsCartOpen(false)} />
     </>

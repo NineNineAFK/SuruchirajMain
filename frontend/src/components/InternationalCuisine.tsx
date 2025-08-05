@@ -130,7 +130,7 @@ const InternationalCuisine: React.FC = () => {
                 onClick={() => handleCuisineClick(cuisine.label)}
                 className="relative cursor-pointer h-[240px] w-[180px] bg-[#9EAF88] dark:bg-transparent backdrop-blur-md rounded-3xl overflow-hidden shadow-lg transition-transform duration-300 hover:scale-[1.03] border border-black/10 dark:border-white/10"
               >
-                <div className="absolute -top-6 -left-10 w-52 h-52 rounded-full overflow-hidden transition-all duration-300 hover:scale-105 hover:opacity-90">
+                <div className="absolute -top-6 -left-10 w-52 h-52 rounded-full overflow-hidden transition-all duration-300 hover:scale-105 hover:opacity-100">
                   <img
                     src={cuisine.image}
                     alt={cuisine.label}
