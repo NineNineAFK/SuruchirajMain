@@ -130,23 +130,23 @@ const HomePage: React.FC = () => {
         </div>
         <HeroSection />
 
-        <section className="py-6">
+        <section className="md:py-16 py-8">
           <WhyChooseUs />
         </section>
 
-        <section className="py-6">
+        <section className="md:py-16 py-8">
           <TopCategories />
         </section>
 
-        <section className="py-6">
+        <section className="md:py-16 py-8">
           <TrendingMasalas />
         </section>
 
-        <section className="py-6">
+        <section className="md:py-16 py-8">
           <InternationalCuisine />
         </section>
 
-        <section className="py-5">
+        <section className="md:pt-16 md:pb-4 pt-8">
           <Testimonials />
         </section>
       </div>
@@ -159,23 +159,23 @@ const HomePage: React.FC = () => {
         <div className="bg-black bg-opacity-50">
           <HeroSection />
 
-          <section className="py-5">
+          <section className="md:py-16 py-8">
             <WhyChooseUs />
           </section>
 
-          <section className="py-5">
+          <section className="md:py-16 py-8">
             <TopCategories />
           </section>
 
-          <section className="py-5">
+          <section className="md:py-16 py-8">
             <TrendingMasalas />
           </section>
 
-          <section className="py-5">
+          <section className="md:py-16 py-8">
             <InternationalCuisine />
           </section>
 
-          <section className="py-5">
+          <section className="md:pt-16 md:pb-4 py-8">
             <Testimonials />
           </section>
         </div>

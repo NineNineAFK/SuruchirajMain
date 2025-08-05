@@ -14,7 +14,7 @@ interface Cuisine {
 }
 
 const cuisines: Cuisine[] = [
-  { label: 'American', image: '/international cuisine/American Cuisine.png', path: '/cuisines/american' },
+  //{ label: 'American', image: '/international cuisine/American Cuisine.png', path: '/cuisines/american' },
   { label: 'Chinese', image: '/international cuisine/Chinese Cuisine.png', path: '/cuisines/chinese' },
   { label: 'Mexican', image: '/international cuisine/Mexican Cuisine.png', path: '/cuisines/mexican' },
   { label: 'Thai', image: '/international cuisine/Thai Cuisine1.png', path: '/cuisines/thai' },

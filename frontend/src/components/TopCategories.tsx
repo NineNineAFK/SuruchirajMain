@@ -45,9 +45,9 @@ const TopCategories: React.FC = () => {
   };
 
   return (
-    <section id="categories" className="md:mt-8 px-4 py-4 md:px-8 md:pt-8 text-center relative font-heading dark:bg-transparent bg-[#708D61]">
-      <h2 className="text-3xl md:text-4xl font-extrabold mb-4 md:mb-10 text-black dark:text-white">
-        Top <span className="text-white dark:text-yellow-400">Categories</span>
+    <section id="categories" className="md:mt-8 px-4 py-4 md:px-8 md:pt-8 text-center relative font-heading dark:bg-transparent bg-[#3d4b58]">
+      <h2 className="text-3xl md:text-4xl font-extrabold mb-4 md:mb-10 text-white dark:text-white">
+        Top <span className="text-yellow-400 dark:text-yellow-400">Categories</span>
       </h2>
 
       {/* ✅ MOBILE LAYOUT */}

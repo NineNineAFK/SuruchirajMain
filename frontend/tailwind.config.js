@@ -25,21 +25,6 @@ module.exports = {
 				'950': '#3a2744',
 			},
 
-			'tulip-tree': {
-    '50': '#fdf9e9',
-    '100': '#faf1c7',
-    '200': '#f6df92',
-    '300': '#f1c753',
-    '400': '#ecb333',
-    '500': '#db9617',
-    '600': '#bd7311',
-    '700': '#975211',
-    '800': '#7d4216',
-    '900': '#6b3618',
-    '950': '#3e1b0a',
-},
-
-
   			mutedrose: '#B8A8A8',
   			ivory: '#F6F5F3',
   			palegold: '#E6BE8A',
@@ -84,6 +69,10 @@ module.exports = {
   				'5': 'hsl(var(--chart-5))'
   			}
   		},
+		backgroundImage: {
+      		'custom-gradient': 'linear-gradient(to right, rgb(17, 94, 89), rgb(75, 85, 99), rgb(6, 95, 70))',
+		},
+
   		fontFamily: {
   			poppins: [
   				'Poppins',
