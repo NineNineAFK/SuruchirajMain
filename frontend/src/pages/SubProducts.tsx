@@ -67,6 +67,7 @@ const SubProducts = () => {
 
   const handleBuyNow = (product: Product) => {
     navigate(`/product/${product._id}`);
+    window.scrollTo({ top: 0, behavior: 'smooth' }); // Smooth scroll to top
   };
 
 

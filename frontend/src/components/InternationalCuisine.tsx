@@ -39,6 +39,7 @@ const InternationalCuisine: React.FC = () => {
 
   const handleCuisineClick = (label: string) => {
     navigate(`/sub-products?category=${encodeURIComponent(label)}`);
+    window.scrollTo({ top: 0, behavior: 'smooth' }); // Smooth scroll to top
   };
 
   return (

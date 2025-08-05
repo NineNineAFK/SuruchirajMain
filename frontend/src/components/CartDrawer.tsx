@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { FiX, FiClock, FiTrash } from 'react-icons/fi';
-import { FaMinus, FaPlus } from 'react-icons/fa';
+//import { FaMinus, FaPlus } from 'react-icons/fa';
 import { useCart } from '../context/CartContext';
 import { useRecoilValue } from 'recoil';
 import { authStateAtom } from '../state/state';
