@@ -1,5 +1,5 @@
 import React from 'react';
-import WhyChooseUs from '../../components/WhyChooseUs';
+//import WhyChooseUs from '../../components/WhyChooseUs';
 import { FiMapPin, FiPhone, FiMail } from 'react-icons/fi';
 import { useEffect } from 'react';
 import AOS from 'aos';
@@ -19,20 +19,25 @@ const AboutUs: React.FC = () => {
       <div className="max-w-7xl mx-auto space-y-20">
 
         {/* --- Hero Section --- */}
-        <section className="relative h-[350px] sm:h-[450px] rounded-lg overflow-hidden flex items-center justify-center text-center p-6 bg-cover bg-center" style={{ backgroundImage: "url('spices.png')" }}>
-          <div className="absolute inset-0 bg-black/60"></div>
-          <div className="relative z-10 space-y-4">
-            <h1 className="text-white text-3xl sm:text-4xl font-heading font-bold">
+        <section
+          className="relative w-full h-[300px] sm:h-[450px] lg:h-screen overflow-hidden flex items-center justify-center text-center p-4 sm:p-6 bg-cover bg-center"
+          style={{ backgroundImage: "url('/aboutus/main.webp')" }}
+        >
+          <div className="absolute inset-0 bg-black/20"></div>
+          <div className="relative z-10 space-y-3 sm:space-y-4">
+            <h1 className="text-white text-2xl sm:text-4xl font-heading font-bold">
               Welcome to <span className="text-yellow-400">Suruchiraj Spices</span>
             </h1>
-            <p className="text-gray-200 text-lg sm:text-xl max-w-2xl mx-auto">
+            <p className="text-gray-200 text-base sm:text-xl max-w-2xl mx-auto">
               where every sprinkle tells a story of tradition and health.
             </p>
-            <button className="bg-yellow-400 text-black font-bold py-2 px-6 rounded-md hover:bg-yellow-500 transition-colors">
+            <button className="bg-yellow-400 text-black font-bold py-2 px-5 rounded-md hover:bg-yellow-500 transition-colors">
               Explore Products
             </button>
           </div>
         </section>
+
+
         
         {/* --- Who Are We Section --- */}
         <section className="text-left">
@@ -60,19 +65,33 @@ const AboutUs: React.FC = () => {
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
                 {/* Purity Card */}
                 <div className="flex flex-col items-center">
-                    <div className="w-full h-48 bg-gray-200 dark:bg-zinc-800 rounded-lg mb-4"></div>
-                    <h3 className="text-2xl font-semibold mb-2">Purity</h3>
-                    <p className="text-gray-700 dark:text-gray-300">Sourced from the best farms, our spices are 100% natural.</p>
+                  <img
+                    src="/aboutus/purity.webp" 
+                    alt="Purity"
+                    className="w-full h-full object-cover rounded-lg mb-4"
+                  />
+                  <h3 className="text-2xl font-semibold mb-2">Purity</h3>
+                  <p className="text-gray-700 dark:text-gray-300">
+                    Sourced from the best farms, our spices are 100% natural.
+                  </p>
                 </div>
                 {/* Aroma Card */}
                 <div className="flex flex-col items-center">
-                    <div className="w-full h-48 bg-gray-200 dark:bg-zinc-800 rounded-lg mb-4"></div>
+                  <img
+                    src="/aboutus/aroma.webp" 
+                    alt="aroma"
+                    className="w-full h-full object-cover rounded-lg mb-4"
+                  />
                     <h3 className="text-2xl font-semibold mb-2">Aroma</h3>
                     <p className="text-gray-700 dark:text-gray-300">Our unique blending process locks in the rich, natural aroma.</p>
                 </div>
                 {/* Taste Card */}
                 <div className="flex flex-col items-center">
-                    <div className="w-full h-48 bg-gray-200 dark:bg-zinc-800 rounded-lg mb-4"></div>
+                  <img
+                    src="/aboutus/taste.webp" 
+                    alt="Taste"
+                    className="w-full h-full object-cover rounded-lg mb-4"
+                  />
                     <h3 className="text-2xl font-semibold mb-2">Taste</h3>
                     <p className="text-gray-700 dark:text-gray-300">Crafted to perfection for an authentic and unforgettable flavor.</p>
                 </div>
@@ -94,7 +113,11 @@ const AboutUs: React.FC = () => {
                 </ul>
             </div>
             <div className="w-full lg:w-1/2 h-80 bg-gray-200 dark:bg-zinc-800 rounded-lg">
-                {/* Placeholder for an image */}
+                  <img
+                    src="/aboutus/unique.webp" 
+                    alt="what makes us unique"
+                    className="w-full h-full object-cover rounded-lg"
+                  />
             </div>
         </section>
 
@@ -109,9 +132,6 @@ const AboutUs: React.FC = () => {
             <p className="max-w-3xl mx-auto text-gray-700 dark:text-gray-300 leading-relaxed mt-4">
                 Thank you for being a part of our journey.
             </p>
-            <div className="mt-8 w-full h-64 bg-gray-200 dark:bg-zinc-800 rounded-lg">
-                {/* Placeholder for a commitment-related image */}
-            </div>
         </section>
 
         {/* --- Meet Our Founders --- */}
