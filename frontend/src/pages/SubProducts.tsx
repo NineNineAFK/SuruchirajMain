@@ -212,7 +212,7 @@ const SubProducts = () => {
                           onClick={e => { e.preventDefault(); handleBuyNow(product); }}
                           className="mt-1 w-full text-sm font-button font-semibold py-1.5 rounded-full transition bg-yellow-400 text-black hover:bg-yellow-300"
                         >
-                          Buy Now
+                          Shop Now
                         </button>
                       </div>
                     </div>

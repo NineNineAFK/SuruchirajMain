@@ -11,6 +11,7 @@ const MobileHeroSlide = ({
   align,
   headingClass,
   subheadingClass,
+  cta,
 }: {
   image: string;
   heading: React.ReactNode;
@@ -18,6 +19,7 @@ const MobileHeroSlide = ({
   align: 'left' | 'right';
   headingClass: string;
   subheadingClass: string;
+  cta?: React.ReactNode;
 }) => (
   <section className="relative h-[250px] md:hidden px-4 py-6">
     <div
@@ -31,6 +33,7 @@ const MobileHeroSlide = ({
       <div className={`text-stone-200 p-4 w-full ${align === 'left' ? 'text-left' : 'text-right'}`}>
         <h2 className={`${headingClass}`}>{heading}</h2>
         <p className={`${subheadingClass} mt-1`}>{subheading}</p>
+        {cta && <div className="mt-2">{cta}</div>}
       </div>
     </div>
   </section>
@@ -44,6 +47,7 @@ const DesktopHeroSlide = ({
   align,
   headingClass,
   subheadingClass,
+  cta,
 }: {
   image: string;
   heading: React.ReactNode;
@@ -51,6 +55,7 @@ const DesktopHeroSlide = ({
   align: 'left' | 'right';
   headingClass: string;
   subheadingClass: string;
+  cta?: React.ReactNode;
 }) => (
   <section className="relative h-[700px] hidden md:flex items-center overflow-hidden">
     <img
@@ -64,6 +69,7 @@ const DesktopHeroSlide = ({
       <div className={`text-white max-w-md ${align === 'left' ? 'text-left' : 'text-right'}`}>
         <h1 className={`${headingClass}`}>{heading}</h1>
         <p className={`${subheadingClass} mt-4`}>{subheading}</p>
+        {cta && <div className="mt-5">{cta}</div>}
       </div>
     </div>
   </section>
@@ -78,7 +84,9 @@ type Slide = {
   align: 'left' | 'right';
   headingClass: string;
   subheadingClass: string;
+  cta?: React.ReactNode;
 };
+
 
 const slides: Slide[] = [
   {
@@ -94,6 +102,11 @@ const slides: Slide[] = [
     align: 'left' as const,
     headingClass: 'font-bold md:text-5xl text-xl font-heading leading-tight',
     subheadingClass: 'md:text-2xl text-xs mt-2 font-light font-body whitespace-pre-line',
+    cta: (
+      <button className="mt-2 bg-orange-300 hover:bg-orange-500 text-gray-800 font-semibold px-3 py-1.5 text-sm rounded-lg md:px-4 md:py-2 md:text-base">
+        Shop Now
+      </button>
+    ),
   },
   {
     image: '/hero/Veg.webp',
@@ -107,7 +120,13 @@ const slides: Slide[] = [
     align: 'right' as const,
     headingClass: 'font-bold md:text-5xl text-xl font-heading leading-tight',
     subheadingClass: 'md:text-2xl text-xs mt-2 font-light font-body whitespace-pre-line',
+    cta: (
+      <button className="mt-2 bg-orange-700 hover:bg-orange-800 text-gray-200 font-semibold px-3 py-1.5 text-sm rounded-xl md:px-4 md:py-2 md:text-base">
+        Shop Veg Spices
+      </button>
+    ),
   },
+
   {
     image: '/hero/American.webp',
     heading: (
@@ -120,6 +139,11 @@ const slides: Slide[] = [
     align: 'right' as const,
     headingClass: 'font-bold md:text-5xl text-xl leading-tight font-heading',
     subheadingClass: 'md:text-2xl text-xs mt-2 font-light font-body whitespace-pre-line',
+    cta: (
+      <button className="mt-2 bg-orange-900 hover:bg-orange-950 text-gray-200 font-semibold px-3 py-1.5 text-sm rounded-xl md:px-4 md:py-2 md:text-base">
+        Get Peri-Peri Mix
+      </button>
+    ),
   },
 
   {
@@ -128,7 +152,6 @@ const slides: Slide[] = [
       <h1 className="text-transparent bg-clip-text bg-gradient-to-r from-red-600 via-green-600 to-black leading-tight">
         <span className="block">Taste the</span>
         <span className="block">Mediterranean</span>
-        <span className="block">Sun.</span>
       </h1>
     ),
     subheading: (
@@ -139,6 +162,11 @@ const slides: Slide[] = [
     align: 'left' as const,
     headingClass: 'font-bold md:text-5xl text-xl font-heading leading-tight',
     subheadingClass: 'md:text-2xl text-xs mt-2',
+    cta: (
+      <button className="mt-0 bg-red-700 hover:bg-red-800 text-gray-200 font-semibold px-2 py-1.5 text-sm rounded-md md:px-4 md:py-2 md:text-base">
+        Shop Falafel Mix
+      </button>
+    ),
   },
 
   {
@@ -153,6 +181,11 @@ const slides: Slide[] = [
     align: 'right' as const,
     headingClass: 'font-bold md:text-5xl text-xl leading-tight font-heading',
     subheadingClass: 'md:text-2xl text-xs mt-2 font-light font-body whitespace-pre-line',
+    cta: (
+      <button className="mt-0 bg-yellow-600 hover:bg-yellow-700 text-gray-200 font-semibold px-3 py-1.5 text-sm rounded-xl md:px-4 md:py-2 md:text-base">
+        Shop Manchurian Mix
+      </button>
+    ),
   },
 
   {
@@ -167,6 +200,11 @@ const slides: Slide[] = [
     align: 'right' as const,
     headingClass: 'font-bold md:text-5xl text-xl font-heading leading-tight',
     subheadingClass: 'md:text-2xl text-xs mt-2 font-light font-body whitespace-pre-line',
+    cta: (
+      <button className="mt-0 bg-red-600 hover:bg-red-700 text-gray-300 font-semibold px-3 py-1.5 text-sm rounded-lg md:px-4 md:py-2 md:text-base">
+        Get Mexican Spice
+      </button>
+    ),
   },
 
   {
@@ -181,6 +219,11 @@ const slides: Slide[] = [
     align: 'right' as const,
     headingClass: 'font-bold md:text-5xl text-xl font-heading leading-tight',
     subheadingClass: 'md:text-2xl text-xs mt-2 font-light font-body whitespace-pre-line',
+    cta: (
+      <button className="mt-0 bg-yellow-700 hover:bg-yellow-800 text-gray-200 font-semibold px-3 py-1.5 text-sm rounded-lg md:px-4 md:py-2 md:text-base">
+        Shop Misal Masala
+      </button>
+    ),
   },
 
   {
@@ -195,6 +238,11 @@ const slides: Slide[] = [
     align: 'left' as const,
     headingClass: 'font-bold md:text-5xl text-xl font-heading leading-tight',
     subheadingClass: 'md:text-2xl text-xs mt-2 font-light font-body whitespace-pre-line',
+    cta: (
+      <button className="mt-2 bg-lime-600 hover:bg-lime-800 text-gray-200 font-semibold px-3 py-1.5 text-sm rounded-xl md:px-4 md:py-2 md:text-base">
+        Get Italian Mix
+      </button>
+    ),
   },
 
   {
@@ -209,6 +257,11 @@ const slides: Slide[] = [
     align: 'left' as const,
     headingClass: 'font-bold md:text-5xl text-xl font-heading leading-tight',
     subheadingClass: 'md:text-2xl text-xs mt-2 font-light font-body whitespace-pre-line',
+    cta: (
+      <button className="mt-2 bg-orange-800 hover:bg-orange-900 text-gray-200 font-semibold px-3 py-1.5 text-sm rounded-md md:px-4 md:py-2 md:text-base">
+        Shop Chettinad Masala
+      </button>
+    ),
   },
 
 ];

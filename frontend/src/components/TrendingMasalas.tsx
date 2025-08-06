@@ -181,7 +181,7 @@ const TrendingMasalas: React.FC = () => {
                         onClick={() => handleBuyNow(product)}
                         className="w-full h-[7vw] bg-yellow-400 hover:bg-yellow-300 text-black font-semibold font-button rounded-full flex items-center justify-center text-[3.5vw] shadow-md transition-all duration-200 ease-in-out"
                       >
-                        Buy Now
+                        Shop Now
                       </button>
                       {/*
                         <div className="flex justify-between items-center w-full bg-yellow-400 text-black rounded-full px-[3vw] py-[1vw] text-[3.5vw] font-semibold font-button shadow-md">
@@ -237,7 +237,7 @@ const TrendingMasalas: React.FC = () => {
                           onClick={() => handleBuyNow(product)}
                           className="w-full bg-yellow-400 text-black px-3 py-1 text-sm rounded-full font-semibold hover:brightness-110 transition font-button"
                         >
-                          Buy Now
+                          Shop Now
                         </button>
                         {/*
                           <div className="flex justify-between items-center w-full bg-yellow-400 rounded-full px-4 py-1 text-black text-sm font-button">
