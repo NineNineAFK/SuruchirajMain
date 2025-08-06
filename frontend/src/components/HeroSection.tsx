@@ -4,109 +4,215 @@ import { Autoplay, Navigation, Pagination } from 'swiper/modules';
 import 'swiper/css';
 import 'swiper/css/pagination';
 
-// ✅ Mobile Slide - Updated to use same props as desktop
-const MobileHeroSlide = ({ image, heading, subheading }: { image: string; heading: React.ReactNode; subheading: string }) => (
+const MobileHeroSlide = ({
+  image,
+  heading,
+  subheading,
+  align,
+  headingClass,
+  subheadingClass,
+}: {
+  image: string;
+  heading: React.ReactNode;
+  subheading: React.ReactNode;
+  align: 'left' | 'right';
+  headingClass: string;
+  subheadingClass: string;
+}) => (
   <section className="relative h-[250px] md:hidden px-4 py-6">
     <div
-      className="h-full w-full rounded-3xl overflow-hidden flex shadow-lg"
+      className="h-full w-full rounded-3xl overflow-hidden flex items-center shadow-lg"
       style={{
-        background: `linear-gradient(to right, rgba(0,0,0,0.6) 40%, transparent 100%), url(${image})`,
+        background: `linear-gradient(to right, rgba(0,0,0,0.2) 10%, transparent 100%), url(${image})`,
         backgroundSize: 'cover',
         backgroundPosition: 'center',
       }}
     >
-      <div className="flex flex-col justify-center pl-4 pr-3 text-white w-3/5 space-y-2">
-        <h1 className="text-xl font-semibold font-heading leading-tight">
-          {heading}
-        </h1>
-        <p className="text-[10px] text-white/80">{subheading}</p>
-        <a
-          href="#trending"
-          className="self-start -ml-1 mt-2 inline-block px-2.5 py-1.5 text-white font-semibold font-button text-xs rounded-full 
-            bg-gray-900 border border-white/10 shadow-md overflow-hidden group
-            transition-transform duration-300 transform hover:scale-105"
-        >
-          <span className="relative z-10 font-button">Shop Now</span>
-          <span
-            className="absolute top-0 left-[-75%] w-[150%] h-full bg-gradient-to-r 
-              from-transparent via-white/30 to-transparent opacity-0 
-              group-hover:opacity-100 transition-opacity duration-200 
-              pointer-events-none animate-none group-hover:animate-shine font-button"
-          />
-        </a>
+      <div className={`text-stone-200 p-4 w-full ${align === 'left' ? 'text-left' : 'text-right'}`}>
+        <h2 className={`${headingClass}`}>{heading}</h2>
+        <p className={`${subheadingClass} mt-1`}>{subheading}</p>
       </div>
     </div>
   </section>
 );
 
-// ✅ Desktop Slide (unchanged)
-const DesktopHeroSlide = ({ image, heading, subheading }: { image: string; heading: React.ReactNode; subheading: string }) => (
-  <section
-    className="relative bg-cover bg-center h-[550px] hidden md:flex items-center"
-    style={{ backgroundImage: `url(${image})` }}
-  >
-    <div className="absolute inset-0 bg-black bg-opacity-30" />
 
-    <div className="relative container mx-auto px-6 z-10">
-      <div className="max-w-xl text-left text-white">
-        <h1 className="text-4xl md:text-5xl font-extrabold leading-tight mb-6 font-heading">
-          {heading}
-        </h1>
+const DesktopHeroSlide = ({
+  image,
+  heading,
+  subheading,
+  align,
+  headingClass,
+  subheadingClass,
+}: {
+  image: string;
+  heading: React.ReactNode;
+  subheading: React.ReactNode;
+  align: 'left' | 'right';
+  headingClass: string;
+  subheadingClass: string;
+}) => (
+  <section className="relative h-[700px] hidden md:flex items-center overflow-hidden">
+    <img
+      src={image}
+      alt=""
+      className="absolute inset-0 w-full h-full object-cover"
+    />
+    <div className="absolute inset-0 bg-black bg-opacity-10" />
 
-        <p className="text-lg md:text-xl text-[#B8A8A8] mb-8 font-body">{subheading}</p>
-
-        <a
-          href="#trending"
-          className="relative inline-block px-8 py-3 text-white font-semibold rounded-full 
-            bg-gray-900 border border-white/10 shadow-md overflow-hidden group
-            transition-transform duration-300 transform hover:scale-105 font-button"
-        >
-          <span className="relative z-10 font-button">Shop Now</span>
-          <span
-            className="absolute top-0 left-[-75%] w-[150%] h-full bg-gradient-to-r 
-              from-transparent via-white/30 to-transparent opacity-0 
-              group-hover:opacity-100 transition-opacity duration-200 
-              pointer-events-none animate-none group-hover:animate-shine font-button"
-          />
-        </a>
+    <div className={`relative z-10 px-12 w-full max-w-screen-xl mx-auto flex justify-${align === 'left' ? 'start' : 'end'}`}>
+      <div className={`text-white max-w-md ${align === 'left' ? 'text-left' : 'text-right'}`}>
+        <h1 className={`${headingClass}`}>{heading}</h1>
+        <p className={`${subheadingClass} mt-4`}>{subheading}</p>
       </div>
     </div>
   </section>
 );
+
 
 // ✅ Slides data
-const slides = [
+type Slide = {
+  image: string;
+  heading: string | React.ReactNode;
+  subheading: string | React.ReactNode;
+  align: 'left' | 'right';
+  headingClass: string;
+  subheadingClass: string;
+};
+
+const slides: Slide[] = [
   {
-    image: '/hero/indian-hero.png',
-    heading: <>Explore India's <span className="text-[#F98C18]">Rich Flavors.</span></>,
-    subheading: "Unlock authentic tastes with Suruchiraj's diverse masalas.",
+    image: '/hero/Maharashtrian.webp',
+    heading: (
+      <h1 className="text-transparent bg-clip-text bg-gradient-to-r from-orange-600 via-white to-green-600 leading-tight">
+        <span className="block">The Soul of</span>
+        <span className="block">Maharashtra.</span>
+        <span className="block">Elevated</span>
+      </h1>
+    ),
+    subheading: 'Experience Authentic \nCKP Flavors \nwith Suruchiraj Masala..',
+    align: 'left' as const,
+    headingClass: 'font-bold md:text-5xl text-xl font-heading leading-tight',
+    subheadingClass: 'md:text-2xl text-xs mt-2 font-light font-body whitespace-pre-line',
   },
   {
-    image: '/hero/chinese-hero.png',
-    heading: <>Wok up your <span className="text-[#DCC79D]">Taste Buds!</span></>,
-    subheading: 'Authentic Chinese flavors, made easy with Suruchiraj masalas.',
+    image: '/hero/Veg.webp',
+    heading: (
+      <h1 className="text-transparent bg-clip-text bg-gradient-to-r from-red-700 via-orange-500 to-red-400 leading-tight">
+        <span className="block">Taste the Heart</span>
+        <span className="block">of India. Naturally.</span>
+      </h1>
+    ),
+    subheading: 'Discover Suruchiraj’s \nPremium Blends for \nVegetarian Delights.',
+    align: 'right' as const,
+    headingClass: 'font-bold md:text-5xl text-xl font-heading leading-tight',
+    subheadingClass: 'md:text-2xl text-xs mt-2 font-light font-body whitespace-pre-line',
   },
   {
-    image: '/hero/american-hero.png',
-    heading: <>Your American <span className="text-[#FED48E]">Feast Awaits!</span></>,
-    subheading: 'Effortlessly create iconic comfort food with Suruchiraj.',
+    image: '/hero/American.webp',
+    heading: (
+      <h1 className="text-transparent bg-clip-text bg-gradient-to-r from-blue-700 via-blue-600 to-red-500 leading-tight">
+        <span className="block">American Taste,</span>
+        <span className="block">Fiery Heart.</span>
+      </h1>
+    ),
+    subheading: 'Ignite Your Taste Buds \nwith Suruchiraj \nPeri-Peri Spice Mix',
+    align: 'right' as const,
+    headingClass: 'font-bold md:text-5xl text-xl leading-tight font-heading',
+    subheadingClass: 'md:text-2xl text-xs mt-2 font-light font-body whitespace-pre-line',
   },
+
   {
-    image: '/hero/biryani-hero.png',
-    heading: <>Taste the soul of <span className="text-[#E88635]">Biryani.</span></>,
-    subheading: 'Suruchiraj makes hearty meals unforgettable.',
+    image: '/hero/Lebanese.webp',
+    heading: (
+      <h1 className="text-transparent bg-clip-text bg-gradient-to-r from-red-600 via-green-600 to-black leading-tight">
+        <span className="block">Taste the</span>
+        <span className="block">Mediterranean</span>
+        <span className="block">Sun.</span>
+      </h1>
+    ),
+    subheading: (
+      <p className="text-stone-600 font-body font-light whitespace-pre-line">
+        {'Authentic Falafel \nWraps Made \nEasy with \nSuruchiraj Spice Mix.'}
+      </p>
+    ),
+    align: 'left' as const,
+    headingClass: 'font-bold md:text-5xl text-xl font-heading leading-tight',
+    subheadingClass: 'md:text-2xl text-xs mt-2',
   },
+
   {
-    image: '/hero/italian-hero.png',
-    heading: <>The essence of Italy. <span className="text-[#FCC971]">Simplified.</span></>,
-    subheading: 'Achieve culinary excellence with Suruchiraj spices.',
+    image: '/hero/Chinese.webp',
+    heading: (
+      <h1 className="text-transparent bg-clip-text bg-gradient-to-r from-orange-500 via-white to-green-600 leading-tight">
+        <span className="block">Taste Asia’s</span>
+        <span className="block">Signature Spice.</span>
+      </h1>
+    ),
+    subheading: 'Effortless \nManchurian Masterpiece \nwith Suruchitaj Spice Mix.',
+    align: 'right' as const,
+    headingClass: 'font-bold md:text-5xl text-xl leading-tight font-heading',
+    subheadingClass: 'md:text-2xl text-xs mt-2 font-light font-body whitespace-pre-line',
   },
+
   {
-    image: '/hero/thai-hero.png',
-    heading: <>Vibrant Thai. <span className="text-palegold">Simply done.</span></>,
-    subheading: 'Balance bold aromas with Suruchiraj spices.',
+    image: '/hero/Mexican.webp',
+    heading: (
+      <h1 className="text-transparent bg-clip-text bg-gradient-to-r from-green-600 via-white to-red-600 leading-tight">
+        <span className="block">Fiesta of Flavors.</span>
+        <span className="block">Unleashed.</span>
+      </h1>
+    ),
+    subheading: 'Create Authentic \nMexican Tacos \nwith Suruchiraj Spice Mix.',
+    align: 'right' as const,
+    headingClass: 'font-bold md:text-5xl text-xl font-heading leading-tight',
+    subheadingClass: 'md:text-2xl text-xs mt-2 font-light font-body whitespace-pre-line',
   },
+
+  {
+    image: '/hero/Misal.webp',
+    heading: (
+      <h1 className="text-transparent bg-clip-text bg-gradient-to-r from-white via-rose-100 to-amber-100 leading-tight">
+        <span className="block">Authentic</span>
+        <span className="block">Misal Pav</span>
+      </h1>
+    ),
+    subheading: 'Taste the Sificy \nTradition \nof Maharashtra.',
+    align: 'right' as const,
+    headingClass: 'font-bold md:text-5xl text-xl font-heading leading-tight',
+    subheadingClass: 'md:text-2xl text-xs mt-2 font-light font-body whitespace-pre-line',
+  },
+
+  {
+    image: '/hero/Italian.webp',
+    heading: (
+      <h1 className="text-transparent bg-clip-text bg-gradient-to-r from-green-600 via-red-600 to-red-600 leading-tight">
+        <span className="block">Taste Italy’s</span>
+        <span className="block">Golden Slice.</span>
+      </h1>
+    ),
+    subheading: 'Effortless Garlic \nBread Perfection \nwith Suruchiraj Spice Mix.',
+    align: 'left' as const,
+    headingClass: 'font-bold md:text-5xl text-xl font-heading leading-tight',
+    subheadingClass: 'md:text-2xl text-xs mt-2 font-light font-body whitespace-pre-line',
+  },
+
+  {
+    image: '/hero/Non-Veg.webp',
+    heading: (
+      <h1 className="text-transparent bg-clip-text bg-gradient-to-r from-orange-700 via-yellow-400 to-rose-700 leading-tight">
+        <span className="block">Unleash Bold</span>
+        <span className="block">Non-Veg Flavors.</span>
+      </h1>
+    ),
+    subheading: 'Master Authentic \nChicken Chettinad \nwith Suruchiraj Masala.',
+    align: 'left' as const,
+    headingClass: 'font-bold md:text-5xl text-xl font-heading leading-tight',
+    subheadingClass: 'md:text-2xl text-xs mt-2 font-light font-body whitespace-pre-line',
+  },
+
 ];
+
 
 // ✅ Hero Carousel Component
 const HeroCarousel: React.FC = () => {
@@ -120,9 +226,9 @@ const HeroCarousel: React.FC = () => {
       pagination={{
         type: 'fraction',
         renderFraction: (currentClass:string, totalClass:string) => `
-          <span class="${currentClass} text-white font-semibold text-sm"></span>
+          <span class="${currentClass} dark:text-white text-black font-semibold text-xs"></span>
           /
-          <span class="${totalClass} text-white/60 text-sm"></span>
+          <span class="${totalClass} dark:text-white text-black font-semibold text-xs"></span>
         `,
       }}
     >
@@ -134,6 +240,7 @@ const HeroCarousel: React.FC = () => {
           </>
         </SwiperSlide>
       ))}
+
     </Swiper>
   );
 };
