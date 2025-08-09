@@ -13,6 +13,10 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useRecoilValue, useSetRecoilState } from 'recoil';
 import { authStateAtom, userInfoAtom, searchTermAtom } from '../state/state'; //  ✅ import searchTermAtom
 import ThemeToggle from '../components/ThemeToggle';
+import { useLocation } from 'react-router-dom';
+
+
+
 
 const AuthButton = () => {
   const isLoggedIn = useRecoilValue(authStateAtom);
@@ -127,7 +131,16 @@ const Navbar: React.FC = () => {
   const [filteredSuggestions, setFilteredSuggestions] = useState<string[]>([]);
   const [showSuggestions, setShowSuggestions] = useState(false);
 
-  
+  //reset search state when navigating to home
+  const location = useLocation();
+    useEffect(() => {
+      if (location.pathname === '/') {
+        setSearchQuery('');
+        setFilteredSuggestions([]);
+        setShowSuggestions(false);
+      }
+    }, [location.pathname]);
+
   const cartCount = cart.reduce(
     (total, item) => total + (item.qty_50g || 0) + (item.qty_100g || 0),
     0
