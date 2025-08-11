@@ -38,9 +38,6 @@ const TrendingMasalas: React.FC = () => {
   };
 
 
-
-
-
   const [products, setProducts] = useState<Product[]>([]);
   const [loading, setLoading] = useState(true);
 

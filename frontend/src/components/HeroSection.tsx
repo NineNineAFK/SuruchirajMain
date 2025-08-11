@@ -130,7 +130,7 @@ const slides: Slide[] = [
     subheadingClass: ' md:text-2xl text-xs mt-2 font-light font-body whitespace-pre-line',
     cta: (
       <button className=" mt-2 bg-orange-700 hover:bg-orange-800 text-gray-200 font-semibold px-3 py-1.5 text-sm rounded-xl md:px-4 md:py-2 md:text-base">
-        Shop Veg Spices
+        Shop Now
       </button>
     ),
   },
@@ -209,7 +209,7 @@ const slides: Slide[] = [
     subheadingClass: ' md:text-2xl text-xs mt-2 font-light font-body whitespace-pre-line',
     cta: (
       <button className="mt-0 bg-red-600 hover:bg-red-700 text-gray-300 font-semibold px-3 py-1.5 text-sm rounded-lg md:px-4 md:py-2 md:text-base">
-        Get Mexican Spice
+        Shop Now
       </button>
     ),
   },
@@ -266,7 +266,7 @@ const slides: Slide[] = [
     subheadingClass: ' md:text-2xl text-xs mt-2 font-light font-body whitespace-pre-line',
     cta: (
       <button className=" mt-2 bg-orange-800 hover:bg-orange-900 text-gray-200 font-semibold px-3 py-1.5 text-sm rounded-md md:px-4 md:py-2 md:text-base">
-        Shop Chettinad Masala
+        Shop Now
       </button>
     ),
   },
