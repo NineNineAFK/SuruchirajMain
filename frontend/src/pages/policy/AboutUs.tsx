@@ -4,6 +4,7 @@ import { FiMapPin, FiPhone, FiMail } from 'react-icons/fi';
 import { useEffect } from 'react';
 import AOS from 'aos';
 import 'aos/dist/aos.css';
+import { Link } from "react-router-dom";
 
 const AboutUs: React.FC = () => {
   // Initialize AOS on component mount
@@ -31,9 +32,13 @@ const AboutUs: React.FC = () => {
             <p className="text-gray-200 text-base sm:text-xl max-w-2xl mx-auto">
               where every sprinkle tells a story of tradition and health.
             </p>
-            <button className="bg-yellow-400 text-black font-bold py-2 px-5 rounded-md hover:bg-yellow-500 transition-colors">
+            
+            <Link
+              to="/sub-products"
+              className="bg-yellow-400 text-black font-bold py-2 px-5 rounded-md hover:bg-yellow-500 transition-colors inline-block"
+            >
               Explore Products
-            </button>
+            </Link>
           </div>
         </section>
 

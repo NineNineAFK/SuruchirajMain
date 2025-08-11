@@ -3,6 +3,7 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import { Autoplay, Navigation, Pagination } from 'swiper/modules';
 import 'swiper/css';
 import 'swiper/css/pagination';
+import { useNavigate } from "react-router-dom";
 
 const MobileHeroSlide = ({
   image,
@@ -11,34 +12,44 @@ const MobileHeroSlide = ({
   align,
   headingClass,
   subheadingClass,
-  cta,
-}: {
-  image: string;
-  heading: React.ReactNode;
-  subheading: React.ReactNode;
-  align: 'left' | 'right';
-  headingClass: string;
-  subheadingClass: string;
-  cta?: React.ReactNode;
-}) => (
-  <section className="relative h-[250px] md:hidden px-4 py-6">
-    <div
-      className="h-full w-full rounded-3xl overflow-hidden flex items-center shadow-lg"
-      style={{
-        background: `linear-gradient(to right, rgba(0,0,0,0.2) 10%, transparent 100%), url(${image})`,
-        backgroundSize: 'cover',
-        backgroundPosition: 'center',
-      }}
-    >
-      <div className={`text-stone-200 p-4 w-full ${align === 'left' ? 'text-left' : 'text-right'}`}>
-        <h2 className={`${headingClass}`}>{heading}</h2>
-        <p className={`${subheadingClass} mt-1`}>{subheading}</p>
-        {cta && <div className="mt-2">{cta}</div>}
-      </div>
-    </div>
-  </section>
-);
+  link, 
+  cta
+}: Slide) => {
+  const navigate = useNavigate();
 
+  return (
+    <section
+      className="relative h-[250px] md:hidden px-4 py-6 cursor-pointer"
+      onClick={() => navigate(link)}
+    >
+      <div
+        className="h-full w-full rounded-3xl overflow-hidden flex items-center shadow-lg"
+        style={{
+          background: `linear-gradient(to right, rgba(0,0,0,0.2) 10%, transparent 100%), url(${image})`,
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+        }}
+      >
+        <div className={`text-stone-200 p-4 w-full ${align === 'left' ? 'text-left' : 'text-right'}`}>
+          {/* Heading */}
+          {typeof heading === "string" ? (
+            <h1 className={headingClass}>{heading}</h1>
+          ) : (
+            heading
+          )}
+
+          {/* Subheading */}
+          {typeof subheading === "string" ? (
+            <p className={subheadingClass}>{subheading}</p>
+          ) : (
+            subheading
+          )}
+          {cta && <div className="mt-2">{cta}</div>}
+        </div>
+      </div>
+    </section>
+  );
+};
 
 const DesktopHeroSlide = ({
   image,
@@ -48,52 +59,51 @@ const DesktopHeroSlide = ({
   headingClass,
   subheadingClass,
   cta,
-}: {
-  image: string;
-  heading: React.ReactNode;
-  subheading: React.ReactNode;
-  align: 'left' | 'right';
-  headingClass: string;
-  subheadingClass: string;
-  cta?: React.ReactNode;
-}) => (
-  <section className="relative hidden md:flex items-center w-full">
-  <img
-    src={image}
-    alt=""
-    className="w-full h-auto object-contain"
-  />
-  <div className="absolute inset-0 bg-black bg-opacity-10 pointer-events-none" />
-  
-  <div
-    className={`absolute inset-0 flex items-center justify-${
-      align === 'left' ? 'start' : 'end'
-    } px-12`}
-  >
-    <div
-      className={`text-white max-w-md ${
-        align === 'left' ? 'text-left' : 'text-right'
-      }`}
-    >
-      <h1 className={`${headingClass}`}>{heading}</h1>
-      <p className={`${subheadingClass} mt-4`}>{subheading}</p>
-      {cta && <div className="mt-5">{cta}</div>}
-    </div>
-  </div>
-</section>
+  link
+}: Slide) => {
+  const navigate = useNavigate();
 
-);
+  return (
+    <section
+      className="relative hidden md:flex items-center w-full cursor-pointer"
+      onClick={() => navigate(link)}
+    >
+      <img src={image} alt="" className="w-full h-auto object-contain" />
+      <div className="absolute inset-0 bg-black bg-opacity-10 pointer-events-none" />
+      <div className={`absolute inset-0 flex items-center justify-${align === 'left' ? 'start' : 'end'} px-12`}>
+        <div className={`text-white w-full ${align === 'left' ? 'text-left' : 'text-right'}`}>
+          {/* Heading */}
+          {typeof heading === "string" ? (
+            <h1 className={headingClass}>{heading}</h1>
+          ) : (
+            heading
+          )}
+
+          {/* Subheading */}
+          {typeof subheading === "string" ? (
+            <p className={subheadingClass}>{subheading}</p>
+          ) : (
+            subheading
+          )}
+          {cta && <div className="mt-5">{cta}</div>}
+        </div>
+      </div>
+    </section>
+  );
+};
+
 
 
 // ✅ Slides data
 type Slide = {
-  image: string;
-  heading: string | React.ReactNode;
-  subheading: string | React.ReactNode;
+  image: string
+  heading: React.ReactNode | string
+  subheading: React.ReactNode | string
+  headingClass?: string
+  subheadingClass?: string
   align: 'left' | 'right';
-  headingClass: string;
-  subheadingClass: string;
-  cta?: React.ReactNode;
+  cta?: React.ReactNode
+  link: string;
 };
 
 
@@ -101,30 +111,52 @@ const slides: Slide[] = [
   {
     image: '/hero/Maharashtrian.webp',
     heading: (
-      <h1 className="text-transparent bg-clip-text bg-gradient-to-r from-orange-600 via-orange-500 to-orange-700 leading-tight">
+      <div className="font-heading text-xl font-bold md:text-6xl text-transparent bg-clip-text bg-gradient-to-r from-orange-600 via-orange-500 to-orange-700 leading-tight">
         <span className="block">The Soul of</span>
-        <span className="block">Maharashtra. Elevated.</span>
-      </h1>
+        <span className="block whitespace-nowrap">Maharashtra. Elevated.</span>
+      </div>
     ),
-    subheading: 'Experience Authentic \nCKP Flavors \nwith Suruchiraj Masala..',
+    subheading: (
+      <>
+        <span className="block md:hidden whitespace-pre-line text-xs font-light">
+          {"Experience Authentic CKP Flavors \nwith Suruchiraj Masala.."}
+        </span>
+        <span className="hidden md:block whitespace-pre-line text-3xl font-light">
+          {"Experience Authentic CKP Flavors\nwith Suruchiraj Masala.."}
+        </span>
+      </>
+    ),
     align: 'left' as const,
-    headingClass: 'font-bold md:text-6xl text-xl font-heading leading-tight',
+    headingClass: 'font-semibold md:text-6xl text-xl font-heading leading-tight',
     subheadingClass: 'md:text-2xl text-xs mt-2 font-light font-body whitespace-pre-line',
     cta: (
       <button className=" mt-2 bg-orange-300 hover:bg-orange-500 text-gray-800 font-semibold px-3 py-1.5 text-sm rounded-lg md:px-4 md:py-2 md:text-base">
         Shop Now
       </button>
     ),
+    link: '/product/685d95f426012d91ad3aee72'
   },
   {
     image: '/hero/Veg.webp',
     heading: (
-      <h1 className=" text-transparent bg-clip-text bg-gradient-to-r from-red-700 via-orange-500 to-red-400 leading-tight">
+      <div className="font-heading text-xl font-bold md:text-6xl text-transparent bg-clip-text bg-gradient-to-r from-red-700 via-orange-500 to-red-400 leading-tight">
         <span className="block">Taste the Heart</span>
         <span className="block">of India. Naturally.</span>
-      </h1>
+      </div>
     ),
-    subheading: 'Discover Suruchiraj’s \nPremium Blends for \nVegetarian Delights.',
+    subheading: (
+      <>
+        {/* Mobile version */}
+        <span className="block md:hidden whitespace-pre-line text-xs font-light">
+          {"Discover Suruchiraj’s Premium Blends for \nVegetarian Delights."}
+        </span>
+
+        {/* Desktop version */}
+        <span className="hidden md:block whitespace-pre-line text-3xl font-light">
+          {"Discover Suruchiraj’s Premium Blends\nfor Vegetarian Delights."}
+        </span>
+      </>
+    ),
     align: 'right' as const,
     headingClass: 'font-bold md:text-6xl text-xl font-heading leading-tight',
     subheadingClass: ' md:text-2xl text-xs mt-2 font-light font-body whitespace-pre-line',
@@ -133,16 +165,29 @@ const slides: Slide[] = [
         Shop Now
       </button>
     ),
+    link: '/product/685d95f426012d91ad3aee9f'
   },
 
   {
     image: '/hero/American.webp',
     heading: (
-      <h1 className=" text-transparent bg-clip-text bg-gradient-to-r from-blue-700 via-blue-600 to-red-500 leading-tight">
+      <div className="font-heading text-xl font-bold md:text-6xl text-transparent bg-clip-text bg-gradient-to-r from-blue-700 via-blue-600 to-red-500 leading-tight">
         <span className="block">Tangy Taste, Fiery Heart.</span>
-      </h1>
+      </div>
     ),
-    subheading: 'Ignite Your Taste Buds \nwith Suruchiraj \nPeri-Peri Spice Mix',
+    subheading: (
+      <>
+        {/* Mobile version */}
+        <span className="block md:hidden whitespace-pre-line text-xs font-light">
+          {"Ignite Your Taste Buds with Suruchiraj \nPeri-Peri Spice Mix"}
+        </span>
+
+        {/* Desktop version */}
+        <span className="hidden md:block whitespace-pre-line text-3xl font-light">
+          {"Ignite Your Taste Buds with Suruchiraj\nPeri-Peri Spice Mix"}
+        </span>
+      </>
+    ),
     align: 'right' as const,
     headingClass: 'font-bold md:text-6xl text-xl leading-tight font-heading',
     subheadingClass: ' md:text-2xl text-xs mt-2 font-light font-body whitespace-pre-line',
@@ -151,20 +196,28 @@ const slides: Slide[] = [
         Get Peri-Peri Mix
       </button>
     ),
+    link: '/product/685d95f426012d91ad3aee5a'
   },
 
   {
     image: '/hero/Lebanese.webp',
     heading: (
-      <h1 className=" text-transparent bg-clip-text bg-gradient-to-r from-red-600 via-green-600 to-black leading-tight">
+      <div className="font-heading text-xl font-bold md:text-6xl text-transparent bg-clip-text bg-gradient-to-r from-red-600 via-green-600 to-black leading-tight">
         <span className="block">Taste the</span>
         <span className="block">Mediterranean</span>
-      </h1>
+      </div>
     ),
     subheading: (
-      <p className=" text-stone-600 font-body font-light whitespace-pre-line">
-        {'Authentic Falafel \nWraps Made \nEasy with \nSuruchiraj Spice Mix.'}
-      </p>
+      <>
+        {/* Mobile version */} 
+        <span className="block md:hidden whitespace-pre-line text-xs font-light">
+          {'Authentic Falafel Wraps Made\n Easy with Suruchiraj Spice Mix.'}
+        </span>
+        {/* Desktop version */}
+        <span className="hidden md:block whitespace-pre-line text-3xl font-light">
+          {'Authentic Falafel Wraps Made Easy \nwith Suruchiraj Spice Mix.'}
+        </span>
+      </>
     ),
     align: 'left' as const,
     headingClass: 'font-bold md:text-6xl text-xl font-heading leading-tight',
@@ -174,17 +227,30 @@ const slides: Slide[] = [
         Shop Falafel Mix
       </button>
     ),
+    link: '/product/685d95f426012d91ad3aee6f'
   },
 
   {
     image: '/hero/Chinese.webp',
     heading: (
-      <h1 className=" text-transparent bg-clip-text bg-gradient-to-r from-orange-500 via-white to-green-600 leading-tight">
+      <div className="font-heading text-xl font-bold md:text-6xl text-transparent bg-clip-text bg-gradient-to-r from-orange-500 via-white to-green-600 leading-tight">
         <span className="block">Taste Asia’s</span>
         <span className="block">Signature Spice.</span>
-      </h1>
+      </div>
     ),
-    subheading: 'Effortless \nManchurian Masterpiece \nwith Suruchitaj Spice Mix.',
+    subheading: (
+      <>
+        {/* Mobile version */}
+        <span className="block md:hidden whitespace-pre-line text-xs font-light">
+          {"Effortless Manchurian Masterpiece \nwith Suruchitaj Spice Mix."}
+        </span>
+
+        {/* Desktop version */}
+        <span className="hidden md:block whitespace-pre-line text-3xl font-light">
+          {"Effortless Manchurian Masterpiece \nwith Suruchitaj Spice Mix."}
+        </span>
+      </>
+    ),
     align: 'right' as const,
     headingClass: 'font-bold md:text-6xl text-xl leading-tight font-heading',
     subheadingClass: ' md:text-2xl text-xs mt-2 font-light font-body whitespace-pre-line',
@@ -193,17 +259,30 @@ const slides: Slide[] = [
         Shop Manchurian Mix
       </button>
     ),
+    link: '/product/685d95f426012d91ad3aef0e'
   },
 
   {
     image: '/hero/Mexican.webp',
     heading: (
-      <h1 className=" text-transparent bg-clip-text bg-gradient-to-r from-green-600 via-white to-red-600 leading-tight">
+      <div className="font-heading text-xl font-bold md:text-6xl text-transparent bg-clip-text bg-gradient-to-r from-green-600 via-white to-red-600 leading-tight">
         <span className="block">Fiesta of Flavors.</span>
         <span className="block">Unleashed.</span>
-      </h1>
+      </div>
     ),
-    subheading: 'Create Authentic \nMexican Tacos \nwith Suruchiraj Spice Mix.',
+    subheading: (
+      <>
+        {/* Mobile version */}
+        <span className="block md:hidden whitespace-pre-line text-xs font-light">
+          {"Create Authentic Mexican Tacos \nwith Suruchiraj Spice Mix."}
+        </span>
+
+        {/* Desktop version */}
+        <span className="hidden md:block whitespace-pre-line text-3xl font-light">
+          {"Create Authentic Mexican Tacos\nwith Suruchiraj Spice Mix."}
+        </span>
+      </>
+    ),
     align: 'right' as const,
     headingClass: 'font-bold md:text-6xl text-xl font-heading leading-tight',
     subheadingClass: ' md:text-2xl text-xs mt-2 font-light font-body whitespace-pre-line',
@@ -212,17 +291,30 @@ const slides: Slide[] = [
         Shop Now
       </button>
     ),
+    link: '/product/685d95f426012d91ad3aeecf'
   },
 
   {
     image: '/hero/Misal.webp',
     heading: (
-      <h1 className=" text-transparent bg-clip-text bg-gradient-to-r from-white via-rose-100 to-amber-100 leading-tight">
-        <span className="block">Authentic</span>
-        <span className="block">Misal Pav</span>
-      </h1>
+      <div className="font-heading text-xl font-bold md:text-6xl text-transparent bg-clip-text bg-gradient-to-r from-white via-rose-100 to-amber-100 leading-tight">
+        <span className="block">Authentic Misal Pav</span>
+        <span className="block"></span>
+      </div>
     ),
-    subheading: 'Taste the Sificy \nTradition \nof Maharashtra.',
+    subheading: (
+      <>
+        {/* Mobile version */}
+        <span className="block md:hidden whitespace-pre-line text-xs font-light">
+          {"Taste the Sificy Tradition \nof Maharashtra."}
+        </span>
+
+        {/* Desktop version */}
+        <span className="hidden md:block whitespace-pre-line text-3xl font-light">
+          {"Taste the Sificy Tradition\nof Maharashtra."}
+        </span>
+      </>
+    ),
     align: 'right' as const,
     headingClass: 'font-bold md:text-6xl text-xl font-heading leading-tight',
     subheadingClass: ' md:text-2xl text-xs mt-2 font-light font-body whitespace-pre-line',
@@ -231,17 +323,30 @@ const slides: Slide[] = [
         Shop Misal Masala
       </button>
     ),
+    link: '/product/685d95f426012d91ad3aee69'
   },
 
   {
     image: '/hero/Italian.webp',
     heading: (
-      <h1 className=" text-transparent bg-clip-text bg-gradient-to-r from-green-600 via-red-600 to-red-600 leading-tight">
-        <span className="block">Taste Italy’s</span>
-        <span className="block">Golden Slice.</span>
-      </h1>
+      <div className="font-heading text-xl font-bold md:text-6xl text-transparent bg-clip-text bg-gradient-to-r from-green-600 via-red-600 to-red-600 leading-tight">
+        <span className="block">Taste Italy’s Golden Slice.</span>
+        <span className="block"></span>
+      </div>
     ),
-    subheading: 'Effortless Garlic \nBread Perfection \nwith Suruchiraj Spice Mix.',
+    subheading: (
+      <>
+        {/* Mobile version */}
+        <span className="block md:hidden whitespace-pre-line text-xs font-light">
+          {"Effortless Garlic Bread Perfection \nwith Suruchiraj Spice Mix."}
+        </span>
+
+        {/* Desktop version */}
+        <span className="hidden md:block whitespace-pre-line text-3xl font-light">
+          {"Effortless Garlic Bread Perfection\nwith Suruchiraj Spice Mix."}
+        </span>
+      </>
+    ),
     align: 'left' as const,
     headingClass: 'font-bold md:text-6xl text-xl font-heading leading-tight',
     subheadingClass: ' md:text-2xl text-xs mt-2 font-light font-body whitespace-pre-line',
@@ -250,17 +355,30 @@ const slides: Slide[] = [
         Get Italian Mix
       </button>
     ),
+    link: '/product/685d95f426012d91ad3aef20'
   },
 
   {
     image: '/hero/Non-Veg.webp',
     heading: (
-      <h1 className=" text-transparent bg-clip-text bg-gradient-to-r from-orange-700 via-yellow-400 to-rose-700 leading-tight">
+      <div className="font-heading text-xl font-bold md:text-6xl text-transparent bg-clip-text bg-gradient-to-r from-orange-700 via-yellow-400 to-rose-700 leading-tight">
         <span className="block">Unleash Bold</span>
         <span className="block">Non-Veg Flavors.</span>
-      </h1>
+      </div>
     ),
-    subheading: 'Master Authentic \nChicken Chettinad \nwith Suruchiraj Masala.',
+    subheading: (
+      <>
+        {/* Mobile version */}
+        <span className="block md:hidden whitespace-pre-line text-xs font-light">
+          {"Master Authentic Chicken Chettinad \nwith Suruchiraj Masala."}
+        </span>
+
+        {/* Desktop version */}
+        <span className="hidden md:block whitespace-pre-line text-3xl font-light">
+          {"Master Authentic Chicken Chettinad\nwith Suruchiraj Masala."}
+        </span>
+      </>
+    ),
     align: 'left' as const,
     headingClass: 'font-bold md:text-6xl text-xl font-heading leading-tight',
     subheadingClass: ' md:text-2xl text-xs mt-2 font-light font-body whitespace-pre-line',
@@ -269,6 +387,7 @@ const slides: Slide[] = [
         Shop Now
       </button>
     ),
+    link: '/product/685d95f426012d91ad3aee7b'
   },
 
 ];
