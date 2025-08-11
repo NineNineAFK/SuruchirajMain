@@ -1,260 +1,262 @@
-const Order = require('../model/order');
-const Cart = require('../model/cart');
-const Address = require('../model/address');
-const Product = require('../model/product');
-const crypto = require('crypto');
 const axios = require('axios');
+const crypto = require('crypto');
+const { BASE_URL, getToken } = require('../utils/phonepeClient');
+const { v4: uuidv4 } = require('uuid');
+const Cart = require('../model/cart'); // Import the Cart model
+const Order = require('../model/order'); // Import the Order model
 
-// PhonePe API endpoints
-const PHONEPE_API_URL = 'https://api.phonepe.com/apis/hermes';
-const PHONEPE_PAY_API = '/pg/v1/pay';
+// Initiate Payment
+initiatePayment = async (req, res) => {
+  try {
+    const { merchantOrderId: providedMerchantOrderId } = req.body;
+    let { userId } = req.body;
 
-// Helper function to generate PhonePe checksum
-const generateChecksum = (payload, salt) => {
-    const data = payload + '/pg/v1/pay' + salt;
-    const checksum = crypto.createHash('sha256').update(data).digest('hex') + '###1';
-    return checksum;
-};
-
-// Create order and initiate payment
-const createOrderAndInitiatePayment = async (req, res) => {
-    try {
-        const userId = req.user._id;
-        const { addressId } = req.body;
-
-        // Get user's cart
-        const cart = await Cart.findOne({ userId });
-        if (!cart || cart.items.length === 0) {
-            return res.status(400).json({
-                success: false,
-                message: 'Cart is empty'
-            });
-        }
-
-        // Get delivery address
-        const address = await Address.findOne({ _id: addressId, userId });
-        if (!address) {
-            return res.status(400).json({
-                success: false,
-                message: 'Invalid delivery address'
-            });
-        }
-
-        // Format cart items and calculate total
-        const formattedItems = cart.items.map(item => ({
-            productName: item.productName,
-            price_50g: Number(item.price_50g),
-            price_100g: Number(item.price_100g),
-            qty_50g: Number(item.qty_50g) || 0,
-            qty_100g: Number(item.qty_100g) || 0,
-            totalGrams: item.totalGrams || 0
-        }));
-
-        // Calculate total amount with validation
-        const totalAmount = formattedItems.reduce((sum, item) => {
-            const itemTotal = (item.qty_50g * item.price_50g) + (item.qty_100g * item.price_100g);
-            if (isNaN(itemTotal)) {
-                throw new Error(`Invalid price or quantity for product: ${item.productName}`);
-            }
-            return sum + itemTotal;
-        }, 0);
-
-        if (isNaN(totalAmount) || totalAmount <= 0) {
-            return res.status(400).json({
-                success: false,
-                message: 'Invalid total amount calculated'
-            });
-        }
-
-        // Create order
-        const order = new Order({
-            userId,
-            items: formattedItems,
-            totalAmount,
-            deliveryAddress: {
-                addressName: address.addressName,
-                name: address.name,
-                phone: address.phone,
-                addressLine1: address.addressLine1,
-                addressLine2: address.addressLine2,
-                city: address.city,
-                state: address.state,
-                pincode: address.pincode,
-            },
-            orderStatus: 'pending',
-            paymentDetails: {
-                status: 'pending',
-                amount: totalAmount,
-                merchantTransactionId: `ORDER_${Date.now()}_${userId}`,
-            }
-        });
-
-        await order.save();
-
-        // Create PhonePe payment payload
-        const payload = {
-            merchantId: process.env.PHONEPE_CLIENT_ID,
-            merchantTransactionId: order.paymentDetails.merchantTransactionId,
-            amount: totalAmount * 100, // Convert to paise
-            redirectUrl: `${process.env.CLIENT_URL}/payment/status`,
-            redirectMode: 'POST',
-            callbackUrl: `${process.env.CLIENT_URL}/api/payment/webhook`,
-            merchantUserId: userId.toString(),
-            paymentInstrument: {
-                type: 'PAY_PAGE'
-            }
-        };
-
-        // Generate checksum
-        const base64Payload = Buffer.from(JSON.stringify(payload)).toString('base64');
-        const checksum = generateChecksum(base64Payload, process.env.PHONEPE_CLIENT_SECRET);
-
-        // Make request to PhonePe
-        const response = await axios.post(`${PHONEPE_API_URL}${PHONEPE_PAY_API}`, {
-            request: base64Payload
-        }, {
-            headers: {
-                'Content-Type': 'application/json',
-                'X-VERIFY': checksum
-            }
-        });
-
-        if (response.data.success) {
-            // Update order with payment URL
-            order.paymentDetails.status = 'processing';
-            await order.save();
-
-            res.status(200).json({
-                success: true,
-                paymentUrl: response.data.data.instrumentResponse.redirectInfo.url
-            });
-        } else {
-            throw new Error('Payment initialization failed');
-        }
-
-    } catch (error) {
-        console.error('Error creating order:', error);
-        res.status(500).json({
-            success: false,
-            message: 'Internal server error'
-        });
+    // Extract userId from req.user if not provided in the request body
+    if (!userId && req.user) {
+      userId = req.user._id;
     }
-};
 
-// Get order status
-const getOrderStatus = async (req, res) => {
-    try {
-        const { orderId } = req.params;
-        const userId = req.user._id;
-
-        const order = await Order.findOne({ _id: orderId, userId });
-        if (!order) {
-            return res.status(404).json({
-                success: false,
-                message: 'Order not found'
-            });
-        }
-
-        res.status(200).json({
-            success: true,
-            order: {
-                _id: order._id,
-                items: order.items,
-                totalAmount: order.totalAmount,
-                deliveryAddress: order.deliveryAddress,
-                orderStatus: order.orderStatus,
-                createdAt: order.createdAt
-            }
-        });
-
-    } catch (error) {
-        console.error('Error fetching order status:', error);
-        res.status(500).json({
-            success: false,
-            message: 'Internal server error'
-        });
+    // Validate userId
+    if (!userId) {
+      return res.status(400).json({
+        success: false,
+        message: 'User ID is required',
+      });
     }
-};
 
-// Get user's orders
-const getUserOrders = async (req, res) => {
-    try {
-        const userId = req.user._id;
-
-        const orders = await Order.find({ userId })
-            .sort({ createdAt: -1 })
-            .select('-phonepeTransactionId -phonepeMerchantTransactionId -phonepeResponseCode -phonepeResponseMessage -phonepePaymentInstrument -phonepeRedirectUrl -phonepeCallbackUrl');
-
-        res.status(200).json({
-            success: true,
-            orders
-        });
-
-    } catch (error) {
-        console.error('Error fetching user orders:', error);
-        res.status(500).json({
-            success: false,
-            message: 'Internal server error'
-        });
+    // Fetch totalAmount from the Cart model
+    const cart = await Cart.findOne({ userId });
+    if (!cart || cart.totalAmount <= 0) {
+      return res.status(400).json({
+        success: false,
+        message: 'Cart is empty or total amount is invalid',
+      });
     }
+
+    const amount = cart.totalAmount * 100; // Convert to paise
+
+    // Generate merchantOrderId if not provided
+    const merchantOrderId = providedMerchantOrderId || `ORDER_${uuidv4()}`;
+
+    // Prepare the order data
+    const orderData = {
+      userId,
+      items: cart.items,
+      totalAmount: cart.totalAmount,
+      paymentDetails: {
+        merchantTransactionId: merchantOrderId,
+        status: 'pending',
+        amount: cart.totalAmount,
+        paymentMethod: 'PhonePe',
+      },
+      paymentStatus: 'pending',
+    };
+
+    // Save order to DB before payment initiation
+    const order = new Order(orderData);
+    await order.save();
+
+    // Log request body for debugging
+    console.log('Request Body:', req.body);
+
+    const accessToken = await getToken();
+
+    const paymentPayload = {
+      merchantOrderId,
+      amount: amount, // in paise
+      paymentFlow: {
+        type: 'PG_CHECKOUT',
+        merchantUrls: { redirectUrl: `${process.env.MERCHANT_REDIRECT_URL}?merchantOrderId=${merchantOrderId}` },
+      },
+    };
+
+    const payRes = await axios.post(`${BASE_URL}/checkout/v2/pay`, paymentPayload, {
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `O-Bearer ${accessToken}`,
+      },
+    });
+
+    res.json(payRes.data);
+  } catch (error) {
+    console.error('Payment API error:', error.response?.data || error.message);
+    res.status(400).json({ error: 'Payment initiation failed', details: error.response?.data || error.message });
+  }
 };
 
-// Handle PhonePe webhook
-const handleWebhook = async (req, res) => {
-    try {
-        // Verify X-VERIFY header
-        const incomingChecksum = req.headers['x-verify'];
-        const payload = req.body;
-        
-        const generatedChecksum = generateChecksum(
-            payload,
-            process.env.PHONEPE_CLIENT_SECRET
-        );
+// Get Order Status
+getOrderStatus = async (req, res) => {
+  try {
+    const { merchantOrderId } = req.params;
+    const accessToken = await getToken();
+    const statusRes = await axios.get(`${BASE_URL}/checkout/v2/order/${merchantOrderId}/status`, {
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `O-Bearer ${accessToken}`
+      }
+    });
+    res.json(statusRes.data);
+  } catch (error) {
+    console.error('Order Status API error:', error.response?.data || error.message);
+    res.status(400).json({ error: 'Order status check failed', details: error.response?.data || error.message });
+  }
+};
 
-        if (incomingChecksum !== generatedChecksum) {
-            throw new Error('Invalid webhook signature');
-        }
+// Handle Webhook
+phonepeWebhook = async (req, res) => {
+  try {
+    const authorizationHeader = req.headers['authorization'] || req.headers['Authorization'];
+    const username = process.env.MERCHANT_USERNAME;
+    const password = process.env.MERCHANT_PASSWORD;
+    const computedHash = crypto.createHash('sha256')
+      .update(`${username}:${password}`)
+      .digest('hex');
 
-        const {
-            merchantTransactionId,
-            transactionId,
-            amount,
-            paymentInstrument,
-            responseCode
-        } = payload;
-
-        // Find and update order
-        const order = await Order.findOne({
-            'paymentDetails.merchantTransactionId': merchantTransactionId
-        });
-
-        if (!order) {
-            throw new Error('Order not found');
-        }
-
-        // Update payment details
-        order.paymentDetails = {
-            ...order.paymentDetails,
-            transactionId,
-            status: responseCode === 'SUCCESS' ? 'completed' : 'failed',
-            paymentMethod: paymentInstrument.type,
-            paymentTimestamp: new Date(),
-            errorMessage: responseCode === 'SUCCESS' ? null : payload.message
-        };
-
-        await order.save();
-
-        res.status(200).json({ success: true });
-
-    } catch (error) {
-        console.error('Webhook processing error:', error);
-        res.status(500).json({ success: false, error: error.message });
+    if (authorizationHeader !== computedHash) {
+      console.error('Invalid webhook signature!');
+      return res.status(401).json({ error: 'Invalid signature' });
     }
+
+    const payload = req.body?.payload;
+    // Handle payment status update based on payload.state
+    res.status(200).send('OK');
+  } catch (error) {
+    console.error('Webhook handling error:', error.message);
+    res.status(500).json({ error: 'Webhook error' });
+  }
 };
+
+// Initiate Refund
+initiateRefund = async (req, res) => {
+  try {
+    const { merchantRefundId, originalMerchantOrderId, amount } = req.body;
+    const accessToken = await getToken();
+    const refundPayload = {
+      merchantRefundId,
+      originalMerchantOrderId,
+      amount // in paise
+    };
+    const refundRes = await axios.post(`${BASE_URL}/payments/v2/refund`, refundPayload, {
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `O-Bearer ${accessToken}`
+      }
+    });
+    res.json(refundRes.data);
+  } catch (error) {
+    console.error('Refund API error:', error.response?.data || error.message);
+    res.status(400).json({ error: 'Refund initiation failed', details: error.response?.data || error.message });
+  }
+};
+
+// Get Refund Status
+getRefundStatus = async (req, res) => {
+  try {
+    const { merchantRefundId } = req.params;
+    const accessToken = await getToken();
+    const refundStatusRes = await axios.get(`${BASE_URL}/payments/v2/refund/${merchantRefundId}/status`, {
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `O-Bearer ${accessToken}`
+      }
+    });
+    res.json(refundStatusRes.data);
+  } catch (error) {
+    console.error('Refund Status API error:', error.response?.data || error.message);
+    res.status(400).json({ error: 'Refund status check failed', details: error.response?.data || error.message });
+  }
+};
+
+// Handle Redirect (B2: server sync first)
+paymentRedirect = async (req, res) => {
+  try {
+    const { merchantOrderId } = req.query;
+    if (!merchantOrderId) {
+      return res.status(400).send('Missing merchantOrderId');
+    }
+
+    // 1) Poll PhonePe for the latest
+    const accessToken = await getToken();
+    const { data: statusData } = await axios.get(
+      `${BASE_URL}/checkout/v2/order/${merchantOrderId}/status`,
+      { headers: { 'Content-Type': 'application/json', 'Authorization': `O-Bearer ${accessToken}` } }
+    );
+
+    // 2) Map state
+    const phonepeState = statusData.state; // COMPLETED | FAILED | PENDING
+    const mapped =
+      phonepeState === 'COMPLETED' ? 'completed' :
+      phonepeState === 'FAILED'    ? 'failed'    : 'pending';
+
+    // 3) Update your DB
+    const order = await Order.findOneAndUpdate(
+      { 'paymentDetails.merchantTransactionId': merchantOrderId },
+      {
+        $set: {
+          'paymentDetails.status': mapped,
+          paymentStatus: mapped,
+          'paymentDetails.transactionId': statusData?.paymentDetails?.[0]?.transactionId || undefined,
+          'paymentDetails.paymentMethod': statusData?.paymentDetails?.[0]?.paymentMode || 'PhonePe',
+          'paymentDetails.paymentTimestamp': statusData?.paymentDetails?.[0]?.timestamp
+            ? new Date(statusData.paymentDetails[0].timestamp)
+            : undefined,
+          'paymentDetails.errorMessage': statusData?.errorContext?.description || undefined,
+        },
+      },
+      { new: true }
+    );
+
+    // If we didn't find it, still redirect (React will show a friendly message)
+    if (!order) {
+      console.warn('Order not found during redirect sync:', merchantOrderId);
+    }
+
+    // Optional: clear cart if paid
+    if (order && mapped === 'completed') {
+      await Cart.deleteOne({ userId: order.userId });
+    }
+
+    // 4) Redirect to frontend status page (no JSON here)
+    const target = `${process.env.CLIENT_URL}/payment/status?merchantOrderId=${encodeURIComponent(merchantOrderId)}`;
+    return res.redirect(302, target);
+
+  } catch (error) {
+    console.error('Redirect sync error:', error.response?.data || error.message);
+    // Even if sync fails, still push user to status page; UI can retry/handle gracefully
+    const fallback = `${process.env.CLIENT_URL}/payment/status?merchantOrderId=${encodeURIComponent(req.query.merchantOrderId || '')}&err=1`;
+    return res.redirect(302, fallback);
+  }
+};
+
+
+// Read order from DB only (used by React status page in B2)
+getOrderFromDb = async (req, res) => {
+  try {
+    const { merchantOrderId } = req.params;
+    if (!merchantOrderId) {
+      return res.status(400).json({ success: false, message: 'merchantOrderId required' });
+    }
+
+    const order = await Order.findOne({ 'paymentDetails.merchantTransactionId': merchantOrderId });
+    if (!order) {
+      return res.status(404).json({ success: false, message: 'Order not found' });
+    }
+
+    return res.json({ success: true, order });
+  } catch (err) {
+    console.error('getOrderFromDb error:', err.message);
+    res.status(500).json({ success: false, message: 'Failed to fetch order' });
+  }
+};
+
+
 
 module.exports = {
-    createOrderAndInitiatePayment,
-    getOrderStatus,
-    getUserOrders,
-    handleWebhook
+  initiatePayment,
+  getOrderStatus,
+  phonepeWebhook,
+  initiateRefund,
+  getRefundStatus,
+   getOrderFromDb,
+  paymentRedirect,
 };

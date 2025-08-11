@@ -10,6 +10,7 @@ const passport = require("./config/passport");
 const { connectMongoDB } = require("./connect");
 const { restrictToLoggedInUserOnly } = require("./middlewares/auth");
 const productRoutes = require('./routes/productRoutes');
+const paymentRoutes = require('./routes/paymentRoutes');
 
 // 1. CORS Configuration
 app.use(cors({
@@ -62,7 +63,8 @@ app.use('/api/admin', require("./routes/adminRoutes"));
 app.use('/api/admin', require('./routes/adminImageUpload'));
 app.use('/cart', require("./routes/cartRoutes")); // Cart routes before catch-all
 app.use('/', require("./routes/addressRoutes")); // Address routes before catch-all
-app.use('/', require("./routes/paymentRoutes")); // Payment routes before catch-all
+app.use('/api/payment', paymentRoutes);
+
 app.use("/", restrictToLoggedInUserOnly, require("./routes/staticRouter")); // Authenticated routes - catch-all for remaining routes
 
 // 6. View engine (if you're using EJS for rendering pages)

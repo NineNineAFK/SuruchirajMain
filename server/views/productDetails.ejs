@@ -1,0 +1,17 @@
+<%- include('partials/header') %>
+
+<h1><%= product.product_name %></h1>
+<p>Description: <%= product.description %></p>
+<p>Price (50g): <%= product.mrp[0] %></p>
+<p>Price (100g): <%= product.mrp[1] %></p>
+
+<form action="/cart/add-to-cart" method="POST">
+  <input type="hidden" name="productId" value="<%= product._id %>">
+  <label for="qty_50g">50g Quantity:</label>
+  <input type="number" name="qty_50g" id="qty_50g" min="0" value="0">
+  <label for="qty_100g">100g Quantity:</label>
+  <input type="number" name="qty_100g" id="qty_100g" min="0" value="0">
+  <button type="submit">Add to Cart</button>
+</form>
+
+<%- include('partials/footer') %>

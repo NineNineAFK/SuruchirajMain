@@ -1,17 +1,12 @@
 const express = require('express');
 const router = express.Router();
 const paymentController = require('../controllers/paymentController');
-const { isAuthenticated } = require('../middlewares/isAuthenticated');
 
-// Public routes (no authentication required)
-router.post('/api/payment/webhook', paymentController.handleWebhook);
-
-// All other routes require authentication
-router.use(isAuthenticated);
-
-// Authenticated routes
-router.post('/api/payment/create-order', paymentController.createOrderAndInitiatePayment);
-router.get('/api/payment/order/:orderId', paymentController.getOrderStatus);
-router.get('/api/payment/orders', paymentController.getUserOrders);
-
+router.post('/initiate', paymentController.initiatePayment);
+router.get('/status/:merchantOrderId', paymentController.getOrderStatus);
+router.post('/webhook', express.json({ type: '*/*' }), paymentController.phonepeWebhook);
+router.post('/refund', paymentController.initiateRefund);
+router.get('/refund-status/:merchantRefundId', paymentController.getRefundStatus);
+router.get('/order/db/:merchantOrderId', paymentController.getOrderFromDb);
+router.get('/redirect', paymentController.paymentRedirect);
 module.exports = router;

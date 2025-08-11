@@ -248,6 +248,7 @@ const App: React.FC = () => {
 
                   {/* Payment Pages */}
                   <Route path="/payment/status" element={<PaymentStatusPage />} />
+                  <Route path="/api/payment/redirect" element={<PaymentStatusPage />} />
 
                   {/* User Profile Page */}
                   <Route path="/user/dashboard/profile" element={<Profile />} />

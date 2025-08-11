@@ -10,7 +10,7 @@ import {
   type Address,
   type AddressFormData
 } from '../services/addressService';
-import { createOrderAndInitiatePayment } from '../services/paymentService';
+
 import toast from 'react-hot-toast';
 import Modal from '../components/Modal';
 
@@ -135,10 +135,24 @@ const CheckoutPage: React.FC = () => {
     try {
       setPaymentLoading(true);
       toast.loading('Creating order and initiating payment...');
-      const paymentResponse = await createOrderAndInitiatePayment(selectedAddress);
-      toast.dismiss();
-      toast.success('Redirecting to payment gateway...');
-      window.location.href = paymentResponse.redirectUrl;
+      const response = await fetch('http://localhost:3000/cart/checkout', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        credentials: 'include', // Include cookies for authentication
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to initiate payment');
+      }
+
+      const data = await response.json();
+      if (data.redirectUrl) {
+        window.location.href = data.redirectUrl; // Redirect to PhonePe payment page
+      } else {
+        throw new Error('Redirect URL not found');
+      }
     } catch (error) {
       toast.dismiss();
       toast.error('Failed to initiate payment');

@@ -247,9 +247,30 @@ const removeFromCart = async (req, res) => {
     }
 };
 
+// Helper function to fetch cart data
+const getCartData = async (req) => {
+    if (!req.isAuthenticated() || !req.user || !req.user._id) {
+        throw new Error('User not authenticated');
+    }
+
+    const userId = req.user._id;
+    const cart = await Cart.findOne({ userId });
+
+    if (cart && cart.items && cart.items.length > 0) {
+        cart.items = cart.items.map(item => ({
+            ...item.toObject(),
+            price_50g: typeof item.price_50g === 'number' ? item.price_50g : 0,
+            price_100g: typeof item.price_100g === 'number' ? item.price_100g : 0
+        }));
+    }
+
+    return cart || { items: [], totalAmount: 0 };
+};
+
 module.exports = {
     addToCart,
     getCart,
     updateQuantity,
-    removeFromCart
+    removeFromCart,
+    getCartData
 };
