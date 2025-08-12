@@ -109,7 +109,7 @@ type Slide = {
 
 const slides: Slide[] = [
   {
-    image: '/hero/Maharashtrian.webp',
+    image: '/hero/Maharashtrian1.PNG',
     heading: (
       <div className="font-heading text-xl font-bold md:text-6xl text-transparent bg-clip-text bg-gradient-to-r from-orange-600 via-orange-500 to-orange-700 leading-tight">
         <span className="block">The Soul of</span>
@@ -137,7 +137,7 @@ const slides: Slide[] = [
     link: '/product/685d95f426012d91ad3aee72'
   },
   {
-    image: '/hero/Veg.webp',
+    image: '/hero/Veg1.PNG',
     heading: (
       <div className="font-heading text-xl font-bold md:text-6xl text-transparent bg-clip-text bg-gradient-to-r from-red-700 via-orange-500 to-red-400 leading-tight">
         <span className="block">Taste the Heart</span>
@@ -148,7 +148,7 @@ const slides: Slide[] = [
       <>
         {/* Mobile version */}
         <span className="block md:hidden whitespace-pre-line text-xs font-light">
-          {"Discover Suruchiraj’s Premium Blends for \nVegetarian Delights."}
+          {"Discover Suruchiraj’s Premium Blends \nfor Vegetarian Delights."}
         </span>
 
         {/* Desktop version */}
@@ -169,7 +169,7 @@ const slides: Slide[] = [
   },
 
   {
-    image: '/hero/American.webp',
+    image: '/hero/American2.PNG',
     heading: (
       <div className="font-heading text-xl font-bold md:text-6xl text-transparent bg-clip-text bg-gradient-to-r from-blue-700 via-blue-600 to-red-500 leading-tight">
         <span className="block">Tangy Taste, Fiery Heart.</span>
@@ -200,7 +200,7 @@ const slides: Slide[] = [
   },
 
   {
-    image: '/hero/Lebanese.webp',
+    image: '/hero/Lebanese1.PNG',
     heading: (
       <div className="font-heading text-xl font-bold md:text-6xl text-transparent bg-clip-text bg-gradient-to-r from-red-600 via-green-600 to-black leading-tight">
         <span className="block">Taste the</span>
@@ -231,7 +231,7 @@ const slides: Slide[] = [
   },
 
   {
-    image: '/hero/Chinese.webp',
+    image: '/hero/Chinese2.PNG',
     heading: (
       <div className="font-heading text-xl font-bold md:text-6xl text-transparent bg-clip-text bg-gradient-to-r from-orange-500 via-white to-green-600 leading-tight">
         <span className="block">Taste Asia’s</span>
@@ -263,7 +263,7 @@ const slides: Slide[] = [
   },
 
   {
-    image: '/hero/Mexican.webp',
+    image: '/hero/Mexican2.PNG',
     heading: (
       <div className="font-heading text-xl font-bold md:text-6xl text-transparent bg-clip-text bg-gradient-to-r from-green-600 via-white to-red-600 leading-tight">
         <span className="block">Fiesta of Flavors.</span>
@@ -295,7 +295,7 @@ const slides: Slide[] = [
   },
 
   {
-    image: '/hero/Misal.webp',
+    image: '/hero/Misal2.PNG',
     heading: (
       <div className="font-heading text-xl font-bold md:text-6xl text-transparent bg-clip-text bg-gradient-to-r from-white via-rose-100 to-amber-100 leading-tight">
         <span className="block">Authentic Misal Pav</span>
@@ -327,7 +327,7 @@ const slides: Slide[] = [
   },
 
   {
-    image: '/hero/Italian.webp',
+    image: '/hero/Italian2.PNG',
     heading: (
       <div className="font-heading text-xl font-bold md:text-6xl text-transparent bg-clip-text bg-gradient-to-r from-green-600 via-red-600 to-red-600 leading-tight">
         <span className="block">Taste Italy’s Golden Slice.</span>
@@ -359,7 +359,7 @@ const slides: Slide[] = [
   },
 
   {
-    image: '/hero/Non-Veg.webp',
+    image: '/hero/Non-Veg2.PNG',
     heading: (
       <div className="font-heading text-xl font-bold md:text-6xl text-transparent bg-clip-text bg-gradient-to-r from-orange-700 via-yellow-400 to-rose-700 leading-tight">
         <span className="block">Unleash Bold</span>

@@ -71,6 +71,7 @@ module.exports = {
   		},
 		backgroundImage: {
       		'custom-gradient': 'linear-gradient(to right, rgb(17, 94, 89), rgb(75, 85, 99), rgb(6, 95, 70))',
+			'mobile-gradient': 'radial-gradient(rgb(100, 116, 139), rgb(254, 249, 195))',
 		},
 
   		fontFamily: {

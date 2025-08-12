@@ -117,15 +117,15 @@ const HomePage: React.FC = () => {
             alt="clove"
             className="absolute top-[55rem] left-20 w-28 h-28 opacity-60 rotate-[30deg]"
           />
-          <img
+          {/* <img
             src="/bgicons/4.png"
             alt="rosemary"
             className="absolute top-[57.5rem] right-30 w-20 h-20 opacity-70 rotate-[65deg]"
-          />
+          /> */}
           <img
             src="/bgicons/9.png"
             alt="chillies"
-            className="absolute top-[80rem] left-1 w-20 h-20 opacity-70 rotate-[30deg]"
+            className="absolute top-[80rem] -left-4 w-20 h-20 opacity-70 rotate-[30deg]"
           />
           <img
             src="/bgicons/5.png"
@@ -138,9 +138,9 @@ const HomePage: React.FC = () => {
             className="absolute top-[96rem] -left-3 w-20 h-20 opacity-70 rotate-80"
           />
           <img
-            src="/bgicons/2.png"
+            src="/bgicons/cropped.PNG"
             alt="black pepper"
-            className="absolute top-[97rem] left-40 w-12 h-12 opacity-55 rotate-180"
+            className="absolute top-[99rem] left-2 w-4 h-8 opacity-50 rotate-180"
           />
           <img
             src="/bgicons/4.png"

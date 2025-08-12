@@ -124,7 +124,7 @@ const Testimonials: React.FC = () => {
                     light:px-4 light:py-2 light:rounded-xl z-10 text-center">
         What Our <span className="text-[#4D6A3F] dark:text-yellow-400">Customers Say</span>
       </h2>
-      <div className="md:-mt-1 px-4 md:px-8 bg-custom-gradient md:rounded-t-[4rem] rounded-t-2xl dark:bg-none text-center relative font-heading pb-0 -mb-5 pt-6 md:pt-0">
+      <div className="md:-mt-1 px-4 md:px-8 md:bg-custom-gradient bg-mobile-gradient md:rounded-t-[4rem] rounded-t-2xl dark:bg-none text-center relative font-heading pb-0 -mb-5 pt-6 md:pt-0">
         {/* ✅ FIX: Conditionally render the Desktop Swiper only on the client */}
         {isClient && (
           <div className="hidden md:block relative w-full py-10"> 
@@ -240,7 +240,7 @@ const Testimonials: React.FC = () => {
             >
               {testimonials.map((t) => (
                 <SwiperSlide key={t.id}>
-                  <div className="bg-[#6d7166] dark:bg-white/10 text-orange-100 dark:text-white border border-black/10 dark:border-white/20 p-4 rounded-[40px] shadow-md backdrop-blur-md">
+                  <div className="bg-[#65695f] dark:bg-white/10 text-orange-100 dark:text-white border border-black/10 dark:border-white/20 p-4 rounded-[40px] shadow-md backdrop-blur-md">
                     <div className="text-4xl mb-2 mt-4 ml-4 text-left dark:text-yellow-400 text-yellow-600 leading-none font-body">❝</div>
                     <p className="text-base leading-relaxed whitespace-pre-line font-body">{t.text}</p>
                     <div className="flex items-center gap-3 mt-4">
