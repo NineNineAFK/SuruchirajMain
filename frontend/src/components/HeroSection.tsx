@@ -1,7 +1,8 @@
 import React from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
-import { Autoplay, Navigation, Pagination } from 'swiper/modules';
+import { Autoplay, Pagination, EffectFade } from 'swiper/modules';
 import 'swiper/css';
+import 'swiper/swiper-bundle.css';
 import 'swiper/css/pagination';
 import { useNavigate } from "react-router-dom";
 
@@ -109,7 +110,7 @@ type Slide = {
 
 const slides: Slide[] = [
   {
-    image: '/hero/Maharashtrian1.PNG',
+    image: '/hero/Maharashtrian2.PNG',
     heading: (
       <div className="font-heading text-xl font-bold md:text-6xl text-transparent bg-clip-text bg-gradient-to-r from-orange-600 via-orange-500 to-orange-700 leading-tight">
         <span className="block">The Soul of</span>
@@ -137,7 +138,7 @@ const slides: Slide[] = [
     link: '/product/685d95f426012d91ad3aee72'
   },
   {
-    image: '/hero/Veg1.PNG',
+    image: '/hero/Veg2.PNG',
     heading: (
       <div className="font-heading text-xl font-bold md:text-6xl text-transparent bg-clip-text bg-gradient-to-r from-red-700 via-orange-500 to-red-400 leading-tight">
         <span className="block">Taste the Heart</span>
@@ -200,7 +201,7 @@ const slides: Slide[] = [
   },
 
   {
-    image: '/hero/Lebanese1.PNG',
+    image: '/hero/Lebanese2.PNG',
     heading: (
       <div className="font-heading text-xl font-bold md:text-6xl text-transparent bg-clip-text bg-gradient-to-r from-red-600 via-green-600 to-black leading-tight">
         <span className="block">Taste the</span>
@@ -397,19 +398,13 @@ const slides: Slide[] = [
 const HeroCarousel: React.FC = () => {
   return (
     <Swiper
-      modules={[Autoplay, Navigation, Pagination]}
-      //autoplay={{ delay: 7000 }}
+      modules={[Autoplay, Pagination, EffectFade]}
       loop
       slidesPerView={1}
-      navigation
-      pagination={{
-        type: 'fraction',
-        renderFraction: (currentClass:string, totalClass:string) => `
-          <span class="${currentClass} dark:text-white text-black font-semibold text-xs"></span>
-          /
-          <span class="${totalClass} dark:text-white text-black font-semibold text-xs"></span>
-        `,
-      }}
+      effect="fade"
+      fadeEffect={{ crossFade: true }}
+      autoplay={{ delay: 7000, disableOnInteraction: false, pauseOnMouseEnter: true, }}
+      pagination={{ clickable: true }}
     >
       {slides.map((slide, index) => (
         <SwiperSlide key={index}>
@@ -419,7 +414,6 @@ const HeroCarousel: React.FC = () => {
           </>
         </SwiperSlide>
       ))}
-
     </Swiper>
   );
 };
