@@ -113,8 +113,8 @@ const slides: Slide[] = [
     image: '/hero/Maharashtrian2.PNG',
     heading: (
       <div className="font-heading text-xl font-bold md:text-6xl text-transparent bg-clip-text bg-gradient-to-r from-orange-600 via-orange-500 to-orange-700 leading-tight">
-        <span className="block">The Soul of</span>
-        <span className="block whitespace-nowrap">Maharashtra. Elevated.</span>
+        <span className="block">The Soul of Maharashtra.</span>
+        <span className="block whitespace-nowrap"> Elevated.</span>
       </div>
     ),
     subheading: (
@@ -123,7 +123,7 @@ const slides: Slide[] = [
           {"Experience Authentic CKP Flavors \nwith Suruchiraj Masala.."}
         </span>
         <span className="hidden md:block whitespace-pre-line text-3xl font-light">
-          {"Experience Authentic CKP Flavors\nwith Suruchiraj Masala.."}
+          {"Experience Authentic CKP Flavors\nwith Suruchiraj Masala."}
         </span>
       </>
     ),
@@ -141,15 +141,15 @@ const slides: Slide[] = [
     image: '/hero/Veg2.PNG',
     heading: (
       <div className="font-heading text-xl font-bold md:text-6xl text-transparent bg-clip-text bg-gradient-to-r from-red-700 via-orange-500 to-red-400 leading-tight">
-        <span className="block">Taste the Heart</span>
-        <span className="block">of India. Naturally.</span>
+        <span className="block">Taste the Heart of India.</span>
+        <span className="block"> Naturally.</span>
       </div>
     ),
     subheading: (
       <>
         {/* Mobile version */}
         <span className="block md:hidden whitespace-pre-line text-xs font-light">
-          {"Discover Suruchiraj’s Premium Blends \nfor Vegetarian Delights."}
+          {"Discover Suruchiraj’s Premium \nBlends for Vegetarian \nDelights."}
         </span>
 
         {/* Desktop version */}
@@ -180,7 +180,7 @@ const slides: Slide[] = [
       <>
         {/* Mobile version */}
         <span className="block md:hidden whitespace-pre-line text-xs font-light">
-          {"Ignite Your Taste Buds with Suruchiraj \nPeri-Peri Spice Mix"}
+          {"Ignite Your Taste Buds \n with Suruchiraj \nPeri-Peri Spice Mix"}
         </span>
 
         {/* Desktop version */}
@@ -212,7 +212,7 @@ const slides: Slide[] = [
       <>
         {/* Mobile version */} 
         <span className="block md:hidden whitespace-pre-line text-xs font-light">
-          {'Authentic Falafel Wraps Made\n Easy with Suruchiraj Spice Mix.'}
+          {'Authentic Falafel Wraps \nMade Easy with \nSuruchiraj Spice Mix.'}
         </span>
         {/* Desktop version */}
         <span className="hidden md:block whitespace-pre-line text-3xl font-light">
@@ -234,11 +234,11 @@ const slides: Slide[] = [
   {
     image: '/hero/Chinese2.PNG',
     heading: (
-      <div className="font-heading text-xl font-bold md:text-6xl text-transparent bg-clip-text bg-gradient-to-r from-orange-500 via-white to-green-600 leading-tight">
-        <span className="block">Taste Asia’s</span>
-        <span className="block">Signature Spice.</span>
+      <div className="font-heading text-xl font-bold md:text-6xl text-transparent bg-clip-text bg-gradient-to-r from-orange-500 via-green-700 to-green-600 leading-tight">
+        <span className="block">Taste Asia’s Signature </span>
+        <span className="block">Spice.</span>
       </div>
-    ),
+    ), 
     subheading: (
       <>
         {/* Mobile version */}

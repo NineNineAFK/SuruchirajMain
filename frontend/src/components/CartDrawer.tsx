@@ -67,10 +67,10 @@ const CartDrawer: React.FC<CartDrawerProps> = ({ isOpen, onClose }) => {
       {/* Header */}
       <div className="flex items-center font-body justify-between px-4 py-3 border-b border-black/10 dark:border-white/10">
         <h2 className="text-2xl font-semibold">
-          <span className="dark:text-white text-black">Your</span> <span className="text-east-side-900 dark:text-yellow-400">Cart</span>
+          <span className="dark:text-white text-black">Your</span> <span className="text-[#4D6A3F] dark:text-yellow-400">Cart</span>
         </h2>
         <button onClick={onClose}>
-          <FiX className="dark:text-white text-black text-2xl hover:text-yellow-400" />
+          <FiX className="dark:text-white text-black text-2xl dark:hover:text-yellow-400 hover:text-black" />
         </button>
       </div>
 
@@ -84,7 +84,7 @@ const CartDrawer: React.FC<CartDrawerProps> = ({ isOpen, onClose }) => {
 
       {/* Delivery Info */}
       <div className="flex items-center gap-2 px-4 py-3 text-sm font-sans text-black dark:text-white border-b border-black/10 dark:border-white/10">
-        <FiClock className="text-yellow-400" />
+        <FiClock className="dark:text-yellow-400 text-[#4D6A3F]" />
         <span>Delivery in 3 - 5 days</span>
       </div>
 
@@ -104,7 +104,7 @@ const CartDrawer: React.FC<CartDrawerProps> = ({ isOpen, onClose }) => {
             const key = item._id || item.productId;
             return (
               <div key={key} className="mb-6 border-b pb-4">
-                <div className="font-semibold text-lg">{item.productName}</div>
+                <div className="font-semibold text-lg font-body">{item.productName}</div>
                 {item.qty_50g > 0 && (
                   <div className="flex text-sm justify-between mt-2">
                     <span>50g x {item.qty_50g}</span>
@@ -126,7 +126,7 @@ const CartDrawer: React.FC<CartDrawerProps> = ({ isOpen, onClose }) => {
                   <span>₹{subtotal}</span>
                 </div> */}
                 <button
-                  className="mt-3 px-3 py-1 bg-red-500 text-white rounded hover:bg-red-600"
+                  className="mt-3 px-3 py-1 bg-red-500 text-white rounded font-button hover:bg-red-600"
                   onClick={async () => {
                     // First try the product reference, then fallback to _id or productId
                     const id = item.product || item._id || item.productId;
@@ -148,13 +148,13 @@ const CartDrawer: React.FC<CartDrawerProps> = ({ isOpen, onClose }) => {
           })
         )}
       </div>
-      <div className="p-4 border-t flex flex-col gap-3 font-bold text-lg">
-        <div className="flex justify-between items-center">
+      <div className="p-4 border-t flex flex-col gap-3 font-bold text-xl">
+        <div className="flex justify-between items-center font-body">
           <span>Total:</span>
-          <span>₹{totalPrice}</span>
+          <span className='font-sans'>₹{totalPrice}</span>
         </div>
         <button
-          className="mt-2 w-full bg-yellow-400 hover:bg-yellow-500 text-black font-semibold py-2 px-4 rounded transition-colors disabled:opacity-60"
+          className="mt-2 w-full dark:bg-yellow-400 bg-[#4D6A3F] dark:hover:bg-yellow-500 hover:bg-[#4D6A3F]/90 dark:text-black text-white font-semibold py-2 px-4 rounded transition-colors disabled:opacity-60"
           onClick={handleCheckout}
           disabled={cart.length === 0}
         >

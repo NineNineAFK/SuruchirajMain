@@ -157,11 +157,13 @@ const ProductDetailPage: React.FC = () => {
               onClick={handleWishlistToggle}
             />
           )} */}
-          <img
-            src={selectedImage}
-            alt={product.product_name}
-            className="w-[90%] h-[90%] object-contain rounded-xl"
-          />
+          <div className="relative w-full aspect-square flex items-center justify-center overflow-hidden">
+            <img
+              src={selectedImage}
+              alt={product.product_name}
+              className="w-[90%] h-[90%] object-contain rounded-xl transition-transform duration-300 ease-in-out hover:scale-125"
+            />
+          </div>
         </div>
       </div>
 
