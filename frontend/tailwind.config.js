@@ -96,25 +96,41 @@ module.exports = {
   			'bounce-slow': 'bounce 2s infinite',
   			shine: 'shine 1s linear forwards'
   		},
-  		keyframes: {
-  			shine: {
-  				'0%': {
-  					transform: 'translateX(-100%)'
-  				},
-  				'100%': {
-  					transform: 'translateX(100%)'
-  				}
-  			}
-  		},
-  		borderRadius: {
-  			lg: 'var(--radius)',
-  			md: 'calc(var(--radius) - 2px)',
-  			sm: 'calc(var(--radius) - 4px)'
-  		}
-  	}
+		keyframes: {
+			shine: {
+				'0%': {
+					transform: 'translateX(-100%)'
+				},
+				'100%': {
+					transform: 'translateX(100%)'
+				}
+			},
+
+			shakeInterval: {
+				"0%, 100%": { transform: "translateX(0)" },
+				"2%": { transform: "translateX(-5px)" },
+				"4%": { transform: "translateX(5px)" },
+				"6%": { transform: "translateX(-5px)" },
+				"8%": { transform: "translateX(5px)" },
+				"10%": { transform: "translateX(0)" },
+
+				"100%": { transform: "translateX(0)" },
+			},
+		},
+		animation: {
+			'bounce-slow': 'bounce 2s infinite',
+			'shine': 'shine 1s linear forwards',
+			"shake-interval": "shakeInterval 5s ease-in-out infinite",
+		},
+		borderRadius: {
+			lg: 'var(--radius)',
+			md: 'calc(var(--radius) - 2px)',
+			sm: 'calc(var(--radius) - 4px)'
+		}
+	}
   },
   plugins: [
-    require('tailwind-scrollbar'),
-      require("tailwindcss-animate")
-],
+	require('tailwind-scrollbar'),
+	require("tailwindcss-animate")
+  ],
 }
