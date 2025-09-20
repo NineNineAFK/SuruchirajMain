@@ -64,10 +64,10 @@ const ShippingPolicy: React.FC = () => {
           For any issues or queries regarding the utilization of our services, or for assistance with your shipment, please contact our helpdesk:
         </p>
         <p className="flex items-center gap-2 text-gray-700 dark:text-gray-300">
-          <FiPhone className="text-[#4D6A3F] dark:text-yellow-400" /><span className='font-sans'>9867604406</span>
+          <FiPhone className="text-[#4D6A3F] dark:text-yellow-400" /><span className='font-sans'>8390369630 </span>
         </p>
         <p className="flex items-center gap-2 text-gray-700 dark:text-gray-300">
-          <FiMail className="text-[#4D6A3F] dark:text-yellow-400" /> support@suruchiraj.com
+          <FiMail className="text-[#4D6A3F] dark:text-yellow-400" /> customercare@suruchiraj.com
         </p>
       </div>
     </div>

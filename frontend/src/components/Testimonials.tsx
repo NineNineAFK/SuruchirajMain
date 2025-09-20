@@ -14,90 +14,90 @@ import type { Swiper as SwiperType } from 'swiper/types';
 interface Testimonial {
   id: number;
   name: string;
-  company: string;
+  //company: string;
   text: string;
-  image: string;
+  //image: string;
   rating: number;
 }
 const testimonials: Testimonial[] = [
   {
     id: 1,
     name: 'Anya Sharma',
-    company: 'Facebook',
+    //company: 'Facebook',
     text: ` Suruchiraj spices make my food look and taste amazing. They help me create beautiful dishes and get noticed for my cooking.`,
-    image: '/userpp/anya.png',
+    //image: '/userpp/anya.png',
     rating: 5,
   },
   {
     id: 2,
     name: 'Rohan Patel',
-    company: 'Facebook',
+    //company: 'Facebook',
     text: `I love Suruchiraj's spices because they are healthy and pure. They help me make tasty, nutritious meals for my wellness journey.`,
-    image: '/userpp/rohan.png',
+    //image: '/userpp/rohan.png',
     rating: 4,
   },
   {
     id: 3,
     name: 'Priya Krishnan',
-    company: 'Facebook',
+    //company: 'Facebook',
     text: `Suruchiraj spice blends save me so much time in the kitchen. My family and friends always love the delicious meals I make with them.`,
-    image: '/userpp/priya.png',
+    //image: '/userpp/priya.png',
     rating: 3,
   },
   {
     id: 4,
     name: 'Deepak Marathe',
-    company: 'Instagram',
+    //company: 'Instagram',
     text: `Suruchiraj helps me cook real dishes from around the world. I love learning about the history and culture of their unique spices.`,
-    image: '/userpp/deepak.png',
+    //image: '/userpp/deepak.png',
     rating: 5,
   },
   {
     id: 5,
     name: 'Aisha Khan',
-    company: 'Twitter',
+    //company: 'Twitter',
     text: `Suruchiraj spices help me make traditional dishes that taste just like home. They are perfect for our family celebrations and keeping our traditions alive.`,
-    image: '/userpp/Anamika.png',
+    //image: '/userpp/Anamika.png',
     rating: 4,
   },
   {
     id: 6,
     name: 'Arjun Verma',
-    company: 'Instagram',
+    //company: 'Instagram',
     text: `Suruchiraj spices are reasonable and make my simple meals taste great. It's easy to cook delicious food without spending a lot of money.`,
-    image: '/userpp/arjun.png',
+    //image: '/userpp/arjun.png',
     rating: 4,
   },
   {
     id: 7,
     name: 'Shanti Kale',
-    company: 'Facebook',
+    //company: 'Facebook',
     text: `I trust Suruchiraj because their spices are good for the Earth and sourced fairly. They make it easy to cook in a way that matches my values.`,
-    image: '/userpp/shanti.png',
+    //image: '/userpp/shanti.png',
     rating: 4,
   },
   {
     id: 8,
     name: 'Arjun Mehta',
-    company: 'Facebook',
+    //company: 'Facebook',
     text: ` Suruchiraj spices always deliver great flavor, which is perfect for my tech-driven cooking. They help me try new recipes and share my creations online.`,
-    image: '/userpp/karan.png',
+    //image: '/userpp/karan.png',
     rating: 5,
   },
   {
     id: 9,
     name: 'Lakshmi Menon',
-    company: 'Facebook',
+    //company: 'Facebook',
     text: ` Suruchiraj helps me explore the rich history of food through their authentic spices. It's like taking a journey into different cultures with every dish.`,
-    image: '/userpp/lakshmi.png',
+    //image: '/userpp/lakshmi.png',
     rating: 4,
   },
   {
     id: 10,
     name: 'Gopal Singh',
-    company: 'Facebook',
+    //company: 'Facebook',
     text: `Cooking is fun with Suruchiraj because their spices are always good quality and easy to use. They make every meal a special and enjoyable experience.`,
-    image: '/userpp/gopal.png',
+    //image: '/userpp/gopal.png',
     rating: 5,
   },
 ];
@@ -196,17 +196,17 @@ const Testimonials: React.FC = () => {
                         </p>
                       </div>
 
-                      <div className="flex items-center justify-between mt-6">
-                        <div className="flex items-start gap-2">
-                          <img
+                      <div className="flex flex-col items-center mr-5 mt-6">
+                        <div className="flex items-center">
+                          {/* <img
                             src={t.image}
                             alt={t.name}
                             className="w-16 h-16 rounded-full object-cover"
-                          />
+                          /> */}
                           <div>
-                            <p className="text-sm font-semibold ml-2 font-body">{t.name}</p>
-                            <p className="text-sm dark:text-gray-200 text-gray-900 ml-2 font-body">{t.company}</p>
-                            <div className="flex space-x-1 mt-1 ml-2">
+                            <p className="text-sm font-semibold font-body text-center">{t.name}</p>
+                            {/* <p className="text-sm dark:text-gray-200 text-gray-900 ml-2 font-body">{t.company}</p> */}
+                            <div className="flex space-x-1 mt-1 justify-center">
                               {[...Array(5)].map((_, i) => (
                                 <AiFillStar
                                   key={i}
@@ -243,12 +243,12 @@ const Testimonials: React.FC = () => {
                   <div className="bg-[#65695f] dark:bg-white/10 text-orange-100 dark:text-white border border-black/10 dark:border-white/20 p-4 rounded-[40px] shadow-md backdrop-blur-md">
                     <div className="text-4xl mb-2 mt-4 ml-4 text-left dark:text-yellow-400 text-yellow-600 leading-none font-body">❝</div>
                     <p className="text-base leading-relaxed whitespace-pre-line font-body">{t.text}</p>
-                    <div className="flex items-center gap-3 mt-4">
-                      <img src={t.image} alt={t.name} className="w-16 h-16 rounded-full object-cover" />
+                    <div className="flex flex-col items-center mt-4">
+                      {/* <img src={t.image} alt={t.name} className="w-16 h-16 rounded-full object-cover" /> */}
                       <div>
-                        <p className="text-sm font-semibold font-body">{t.name}</p>
-                        <p className="text-xs text-gray-700 dark:text-gray-200 font-body">{t.company}</p>
-                        <div className="flex space-x-1 mt-1">
+                        <p className="text-sm font-semibold font-body text-center">{t.name}</p>
+                        {/* <p className="text-xs text-gray-700 dark:text-gray-200 font-body">{t.company}</p> */}
+                        <div className="flex space-x-1 mt-1 justify-center">
                           {[...Array(5)].map((_, i) => (
                             <AiFillStar
                               key={i}

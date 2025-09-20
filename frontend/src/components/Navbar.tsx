@@ -163,7 +163,7 @@ const Navbar: React.FC = () => {
     'Samosa Masala',
     'Chicken Chettinad Masala',
     'Peri-Peri Spice Mix',
-    'Lebanese Falafal',
+    'Lebanese Falafel',
     'Mexican Spice Mix',
     'Garlic Bread Spice Mix',
     'Manchurian Spice Mix'

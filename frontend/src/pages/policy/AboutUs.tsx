@@ -165,10 +165,10 @@ const AboutUs: React.FC = () => {
               <span>Suruchiraj Spices, Sarala Roses, Someshwarwadi Road, Near Hotel Rajwada, Pashan, Pune, Maharashtra 411008</span>
             </p>
             <p className="flex items-center gap-3">
-              <FiPhone className="text-[#4D6A3F] dark:text-yellow-400" size={20} /><span className="font-sans">9867604406</span>
+              <FiPhone className="text-[#4D6A3F] dark:text-yellow-400" size={20} /><span className="font-sans">8390369630</span>
             </p>
             <p className="flex items-center gap-3">
-              <FiMail className="text-[#4D6A3F] dark:text-yellow-400" size={20} /> <span>support@suruchiraj.com</span>
+              <FiMail className="text-[#4D6A3F] dark:text-yellow-400" size={20} /> <span>customercare@suruchiraj.com</span>
             </p>
             <p className="text-sm text-gray-500 italic dark:text-gray-400 pt-2">Website: www.suruchiraj.com</p>
           </div>

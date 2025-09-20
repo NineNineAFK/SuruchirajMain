@@ -1,5 +1,6 @@
 import React from 'react';
-import { FaInstagram, FaFacebookF, FaLinkedinIn } from 'react-icons/fa';
+import { FaInstagram, FaFacebookF, FaLinkedinIn, } from 'react-icons/fa';
+import { FaXTwitter } from 'react-icons/fa6';
 import axios from 'axios';
 
 const ContactUs: React.FC = () => {
@@ -52,7 +53,7 @@ const ContactUs: React.FC = () => {
             <label className="block text-gray-700 dark:text-gray-300 mb-1" htmlFor="message">Message</label>
             <textarea id="message" rows={5} className="w-full px-4 py-2 bg-gray-300 dark:bg-gray-800 rounded text-black dark:text-white" placeholder="How can we help?" />
           </div>
-          <button type="submit" className="w-full dark:bg-yellow-400 bg-[#4D6A3F] text-black font-semibold py-2 rounded hover:bg-east-side-600 transition">
+          <button type="submit" className="w-full dark:bg-yellow-400 bg-[#4D6A3F] text-black font-semibold py-2 rounded transition">
             Send Message
           </button>
         </form>
@@ -62,7 +63,7 @@ const ContactUs: React.FC = () => {
           Interested in collaborating, bulk orders, or becoming a distributor? We’d be glad to connect.
         </p>
         <p className="text-gray-700 dark:text-gray-300 mb-6">
-          Please write to us at <span className="font-bold text-black dark:text-white">support@suruchiraj.com</span> with your proposal or query.
+          Please write to us at <span className="font-bold text-black dark:text-white">customercare@suruchiraj.com</span> with your proposal or query.
         </p>
 
         <h2 className="text-xl font-semibold text-[#4D6A3F] dark:text-yellow-400 mt-6 mb-2">Feedback & Suggestions</h2>
@@ -78,15 +79,15 @@ const ContactUs: React.FC = () => {
           <li className="flex items-center space-x-2">
             <FaInstagram className="text-[#4D6A3F] dark:text-yellow-400 text-lg" />
             <a
-              href="https://instagram.com/suruchiraj"
+              href="https://www.instagram.com/suruchiraj_spices/"
               className="font-semibold"
               target="_blank"
               rel="noopener noreferrer"
             >
-              @suruchiraj
+              @suruchiraj_spices
             </a>
           </li>
-          <li className="flex items-center space-x-2">
+          {/* <li className="flex items-center space-x-2">
             <FaFacebookF className="text-[#4D6A3F] dark:text-yellow-400 text-lg" />
             <a
               href="https://facebook.com/suruchiraj"
@@ -96,16 +97,16 @@ const ContactUs: React.FC = () => {
             >
               /suruchiraj
             </a>
-          </li>
+          </li> */}
           <li className="flex items-center space-x-2">
-            <FaLinkedinIn className="text-[#4D6A3F] dark:text-yellow-400 text-lg" />
+            <FaXTwitter className="text-[#4D6A3F] dark:text-yellow-400 text-lg" />
             <a
-              href="https://linkedin.com/company/suruchiraj"
+              href="https://x.com/Suruchiraj123"
               className="font-semibold"
               target="_blank"
               rel="noopener noreferrer"
             >
-              /suruchiraj
+              @Suruchiraj123
             </a>
           </li>
         </ul>

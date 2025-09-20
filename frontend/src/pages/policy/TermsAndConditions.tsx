@@ -66,10 +66,10 @@ const TermsAndConditions: React.FC = () => {
               Suruchiraj Spices, Sarala Roses, Someshwarwadi Road, Near Hotel Rajwada, Pashan, Pune, Maharashtra-411008
             </p>
             <p className="flex items-center gap-2">
-              <FiPhone className="text-[#4D6A3F] dark:text-yellow-400" /><span className="font-sans">9867604406</span>
+              <FiPhone className="text-[#4D6A3F] dark:text-yellow-400" /><span className="font-sans">8390369630</span>
             </p>
             <p className="flex items-center gap-2">
-              <FiMail className="text-[#4D6A3F] dark:text-yellow-400" /> support@suruchiraj.com
+              <FiMail className="text-[#4D6A3F] dark:text-yellow-400" /> customercare@suruchiraj.com
             </p>
             <p className="text-sm text-gray-500 italic">Website: www.suruchiraj.com</p>
           </div>

@@ -1,17 +1,18 @@
 // src/components/Footer.jsx
+import { FaInstagram, FaXTwitter, FaYoutube } from "react-icons/fa6";
 const Footer = () => {
   return (
     <footer id="footer" className="bg-gray-900 text-white pt-10 pb-6">
       <div className="container mx-auto px-4">
         <div className="flex flex-col md:flex-row justify-center md:space-x-20 space-y-10 md:space-y-0">
           {/* Thank You Note + Social Media */}
-          <div className="flex flex-col items-center text-center max-w-xs px-4">
-            <span className="text-[13px] sm:text-sm font-medium font-body leading-relaxed">
+          <div className="flex flex-col items-center text-center max-w-xs px-4 ml-5 sm:ml-0">
+            <span className="text-[14px] sm:text-sm font-medium font-body leading-relaxed">
               Thanks for scrolling! Do visit <span className="font-bold">Suruchiraj Spices</span> again for a taste of happiness.
             </span>
 
             <div className="mt-4 flex space-x-6 text-white text-base sm:text-xl font-body">
-              <a
+              {/* <a
                 href="#"
                 target="_blank"
                 rel="noopener noreferrer"
@@ -19,24 +20,33 @@ const Footer = () => {
                 className="hover:text-yellow-400 transition"
               >
                 <i className="fab fa-facebook-f"></i>
-              </a>
+              </a> */}
               <a
-                href="#"
+                href="https://www.instagram.com/suruchiraj_spices/"
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="Instagram"
-                className="hover:text-yellow-400 transition"
+                className="hover:text-pink-500 transition"
               >
-                <i className="fab fa-instagram"></i>
+                <FaInstagram className="text-xl" />
               </a>
               <a
-                href="#"
+                href="https://x.com/Suruchiraj123"
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="Twitter"
-                className="hover:text-yellow-400 transition"
+                className="hover:text-black transition"
               >
-                <i className="fab fa-twitter"></i>
+                <FaXTwitter className="text-xl" />
+              </a>
+              <a
+                href="https://www.youtube.com/channel/UC5qWqzVQXPgVwbtop4MCS_w"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Youtube"
+                className="hover:text-red-500 transition"
+              >
+                <FaYoutube className="text-xl" />
               </a>
             </div>
           </div>

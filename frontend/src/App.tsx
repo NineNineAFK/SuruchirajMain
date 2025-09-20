@@ -204,7 +204,7 @@ const HomePage: React.FC = () => {
       {/* ✅ WhatsApp Floating Button */}
       <a
         href="https://wa.me/918390369630"
-         className="fixed bottom-10 right-10 z-50 bg-white p-0 rounded-full shadow-lg hover:scale-110 transition-transform animate-shake-interval"
+         className="fixed bottom-10 right-10 z-50 bg-white p-0 rounded-full shadow-lg shadow-slate-900/70 dark:shadow-slate-400/50 hover:scale-110 transition-transform animate-shake-interval"
         target="_blank"
         rel="noopener noreferrer"
       >

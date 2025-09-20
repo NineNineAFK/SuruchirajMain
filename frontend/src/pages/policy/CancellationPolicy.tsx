@@ -80,7 +80,7 @@ const CancellationPolicy: React.FC = () => {
               <FiPhone className="text-[#4D6A3F] dark:text-yellow-400" /> <span className="font-sans">8390369630</span>
             </p>
             <p className="flex items-center gap-2">
-              <FiMail className="text-[#4D6A3F] dark:text-yellow-400" /> support@suruchiraj.com
+              <FiMail className="text-[#4D6A3F] dark:text-yellow-400" /> customercare@suruchiraj.com
             </p>
             <p className="text-sm text-gray-500 italic">Website: www.suruchiraj.com</p>
           </div>
