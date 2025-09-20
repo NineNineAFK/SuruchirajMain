@@ -14,15 +14,15 @@ interface Category {
 }
 
 const categories: Category[] = [
-  { label: 'Veg', image: '/categories/veg fp.png', path: '/categories/veg' },
-  { label: 'Non-Veg', image: '/categories/non veg fp.png', path: '/categories/nonveg' },
-  { label: 'Maharashtrian', image: '/categories/Maharashtrian Veg fp.png', path: '/categories/maharashtrian' },
-  { label: 'Beverages', image: '/categories/Beverage fp.png', path: '/categories/beverages' }, 
-  { label: 'Snacks', image: '/categories/Snacks fp.png', path: '/categories/snacks' },
-  { label: 'Soups', image: '/categories/soup fp.png', path: '/categories/soups' },
-  { label: 'Rice Mixes', image: '/categories/Biryani fp.png', path: '/categories/biryani' },
-  { label: 'South Indian', image: '/categories/south india fp.png', path: '/categories/southindian' },
-  //{ label: 'Others', image: '/categories/Pickle fp.png', path: '/categories/pickle' },
+  { label: 'Veg', image: '/categories/veg fp.webp', path: '/categories/veg' },
+  { label: 'Non-Veg', image: '/categories/non veg fp.webp', path: '/categories/nonveg' },
+  { label: 'Maharashtrian', image: '/categories/Maharashtrian Veg fp.webp', path: '/categories/maharashtrian' },
+  { label: 'Beverages', image: '/categories/Beverage fp.webp', path: '/categories/beverages' }, 
+  { label: 'Snacks', image: '/categories/Snacks fp.webp', path: '/categories/snacks' },
+  { label: 'Soups', image: '/categories/soup fp.webp', path: '/categories/soups' },
+  { label: 'Rice Mixes', image: '/categories/Biryani fp.webp', path: '/categories/biryani' },
+  { label: 'South Indian', image: '/categories/south india fp.webp', path: '/categories/southindian' },
+  //{ label: 'Others', image: '/categories/Pickle fp.webp', path: '/categories/pickle' },
 ];
 
 const TopCategories: React.FC = () => {

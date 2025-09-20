@@ -31,17 +31,17 @@ const DesktopHeroSlide = ({ image}: { image: string }) => (
 // ✅ Slides data
 const slides = [
   {
-    image: '/hero/fries.png',
+    image: '/hero/fries1.webp',
     // heading: <>Explore India's <span className="text-[#F98C18]">Rich Flavors.</span></>,
     // subheading: "Unlock authentic tastes with Suruchiraj's diverse masalas.",
   },
   {
-    image: '/hero/chhole.png',
+    image: '/hero/chhole1.webp',
   //   heading: <>Wok up your <span className="text-[#DCC79D]">Taste Buds!</span></>,
   //   subheading: 'Authentic Chinese flavors, made easy with Suruchiraj masalas.',
   },
   {
-    image: '/hero/samosa.png',
+    image: '/hero/samosa1.webp',
   //   heading: <>Your American <span className="text-[#FED48E]">Feast Awaits!</span></>,
   //   subheading: 'Effortlessly create iconic comfort food with Suruchiraj.',
   },
