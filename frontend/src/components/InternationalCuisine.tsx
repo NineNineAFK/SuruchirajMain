@@ -14,13 +14,13 @@ interface Cuisine {
 }
 
 const cuisines: Cuisine[] = [
-  //{ label: 'American', image: '/international cuisine/American Cuisine.png', path: '/cuisines/american' },
-  { label: 'Chinese', image: '/international cuisine/Chinese Cuisine.png', path: '/cuisines/chinese' },
-  { label: 'Mexican', image: '/international cuisine/Mexican Cuisine.png', path: '/cuisines/mexican' },
+  { label: 'American', image: '/international cuisine/American.webp', path: '/cuisines/american' },
+  { label: 'Chinese', image: '/international cuisine/Chinese.webp', path: '/cuisines/chinese' },
+  { label: 'Mexican', image: '/international cuisine/Mexican.webp', path: '/cuisines/mexican' },
   //{ label: 'Thai', image: '/international cuisine/Thai Cuisine1.png', path: '/cuisines/thai' },
-  { label: 'Italian', image: '/international cuisine/Italian Cuisine.png', path: '/cuisines/italian' },
-  { label: 'Lebanese', image: '/international cuisine/Lebanese Cuisine.png', path: '/cuisines/other' },
-  { label: 'Malaysian', image: '/international cuisine/Malaysian Cuisine.png', path: '/cuisines/other' },
+  { label: 'Italian', image: '/international cuisine/Italian.webp', path: '/cuisines/italian' },
+  { label: 'Lebanese', image: '/international cuisine/Lebanese.webp', path: '/cuisines/other' },
+  //{ label: 'Malaysian', image: '/international cuisine/Malaysian.webp', path: '/cuisines/other' },
 ];
 
 const InternationalCuisine: React.FC = () => {

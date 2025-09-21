@@ -205,7 +205,7 @@ const Navbar: React.FC = () => {
         <div className="flex w-full items-center justify-between lg:hidden px-2 md:px-0 py-1">
           {/* Logo - far left */}
           <Link to="/" className="block">
-            <img src="/newlogo.PNG" alt="Suruchiraj Logo" className="h-12 md:h-14 w-auto" />
+            <img src="/newlogo.webp" alt="Suruchiraj Logo" className="h-12 md:h-14 w-auto" />
           </Link>
 
           {/* Right-side icons */}
@@ -236,7 +236,7 @@ const Navbar: React.FC = () => {
           <div className="hidden lg:flex items-center justify-between w-full gap-4 md:gap-10 lg:gap-16 xl:gap-24 px-2 md:px-2 lg:px-4">
             {/* Left: Logo only */}
             <Link to="/" className="flex-shrink-0">
-              <img src="/newlogo.PNG" alt="Suruchiraj Logo" className="h-14 w-auto" />
+              <img src="/newlogo.webp" alt="Suruchiraj Logo" className="h-14 w-auto" />
             </Link>
 
             {/* Right: Everything else */}
@@ -279,7 +279,7 @@ const Navbar: React.FC = () => {
                     className="w-full font-body font-medium px-4 pr-10 py-2 rounded-lg border border-gray-500 text-sm text-gray-800 transition-all duration-300"
                   />
                   <img
-                    src="search.png"
+                    src="search.webp"
                     alt="search"
                     onClick={() => navigate('/sub-products')}
                     className="absolute right-3 top-1/2 -translate-y-1/2 w-7 h-7 cursor-pointer"
@@ -343,7 +343,7 @@ const Navbar: React.FC = () => {
         <div className="relative">
           <div className="absolute left-3 top-1/2 transform -translate-y-1/2 z-10">
             <img
-              src="search.png"
+              src="search.webp"
               alt="search"
               onClick={() => navigate('/sub-products')}
               className="w-6 h-6"

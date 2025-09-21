@@ -3,45 +3,53 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import { Autoplay, Navigation, Pagination } from 'swiper/modules';
 import 'swiper/css';
 import 'swiper/css/pagination';
+import { Link } from "react-router-dom";
 
 // ✅ Mobile Slide - Updated to use same props as desktop
-const MobileHeroSlide = ({ image, }: { image: string }) => (
-  <section className="relative h-[250px] md:hidden px-4 py-6">
-    <div
-      className="h-full w-full rounded-3xl overflow-hidden flex shadow-lg"
-      style={{
-        background: `url(${image})`,
-        backgroundSize: '100% 100%',
-        backgroundPosition: 'center',
-      }}
-    >  
-    </div>
-  </section>
+const MobileHeroSlide = ({ image, link }: { image: string; link: string }) => (
+  <Link to={link}>
+    <section className="relative h-[250px] md:hidden px-4 py-6">
+      <div
+        className="h-full w-full rounded-3xl overflow-hidden flex shadow-lg"
+        style={{
+          background: `url(${image})`,
+          backgroundSize: '100% 100%',
+          backgroundPosition: 'center',
+        }}
+      >  
+      </div>
+    </section>
+  </Link>
 );
 
 // ✅ Desktop Slide (unchanged)
-const DesktopHeroSlide = ({ image}: { image: string }) => (
-  <section
-    className="relative bg-cover bg-center h-[670px] hidden md:flex items-center"
-    style={{ backgroundImage: `url(${image})` }}
-  >
-  </section>
+const DesktopHeroSlide = ({ image, link }: { image: string; link: string }) => (
+  <Link to={link}>
+    <section
+      className="relative bg-cover bg-center h-[670px] hidden md:flex items-center"
+      style={{ backgroundImage: `url(${image})` }}
+    >
+    </section>
+  </Link>
 );
 
 // ✅ Slides data
 const slides = [
   {
     image: '/hero/fries1.webp',
+    link: 'https://suruchiraj.com/product/685d95f426012d91ad3aee5a'
     // heading: <>Explore India's <span className="text-[#F98C18]">Rich Flavors.</span></>,
     // subheading: "Unlock authentic tastes with Suruchiraj's diverse masalas.",
   },
   {
     image: '/hero/chhole1.webp',
+    link: 'https://suruchiraj.com/product/685d95f426012d91ad3aee63'
   //   heading: <>Wok up your <span className="text-[#DCC79D]">Taste Buds!</span></>,
   //   subheading: 'Authentic Chinese flavors, made easy with Suruchiraj masalas.',
   },
   {
     image: '/hero/samosa1.webp',
+    link: 'https://suruchiraj.com/product/685d95f426012d91ad3aeefc'
   //   heading: <>Your American <span className="text-[#FED48E]">Feast Awaits!</span></>,
   //   subheading: 'Effortlessly create iconic comfort food with Suruchiraj.',
   },

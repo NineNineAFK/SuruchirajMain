@@ -9,22 +9,22 @@ interface Feature {
 
 const features: Feature[] = [
   {
-    icon: '/why choose us/I1.png',
+    icon: '/why choose us/I1.webp',
     text: '100% Pure Ingredients',
     description: 'We use only the finest raw spices with no fillers or substitutes.',
   },
   {
-    icon: '/why choose us/l2new.png',
+    icon: '/why choose us/l2new.webp',
     text: 'No Preservative',
     description: 'Our blends are 100% natural with no chemicals or preservatives.',
   },
   {
-    icon: '/why choose us/I3new.png',
+    icon: '/why choose us/I3new.webp',
     text: 'Hygienic Packaging',
     description: 'Packed in clean, food-grade materials to retain freshness.',
   },
   {
-    icon: '/why choose us/l4new.png',
+    icon: '/why choose us/l4new.webp',
     text: 'Traditional Blend',
     description: 'Time-tested recipes crafted by experts for authentic taste.',
   },
