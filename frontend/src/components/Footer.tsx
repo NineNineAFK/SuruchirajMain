@@ -57,7 +57,7 @@ const Footer = () => {
             <div className="max-w-xs text-start font-body mb-6 sm:mb-0">
               <h3 className="text-base sm:text-lg font-semibold mb-2">Company</h3>
               <ul className="text-sm sm:text-sm space-y-1">
-                <li><a href="#" className="hover:text-red-400">Home</a></li>
+                <li><a href="/" className="hover:text-red-400">Home</a></li>
                 <li><a href="/about-us" className="hover:text-red-400">About Us</a></li>
                 <li><a href="/sub-products" className="hover:text-red-400">Products</a></li>
                 <li><a href="/sub-products" className="hover:text-red-400">International Cuisine</a></li>
